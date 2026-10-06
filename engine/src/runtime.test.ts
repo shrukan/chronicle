@@ -64,6 +64,19 @@ describe('Story', () => {
     assert.deepEqual(keys(s.click(v.links[0]!).output), ['before', 'revealed', 'after']);
   });
 
+  it('disables a non-replacing reveal link after one click', () => {
+    const s = new Story(
+      scenario({
+        A: { body: [{ t: 'link', key: 'more', reveal: '0' }], fragments: { '0': [{ t: 'text', key: 'revealed', kind: 'narrative' }] } },
+      }),
+    );
+    const v = s.start();
+    const after = s.click(v.links[0]!);
+    assert.deepEqual(after.links, []);
+    assert.deepEqual(after.output[0], { t: 'link', id: 1, key: 'more', args: [], disabled: true });
+    assert.deepEqual(keys(after.output), ['more', 'revealed']);
+  });
+
   it('pauses on a prompt and continues with the answer', () => {
     const s = new Story(
       scenario({
@@ -119,6 +132,44 @@ describe('Story', () => {
     assert.equal(s.view().prompt?.var, 'count');
     s.answer('4');
     assert.equal(s.vars['count'], 4);
+  });
+
+  it('snapshots and restores, including revealed fragments and open links', () => {
+    const sc = scenario({
+      A: {
+        body: [{ t: 'link', key: 'more', reveal: '0', replace: true }, { t: 'link', key: 'go', to: { lit: 'B' } }],
+        fragments: { '0': [{ t: 'set', var: 'count', value: { lit: 5 } }, { t: 'text', key: 'revealed', kind: 'narrative' }] },
+      },
+      B: { body: [{ t: 'text', key: 'b', kind: 'narrative', args: [{ var: 'count' }] }] },
+    });
+    const s = new Story(sc);
+    const v = s.start();
+    s.click(v.links[0]!);
+    const snap = JSON.parse(JSON.stringify(s.snapshot()));
+
+    const t = new Story(sc);
+    const restored = t.restore(snap);
+    assert.deepEqual(keys(restored.output), ['revealed', 'go']);
+    assert.equal(t.vars['count'], 5);
+    const b = t.click(restored.links[0]!);
+    assert.deepEqual(b.output[0], { t: 'text', key: 'b', kind: 'narrative', args: ['5'] });
+  });
+
+  it('marks random picks in displayed text as display-only', () => {
+    const seen: boolean[] = [];
+    const s = new Story(
+      scenario({
+        A: {
+          body: [
+            { t: 'text', key: 'a', kind: 'narrative', args: [{ fn: 'either', args: [{ lit: 'x' }, { lit: 'y' }] }] },
+            { t: 'set', var: 'who', value: { fn: 'either', args: [{ lit: 'x' }, { lit: 'y' }] } },
+          ],
+        },
+      }),
+      { chooser: { choose: (_n, _site, display) => (seen.push(display), 0) } },
+    );
+    s.start();
+    assert.deepEqual(seen, [true, false]);
   });
 
   it('includes other passages inline', () => {

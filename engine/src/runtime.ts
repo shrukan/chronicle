@@ -1,12 +1,22 @@
-import { SETUP_CONTINUE_KEY, type BlockStyle, type Expr, type Node, type Passage, type PromptNode, type Scenario, type TextKind, type Value } from './schema.ts';
+import { SETUP_CONTINUE_KEY, type BlockStyle, type Expr, type IfNode, type Node, type Passage, type PromptNode, type Scenario, type TextKind, type Value } from './schema.ts';
 import { binary, equals, indexList, toNumber, toText, truthy, typeOf, ValueError } from './values.ts';
 
 /**
  * Decides every random outcome. The app uses a random chooser; the story tester
- * uses one that enumerates or records outcomes. `site` identifies the call for logs.
+ * uses one that enumerates or records outcomes. `site` identifies the call for logs;
+ * `display` is true when the result is only shown (e.g. a random month in a letter)
+ * and cannot change where the story goes.
  */
 export interface Chooser {
-  choose(count: number, site: string): number;
+  choose(count: number, site: string, display: boolean): number;
+}
+
+/** Optional observer, used by the story tester to measure branch coverage. */
+export interface StoryTrace {
+  /** `index` is the branch taken, or -1 when no branch matched. */
+  branch(node: IfNode, index: number, passage: string): void;
+  /** A passage rendered inline (it does not appear in `history`). */
+  include?(passage: string): void;
 }
 
 export const randomChooser: Chooser = {
@@ -23,7 +33,8 @@ export type Out =
   | { t: 'block'; style: BlockStyle; image?: string; children: Out[] }
   /** Output of a revealed fragment; render its children inline. */
   | { t: 'group'; children: Out[] }
-  | { t: 'link'; id: number; key: string; args: string[] }
+  /** `disabled`: a used reveal link that stays visible as plain text (Harlowe behaviour). */
+  | { t: 'link'; id: number; key: string; args: string[]; disabled?: boolean }
   | { t: 'prompt'; var: string; input: PromptNode['input']; key: string; args: string[] }
   /** App screen; when it has `link`, the app calls `click(link)` once the players confirm. */
   | { t: 'ui'; ui: string; args: Record<string, Value>; link?: number };
@@ -38,6 +49,19 @@ export interface StoryView {
 }
 
 export class StoryError extends Error {}
+
+/**
+ * Everything needed to continue a story later: plain JSON, usable for save games.
+ * Only available while no prompt is waiting.
+ */
+export interface StorySnapshot {
+  passage: string;
+  history: string[];
+  vars: Record<string, Value>;
+  output: Out[];
+  links: { id: number; passage: string; to?: string; reveal?: string; revealFrom?: string; replace: boolean }[];
+  nextLinkId: number;
+}
 
 type Flow = undefined | { goto: string };
 type Thread = Generator<PromptNode, Flow, Value>;
@@ -71,12 +95,16 @@ export class Story {
   private links = new Map<number, LinkEntry>();
   private nextLinkId = 1;
   private suspended: { thread: Thread; prompt: PromptNode; args: string[] } | undefined;
+  /** > 0 while evaluating values that are only displayed. */
+  private displayDepth = 0;
   private readonly chooser: Chooser;
+  private readonly trace: StoryTrace | undefined;
   readonly scenario: Scenario;
 
-  constructor(scenario: Scenario, opts: { chooser?: Chooser; vars?: Record<string, Value> } = {}) {
+  constructor(scenario: Scenario, opts: { chooser?: Chooser; vars?: Record<string, Value>; trace?: StoryTrace } = {}) {
     this.scenario = scenario;
     this.chooser = opts.chooser ?? randomChooser;
+    this.trace = opts.trace;
     this.vars = { ...scenario.variables, ...opts.vars };
   }
 
@@ -87,6 +115,57 @@ export class Story {
       view.prompt = { var: p.var, input: p.input, key: p.key, args: this.suspended.args };
     }
     return view;
+  }
+
+  snapshot(): StorySnapshot {
+    if (this.suspended) throw new StoryError('Cannot snapshot while a prompt is waiting');
+    return structuredClone({
+      passage: this.passage,
+      history: this.history,
+      vars: this.vars,
+      output: this.output,
+      links: [...this.links].map(([id, l]) => ({
+        id,
+        passage: l.passage.name,
+        replace: l.replace,
+        ...(l.to !== undefined ? { to: l.to } : {}),
+        ...(l.reveal !== undefined ? { reveal: l.reveal } : {}),
+        ...(l.revealFrom !== undefined ? { revealFrom: l.revealFrom } : {}),
+      })),
+      nextLinkId: this.nextLinkId,
+    });
+  }
+
+  restore(snap: StorySnapshot): StoryView {
+    const s = structuredClone(snap);
+    this.passage = s.passage;
+    this.history = s.history;
+    this.vars = s.vars;
+    this.output = s.output;
+    this.nextLinkId = s.nextLinkId;
+    this.suspended = undefined;
+
+    // Re-attach links to where they sit in the output (screen links sit nowhere).
+    const placed = new Map<number, { container: Out[]; out: Out }>();
+    const walk = (list: Out[]) => {
+      for (const o of list) {
+        if (o.t === 'link') placed.set(o.id, { container: list, out: o });
+        if (o.t === 'block' || o.t === 'group') walk(o.children);
+      }
+    };
+    walk(this.output);
+    this.links.clear();
+    for (const l of s.links) {
+      const passage = this.scenario.passages[l.passage];
+      if (!passage) throw new StoryError(`Snapshot refers to unknown passage "${l.passage}"`);
+      const at = placed.get(l.id) ?? { container: [], out: { t: 'link', id: l.id, key: '', args: [] } };
+      const entry: LinkEntry = { passage, replace: l.replace, container: at.container, out: at.out };
+      if (l.to !== undefined) entry.to = l.to;
+      if (l.reveal !== undefined) entry.reveal = l.reveal;
+      if (l.revealFrom !== undefined) entry.revealFrom = l.revealFrom;
+      this.links.set(l.id, entry);
+    }
+    return this.view();
   }
 
   start(name = this.scenario.start): StoryView {
@@ -114,12 +193,14 @@ export class Story {
     if (!owner || !fragment) throw new StoryError(`Unknown fragment ${link.reveal} in ${link.revealFrom ?? link.passage.name}`);
     // The fragment writes into a group placed where the link is (or right after it),
     // so output stays in place even if the fragment pauses for a prompt.
+    // A reveal link works once: it is either replaced by the fragment or stays as plain text.
     const group: Out = { t: 'group', children: [] };
     const at = link.container.indexOf(link.out);
+    this.links.delete(id);
     if (link.replace) {
-      this.links.delete(id);
       link.container.splice(at, 1, group);
     } else {
+      if (link.out.t === 'link') link.out.disabled = true;
       link.container.splice(at + 1, 0, group);
     }
     this.drive(this.exec(fragment, group.children, owner));
@@ -164,7 +245,8 @@ export class Story {
   private drive(thread: Thread, input?: Value, jumps = 0): void {
     const r = input === undefined ? thread.next() : thread.next(input);
     if (!r.done) {
-      this.suspended = { thread, prompt: r.value, args: (r.value.args ?? []).map((a) => toText(this.eval(a))) };
+      const out = this.findPromptOut(this.output, r.value);
+      this.suspended = { thread, prompt: r.value, args: out?.args ?? [] };
       return;
     }
     if (r.value) this.goTo(r.value.goto, jumps + 1);
@@ -174,7 +256,7 @@ export class Story {
     for (const node of nodes) {
       switch (node.t) {
         case 'text':
-          out.push({ t: 'text', key: node.key, kind: node.kind, args: (node.args ?? []).map((a) => toText(this.eval(a))) });
+          out.push({ t: 'text', key: node.key, kind: node.kind, args: this.display(node.args) });
           break;
         case 'br':
           out.push({ t: 'br' });
@@ -190,7 +272,9 @@ export class Story {
           break;
         }
         case 'if': {
-          const branch = node.branches.find((b) => !b.cond || truthy(this.eval(b.cond)));
+          const index = node.branches.findIndex((b) => !b.cond || truthy(this.eval(b.cond)));
+          this.trace?.branch(node, index, passage.name);
+          const branch = node.branches[index];
           if (branch) {
             const flow = yield* this.exec(branch.body, out, passage);
             if (flow) return flow;
@@ -205,7 +289,7 @@ export class Story {
           if (node.to) target.to = toText(this.eval(node.to));
           if (node.reveal) target.reveal = node.reveal;
           if (node.revealFrom) target.revealFrom = node.revealFrom;
-          this.addLink(out, passage, target, node.key, (node.args ?? []).map((a) => toText(this.eval(a))));
+          this.addLink(out, passage, target, node.key, this.display(node.args));
           break;
         }
         case 'goto':
@@ -214,12 +298,13 @@ export class Story {
           const name = toText(this.eval(node.passage));
           const included = this.scenario.passages[name];
           if (!included) throw new StoryError(`Unknown included passage "${name}"`);
+          this.trace?.include?.(name);
           const flow = yield* this.exec(included.body, out, included);
           if (flow) return flow;
           break;
         }
         case 'prompt':
-          out.push({ t: 'prompt', var: node.var, input: node.input, key: node.key, args: (node.args ?? []).map((a) => toText(this.eval(a))) });
+          out.push({ t: 'prompt', var: node.var, input: node.input, key: node.key, args: this.display(node.args) });
           yield node;
           break;
         case 'ui': {
@@ -236,6 +321,29 @@ export class Story {
         }
         case 'manual':
           throw new StoryError(`Unconverted code in ${passage.name}: ${node.reason}`);
+      }
+    }
+    return undefined;
+  }
+
+  /** Evaluates values that are only shown, so random picks in them don't count as branches. */
+  private display(args: Expr[] | undefined): string[] {
+    this.displayDepth++;
+    try {
+      return (args ?? []).map((a) => toText(this.eval(a)));
+    } finally {
+      this.displayDepth--;
+    }
+  }
+
+  /** The output entry of the prompt that is waiting (its arguments were evaluated there). */
+  private findPromptOut(list: Out[], node: PromptNode): Extract<Out, { t: 'prompt' }> | undefined {
+    for (let i = list.length - 1; i >= 0; i--) {
+      const o = list[i]!;
+      if (o.t === 'prompt' && o.key === node.key) return o;
+      if (o.t === 'block' || o.t === 'group') {
+        const found = this.findPromptOut(o.children, node);
+        if (found) return found;
       }
     }
     return undefined;
@@ -292,7 +400,7 @@ export class Story {
     const site = `${this.passage}:${fn}`;
     // `either` must not evaluate options it doesn't pick (they may be other macros).
     if (fn === 'either') {
-      const i = this.chooser.choose(argExprs.length, site);
+      const i = this.chooser.choose(argExprs.length, site, this.displayDepth > 0);
       return this.eval(argExprs[i]!);
     }
     const args = argExprs.map((a) => this.eval(a));
@@ -300,7 +408,7 @@ export class Story {
       case 'random': {
         const [lo, hi] = args;
         if (typeof lo !== 'number' || typeof hi !== 'number') throw new ValueError('random needs two numbers');
-        return lo + this.chooser.choose(hi - lo + 1, site);
+        return lo + this.chooser.choose(hi - lo + 1, site, this.displayDepth > 0);
       }
       case 'num':
         return toNumber(args[0]!);
@@ -312,7 +420,7 @@ export class Story {
         // `(shuffled: ...$arr)` spreads a single array argument.
         const a = args.length === 1 && Array.isArray(args[0]) ? [...args[0]] : [...args];
         for (let i = a.length - 1; i > 0; i--) {
-          const j = this.chooser.choose(i + 1, site);
+          const j = this.chooser.choose(i + 1, site, this.displayDepth > 0);
           [a[i], a[j]] = [a[j]!, a[i]!];
         }
         return a;

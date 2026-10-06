@@ -23,6 +23,7 @@ export interface Scenario {
 
 export interface Passage {
   name: string;
+  /** Tags from the original, plus `ending` for passages that end the story. */
   tags: string[];
   body: Node[];
   /** Named sub-threads revealed by hook links (Harlowe hooks / Cradle fragments). */
@@ -98,8 +99,9 @@ export interface SetNode {
 
 /**
  * A clickable link. It either navigates to a passage (`to`) or reveals a fragment of
- * the current passage in place (`reveal`). `replace: true` swaps the link for the
- * fragment's output; otherwise the output is appended after the link.
+ * the current passage in place (`reveal`). A reveal link works once: with `replace: true`
+ * the fragment's output takes its place, otherwise the output follows the link, which
+ * stays visible as plain text.
  */
 export interface LinkNode {
   t: 'link';
