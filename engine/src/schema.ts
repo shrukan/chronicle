@@ -8,14 +8,15 @@
 
 export const FORMAT_VERSION = 1;
 
-export type Value = string | number | boolean | null | Value[];
+/** Story values are strictly typed; a variable keeps the type of its initial value. */
+export type Value = string | number | boolean | Value[];
 
 export interface Scenario {
   format: typeof FORMAT_VERSION;
   id: string;
   /** Passage the story starts in. */
   start: string;
-  /** Initial value of every story variable. */
+  /** Initial value of every story variable; it also fixes the variable's type. */
   variables: Record<string, Value>;
   passages: Record<string, Passage>;
 }
@@ -157,7 +158,7 @@ export type Expr =
   | { op: BinaryOp; a: Expr; b: Expr }
   | { op: 'not' | 'neg'; a: Expr }
   | { fn: FnName; args: Expr[] }
-  /** Array element; `key` is 1-based or a Harlowe ordinal ("1st", "2nd", "last", "2ndlast"). */
+  /** List element; `key` is 1-based or an ordinal ("1st", "2nd", "last", "2ndlast"). */
   | { at: Expr; key: Expr }
   /** First matching case wins; used for values that depend on a condition. */
   | { cases: { cond?: Expr; value: Expr }[] }
@@ -165,8 +166,11 @@ export type Expr =
 
 export type BinaryOp = '==' | '!=' | '<' | '<=' | '>' | '>=' | '&&' | '||' | '+' | '-' | '*' | '/' | '%';
 
-/** Harlowe macros used by the stories. */
-export type FnName = 'either' | 'random' | 'num' | 'array' | 'shuffled' | 'max' | 'min';
+/**
+ * Built-in functions. `either` picks one argument, `random` an integer in a range,
+ * `num`/`str` convert between text and numbers, `array` builds a list.
+ */
+export type FnName = 'either' | 'random' | 'num' | 'str' | 'array' | 'shuffled' | 'max' | 'min';
 
 // ---------------------------------------------------------------------------
 // Text

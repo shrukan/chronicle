@@ -89,7 +89,10 @@ Each milestone has an exit criterion. Don't start the next until it's met (unles
   A Time of War 297. The handoff's "869" counted generated methods, not passages.
 
 **M1 – Converter (Cost of Disease, EN)**
-- Promote `spike/src/convert.ts` to `tools/converter/` with tests. Already handles: string
+- Promote `spike/src/convert.ts` and `normalize.ts` to `tools/converter/` with tests. All
+  knowledge of the original's loose rules stays in the converter; the engine is strict.
+  Once `content/` is the source of truth, the converter and `upstream/` can be deleted.
+  The converter already handles: string
   concatenation, styles/blocks, hooks and fragments (incl. cross-passage and renumbered ones),
   prompts, setup pop-ups, Harlowe macros and arrays, ternaries, app-screen calls.
 - Turn the 11 app-screen passages (password, naming creations, score entry, winner ranking,

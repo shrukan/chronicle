@@ -39,10 +39,17 @@ smoke test. That gave hard numbers instead of impressions.
 
 ## What the original really does (not obvious from the code)
 
-1. **Value semantics:** an unset variable equals only another unset value; `x == 0` and `x == ""`
-   are both false for it. Numbers vs strings compare numerically when the string parses.
-   Starting values come from Unity's serialised `MainData` (strings → `""`, numbers → `0`).
-   All copied into `engine/src/values.ts` with tests.
+1. **Value semantics:** in the original an unset variable equals only another unset value
+   (`x == 0` and `x == ""` are both false), numbers and text compare numerically when the text
+   parses, and ~100 variables per scenario start as `""` only because Unity's `MainData` declares
+   them as text. **The engine does not copy these rules.** It is strictly typed (no "unset", no
+   implicit conversion). `spike/src/normalize.ts` infers each variable's type from how the story
+   uses it and rewrites the data accordingly (Cost of Disease: 107 "unset" checks → starting
+   value, 24 resets, 5 literals; 0 open issues). A differential run – old Cradle-compatible
+   engine on the raw data vs the strict engine on the normalised data, same random choices –
+   gave identical passages and text in 1,000/1,000 playthroughs for each scenario.
+   Fear of the Unknown keeps 9 and A Time of War 1 typing issue (inconsistent use in the
+   original, e.g. `randomplayer` as list and as name) – to fix when those scenarios are done.
 2. **Prompts:** the Harlowe `(prompt:)` was replaced by a pop-up that re-runs the whole passage
    (which can re-roll random results). The engine pauses and resumes instead.
 3. **Setup pop-ups navigate:** `ViewItemObtain.SetupPassagename = "X"` is not UI plumbing –

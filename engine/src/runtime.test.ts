@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import { describe, it } from 'node:test';
-import { Story, type Chooser, type Out } from './runtime.ts';
+import { Story, StoryError, type Chooser, type Out } from './runtime.ts';
 import { FORMAT_VERSION, type Passage, type Scenario } from './schema.ts';
 
 function scenario(passages: Record<string, Omit<Passage, 'name' | 'tags' | 'fragments'> & Partial<Passage>>): Scenario {
@@ -100,6 +100,25 @@ describe('Story', () => {
     );
     s.start();
     assert.equal(s.vars['who'], 'x');
+  });
+
+  it('rejects storing a value of the wrong type', () => {
+    const s = new Story(scenario({ A: { body: [{ t: 'set', var: 'count', value: { lit: 'many' } }] } }));
+    assert.throws(() => s.start(), StoryError);
+  });
+
+  it('rejects unknown variables', () => {
+    const s = new Story(scenario({ A: { body: [{ t: 'text', key: 'a', kind: 'narrative', args: [{ var: 'nope' }] }] } }));
+    assert.throws(() => s.start(), StoryError);
+  });
+
+  it('keeps the prompt open when a number is expected but text is given', () => {
+    const s = new Story(scenario({ A: { body: [{ t: 'prompt', var: 'count', input: 'number', key: 'q' }] } }));
+    s.start();
+    assert.throws(() => s.answer('lots'), StoryError);
+    assert.equal(s.view().prompt?.var, 'count');
+    s.answer('4');
+    assert.equal(s.vars['count'], 4);
   });
 
   it('includes other passages inline', () => {

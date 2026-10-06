@@ -1,5 +1,5 @@
 import { SETUP_CONTINUE_KEY, type BlockStyle, type Expr, type Node, type Passage, type PromptNode, type Scenario, type TextKind, type Value } from './schema.ts';
-import { binary, indexArray, toNumber, toText, truthy } from './values.ts';
+import { binary, indexList, toNumber, toText, truthy, typeOf, ValueError } from './values.ts';
 
 /**
  * Decides every random outcome. The app uses a random chooser; the story tester
@@ -126,9 +126,15 @@ export class Story {
     const { thread, prompt } = this.suspended;
     this.suspended = undefined;
     if (prompt.input === 'number') {
-      const n = toNumber(value);
-      if (n === undefined) throw new StoryError(`Not a number: ${value}`);
-      value = n;
+      try {
+        value = toNumber(value);
+      } catch {
+        // Keep the prompt waiting so the app can ask again.
+        this.suspended = { thread, prompt };
+        throw new StoryError(`Not a number: ${toText(value)}`);
+      }
+    } else {
+      value = toText(value);
     }
     this.vars[prompt.var] = value;
     this.drive(thread, value);
@@ -187,9 +193,16 @@ export class Story {
           }
           break;
         }
-        case 'set':
-          this.vars[node.var] = this.eval(node.value);
+        case 'set': {
+          const value = this.eval(node.value);
+          const current = this.vars[node.var];
+          if (current === undefined) throw new StoryError(`Unknown variable "${node.var}" in ${passage.name}`);
+          if (typeOf(current) !== typeOf(value)) {
+            throw new StoryError(`Cannot store ${typeOf(value)} ${JSON.stringify(value)} in ${typeOf(current)} variable "${node.var}" (${passage.name})`);
+          }
+          this.vars[node.var] = value;
           break;
+        }
         case 'link': {
           const target: LinkTarget = { replace: node.replace ?? false };
           if (node.to) target.to = toText(this.eval(node.to));
@@ -244,16 +257,25 @@ export class Story {
 
   eval(e: Expr): Value {
     if ('lit' in e) return e.lit;
-    if ('var' in e) return this.vars[e.var] ?? null;
+    if ('var' in e) {
+      const v = this.vars[e.var];
+      if (v === undefined) throw new StoryError(`Unknown variable "${e.var}"`);
+      return v;
+    }
     if ('cases' in e) {
       const c = e.cases.find((c) => !c.cond || truthy(this.eval(c.cond)));
-      return c ? this.eval(c.value) : null;
+      if (!c) throw new StoryError('No case matched and there is no default');
+      return this.eval(c.value);
     }
     if ('unknown' in e) throw new StoryError(`Unconverted expression: ${e.unknown}`);
     if ('fn' in e) return this.call(e.fn, e.args);
-    if ('at' in e) return indexArray(this.eval(e.at), this.eval(e.key));
+    if ('at' in e) return indexList(this.eval(e.at), this.eval(e.key));
     if (e.op === 'not') return !truthy(this.eval(e.a));
-    if (e.op === 'neg') return -(toNumber(this.eval(e.a)) ?? 0);
+    if (e.op === 'neg') {
+      const v = this.eval(e.a);
+      if (typeof v !== 'number') throw new ValueError(`Cannot negate ${JSON.stringify(v)}`);
+      return -v;
+    }
     if (!('b' in e)) throw new StoryError(`Bad expression ${JSON.stringify(e)}`);
     if (e.op === '&&') return truthy(this.eval(e.a)) && truthy(this.eval(e.b));
     if (e.op === '||') return truthy(this.eval(e.a)) || truthy(this.eval(e.b));
@@ -270,11 +292,14 @@ export class Story {
     const args = argExprs.map((a) => this.eval(a));
     switch (fn) {
       case 'random': {
-        const lo = toNumber(args[0] ?? null) ?? 0, hi = toNumber(args[1] ?? null) ?? 0;
+        const [lo, hi] = args;
+        if (typeof lo !== 'number' || typeof hi !== 'number') throw new ValueError('random needs two numbers');
         return lo + this.chooser.choose(hi - lo + 1, site);
       }
       case 'num':
-        return toNumber(args[0] ?? null) ?? 0;
+        return toNumber(args[0]!);
+      case 'str':
+        return toText(args[0]!);
       case 'array':
         return args;
       case 'shuffled': {
@@ -287,9 +312,9 @@ export class Story {
         return a;
       }
       case 'max':
-        return Math.max(...args.map((a) => toNumber(a) ?? 0));
+        return Math.max(...args.map(toNumber));
       case 'min':
-        return Math.min(...args.map((a) => toNumber(a) ?? 0));
+        return Math.min(...args.map(toNumber));
     }
     throw new StoryError(`Unknown function ${fn}`);
   }

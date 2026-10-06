@@ -9,6 +9,7 @@ import { mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { createRequire } from 'node:module';
 import { basename, join } from 'node:path';
 import { Language, Parser, type Node as TsNode } from 'web-tree-sitter';
+import { normalize } from './normalize.ts';
 import {
   escapeMarkup,
   FORMAT_VERSION,
@@ -23,6 +24,9 @@ import {
   type TextKind,
   type Value,
 } from '@chronicle/engine';
+
+/** Cradle's "unset"; only exists until `normalize()` gives every variable a type. */
+const NULL = null as unknown as Value;
 
 // ---------------------------------------------------------------------------
 // Parsing helpers
@@ -145,7 +149,7 @@ class Converter {
       case 'boolean_literal':
         return { lit: n.text === 'true' };
       case 'null_literal':
-        return { lit: null };
+        return { lit: NULL };
       case 'string_literal':
       case 'verbatim_string_literal':
         return { lit: decodeString(n.text) };
@@ -203,13 +207,13 @@ class Converter {
         if (fn) return { fn, args: args(n).map((a) => this.expr(a)) };
         if (name.endsWith('.ToString') && args(n).length === 0) {
           const recv = field(field(n, 'function')!, 'expression')!;
-          return { op: '+', a: { lit: '' }, b: this.expr(recv) };
+          return { fn: 'str', args: [this.expr(recv)] };
         }
         if (name === 'int.Parse' || name === 'float.Parse') return { fn: 'num', args: [this.expr(args(n)[0]!)] };
         if (name === 'Mathf.Max' || name === 'Math.Max') return { fn: 'max', args: args(n).map((x) => this.expr(x)) };
         if (name === 'String.IsNullOrEmpty' || name === 'string.IsNullOrEmpty') {
           const v = this.expr(args(n)[0]!);
-          return { op: '||', a: { op: '==', a: v, b: { lit: null } }, b: { op: '==', a: v, b: { lit: '' } } };
+          return { op: '||', a: { op: '==', a: v, b: { lit: NULL } }, b: { op: '==', a: v, b: { lit: '' } } };
         }
         break;
       }
@@ -464,7 +468,7 @@ class Converter {
     if (e.type === 'invocation_expression') {
       const name = calleeName(e);
       const a = args(e);
-      const str = (i: number): Expr => (a[i] ? this.expr(a[i]) : { lit: null });
+      const str = (i: number): Expr => (a[i] ? this.expr(a[i]) : { lit: NULL });
       switch (name) {
         case 'PassageTracker.instance.CheckProgress':
           return [{ k: 'node', node: { t: 'ui', ui: 'endOfRound', args: { progress: str(0), next: str(1) } } }];
@@ -653,7 +657,7 @@ function variables(cls: TsNode, mainDataSrc: TsNode): Record<string, Value> {
         for (const d of named(decl).filter((c) => c.type === 'variable_declarator')) {
           const name = field(d, 'name')!.text.replace(/^@/, '');
           const init = named(d).find((c) => c !== field(d, 'name'));
-          vars[name] = init && /literal/.test(init.type) ? (JSON.parse(init.type === 'string_literal' ? init.text : init.text) as Value) : null;
+          vars[name] = init && /literal/.test(init.type) ? (JSON.parse(init.type === 'string_literal' ? init.text : init.text) as Value) : NULL;
         }
       });
     }
@@ -786,11 +790,14 @@ async function main() {
   }
 
   conv.strings[SETUP_CONTINUE_KEY] = { full: 'Continue' };
-  const scenario: Scenario = { format: FORMAT_VERSION, id, start, variables: { ...variables(cls, mainData.rootNode), ...fieldInit }, passages };
+  const raw: Scenario = { format: FORMAT_VERSION, id, start, variables: { ...variables(cls, mainData.rootNode), ...fieldInit }, passages };
+  // Variables the app's setup screens fill in before the story starts.
+  const external = { players: 'number', townname: 'string', nameA: 'string', nameB: 'string', nameC: 'string', nameD: 'string', nameE: 'string' } as const;
+  const { scenario, report: typing } = normalize(raw, external);
   mkdirSync(outDir, { recursive: true });
   writeFileSync(join(outDir, `${id}.json`), JSON.stringify(scenario, null, 1));
   writeFileSync(join(outDir, `${id}.strings.json`), JSON.stringify(conv.strings, null, 1));
-  writeFileSync(join(outDir, `${id}.report.json`), JSON.stringify(conv.report, null, 1));
+  writeFileSync(join(outDir, `${id}.report.json`), JSON.stringify({ ...conv.report, typing }, null, 1));
 
   const r = conv.report;
   const reasons: Record<string, number> = {};
@@ -804,6 +811,11 @@ async function main() {
   console.log(`dead fragments dropped: ${r.deadFragments.length}`);
   console.log(`broken static targets: ${r.brokenTargets.length}`);
   console.log(`ignored (UI plumbing):`, r.ignored);
+  const typeCount: Record<string, number> = {};
+  for (const t of Object.values(typing.types)) typeCount[t] = (typeCount[t] ?? 0) + 1;
+  console.log(`types:`, typeCount, `mixed: ${typing.mixed.length}`, typing.mixed.map((m) => `${m.var}(${m.types.join('/')})`).join(' '));
+  console.log(`rewrites:`, typing.rewrites);
+  console.log(`typing issues: ${typing.issues.length}`);
 }
 
 await main();
