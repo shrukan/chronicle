@@ -40,6 +40,7 @@ tasks:
     cmds:
       - task: project:typecheck
       - task: project:test
+      - task: content:test
 
   # Content
   content:convert:
@@ -48,6 +49,14 @@ tasks:
     vars:
       IDS: '{{.IDS | default "cost-of-disease"}}'
     cmd: node tools/converter/src/cli.ts --upstream {{.UPSTREAM_DIR}}/UnityOriginalApp --out content --reports build/reports {{.IDS}}
+
+  content:test:
+    desc: "Story tester: static checks + coverage-guided exploration, spoiler-free summary (vars: ID, SECONDS; CLI_ARGS e.g. -- --spoilers)."
+    deps: [deps:install]
+    vars:
+      ID: '{{.ID | default "cost-of-disease"}}'
+      SECONDS: '{{.SECONDS | default "120"}}'
+    cmd: node tools/story-tester/src/cli.ts {{.ID}} --seconds {{.SECONDS}} {{.CLI_ARGS}}
 
   content:smoke:
     desc: "Random playthroughs of a converted scenario (vars: ID, RUNS)."

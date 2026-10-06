@@ -1,0 +1,10 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "rootDir": "src",
+    "outDir": "../../build/types/story-tester",
+    "tsBuildInfoFile": "../../build/types/story-tester.tsbuildinfo"
+  },
+  "include": ["src"],
+  "references": [{ "path": "../../engine" }]
+}

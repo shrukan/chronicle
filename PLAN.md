@@ -101,11 +101,21 @@ Each milestone has an exit criterion. Don't start the next until it's met (unles
   with commas inside their text (the original misreads them too), Fear of the Unknown / A Time
   of War (converter reports 15 / 8 manual nodes; A Time of War also needs its real entry points).
 
-**M2 – Story tester**
-- Walks every branch (with value sets for prompts/random) and reports dead ends, unreachable
-  passages, variables read but never set, missing string keys, `manual` blocks.
-- Runs in CI on every commit.
-- **Exit:** report is clean or every remaining issue is listed as a known exception with a reason.
+**M2 – Story tester** ✅ done
+- `tools/story-tester/` (`task content:test`, part of `project:check` and CI): static checks
+  (strings, passages, variables) plus coverage-guided exploration – a corpus of states that
+  covered something new, each expanded once over every link × every random outcome × prompt
+  answers derived from the story's own comparisons, plus random playthroughs from them.
+  Exhaustive search is impossible (≈185 variables decide the path).
+- Output is spoiler-free (counts, anonymous ending labels); details in `build/reports/`.
+- Cost of Disease: 314/315 passages, ≈94% of condition branches (impossible fall-throughs
+  excluded), 8/8 endings, 0 errors, 0 dead ends. Accepted issues with reasons in
+  `content/cost-of-disease/known-issues.json` (one original bug: `hunt1c` is never set).
+- Found and fixed on the way: reveal links are one-shot (Harlowe behaviour), included
+  passages count as visited, special village names the story checks for are tried at setup.
+- Engine gained `snapshot()`/`restore()` (also the basis for save games) and a trace hook.
+- Most uncovered branches are "pick only once" guards the original needed because its pop-ups
+  re-rendered passages; they cannot trigger in our engine.
 
 **M3 – Story player (Angular PWA skeleton)**
 - Angular standalone + signals, PWA, routing, persistence service (IndexedDB), story engine

@@ -1,0 +1,14 @@
+{
+  "name": "@chronicle/story-tester",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Static checks and systematic exploration of converted scenarios",
+  "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "test": "node --test 'src/**/*.test.ts'"
+  },
+  "dependencies": {
+    "@chronicle/engine": "*"
+  }
+}

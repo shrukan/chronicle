@@ -9,6 +9,9 @@
     },
     {
       "path": "tools/story-cli"
+    },
+    {
+      "path": "tools/story-tester"
     }
   ]
 }
