@@ -1,5 +1,5 @@
 import { SETUP_CONTINUE_KEY, type BlockStyle, type Expr, type Node, type Passage, type PromptNode, type Scenario, type TextKind, type Value } from './schema.ts';
-import { binary, indexList, toNumber, toText, truthy, typeOf, ValueError } from './values.ts';
+import { binary, equals, indexList, toNumber, toText, truthy, typeOf, ValueError } from './values.ts';
 
 /**
  * Decides every random outcome. The app uses a random chooser; the story tester
@@ -24,7 +24,7 @@ export type Out =
   /** Output of a revealed fragment; render its children inline. */
   | { t: 'group'; children: Out[] }
   | { t: 'link'; id: number; key: string; args: string[] }
-  | { t: 'prompt'; var: string; input: PromptNode['input']; key: string }
+  | { t: 'prompt'; var: string; input: PromptNode['input']; key: string; args: string[] }
   /** App screen; when it has `link`, the app calls `click(link)` once the players confirm. */
   | { t: 'ui'; ui: string; args: Record<string, Value>; link?: number };
 
@@ -34,7 +34,7 @@ export interface StoryView {
   /** Ids of links that can be clicked right now. */
   links: number[];
   /** Set while the story waits for `answer()`. */
-  prompt?: { var: string; input: PromptNode['input']; key: string };
+  prompt?: { var: string; input: PromptNode['input']; key: string; args: string[] };
 }
 
 export class StoryError extends Error {}
@@ -70,7 +70,7 @@ export class Story {
   private output: Out[] = [];
   private links = new Map<number, LinkEntry>();
   private nextLinkId = 1;
-  private suspended: { thread: Thread; prompt: PromptNode } | undefined;
+  private suspended: { thread: Thread; prompt: PromptNode; args: string[] } | undefined;
   private readonly chooser: Chooser;
   readonly scenario: Scenario;
 
@@ -84,7 +84,7 @@ export class Story {
     const view: StoryView = { passage: this.passage, output: this.output, links: [...this.links.keys()] };
     if (this.suspended) {
       const p = this.suspended.prompt;
-      view.prompt = { var: p.var, input: p.input, key: p.key };
+      view.prompt = { var: p.var, input: p.input, key: p.key, args: this.suspended.args };
     }
     return view;
   }
@@ -94,10 +94,15 @@ export class Story {
     return this.view();
   }
 
-  click(id: number): StoryView {
+  /**
+   * Follows a link. App screens (`ui` output with a `link`) may pass values they collected,
+   * e.g. the winner from the scoring screens; they are type-checked like any assignment.
+   */
+  click(id: number, values: Record<string, Value> = {}): StoryView {
     if (this.suspended) throw new StoryError('Answer the prompt first');
     const link = this.links.get(id);
     if (!link) throw new StoryError(`No link ${id}`);
+    for (const [k, v] of Object.entries(values)) this.assign(k, v, this.passage);
 
     if (link.to !== undefined) {
       this.goTo(link.to);
@@ -122,22 +127,21 @@ export class Story {
   }
 
   answer(value: Value): StoryView {
-    if (!this.suspended) throw new StoryError('No prompt is waiting');
-    const { thread, prompt } = this.suspended;
-    this.suspended = undefined;
-    if (prompt.input === 'number') {
+    const waiting = this.suspended;
+    if (!waiting) throw new StoryError('No prompt is waiting');
+    if (waiting.prompt.input === 'number') {
+      // On invalid input the prompt stays open so the app can ask again.
       try {
         value = toNumber(value);
       } catch {
-        // Keep the prompt waiting so the app can ask again.
-        this.suspended = { thread, prompt };
         throw new StoryError(`Not a number: ${toText(value)}`);
       }
     } else {
       value = toText(value);
     }
-    this.vars[prompt.var] = value;
-    this.drive(thread, value);
+    this.assign(waiting.prompt.var, value, this.passage);
+    this.suspended = undefined;
+    this.drive(waiting.thread, value);
     return this.view();
   }
 
@@ -160,7 +164,7 @@ export class Story {
   private drive(thread: Thread, input?: Value, jumps = 0): void {
     const r = input === undefined ? thread.next() : thread.next(input);
     if (!r.done) {
-      this.suspended = { thread, prompt: r.value };
+      this.suspended = { thread, prompt: r.value, args: (r.value.args ?? []).map((a) => toText(this.eval(a))) };
       return;
     }
     if (r.value) this.goTo(r.value.goto, jumps + 1);
@@ -193,16 +197,9 @@ export class Story {
           }
           break;
         }
-        case 'set': {
-          const value = this.eval(node.value);
-          const current = this.vars[node.var];
-          if (current === undefined) throw new StoryError(`Unknown variable "${node.var}" in ${passage.name}`);
-          if (typeOf(current) !== typeOf(value)) {
-            throw new StoryError(`Cannot store ${typeOf(value)} ${JSON.stringify(value)} in ${typeOf(current)} variable "${node.var}" (${passage.name})`);
-          }
-          this.vars[node.var] = value;
+        case 'set':
+          this.assign(node.var, this.eval(node.value), passage.name);
           break;
-        }
         case 'link': {
           const target: LinkTarget = { replace: node.replace ?? false };
           if (node.to) target.to = toText(this.eval(node.to));
@@ -222,7 +219,7 @@ export class Story {
           break;
         }
         case 'prompt':
-          out.push({ t: 'prompt', var: node.var, input: node.input, key: node.key });
+          out.push({ t: 'prompt', var: node.var, input: node.input, key: node.key, args: (node.args ?? []).map((a) => toText(this.eval(a))) });
           yield node;
           break;
         case 'ui': {
@@ -242,6 +239,15 @@ export class Story {
       }
     }
     return undefined;
+  }
+
+  private assign(name: string, value: Value, where: string): void {
+    const current = this.vars[name];
+    if (current === undefined) throw new StoryError(`Unknown variable "${name}" (${where})`);
+    if (typeOf(current) !== typeOf(value)) {
+      throw new StoryError(`Cannot store ${typeOf(value)} ${JSON.stringify(value)} in ${typeOf(current)} variable "${name}" (${where})`);
+    }
+    this.vars[name] = value;
   }
 
   private addLink(out: Out[], passage: Passage, target: LinkTarget, key: string, args: string[] = []): void {
@@ -312,9 +318,15 @@ export class Story {
         return a;
       }
       case 'max':
-        return Math.max(...args.map(toNumber));
-      case 'min':
-        return Math.min(...args.map(toNumber));
+      case 'min': {
+        const xs = args.length === 1 && Array.isArray(args[0]) ? args[0] : args;
+        return (fn === 'max' ? Math.max : Math.min)(...xs.map(toNumber));
+      }
+      case 'count': {
+        const [list, x] = args;
+        if (!Array.isArray(list)) throw new ValueError('count needs a list');
+        return list.filter((v) => equals(v, x!)).length;
+      }
     }
     throw new StoryError(`Unknown function ${fn}`);
   }

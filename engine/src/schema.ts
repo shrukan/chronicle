@@ -131,9 +131,14 @@ export interface PromptNode {
   var: string;
   input: 'number' | 'text';
   key: string;
+  /** Placeholder values for the question, as in TextNode. */
+  args?: Expr[];
 }
 
-/** App-level effect that is not story text, e.g. an end-of-round screen. */
+/**
+ * App screen that is not story text, e.g. the end-of-round screen. With a `next` argument
+ * the story waits until the app reports the screen as done (see `Story.click`).
+ */
 export interface UiNode {
   t: 'ui';
   ui: string;
@@ -168,9 +173,10 @@ export type BinaryOp = '==' | '!=' | '<' | '<=' | '>' | '>=' | '&&' | '||' | '+'
 
 /**
  * Built-in functions. `either` picks one argument, `random` an integer in a range,
- * `num`/`str` convert between text and numbers, `array` builds a list.
+ * `num`/`str` convert between text and numbers, `array` builds a list, `count(list, x)`
+ * counts entries equal to x, `max`/`min` take numbers or one list.
  */
-export type FnName = 'either' | 'random' | 'num' | 'str' | 'array' | 'shuffled' | 'max' | 'min';
+export type FnName = 'either' | 'random' | 'num' | 'str' | 'array' | 'shuffled' | 'max' | 'min' | 'count';
 
 // ---------------------------------------------------------------------------
 // Text

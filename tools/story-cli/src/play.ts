@@ -1,6 +1,6 @@
 /**
  * Terminal player for converted scenarios.
- * Usage: node spike/src/play.ts [--players N] [--start Passage] [--short] [dir] [id]
+ * Usage: node tools/story-cli/src/play.ts [--players N] [--start Passage] [--short] [id] [contentDir]
  */
 import { createInterface } from 'node:readline/promises';
 import { parseArgs } from 'node:util';
@@ -11,24 +11,30 @@ const { values, positionals } = parseArgs({
   allowPositionals: true,
   options: { players: { type: 'string', default: '3' }, start: { type: 'string' }, short: { type: 'boolean', default: false } },
 });
-const [dir = 'spike/out', id = 'cost-of-disease'] = positionals;
+const [id = 'cost-of-disease', dir = 'content'] = positionals;
 const { scenario, strings } = load(dir, id);
 const mode = values.short ? 'short' : 'full';
 
 const B = '\x1b[1m', I = '\x1b[3m', DIM = '\x1b[2m', CY = '\x1b[36m', YE = '\x1b[33m', R = '\x1b[0m';
+
+function rich(text: string, args: string[]): string {
+  let s = '';
+  for (const span of parseMarkup(text, args)) {
+    if (span.t === 'newline') s += '\n';
+    else {
+      const style = (span.bold ? B : '') + (span.italic ? I : '');
+      s += style + (span.t === 'icon' ? `${YE}[${span.name.replace(/^S\d_/, '')}]` : span.text) + R;
+    }
+  }
+  return s;
+}
 
 function render(out: Out[], table: StringTable): string {
   let s = '';
   for (const o of out) {
     switch (o.t) {
       case 'text':
-        for (const span of parseMarkup(resolveText(table, o.key, mode, o.kind), o.args)) {
-          if (span.t === 'newline') s += '\n';
-          else {
-            const style = (span.bold ? B : '') + (span.italic ? I : '');
-            s += style + (span.t === 'icon' ? `${YE}[${span.name.replace(/^S\d_/, '')}]` : span.text) + R;
-          }
-        }
+        s += rich(resolveText(table, o.key, mode, o.kind), o.args);
         break;
       case 'br':
         s += '\n';
@@ -43,13 +49,15 @@ function render(out: Out[], table: StringTable): string {
         s += render(o.children, table);
         break;
       case 'link':
-        s += `${CY}[${o.id}] ${resolveText(table, o.key)}${R}`;
+        s += `${CY}[${o.id}] ${R}` + rich(resolveText(table, o.key), o.args);
         break;
       case 'prompt':
-        s += `${YE}? ${resolveText(table, o.key)}${R}\n`;
+        s += `${YE}? ${R}` + rich(resolveText(table, o.key), o.args) + '\n';
         break;
       case 'ui':
-        s += `${DIM}⟨${o.ui}${Object.keys(o.args).length ? ' ' + JSON.stringify(o.args) : ''}⟩${R}\n`;
+        s += `${DIM}⟨${o.ui}${Object.keys(o.args).length ? ' ' + JSON.stringify(o.args) : ''}⟩${R}`;
+        if (o.link) s += ` ${CY}[${o.link}] continue${R}`;
+        s += '\n';
         break;
     }
   }

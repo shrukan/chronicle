@@ -1,7 +1,7 @@
 /**
  * Random-walk smoke test: plays the scenario many times with random choices and
  * reports errors and passage coverage. A stand-in until the real story tester (M2).
- * Usage: node spike/src/smoke.ts [--runs N] [--seed S] [dir] [id]
+ * Usage: node tools/story-cli/src/smoke.ts [--runs N] [--seed S] [id] [contentDir]
  */
 import { parseArgs } from 'node:util';
 import { Story, StoryError, type Out } from '@chronicle/engine';
@@ -11,7 +11,7 @@ const { values, positionals } = parseArgs({
   allowPositionals: true,
   options: { runs: { type: 'string', default: '500' }, seed: { type: 'string', default: '1' }, steps: { type: 'string', default: '600' } },
 });
-const [dir = 'spike/out', id = 'cost-of-disease'] = positionals;
+const [id = 'cost-of-disease', dir = 'content'] = positionals;
 const { scenario, strings } = load(dir, id);
 const rnd = seeded(Number(values.seed));
 const pick = (n: number) => Math.floor(rnd() * n);

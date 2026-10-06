@@ -1,14 +1,15 @@
 {
-  "name": "@chronicle/spike",
+  "name": "@chronicle/converter",
   "version": "0.0.0",
   "private": true,
-  "description": "M0 throwaway: prototype converter + CLI player to validate the story format",
+  "description": "Converts the original app's Cradle/C# story scripts into Chronicle story data",
   "license": "MIT",
   "type": "module",
+  "exports": {
+    ".": "./src/convert.ts"
+  },
   "scripts": {
-    "convert": "node src/convert.ts",
-    "play": "node src/play.ts",
-    "smoke": "node src/smoke.ts"
+    "test": "node --test 'src/**/*.test.ts'"
   },
   "dependencies": {
     "@chronicle/engine": "*",

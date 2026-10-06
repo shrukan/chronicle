@@ -1,0 +1,10 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "rootDir": "src",
+    "outDir": "../../build/types/converter",
+    "tsBuildInfoFile": "../../build/types/converter.tsbuildinfo"
+  },
+  "include": ["src"],
+  "references": [{ "path": "../../engine" }]
+}

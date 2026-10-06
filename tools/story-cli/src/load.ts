@@ -2,17 +2,18 @@ import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import type { Scenario, StringTable, Value } from '@chronicle/engine';
 
+/** Loads `<dir>/<id>/scenario.json` and its English strings. */
 export function load(dir: string, id: string): { scenario: Scenario; strings: StringTable } {
   return {
-    scenario: JSON.parse(readFileSync(join(dir, `${id}.json`), 'utf8')) as Scenario,
-    strings: JSON.parse(readFileSync(join(dir, `${id}.strings.json`), 'utf8')) as StringTable,
+    scenario: JSON.parse(readFileSync(join(dir, id, 'scenario.json'), 'utf8')) as Scenario,
+    strings: JSON.parse(readFileSync(join(dir, id, 'strings.en.json'), 'utf8')) as StringTable,
   };
 }
 
 /** What the original app's setup screens put into the story before it starts. */
 export function setupVars(players: number): Record<string, Value> {
   const names = ['Ada', 'Bram', 'Cosima', 'Dorian', 'Elodie'];
-  const vars: Record<string, Value> = { players, townname: 'Ravensbrück' };
+  const vars: Record<string, Value> = { players, townname: 'Ravensbrück', winnerName: names[0]! };
   'ABCDE'.split('').forEach((l, i) => (vars[`name${l}`] = i < players ? names[i]! : ''));
   return vars;
 }

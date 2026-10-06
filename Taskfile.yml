@@ -8,8 +8,6 @@ vars:
 
   UPSTREAM_DIR: '{{joinPath .ROOT_DIR "upstream"}}'
   UPSTREAM_REPO: https://github.com/Deusald/MyFathersWork-FanMadeCompanionApp.git
-  UNITY_SCRIPTS: '{{joinPath .UPSTREAM_DIR "UnityOriginalApp/Assets/Scripts"}}'
-  SPIKE_OUT: '{{joinPath .ROOT_DIR "spike/out"}}'
 
 tasks:
   # Dependencies
@@ -43,32 +41,25 @@ tasks:
       - task: project:typecheck
       - task: project:test
 
-  # M0 spike
-  spike:convert:
-    desc: Convert the three English story scripts with the prototype converter.
+  # Content
+  content:convert:
+    desc: "Convert the original story scripts into content/ (IDS: scenario ids; only Cost of Disease is in scope for v1)."
     deps: [deps:install, upstream:clone]
     vars:
-      STORIES: |
-        English/TheCostofDiseaseEng cost-of-disease
-        English/FearoftheUnknownEng fear-of-the-unknown
-        English/ATimeofWarEng a-time-of-war
-    cmds:
-      - for: { var: STORIES, split: "\n" }
-        cmd: |
-          set -- {{.ITEM}}
-          [ -n "$1" ] && node spike/src/convert.ts "{{.UNITY_SCRIPTS}}/StoryScript/$1.cs" "{{.UNITY_SCRIPTS}}/Data/MainData.cs" "{{.SPIKE_OUT}}" "$2" || true
+      IDS: '{{.IDS | default "cost-of-disease"}}'
+    cmd: node tools/converter/src/cli.ts --upstream {{.UPSTREAM_DIR}}/UnityOriginalApp --out content --reports build/reports {{.IDS}}
 
-  spike:smoke:
-    desc: "Random-walk smoke test (vars: ID, RUNS)."
+  content:smoke:
+    desc: "Random playthroughs of a converted scenario (vars: ID, RUNS)."
     vars:
       ID: '{{.ID | default "cost-of-disease"}}'
       RUNS: '{{.RUNS | default "1000"}}'
-    cmd: node spike/src/smoke.ts --runs {{.RUNS}} {{.SPIKE_OUT}} {{.ID}}
+    cmd: node tools/story-cli/src/smoke.ts --runs {{.RUNS}} --steps 3000 {{.ID}} content
 
-  spike:play:
-    desc: "Play a converted scenario in the terminal (vars: ID, PLAYERS, START; CLI_ARGS e.g. -- --short)."
+  story:play:
+    desc: "Play a scenario in the terminal (vars: ID, PLAYERS, START; CLI_ARGS e.g. -- --short)."
     interactive: true
     vars:
       ID: '{{.ID | default "cost-of-disease"}}'
       PLAYERS: '{{.PLAYERS | default "3"}}'
-    cmd: node spike/src/play.ts --players {{.PLAYERS}} {{if .START}}--start "{{.START}}"{{end}} {{.CLI_ARGS}} {{.SPIKE_OUT}} {{.ID}}
+    cmd: node tools/story-cli/src/play.ts --players {{.PLAYERS}} {{if .START}}--start "{{.START}}"{{end}} {{.CLI_ARGS}} {{.ID}} content

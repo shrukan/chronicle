@@ -1,5 +1,8 @@
 # M0 spike – findings
 
+> Historical record of the M0 spike. The spike code has since moved to `tools/converter/` and
+> `tools/story-cli/`; paths below refer to the spike as it was.
+
 **Question:** can the hand-edited, Cradle-generated C# be turned into a neutral data format
 that a small runtime plays faithfully? And should that runtime be Ink or our own?
 

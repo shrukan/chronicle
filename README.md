@@ -4,8 +4,8 @@ An unofficial, fan-made companion app for the board game **My Father's Work**
 (Renegade Game Studios). It replaces the original app, which is no longer maintained, with an
 installable web app that also works offline.
 
-> **Status:** early development (milestone M0 done). Not playable in the browser yet – see
-> [PLAN.md](PLAN.md).
+> **Status:** early development (milestone M1). *The Cost of Disease* is converted and playable
+> in the terminal; not playable in the browser yet – see [PLAN.md](PLAN.md).
 
 ## How it works
 
@@ -23,8 +23,10 @@ story tester and the terminal player.
 | Path | What |
 |---|---|
 | `engine/` | Story format (`schema.ts`), runtime, value semantics, text markup |
-| `spike/` | M0 prototype converter, terminal player and smoke test ([findings](spike/FINDINGS.md)) |
+| `tools/converter/` | Converts the original C# story scripts into `content/` |
+| `tools/story-cli/` | Terminal player and random-playthrough smoke test |
 | `content/` | Converted story data (CC BY-NC 4.0, © Renegade Game Studios) |
+| `docs/` | Notes, e.g. [M0 findings](docs/m0-findings.md) |
 | `upstream/` | Reference clone of the original project (git-ignored) |
 
 ## Getting started
@@ -34,9 +36,9 @@ Requirements: Node.js 24+, [Task](https://taskfile.dev).
 ```bash
 task deps:install
 task project:check          # type-check + unit tests
-task spike:convert          # clone the original sources and convert all scenarios
-task spike:play             # play The Cost of Disease in the terminal
-task spike:smoke RUNS=1000  # random playthroughs, reports errors and coverage
+task content:convert         # clone the original sources and regenerate content/
+task story:play              # play The Cost of Disease in the terminal
+task content:smoke RUNS=1000 # random playthroughs: errors, coverage, endings reached
 ```
 
 ## Licence

@@ -17,7 +17,7 @@ feat(engine): support include of fragments
 fix(converter): resolve fragments of renumbered passages
 ```
 
-Scopes: `engine`, `converter`, `tester`, `frontend`, `content`, `spike`, `docker`, `task`,
+Scopes: `engine`, `converter`, `cli`, `tester`, `frontend`, `content`, `docker`, `task`,
 `ci`, `deps`, `docs`, `repo`.
 
 Versions and the changelog are managed by release-please – don't edit version numbers by hand.
