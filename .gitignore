@@ -1,0 +1,28 @@
+# Reference clone of the original/fan project (not ours to redistribute as-is)
+upstream/
+
+# Builds
+build/
+dist/
+.docker_image_marker.lock
+
+# Tasks
+.task/
+
+# Node
+node_modules/
+npm-debug.log
+*.tsbuildinfo
+
+# IDEs and editors
+.idea/
+.vscode/*
+!.vscode/settings.json
+!.vscode/extensions.json
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Spike output (regenerate with `task spike:convert`)
+spike/out/

@@ -1,0 +1,77 @@
+# yaml-language-server: $schema=https://taskfile.dev/schema.json
+
+version: "3"
+
+vars:
+  PROJECT_NAME: chronicle
+  APP_VERSION: "0.0.0" # x-release-please-version
+
+  UPSTREAM_DIR: '{{joinPath .ROOT_DIR "upstream"}}'
+  UPSTREAM_REPO: https://github.com/Deusald/MyFathersWork-FanMadeCompanionApp.git
+  UNITY_SCRIPTS: '{{joinPath .UPSTREAM_DIR "UnityOriginalApp/Assets/Scripts"}}'
+  SPIKE_OUT: '{{joinPath .ROOT_DIR "spike/out"}}'
+
+tasks:
+  # Dependencies
+  deps:install:
+    desc: Install all workspace dependencies (npm ci in CI).
+    sources: ["package.json", "package-lock.json", "*/package.json"]
+    generates: ["node_modules/.package-lock.json"]
+    cmds:
+      - '{{if .CI}}npm ci{{else}}npm install{{end}}'
+
+  # Upstream reference sources
+  upstream:clone:
+    desc: Clone the original Unity project (reference only, git-ignored).
+    status: ["test -d {{.UPSTREAM_DIR}}"]
+    cmd: git clone --depth 1 {{.UPSTREAM_REPO}} {{.UPSTREAM_DIR}}
+
+  # Project
+  project:typecheck:
+    desc: Type-check all workspaces.
+    deps: [deps:install]
+    cmd: npx tsc -b
+
+  project:test:
+    desc: Run unit tests of all workspaces.
+    deps: [deps:install]
+    cmd: npm test
+
+  project:check:
+    desc: Everything CI runs.
+    cmds:
+      - task: project:typecheck
+      - task: project:test
+
+  # M0 spike
+  spike:convert:
+    desc: Convert all six original story scripts with the prototype converter.
+    deps: [deps:install, upstream:clone]
+    vars:
+      STORIES: |
+        English/TheCostofDiseaseEng cost-of-disease
+        English/FearoftheUnknownEng fear-of-the-unknown
+        English/ATimeofWarEng a-time-of-war
+        French/TheCostofDiseaseFrench cost-of-disease.fr
+        French/FearoftheUnknownFrench fear-of-the-unknown.fr
+        French/ATimeofWarFrench a-time-of-war.fr
+    cmds:
+      - for: { var: STORIES, split: "\n" }
+        cmd: |
+          set -- {{.ITEM}}
+          [ -n "$1" ] && node spike/src/convert.ts "{{.UNITY_SCRIPTS}}/StoryScript/$1.cs" "{{.UNITY_SCRIPTS}}/Data/MainData.cs" "{{.SPIKE_OUT}}" "$2" || true
+
+  spike:smoke:
+    desc: "Random-walk smoke test (vars: ID, RUNS)."
+    vars:
+      ID: '{{.ID | default "cost-of-disease"}}'
+      RUNS: '{{.RUNS | default "1000"}}'
+    cmd: node spike/src/smoke.ts --runs {{.RUNS}} {{.SPIKE_OUT}} {{.ID}}
+
+  spike:play:
+    desc: "Play a converted scenario in the terminal (vars: ID, PLAYERS, START; CLI_ARGS e.g. -- --short)."
+    interactive: true
+    vars:
+      ID: '{{.ID | default "cost-of-disease"}}'
+      PLAYERS: '{{.PLAYERS | default "3"}}'
+    cmd: node spike/src/play.ts --players {{.PLAYERS}} {{if .START}}--start "{{.START}}"{{end}} {{.CLI_ARGS}} {{.SPIKE_OUT}} {{.ID}}

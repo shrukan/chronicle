@@ -1,0 +1,18 @@
+{
+  "name": "@chronicle/spike",
+  "version": "0.0.0",
+  "private": true,
+  "description": "M0 throwaway: prototype converter + CLI player to validate the story format",
+  "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "convert": "node src/convert.ts",
+    "play": "node src/play.ts",
+    "smoke": "node src/smoke.ts"
+  },
+  "dependencies": {
+    "@chronicle/engine": "*",
+    "tree-sitter-c-sharp": "0.23.5",
+    "web-tree-sitter": "0.25.10"
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "name": "@chronicle/engine",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Story data format and runtime shared by the app, the converter and the story tester",
+  "license": "MIT",
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "test": "node --test 'src/**/*.test.ts'"
+  }
+}

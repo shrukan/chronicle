@@ -1,0 +1,23 @@
+{
+  "name": "chronicle",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Unofficial fan-made companion app for the board game My Father's Work",
+  "license": "MIT",
+  "type": "module",
+  "engines": {
+    "node": ">=24"
+  },
+  "workspaces": [
+    "engine",
+    "spike"
+  ],
+  "scripts": {
+    "typecheck": "tsc -b",
+    "test": "npm test --workspaces --if-present"
+  },
+  "devDependencies": {
+    "@types/node": "^24.0.0",
+    "typescript": "~6.0.0"
+  }
+}
