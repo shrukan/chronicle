@@ -45,16 +45,13 @@ tasks:
 
   # M0 spike
   spike:convert:
-    desc: Convert all six original story scripts with the prototype converter.
+    desc: Convert the three English story scripts with the prototype converter.
     deps: [deps:install, upstream:clone]
     vars:
       STORIES: |
         English/TheCostofDiseaseEng cost-of-disease
         English/FearoftheUnknownEng fear-of-the-unknown
         English/ATimeofWarEng a-time-of-war
-        French/TheCostofDiseaseFrench cost-of-disease.fr
-        French/FearoftheUnknownFrench fear-of-the-unknown.fr
-        French/ATimeofWarFrench a-time-of-war.fr
     cmds:
       - for: { var: STORIES, split: "\n" }
         cmd: |

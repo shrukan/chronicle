@@ -15,7 +15,8 @@ A fan-made, non-commercial companion app for *My Father's Work*. Background and 
 - Runs as a container on my home server.
 
 **Later**
-- The other two scenarios, then French (story text exists), then other languages.
+- The other two scenarios, then other languages. French is deferred: the original French
+  scripts were edited separately from the English ones (see `spike/FINDINGS.md`).
 - **Reading modes:** *Full* (original text), *Short* (shortened story text, same game
   instructions), possibly more (e.g. instructions only).
 - Voice-over, Capacitor app-store builds, cloud saves.
@@ -39,7 +40,7 @@ From `upstream/UnityOriginalApp/Assets/Scripts/UI` + `Manager`:
 | Save/load | Autosave, resume, saved endings, log book persistence (`DataManager`) | yes |
 | Audio | Music, click sounds, voice-over (male/female) per passage | music v1, voice-over later |
 | Help | Help screen | yes |
-| Localization | 8 UI languages; story EN + FR | EN v1 |
+| Localization | 8 UI languages; story EN + FR | EN only; FR deferred |
 
 The inventory is complete when every `View*.cs` is mapped to a route/component in this table.
 
@@ -100,11 +101,6 @@ Each milestone has an exit criterion. Don't start the next until it's met (unles
 - **Exit:** all 361 passages converted, zero `manual` nodes, output committed to `content/`;
   passage list matches Deusald's chapter index.
 
-**M1b – French alignment** (can run in parallel with M2/M3)
-- The French scripts were edited separately (different passage counts and start passages), so
-  they can't be used as a plain string table over the English structure. Build an alignment
-  report (passages and strings matched by name + position) and decide per difference.
-
 **M2 – Story tester**
 - Walks every branch (with value sets for prompts/random) and reports dead ends, unreachable
   passages, variables read but never set, missing string keys, `manual` blocks.
@@ -128,7 +124,7 @@ Each milestone has an exit criterion. Don't start the next until it's met (unles
 - Credits page, open-source the repo, post to the Discord.
 - Optional: also publish the static build to GitHub Pages for people without a server.
 
-**After v1** (order flexible): Fear of the Unknown → A Time of War → French → reading modes
+**After v1** (order flexible): Fear of the Unknown → A Time of War → reading modes
 (Short) → voice-over → other UI languages → Capacitor.
 
 Short mode is placed after the scenarios on purpose: the content model supports it from M1,
@@ -139,7 +135,6 @@ but writing short texts is a content job and works best once the logic is stable
 | Risk | Mitigation |
 |---|---|
 | Harlowe semantics (text swapped in after a click, hooks) don't map cleanly | ✅ Resolved in M0: own runtime interprets them directly |
-| French story differs structurally from English | M1b alignment report before using French |
 | Hand-edits hide game logic in C# | `manual` blocks + tester counts them; review against original app behaviour |
 | No original Twine sources | The C# is the source; the official web app is the reference for behaviour |
 | Shortened text drops an instruction players need | Only `narrative` blocks are shortened; tester checks short mode reaches the same passages |

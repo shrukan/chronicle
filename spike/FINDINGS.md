@@ -60,7 +60,7 @@ smoke test. That gave hard numbers instead of impressions.
 
 | Finding | Consequence |
 |---|---|
-| **French scripts are not a pure translation** – passage counts and even start passages differ | French can't just be a string table over the English structure. M1 needs an alignment step (match FR passages/strings to EN by name + position, report mismatches). |
+| **French scripts are not a pure translation** – passage counts and even start passages differ | French can't just be a string table over the English structure; it would need an alignment step. **French support is deferred** – the converter task only handles English. |
 | **Narrative vs instruction heuristic is ~70–75% accurate** | Not safe on its own for Short mode. Default to `instruction` when unsure; review classifications per passage before writing short texts. |
 | **Conditional literal text splits sentences** (e.g. "the **Order of St. Hubertus** / **Fraternity of Hunters** knocked…") | Translation units are sometimes sentence fragments. Fine for EN; for new languages, consider merging such runs into variants of one string. |
 | **"Click to continue..." etc. repeated ~800×** | Introduce shared `common.*` keys in M1 to cut translation work (1,866 unique of 3,325). |
