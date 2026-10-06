@@ -2089,6 +2089,9 @@
      "t": "br"
     },
     {
+     "t": "br"
+    },
+    {
      "t": "text",
      "key": "S5SpecialSetup1.3",
      "kind": "instruction"
@@ -2113,12 +2116,15 @@
      "t": "br"
     },
     {
-     "t": "text",
-     "key": "S5SpecialSetup1.6",
-     "kind": "instruction"
+     "t": "br"
     },
     {
      "t": "br"
+    },
+    {
+     "t": "text",
+     "key": "S5SpecialSetup1.6",
+     "kind": "instruction"
     },
     {
      "t": "br"
@@ -2140,27 +2146,11 @@
      "t": "br"
     },
     {
+     "t": "br"
+    },
+    {
      "t": "text",
      "key": "S5SpecialSetup1.9",
-     "kind": "instruction"
-    },
-    {
-     "t": "br"
-    },
-    {
-     "t": "text",
-     "key": "S5SpecialSetup1.10",
-     "kind": "instruction"
-    },
-    {
-     "t": "br"
-    },
-    {
-     "t": "br"
-    },
-    {
-     "t": "text",
-     "key": "S5SpecialSetup1.11",
      "kind": "narrative"
     },
     {
@@ -2171,7 +2161,7 @@
     },
     {
      "t": "link",
-     "key": "S5SpecialSetup1.12",
+     "key": "S5SpecialSetup1.10",
      "reveal": "0",
      "replace": true
     },
@@ -2183,7 +2173,7 @@
     },
     {
      "t": "link",
-     "key": "S5SpecialSetup1.13",
+     "key": "S5SpecialSetup1.11",
      "reveal": "1",
      "replace": true
     },

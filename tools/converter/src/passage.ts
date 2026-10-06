@@ -248,7 +248,7 @@ export class PassageConverter {
     let text = '';
     const promptArgs: Expr[] = [];
     for (const p of parts) {
-      if (typeof p === 'string') text += escapeMarkup(p);
+      if (typeof p === 'string') text += toMarkup(p);
       else {
         text += `{${promptArgs.length}}`;
         promptArgs.push(this.expr(p));
@@ -335,7 +335,7 @@ export class PassageConverter {
         return [{ k: 'node', node: { t: 'br' } }];
       case 'link': {
         const label = constString(a[0]!);
-        const node: Node = { t: 'link', key: this.str(label === undefined ? '{0}' : escapeMarkup(label), 'instruction', true) };
+        const node: Node = { t: 'link', key: this.str(label === undefined ? '{0}' : toMarkup(label), 'instruction', true) };
         if (label === undefined) node.args = [this.expr(a[0]!)];
         if (a[1] && a[1].type !== 'null_literal') node.to = this.expr(a[1]);
         const action = a[2];
@@ -452,7 +452,7 @@ export class PassageConverter {
       case 'ViewEndOfGeneration.S_OnEndOfGeneration?.Invoke': {
         const text = this.expr(a[0]!);
         if (!('lit' in text) || typeof text.lit !== 'string') break;
-        return ui('endOfGeneration', { text: { lit: this.str(escapeMarkup(text.lit), 'instruction', true) }, generation: arg(1) });
+        return ui('endOfGeneration', { text: { lit: this.str(toMarkup(text.lit), 'instruction', true) }, generation: arg(1) });
       }
       case 'ViewController.instance.ChangeView': {
         const screen = a[0]!.text.split('.').pop()!;
@@ -516,13 +516,7 @@ export class PassageConverter {
       if (bold !== piece.bold) { out += '**'; bold = piece.bold; }
       if (italic !== piece.italic) { out += '*'; italic = piece.italic; }
       if (piece.k === 'text') {
-        out += piece.text
-          .split(/(<sprite="[^"]+"[^>]*>)/)
-          .map((part) => {
-            const m = /^<sprite="([^"]+)"/.exec(part);
-            return m ? `{icon:${m[1]}}` : escapeMarkup(part);
-          })
-          .join('');
+        out += toMarkup(piece.text);
         plain += piece.text;
       } else {
         out += `{${textArgs.length}}`;
@@ -569,6 +563,25 @@ export class PassageConverter {
   private ignore(what: string): void {
     this.ignored[what] = (this.ignored[what] ?? 0) + 1;
   }
+}
+
+/**
+ * Original text → string-table markup. The original uses TextMeshPro rich-text tags:
+ * bold/italic become markup, sprites become icons, layout tags (size, align, line-height)
+ * are dropped – layout is the app's job.
+ */
+export function toMarkup(text: string): string {
+  return text
+    .split(/(<\/?[a-zA-Z-]+(?:=[^>]*)?(?:\s[^>]*)?>)/)
+    .map((part) => {
+      const sprite = /^<sprite="([^"]+)"/.exec(part);
+      if (sprite) return `{icon:${sprite[1]}}`;
+      if (/^<\/?b>$/.test(part)) return '**';
+      if (/^<\/?i>$/.test(part)) return '*';
+      if (/^<\/?(size|align|line-height|color|font)(=[^>]*)?>$/.test(part)) return '';
+      return escapeMarkup(part);
+    })
+    .join('');
 }
 
 /** Hand edits mix `passage4_Main` with `passage04_Fragment_0`. */

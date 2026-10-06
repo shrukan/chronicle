@@ -327,43 +327,37 @@
   "full": "{0} receives **3VP** immediately. Then, they receive the **Commemorative Mayoral Coin** from the box. And finally, they will choose if they would like to build a Bank or a Library."
  },
  "S5SpecialSetup1.3": {
-  "full": "<line-height=400%></line-height>"
+  "full": "{icon:Bank1}"
  },
  "S5SpecialSetup1.4": {
-  "full": "<align=\"center\"><line-height=400%><size=200>{icon:Bank1}</size></line-height></align>"
- },
- "S5SpecialSetup1.5": {
   "full": "**BANK**"
  },
- "S5SpecialSetup1.6": {
+ "S5SpecialSetup1.5": {
   "full": "For each visit to the Bank, **gain $2.** The Mayor player will also **immediately gain 1VP** for building the Bank."
  },
+ "S5SpecialSetup1.6": {
+  "full": "{icon:Library1}"
+ },
  "S5SpecialSetup1.7": {
-  "full": "<line-height=400%>"
- },
- "S5SpecialSetup1.8": {
-  "full": "</line-height><align=\"center\"><line-height=400%><size=200>{icon:Library1}</size></line-height></align>"
- },
- "S5SpecialSetup1.9": {
   "full": "**LIBRARY**"
  },
- "S5SpecialSetup1.10": {
+ "S5SpecialSetup1.8": {
   "full": "For each visit to the Library, **gain one Knowledge of your choice** *(not Occult).*"
  },
- "S5SpecialSetup1.11": {
+ "S5SpecialSetup1.9": {
   "full": "**Which building would the new Mayor like to Build?**"
  },
- "S5SpecialSetup1.12": {
+ "S5SpecialSetup1.10": {
   "full": "Bank."
  },
- "S5SpecialSetup1.13": {
+ "S5SpecialSetup1.11": {
   "full": "Library."
  },
  "S5Fate1.1": {
   "full": "**Financial Woes**"
  },
  "S5Fate1.2": {
-  "full": "Remove all player pieces from the board and Perform the End of a Generation. Return all <b>Dubious Bartering</b> cards to the box. Return any remaining <sprite=\"StorybookToken\" index=0> tokens to the supply."
+  "full": "Remove all player pieces from the board and Perform the End of a Generation. Return all **Dubious Bartering** cards to the box. Return any remaining {icon:StorybookToken} tokens to the supply."
  },
  "S5Fate1.3": {
   "full": "The village of {0} was, for lack of a more appropriate term, agricultural in its funds and like many similar small villages, were woefully unprepared for the ravages of disease. Despite the generosity (or lack thereof) of the family, the church's already severely limited resources have been stretched to their limit in their distinctly unscientific attempts to stem the spread of infection. With no more donations to call upon, the diocese turned to the local financial institutions for aide."
@@ -378,7 +372,7 @@
   "full": "**FATE of the Infected**"
  },
  "S5Fate2.2": {
-  "full": "Remove all player pieces from the board and Perform the End of a Generation. Return all <b>Dubious Bartering</b> cards to the box. Return any remaining <sprite=\"StorybookToken\" index=0> tokens to the supply."
+  "full": "Remove all player pieces from the board and Perform the End of a Generation. Return all **Dubious Bartering** cards to the box. Return any remaining {icon:StorybookToken} tokens to the supply."
  },
  "S5Fate2.3": {
   "full": "The congregation and citizenry, stricken with the weight of those lost in the battle with Yellow Fever, could only provide a meager sum, which placed the financial future of the village into the hands of the most charitable scientists."
@@ -672,7 +666,7 @@
   "full": "**Immortality Advances**"
  },
  "S5HospA1Yes.2": {
-  "full": "Remove all player pieces from the board and perform the End of a Generation. Any <sprite=\"StorybookToken\" index=0> tokens remaining on a player's Journal Track are returned to the supply."
+  "full": "Remove all player pieces from the board and perform the End of a Generation. Any {icon:StorybookToken} tokens remaining on a player's Journal Track are returned to the supply."
  },
  "S5HospA1Yes.3": {
   "full": "The **{0}** scientists reveled in the suspicious glances of the townsfolk whenever they strolled through town, their visages spotless and unaging. Surely, the indefinite extension of their lives was a true marvel."
@@ -981,7 +975,7 @@
   "full": "All players MUST place their Self on the Hospital space in town once this generation. *(If, for any reason, you have not visited the Hospital by the end of this Generation, lose 6VP and an Estate Upgrade of your choice, if possible.)*"
  },
  "Hospital2.4": {
-  "full": "The <b>first time</b> you visit the Hospital with your Self, "
+  "full": "The **first time** you visit the Hospital with your Self, "
  },
  "Hospital2.5": {
   "full": "{icon:Storybook}** The Cure**"
@@ -1044,7 +1038,7 @@
   "full": "All players MUST place their Self on the Hospital space in town once this generation. *(If, for any reason, you have not visited the Hospital by the end of this Generation, lose 6VP and an Estate Upgrade of your choice, if possible.)*"
  },
  "Hospital3.6": {
-  "full": "The <b>first time</b> you visit the Hospital with your Self, "
+  "full": "The **first time** you visit the Hospital with your Self, "
  },
  "Hospital3.7": {
   "full": "{icon:Storybook}** The Cure**"
@@ -1893,10 +1887,10 @@
   "full": "Retrieve the Hereditary Disease cards from the Scenario box. Shuffle them and **deal one Disease card face-up** to each player near their Masterwork. Return the remaining Hereditary Disease cards to the box."
  },
  "HospitalDefine.1": {
-  "full": "**Hospital**<line-height=400%>"
+  "full": "**Hospital**"
  },
  "HospitalDefine.2": {
-  "full": "</line-height><align=\"center\"><line-height=400%><size=200>{icon:Hospital1}</size></align></line-height>"
+  "full": "{icon:Hospital1}"
  },
  "HospitalDefine.3": {
   "full": "Look through the Experiment deck of your choice to find an Experiment of your choice and draw it into your hand. *(Once complete, shuffle the deck.)*"
@@ -1905,7 +1899,7 @@
   "full": "You have until the beginning of your next turn to complete this action *(allow other players to begin their turn while you choose).*"
  },
  "HospitalDefine.5": {
-  "full": "NOTE: You may take the Hospital action with any legal token, but you must only click on the Storybook prompt the <b>first time</b> you visit the Hospital with your Self."
+  "full": "NOTE: You may take the Hospital action with any legal token, but you must only click on the Storybook prompt the **first time** you visit the Hospital with your Self."
  },
  "HospitalDefine.6": {
   "full": "Click here to return..."
@@ -2094,7 +2088,7 @@
   "full": "**Death Becomes Us**"
  },
  "S5HospA1No.2": {
-  "full": "Remove all player pieces from the board and perform the End of a Generation. Any <sprite=\"StorybookToken\" index=0> tokens remaining on a player's Journal Track are returned to the supply."
+  "full": "Remove all player pieces from the board and perform the End of a Generation. Any {icon:StorybookToken} tokens remaining on a player's Journal Track are returned to the supply."
  },
  "S5HospA1No.3": {
   "full": "As their bodies withered with time, the failures of their equally outdated scientific pursuits weighed heavily on their deteriorating minds. With only **{0}** of them discovering the way towards **immortality**, the cousins wallowed in their own ineptitude."
@@ -2127,10 +2121,10 @@
   "full": "\"The brotherhood has heard of your suffering and we wish to offer an exchange. For a meager bit of knowledge, we present a cure. Drink of this liquid and your dreaded affliction will cease,\" she said as a bolt of lightning arced across the sky above."
  },
  "DevEventCure.7": {
-  "full": "Each player, in turn order, may choose to discard a completed B-Level Experiment *(to the bottom of the deck)* to place their **Hereditary Disease Experiment** into their **Stored Experiments**. <i>They will no longer be affected by Disease events.</i>"
+  "full": "Each player, in turn order, may choose to discard a completed B-Level Experiment *(to the bottom of the deck)* to place their **Hereditary Disease Experiment** into their **Stored Experiments**. *They will no longer be affected by Disease events.*"
  },
  "DevEventCure.8": {
-  "full": "Any player that has already completed their <b>Hereditary Disease Experiment</b> cannot choose this action."
+  "full": "Any player that has already completed their **Hereditary Disease Experiment** cannot choose this action."
  },
  "DevEventCure.9": {
   "full": "Continue once all players have made their decision."
@@ -2250,7 +2244,7 @@
   "full": "**Strong Alliance**"
  },
  "DevastationFate1.2": {
-  "full": "Remove all player pieces from the board and Perform the End of a Generation. Return any remaining <sprite=\"StorybookToken\" index=0> tokens to the supply."
+  "full": "Remove all player pieces from the board and Perform the End of a Generation. Return any remaining {icon:StorybookToken} tokens to the supply."
  },
  "DevastationFate1.3": {
   "full": "The ties that bound the family to these secret warring factions changed the course of history."
@@ -2637,7 +2631,7 @@
   "full": "**Scientific Achievement**"
  },
  "Prosperity3.13": {
-  "full": "When you gain a Vanity Estate Upgrade, all remaining <b>Master's Study</b> tiles are part of the available pool to build as normal <i>(not Occult)</i>."
+  "full": "When you gain a Vanity Estate Upgrade, all remaining **Master's Study** tiles are part of the available pool to build as normal *(not Occult)*."
  },
  "Prosperity3.14": {
   "full": "**Hunter's Haven**"
@@ -2649,7 +2643,7 @@
   "full": "**Scientific Achievement**"
  },
  "Prosperity3.17": {
-  "full": "When you gain a Vanity Estate Upgrade, all remaining <b>Master's Study</b> tiles are part of the available pool to build as normal <i>(not Occult)</i>."
+  "full": "When you gain a Vanity Estate Upgrade, all remaining **Master's Study** tiles are part of the available pool to build as normal *(not Occult)*."
  },
  "Trigger35Points.1": {
   "full": "**Carefully hand this storybook device to the player that just reached 35VP. This is read within view of all players.**"
@@ -3093,7 +3087,7 @@
   "full": "Gain 1 {icon:Insanity_Icon}, Gain 2 {icon:Creepy_Icon}, Move the {icon:AngryMob_Icon}."
  },
  "MWCreationHubA.49": {
-  "full": "<i>Note: This Masterwork still requires 1 A Experiment, 2 B Experiments, and 3 C Experiments to be completed.</i>"
+  "full": "*Note: This Masterwork still requires 1 A Experiment, 2 B Experiments, and 3 C Experiments to be completed.*"
  },
  "MWCompleteHubA.1": {
   "full": "**{0} - {1} - Journal Entry Excerpt**"
@@ -3699,7 +3693,7 @@
   "full": "Gain 1 {icon:Insanity_Icon}, Gain 2 {icon:Creepy_Icon}, Move the {icon:AngryMob_Icon}."
  },
  "MWCreationHubB.49": {
-  "full": "<i>Note: This Masterwork still requires 1 A Experiment, 2 B Experiments, and 3 C Experiments to be completed.</i>"
+  "full": "*Note: This Masterwork still requires 1 A Experiment, 2 B Experiments, and 3 C Experiments to be completed.*"
  },
  "MWCompleteHubB.1": {
   "full": "**{0} - {1} - Journal Entry Excerpt**"
@@ -3918,7 +3912,7 @@
   "full": "Gain 1 {icon:Insanity_Icon}, Gain 2 {icon:Creepy_Icon}, Move the {icon:AngryMob_Icon}."
  },
  "MWCreationHubC.49": {
-  "full": "<i>Note: This Masterwork still requires 1 A Experiment, 2 B Experiments, and 3 C Experiments to be completed.</i>"
+  "full": "*Note: This Masterwork still requires 1 A Experiment, 2 B Experiments, and 3 C Experiments to be completed.*"
  },
  "MWCompleteHubC.1": {
   "full": "**{0} - {1} - Journal Entry Excerpt**"
@@ -4164,7 +4158,7 @@
   "full": "Gain 1 {icon:Insanity_Icon}, Gain 2 {icon:Creepy_Icon}, Move the {icon:AngryMob_Icon}."
  },
  "MWCreationHubD.49": {
-  "full": "<i>Note: This Masterwork still requires 1 A Experiment, 2 B Experiments, and 3 C Experiments to be completed.</i>"
+  "full": "*Note: This Masterwork still requires 1 A Experiment, 2 B Experiments, and 3 C Experiments to be completed.*"
  },
  "MWCompleteHubD.1": {
   "full": "**{0} - {1} - Journal Entry Excerpt**"
@@ -4245,7 +4239,7 @@
   "full": "Click to move to a more depressing time..."
  },
  "S5HospA2.7": {
-  "full": "Remove all player pieces from the board and perform the End of a Generation. Any <sprite=\"StorybookToken\" index=0> tokens remaining on a player's Journal Track are returned to the supply."
+  "full": "Remove all player pieces from the board and perform the End of a Generation. Any {icon:StorybookToken} tokens remaining on a player's Journal Track are returned to the supply."
  },
  "DetEffectRandom.1": {
   "full": "**The Effects of Immortality **"
@@ -4572,7 +4566,7 @@
   "full": "The Bank had proven a valuable investment in the town's future, and since its construction was facilitated by the {0} name, the {1} could not help but offer thanks. As a token of their appreciation, they felt it best to help construct an expansion to their Estate."
  },
  "EvilMayor.4": {
-  "full": "Retrieve the **Curious Supply Room** Estate Upgrade from the scenario box. *You may immediately build it in the next empty plot on your Estate board at no additional cost.* Then, return the <b>Commemorative Mayoral Coin</b> to the box."
+  "full": "Retrieve the **Curious Supply Room** Estate Upgrade from the scenario box. *You may immediately build it in the next empty plot on your Estate board at no additional cost.* Then, return the **Commemorative Mayoral Coin** to the box."
  },
  "CharityNegCons.1": {
   "full": "**Condescending Patronage**"
@@ -4593,7 +4587,7 @@
   "full": "gain 1 {icon:Creepy_Icon}."
  },
  "CharityNegCons.7": {
-  "full": "Return the <b>Heart {icon:S1_HeartToken} token</b> to the scenario box."
+  "full": "Return the **Heart {icon:S1_HeartToken} token** to the scenario box."
  },
  "Gen1-CreepyTrack.1": {
   "full": "**Enemy of the People**"
@@ -5064,7 +5058,7 @@
   "full": "Return the **Heart {icon:S1_HeartToken} token** to the scenario box."
  },
  "UniCharity.8": {
-  "full": "Retrieve a **Charity Memorial** Estate Tile from the scenario box. {0} III may build this in their next available plot. They do not have to pay the cost to open a new plot. \n\nReturn the <b>Heart {icon:S1_HeartToken} token</b> to the scenario box."
+  "full": "Retrieve a **Charity Memorial** Estate Tile from the scenario box. {0} III may build this in their next available plot. They do not have to pay the cost to open a new plot. \n\nReturn the **Heart {icon:S1_HeartToken} token** to the scenario box."
  },
  "UniEquity.1": {
   "full": "**The Guiding Hand of Science**"
@@ -5223,7 +5217,7 @@
   "full": "The townsfolk appreciated {0} III's lineage as partly responsible for spearheading the gift of **knowledge** above all else in the generations past. They desire to repay this Librarian lineage with a contribution of their own."
  },
  "MayoralAward.5": {
-  "full": "Retrieve the **Personal Library** Estate Upgrade from the scenario box. You may immediately build it in the next empty plot on your Estate board at no additional cost. Then, return the <b>Commemorative Mayoral Coin</b> to the box."
+  "full": "Retrieve the **Personal Library** Estate Upgrade from the scenario box. You may immediately build it in the next empty plot on your Estate board at no additional cost. Then, return the **Commemorative Mayoral Coin** to the box."
  },
  "MayoralAward.6": {
   "full": "Whenever you take the Perform Experiment action, the **Personal Library** provides one free Knowledge of your choice from the supply. This Knowledge can be used immediately towards the cost of Performing that Experiment."
@@ -5436,7 +5430,7 @@
   "full": "Complete the standard setup for {0} players as shown in the rulebook. *Note that the {icon:AngryMob_Icon} track and starting player will be set by the Storybook in the coming pages.*"
  },
  "Preparations-TCOD.3": {
-  "full": "<align=\"center\"><line-height=400%><size=200>{icon:ScenarioBox3D_Disease}</size></align></line-height>"
+  "full": "{icon:ScenarioBox3D_Disease}"
  },
  "Preparations-TCOD.4": {
   "full": "Then, retrieve **The Cost of Disease** Scenario box, which will contain all components needed for this story. As the Storybook progresses, it will ask you to put items into play from this box. Be sure to keep it nearby."
@@ -5718,7 +5712,7 @@
   "full": "The family soon found a rapt audience for their unconventional experimentations, despite all logic running counter to this development, and the city entered into a golden age of progress."
  },
  "S5HospA3.10": {
-  "full": "Remove all player pieces from the board and perform the End of a Generation. Any <sprite=\"StorybookToken\" index=0> tokens remaining on a player's Journal Track are returned to the supply."
+  "full": "Remove all player pieces from the board and perform the End of a Generation. Any {icon:StorybookToken} tokens remaining on a player's Journal Track are returned to the supply."
  },
  "NewMaster3E.1": {
   "full": "Give your creation a new, majestic name:"
@@ -5877,7 +5871,7 @@
   "full": "Gain 1 {icon:Insanity_Icon}, Gain 2 {icon:Creepy_Icon}, Move the {icon:AngryMob_Icon}."
  },
  "MWCreationHubE.49": {
-  "full": "<i>Note: This Masterwork still requires 1 A Experiment, 2 B Experiments, and 3 C Experiments to be completed.</i>"
+  "full": "*Note: This Masterwork still requires 1 A Experiment, 2 B Experiments, and 3 C Experiments to be completed.*"
  },
  "MWCompleteHubE.1": {
   "full": "**{0} - {1} - Journal Entry Excerpt**"
@@ -6279,7 +6273,7 @@
   "full": "{0}"
  },
  "TieredRewards1.9": {
-  "full": "Any player that chose not to donate **returns a Servant to Lost** and **gains 1 {icon:Creepy_Icon}**. <i>If you cannot lose a Servant, lose 3VP instead.</i>"
+  "full": "Any player that chose not to donate **returns a Servant to Lost** and **gains 1 {icon:Creepy_Icon}**. *If you cannot lose a Servant, lose 3VP instead.*"
  },
  "CannotParticipate.1": {
   "full": "**In the Blood**"
@@ -6438,7 +6432,7 @@
   "full": "If a player **discards an Immortality card**, they immediately:"
  },
  "OptiontoKillYes.7": {
-  "full": "**Gain 1 Body,** Lose 1{icon:Insanity_Icon}, and Gain 1VP. Then they must return a Caretaker piece to Lost.\n\nIf a player chooses to keep their Immortality card, they receive no special bonus and also keep their <b>Caretaker</b> piece.\n\nOnce all players have chosen \n"
+  "full": "**Gain 1 Body,** Lose 1{icon:Insanity_Icon}, and Gain 1VP. Then they must return a Caretaker piece to Lost.\n\nIf a player chooses to keep their Immortality card, they receive no special bonus and also keep their **Caretaker** piece.\n\nOnce all players have chosen \n"
  },
  "OptiontoKillYes.8": {
   "full": "click here to continue"
@@ -6567,7 +6561,7 @@
   "full": "Retrieve the **Vial** token from the scenario box and place it near your Estate."
  },
  "VialCharity.3": {
-  "full": "Return the <b>Heart {icon:S1_HeartToken} token</b> to the scenario box."
+  "full": "Return the **Heart {icon:S1_HeartToken} token** to the scenario box."
  },
  "VialCharity.4": {
   "full": "**A Legacy of Charity**"
@@ -7050,7 +7044,7 @@
   "full": "The cousin took this opportunity to sell the vial for a significant sum of money."
  },
  "VialSoldforLess.5": {
-  "full": "{0} III gains **$2**. Return the <b>Vial token</b> to the scenario box."
+  "full": "{0} III gains **$2**. Return the **Vial token** to the scenario box."
  },
  "AwardSpawningPods.1": {
   "full": "**An Award For Research**"
@@ -7350,7 +7344,7 @@
   "full": "{0} III and {1} III each choose a Servant/Spouse piece and place it on the Hunter's Haven."
  },
  "Huntround1.4": {
-  "full": "<i>If a player cannot perform this action, they lose 3VP and gain a Servant/Spouse piece from Lost to place onto the Hunter's Haven.</i>"
+  "full": "*If a player cannot perform this action, they lose 3VP and gain a Servant/Spouse piece from Lost to place onto the Hunter's Haven.*"
  },
  "Huntround2.1": {
   "full": "**In Preparation for the Hunt**"
@@ -7362,7 +7356,7 @@
   "full": "{0} III and {1} III each choose a Servant/Spouse piece and place it onto the Hunter's Haven."
  },
  "Huntround2.4": {
-  "full": "<i>If a player cannot perform this action, they lose 3VP and gain a Servant/Spouse piece from Lost to place onto the Hunter's Haven.</i>"
+  "full": "*If a player cannot perform this action, they lose 3VP and gain a Servant/Spouse piece from Lost to place onto the Hunter's Haven.*"
  },
  "ProsperityWolvesIntro.1": {
   "full": "**GENERATION III:**"

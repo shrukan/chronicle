@@ -195,3 +195,16 @@ export interface StringEntry {
 
 /** One language: key → text. */
 export type StringTable = Record<string, StringEntry>;
+
+// ---------------------------------------------------------------------------
+// Extras (`extras.json`): data the app shows outside the story text
+// ---------------------------------------------------------------------------
+
+export interface ScenarioExtras {
+  /** Keyed by the `progress` argument of the end-of-round screen; values are string keys. */
+  endOfRound: Record<string, { round: number; text: string; then: string }>;
+  /** Log book entry per passage; values are string keys. */
+  logBook: Record<string, { title: string; location: string; summary: string }>;
+  /** Voice-over clips per passage, as paths of the original Unity assets. */
+  voiceOver: Record<string, { male?: string; female?: string }>;
+}

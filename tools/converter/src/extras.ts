@@ -5,16 +5,8 @@
 import { readdirSync, readFileSync } from 'node:fs';
 import { join, relative } from 'node:path';
 import { parse } from 'yaml';
-import { escapeMarkup, type Node, type Scenario, type StringTable } from '@chronicle/engine';
-
-export interface Extras {
-  /** Keyed by the passage name the story passes to the end-of-round screen. */
-  endOfRound: Record<string, { round: number; text: string; then: string }>;
-  /** Keyed by passage; values are string keys. */
-  logBook: Record<string, { title: string; location: string; summary: string }>;
-  /** Keyed by passage; paths relative to the Unity `Assets` folder. */
-  voiceOver: Record<string, { male?: string; female?: string }>;
-}
+import { toMarkup } from './passage.ts';
+import { type Node, type Scenario, type ScenarioExtras as Extras, type StringTable } from '@chronicle/engine';
 
 export interface ExtrasReport {
   endOfRound: number;
@@ -64,7 +56,7 @@ export function extractExtras(scenario: Scenario, strings: StringTable, assets: 
   const report: ExtrasReport = { endOfRound: 0, logBook: 0, voiceOver: 0, irregularLogBookRows: [] };
   const passages = scenario.passages;
   const add = (key: string, text: string) => {
-    strings[key] = { full: escapeMarkup(text.trim()) };
+    strings[key] = { full: toMarkup(text.trim()) };
     return key;
   };
 
