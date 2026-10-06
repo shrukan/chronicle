@@ -3,6 +3,7 @@ import { FORMAT_VERSION, SETUP_CONTINUE_KEY, type Passage, type Scenario, type S
 import {
   brokenTargets,
   dropDeadFragments,
+  tagEndings,
   finalizeStrings,
   manualNodes,
   reachable,
@@ -26,6 +27,8 @@ export interface ConvertInput {
 
 export interface ConvertReport {
   passages: number;
+  /** Number of passages tagged as endings. */
+  endings: number;
   unreachable: string[];
   deadFragments: string[];
   manual: ConvertIssue[];
@@ -100,6 +103,7 @@ export async function convertScenario(input: ConvertInput): Promise<ConvertResul
   const live = reachable(passages, [config.start, ...config.entries]);
   const unreachable = Object.keys(passages).filter((n) => !live.has(n)).sort();
   passages = Object.fromEntries(Object.entries(passages).filter(([n]) => live.has(n)));
+  const endings = tagEndings(passages);
 
   // Variables: the original's starting values, minus everything nothing uses any more.
   const used = usedVariables(passages);
@@ -118,6 +122,7 @@ export async function convertScenario(input: ConvertInput): Promise<ConvertResul
     strings: final.strings,
     report: {
       passages: Object.keys(passages).length,
+      endings: endings.length,
       unreachable,
       deadFragments,
       manual: manualNodes(passages),

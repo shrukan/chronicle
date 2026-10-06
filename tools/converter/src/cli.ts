@@ -65,7 +65,7 @@ function summary(id: string, r: ConvertReport, x: ExtrasReport): void {
   const manual: Record<string, number> = {};
   for (const m of r.manual) manual[m.reason] = (manual[m.reason] ?? 0) + 1;
   console.log(`\n${id}`);
-  console.log(`  passages      ${r.passages} kept, ${r.unreachable.length} unreachable dropped`);
+  console.log(`  passages      ${r.passages} kept (${r.endings} endings), ${r.unreachable.length} unreachable dropped`);
   console.log(`  text          ${r.kinds.narrative} narrative, ${r.kinds.instruction} instruction, ${r.kinds.title} title; ${Object.keys(r.commonKeys).length} shared labels`);
   console.log(`  variables     ${JSON.stringify(types)}; ${r.unusedVariables.length} unused dropped`);
   console.log(`  manual        ${r.manual.length}${r.manual.length ? ' ' + JSON.stringify(manual) : ''}`);

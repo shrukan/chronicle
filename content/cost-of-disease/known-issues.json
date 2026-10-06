@@ -1,0 +1,8 @@
+{
+  "neverSet": {
+    "hunt1c": "Bug in the original: hunt1a and hunt1b are taken from a shuffled list, hunt1c never is, so the branches comparing it can't happen. Kept as in the original for now."
+  },
+  "unvisited": {
+    "EvilWolves1Note": "Developer note. Only one of its fragments is used (revealed from another passage, a hand edit in the original); the passage itself is never shown."
+  }
+}

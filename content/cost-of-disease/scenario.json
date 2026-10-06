@@ -3657,7 +3657,9 @@
   },
   "END-WolvesEvil1": {
    "name": "END-WolvesEvil1",
-   "tags": [],
+   "tags": [
+    "ending"
+   ],
    "body": [
     {
      "t": "text",
@@ -3731,7 +3733,9 @@
   },
   "END-HuntersEvil1": {
    "name": "END-HuntersEvil1",
-   "tags": [],
+   "tags": [
+    "ending"
+   ],
    "body": [
     {
      "t": "text",
@@ -3800,7 +3804,9 @@
   },
   "END-WolvesGood1": {
    "name": "END-WolvesGood1",
-   "tags": [],
+   "tags": [
+    "ending"
+   ],
    "body": [
     {
      "t": "text",
@@ -3896,7 +3902,9 @@
   },
   "END-HunterGood1": {
    "name": "END-HunterGood1",
-   "tags": [],
+   "tags": [
+    "ending"
+   ],
    "body": [
     {
      "t": "text",
@@ -3970,7 +3978,9 @@
   },
   "END-NoUniGood": {
    "name": "END-NoUniGood",
-   "tags": [],
+   "tags": [
+    "ending"
+   ],
    "body": [
     {
      "t": "text",
@@ -69844,7 +69854,9 @@
   },
   "END-UniGood": {
    "name": "END-UniGood",
-   "tags": [],
+   "tags": [
+    "ending"
+   ],
    "body": [
     {
      "t": "text",
@@ -71322,7 +71334,9 @@
   },
   "END-HuntersEvil2": {
    "name": "END-HuntersEvil2",
-   "tags": [],
+   "tags": [
+    "ending"
+   ],
    "body": [
     {
      "t": "text",
@@ -71418,7 +71432,9 @@
   },
   "END-WolvesEvil2": {
    "name": "END-WolvesEvil2",
-   "tags": [],
+   "tags": [
+    "ending"
+   ],
    "body": [
     {
      "t": "text",

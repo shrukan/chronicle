@@ -83,6 +83,21 @@ export function reachable(passages: Passages, entries: string[]): Set<string> {
   return seen;
 }
 
+/**
+ * Tags passages that end the story: they enable the ending screen's continue button
+ * (`generationEndingContinue`) and offer no way onward.
+ */
+export function tagEndings(passages: Passages): string[] {
+  const exits = new Set<string>(), endingUi = new Set<string>();
+  eachNode(passages, (n, p) => {
+    if (n.t === 'link' || n.t === 'goto' || n.t === 'include' || (n.t === 'block' && n.next) || (n.t === 'ui' && n.args?.['next'])) exits.add(p.name);
+    if (n.t === 'ui' && n.ui === 'generationEndingContinue') endingUi.add(p.name);
+  });
+  const endings = [...endingUi].filter((n) => !exits.has(n)).sort();
+  for (const n of endings) passages[n]!.tags = [...new Set([...passages[n]!.tags, 'ending'])];
+  return endings;
+}
+
 /** Literal passage targets that don't exist. */
 export function brokenTargets(passages: Passages): { passage: string; target: string }[] {
   const out: { passage: string; target: string }[] = [];
