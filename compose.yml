@@ -1,0 +1,13 @@
+services:
+  chronicle:
+    image: ${IMAGE_NAME:-chronicle:latest}
+    container_name: ${CONTAINER_NAME:-chronicle}
+    build:
+      context: .
+      target: runtime
+    ports:
+      - "${PORT:-8080}:8080"
+    read_only: true
+    tmpfs:
+      - /tmp
+    restart: unless-stopped

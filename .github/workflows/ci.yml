@@ -24,3 +24,17 @@ jobs:
       - run: task project:check
         env:
           CI: "true"
+
+  image:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: docker/setup-buildx-action@v3
+      - uses: docker/build-push-action@v6
+        with:
+          context: .
+          target: runtime
+          push: false
+          tags: chronicle:ci
+          cache-from: type=gha
+          cache-to: type=gha,mode=max

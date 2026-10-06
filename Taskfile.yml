@@ -6,6 +6,7 @@ vars:
   PROJECT_NAME: chronicle
   APP_VERSION: "0.0.0" # x-release-please-version
 
+  DEFAULT_IMAGE_NAME: "{{.PROJECT_NAME}}:{{.APP_VERSION}}"
   UPSTREAM_DIR: '{{joinPath .ROOT_DIR "upstream"}}'
   UPSTREAM_REPO: https://github.com/Deusald/MyFathersWork-FanMadeCompanionApp.git
 
@@ -17,6 +18,31 @@ tasks:
     generates: ["node_modules/.package-lock.json"]
     cmds:
       - '{{if .CI}}npm ci{{else}}npm install{{end}}'
+
+  # Docker
+  project:build:docker:
+    desc: Build the production image.
+    vars:
+      IMAGE_NAME: '{{.IMAGE_NAME | default .DEFAULT_IMAGE_NAME}}'
+    sources: ["Dockerfile", "docker/**/*", "package-lock.json", "engine/**/*", "frontend/**/*", "content/**/*.json"]
+    generates: [.docker_image_marker.lock]
+    cmds:
+      - docker build --tag {{.IMAGE_NAME}} --target runtime .
+      - touch .docker_image_marker.lock
+
+  project:up:prod:
+    desc: "Run the production image locally with Docker Compose (vars: PORT, default 8080)."
+    deps:
+      - task: project:build:docker
+    cmd: IMAGE_NAME="{{.DEFAULT_IMAGE_NAME}}" PORT="{{.PORT | default "8080"}}" docker compose up -d
+
+  project:down:prod:
+    desc: Stop the locally running production container.
+    cmd: IMAGE_NAME="{{.DEFAULT_IMAGE_NAME}}" docker compose down
+
+  project:log:docker:
+    desc: Show the container logs.
+    cmd: IMAGE_NAME="{{.DEFAULT_IMAGE_NAME}}" docker compose logs chronicle
 
   # Upstream reference sources
   upstream:clone:
@@ -40,7 +66,40 @@ tasks:
     cmds:
       - task: project:typecheck
       - task: project:test
+      - task: frontend:test
+      - task: frontend:build
       - task: content:test
+
+  # Frontend
+  frontend:content:
+    desc: Copy the scenario data the app serves into frontend/public/content (git-ignored).
+    sources: ["content/*/scenario.json", "content/*/strings.en.json", "content/*/extras.json"]
+    generates: ["frontend/public/content/**/*.json"]
+    cmds:
+      - rm -rf frontend/public/content
+      - for f in content/*/scenario.json content/*/strings.en.json content/*/extras.json; do mkdir -p "frontend/public/$(dirname "$f")" && cp "$f" "frontend/public/$f"; done
+
+  frontend:serve:dev:
+    desc: Serve the app with live reload (ng serve).
+    deps: [deps:install, frontend:content]
+    dir: frontend
+    cmd: npx ng serve
+
+  frontend:build:
+    desc: Production build into build/web.
+    deps: [deps:install, frontend:content]
+    dir: frontend
+    vars:
+      OUTPUT_DIR: '{{.OUTPUT_DIR | default (joinPath .ROOT_DIR "build/web")}}'
+    sources: ["src/**/*", "public/**/*", "angular.json", "ngsw-config.json", "../engine/src/**/*.ts", "../package-lock.json"]
+    generates: ["{{.OUTPUT_DIR}}/browser/index.html"]
+    cmd: npx ng build --configuration=production --output-path="{{.OUTPUT_DIR}}"
+
+  frontend:test:
+    desc: Unit tests of the app (Vitest).
+    deps: [deps:install]
+    dir: frontend
+    cmd: npx ng test --watch=false
 
   # Content
   content:convert:

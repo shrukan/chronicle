@@ -4,8 +4,8 @@ An unofficial, fan-made companion app for the board game **My Father's Work**
 (Renegade Game Studios). It replaces the original app, which is no longer maintained, with an
 installable web app that also works offline.
 
-> **Status:** early development (milestone M2). *The Cost of Disease* is converted, tested and
-> playable in the terminal; not playable in the browser yet – see [PLAN.md](PLAN.md).
+> **Status:** early development (milestone M3). *The Cost of Disease* is playable in the browser
+> with a placeholder setup screen – see [PLAN.md](PLAN.md).
 
 ## How it works
 
@@ -22,6 +22,7 @@ story tester and the terminal player.
 
 | Path | What |
 |---|---|
+| `frontend/` | Angular PWA (signals, zoneless, Signal Forms, Tailwind, CDK) |
 | `engine/` | Story format (`schema.ts`), runtime, value semantics, text markup |
 | `tools/converter/` | Converts the original C# story scripts into `content/` |
 | `tools/story-cli/` | Terminal player and random-playthrough smoke test |
@@ -39,6 +40,8 @@ task deps:install
 task project:check          # type-check + unit tests
 task content:convert         # clone the original sources and regenerate content/
 task content:test            # story tester: dead ends, errors, coverage (spoiler-free output)
+task frontend:serve:dev      # the app at http://localhost:4200
+task project:up:prod         # the production container at http://localhost:8080
 task story:play              # play The Cost of Disease in the terminal
 task content:smoke RUNS=1000 # random playthroughs: errors, coverage, endings reached
 ```

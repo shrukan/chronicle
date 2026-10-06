@@ -15,7 +15,8 @@ hooks = [
 repo = "builtin"
 hooks = [
   { id = "check-toml" },
-  { id = "check-json" },
+  # tsconfig files are JSON with comments.
+  { id = "check-json", exclude = "(^|/)tsconfig[^/]*\\.json$" },
   { id = "check-yaml" },
   { id = "end-of-file-fixer" },
   { id = "trailing-whitespace", args = ["--markdown-linebreak-ext=md"] },

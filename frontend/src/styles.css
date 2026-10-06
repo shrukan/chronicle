@@ -1,0 +1,49 @@
+@import 'tailwindcss';
+
+/*
+ * Theme tokens. Light: parchment and ink; dark: candle-lit study. Components use the
+ * CSS variables, so a reading mode or a new theme only swaps these values.
+ */
+@theme {
+  --font-display: 'IM Fell English SC', 'IM Fell English', Georgia, serif;
+  --font-body: 'EB Garamond', Georgia, 'Times New Roman', serif;
+
+  --color-bg: #f3ead8;
+  --color-panel: #ebdfc6;
+  --color-ink: #2a2118;
+  --color-heading: #4a1f17;
+  --color-muted: #7a6a55;
+  --color-rule: #cdb994;
+  --color-accent: #7b2d26;
+  --color-on-accent: #f8f0e1;
+  --color-link: #7b2d26;
+  --color-link-hover: #a63c32;
+  --color-error: #a32020;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-bg: #16120f;
+    --color-panel: #221b16;
+    --color-ink: #e6dcc8;
+    --color-heading: #e9c79a;
+    --color-muted: #9b8b74;
+    --color-rule: #3d3128;
+    --color-accent: #c26a4a;
+    --color-on-accent: #16120f;
+    --color-link: #e3a372;
+    --color-link-hover: #f2c39b;
+    --color-error: #ff8a80;
+  }
+}
+
+html {
+  background: var(--color-bg);
+  color: var(--color-ink);
+  font-family: var(--font-body);
+  font-size: 17px;
+}
+
+body {
+  margin: 0;
+}

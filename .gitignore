@@ -2,6 +2,9 @@
 upstream/
 
 # Builds
+frontend/public/content/
+frontend/dist/
+.angular/
 build/
 dist/
 .docker_image_marker.lock

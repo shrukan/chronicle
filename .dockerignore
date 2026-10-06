@@ -1,0 +1,9 @@
+**/node_modules
+build
+upstream
+.git
+.task
+frontend/dist
+frontend/public/content
+.docker_image_marker.lock
+**/.angular

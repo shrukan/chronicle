@@ -10,7 +10,8 @@
   },
   "workspaces": [
     "engine",
-    "tools/*"
+    "tools/*",
+    "frontend"
   ],
   "scripts": {
     "typecheck": "tsc -b",
