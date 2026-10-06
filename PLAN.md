@@ -88,22 +88,18 @@ Each milestone has an exit criterion. Don't start the next until it's met (unles
 - Corrected numbers: Cost of Disease has 361 passages (EN), Fear of the Unknown 378,
   A Time of War 297. The handoff's "869" counted generated methods, not passages.
 
-**M1 – Converter (Cost of Disease, EN)**
-- Promote `spike/src/convert.ts` and `normalize.ts` to `tools/converter/` with tests. All
-  knowledge of the original's loose rules stays in the converter; the engine is strict.
-  Once `content/` is the source of truth, the converter and `upstream/` can be deleted.
-  The converter already handles: string
-  concatenation, styles/blocks, hooks and fragments (incl. cross-passage and renumbered ones),
-  prompts, setup pop-ups, Harlowe macros and arrays, ternaries, app-screen calls.
-- Turn the 11 app-screen passages (password, naming creations, score entry, winner ranking,
-  most investigated) into `ui` nodes, and build those screens' logic into the engine/app.
-- Shared `common.*` string keys for repeated labels ("Click to continue...").
-- Text classification: default to `instruction` when unsure; use the CSV "physical instruction"
-  column; mark developer-note passages (`DEV NOTE`) and exclude them.
-- ✅ Extract end-of-round texts, log-book data and voice-over mapping from the Unity assets
-  (`content/<id>/extras.json`).
-- **Exit:** all 361 passages converted, zero `manual` nodes, output committed to `content/`;
-  passage list matches Deusald's chapter index.
+**M1 – Converter (Cost of Disease, EN)** ✅ done
+- `tools/converter/` (C# → JSON, normalisation to strict types, extras) with fixture tests;
+  `tools/story-cli/` (terminal player, random playthroughs).
+- `content/cost-of-disease/`: 315 reachable passages, 0 manual nodes, 0 typing issues,
+  0 broken links; `extras.json` with 21 end-of-round texts, 96 log book entries, 9 voice-over clips.
+- The 46 dropped passages match Deusald's chapter index exactly: dev notes, the old setup and
+  test-scoring paths (replaced by app screens), help and building reference pages the original
+  app never navigated to (hub titles are shown in a separate hub view).
+- 2,000 random playthroughs: no errors, all end in one of the 8 endings.
+- Moved to later: shortened texts and their review (after the scenarios), 12 log book CSV rows
+  with commas inside their text (the original misreads them too), Fear of the Unknown / A Time
+  of War (converter reports 15 / 8 manual nodes; A Time of War also needs its real entry points).
 
 **M2 – Story tester**
 - Walks every branch (with value sets for prompts/random) and reports dead ends, unreachable
