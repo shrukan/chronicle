@@ -7756,5 +7756,995 @@
  },
  "WolvesBankMayorGood.5": {
   "full": "{0} gains 1 {icon:Creepy_Icon} and loses **2VP**. Then, return the **Commemorative Mayoral Coin** to the scenario box."
+ },
+ "round.Fever1.end": {
+  "full": "The Early Years of the First Generation has ended. Perform all End of Round actions."
+ },
+ "round.Fever1.then": {
+  "full": "Then, perform all Start of Round actions for the Middle Years before continuing."
+ },
+ "round.Fever2.end": {
+  "full": "The Middle Years of the First Generation has ended. Perform all End of Round actions."
+ },
+ "round.Fever2.then": {
+  "full": "Then, perform all Start of Round actions for the Late Years before continuing."
+ },
+ "round.Fever3.end": {
+  "full": "The Late Years of the First Generation has ended."
+ },
+ "round.Fever3.then": {
+  "full": "Perform any End of Round actions before continuing."
+ },
+ "round.Hospital1.end": {
+  "full": "The Early Years of the Second Generation has ended. Perform all End of Round actions."
+ },
+ "round.Hospital1.then": {
+  "full": "Then, perform all Start of Round actions for the Middle Years before continuing."
+ },
+ "round.Devastation1.end": {
+  "full": "The Early Years of the Second Generation has ended. Perform all End of Round actions."
+ },
+ "round.Devastation1.then": {
+  "full": "Then, perform all Start of Round actions for the Middle Years before continuing."
+ },
+ "round.Devastation2.end": {
+  "full": "The Middle Years of the Second Generation has ended. Perform all End of Round actions."
+ },
+ "round.Devastation2.then": {
+  "full": "Then, perform all Start of Round actions for the Late Years before continuing."
+ },
+ "round.Hospital2.end": {
+  "full": "The Middle Years of the Second Generation has ended. Perform all End of Round actions."
+ },
+ "round.Hospital2.then": {
+  "full": "Then, perform all Start of Round actions for the Late Years before continuing."
+ },
+ "round.Devastation3.end": {
+  "full": "The Late Years of the Second Generation has ended."
+ },
+ "round.Devastation3.then": {
+  "full": "Perform any End of Round actions before continuing."
+ },
+ "round.Hospital3.end": {
+  "full": "The Late Years of the Second Generation has ended."
+ },
+ "round.Hospital3.then": {
+  "full": "Perform any End of Round actions before continuing."
+ },
+ "round.NoUni1.end": {
+  "full": "The Early Years of the Third Generation has ended. Perform all End of Round actions."
+ },
+ "round.NoUni1.then": {
+  "full": "Then, perform all Start of Round actions for the Middle Years before continuing."
+ },
+ "round.Prosperity1.end": {
+  "full": "The Early Years of the Third Generation has ended. Perform all End of Round actions."
+ },
+ "round.Prosperity1.then": {
+  "full": "Then, perform all Start of Round actions for the Middle Years before continuing."
+ },
+ "round.GloomyGothic1.end": {
+  "full": "The Early Years of the Third Generation has ended. Perform all End of Round actions."
+ },
+ "round.GloomyGothic1.then": {
+  "full": "Then, perform all Start of Round actions for the Middle Years before continuing."
+ },
+ "round.University1.end": {
+  "full": "The Early Years of the Third Generation has ended. Perform all End of Round actions."
+ },
+ "round.University1.then": {
+  "full": "Then, perform all Start of Round actions for the Middle Years before continuing."
+ },
+ "round.NoUni2.end": {
+  "full": "The Middle Years of the Third Generation has ended. Perform all End of Round actions."
+ },
+ "round.NoUni2.then": {
+  "full": "Then, perform all Start of Round actions for the Late Years before continuing."
+ },
+ "round.University2.end": {
+  "full": "The Middle Years of the Third Generation has ended. Perform all End of Round actions."
+ },
+ "round.University2.then": {
+  "full": "Then, perform all Start of Round actions for the Late Years before continuing."
+ },
+ "round.Prosperity2.end": {
+  "full": "The Middle Years of the Third Generation has ended. Perform all End of Round actions."
+ },
+ "round.Prosperity2.then": {
+  "full": "Then, perform all Start of Round actions for the Late Years before continuing."
+ },
+ "round.GloomyGothic2.end": {
+  "full": "The Middle Years of the Third Generation has ended. Perform all End of Round actions."
+ },
+ "round.GloomyGothic2.then": {
+  "full": "Then, perform all Start of Round actions for the Late Years before continuing."
+ },
+ "round.NoUni3.end": {
+  "full": "The Late Years of the Third Generation has ended."
+ },
+ "round.NoUni3.then": {
+  "full": "Perform any End of Round actions before continuing."
+ },
+ "round.University3.end": {
+  "full": "The Late Years of the Third Generation has ended."
+ },
+ "round.University3.then": {
+  "full": "Perform any End of Round actions before continuing."
+ },
+ "round.Prosperity3.end": {
+  "full": "The Late Years of the Third Generation has ended."
+ },
+ "round.Prosperity3.then": {
+  "full": "Perform any End of Round actions before continuing."
+ },
+ "round.GloomyGothic3.end": {
+  "full": "The Late Years of the Third Generation has ended."
+ },
+ "round.GloomyGothic3.then": {
+  "full": "Perform any End of Round actions before continuing."
+ },
+ "log.S5SpecialSetup1.title": {
+  "full": "Direction of the Town"
+ },
+ "log.S5SpecialSetup1.location": {
+  "full": "Office"
+ },
+ "log.S5SpecialSetup1.summary": {
+  "full": "The mayor chooses between building a bank or a library."
+ },
+ "log.S5Fate1.title": {
+  "full": "Financial Woes"
+ },
+ "log.S5Fate1.location": {
+  "full": "Village"
+ },
+ "log.S5Fate1.summary": {
+  "full": "The village of Xvillage was for lack of a more appropriate term agricultural in its funds and like many similar small villages were woefully unprepared for the ravages of disease."
+ },
+ "log.S5Specialbar1.title": {
+  "full": "Hungarian Bright"
+ },
+ "log.S5Specialbar1.location": {
+  "full": "Town Hall"
+ },
+ "log.S5Specialbar1.summary": {
+  "full": "Cousins became frustrated by lack of modern convenience."
+ },
+ "log.SymposiumFail.title": {
+  "full": "Symposium Failure"
+ },
+ "log.SymposiumFail.location": {
+  "full": "Laboratory"
+ },
+ "log.SymposiumFail.summary": {
+  "full": "The cousins were informed that they would not be receiving any invitations for lecture opportunities in the future."
+ },
+ "log.SymposiumSuccess.title": {
+  "full": "Symposium Success"
+ },
+ "log.SymposiumSuccess.location": {
+  "full": "Laboratory"
+ },
+ "log.SymposiumSuccess.summary": {
+  "full": "Despite a lack of traditional form the professors all agreed that it was the inexorably excitable demeanor of the cousins that so enamored them."
+ },
+ "log.Changes.title": {
+  "full": "A Return to Civility"
+ },
+ "log.Changes.location": {
+  "full": "Carriage"
+ },
+ "log.Changes.summary": {
+  "full": "A morning ride allowed the aging aristocrats a chance to ruminate on the melancholic dour beauty of the region."
+ },
+ "log.CureMoonSick1.title": {
+  "full": "Moon Sickness"
+ },
+ "log.CureMoonSick1.location": {
+  "full": "Garden"
+ },
+ "log.CureMoonSick1.summary": {
+  "full": "Lucid memories of stalking prey in the woods haunted the cousins dreams yet filled them with a terrible energy."
+ },
+ "log.Panacea.title": {
+  "full": "A Cure For All"
+ },
+ "log.Panacea.location": {
+  "full": "Laboratory"
+ },
+ "log.Panacea.summary": {
+  "full": "After years of tireless dedication a solution to the ails of all men had been formulated."
+ },
+ "log.Panacea1.title": {
+  "full": "A Weapon Published"
+ },
+ "log.Panacea1.location": {
+  "full": "Publishing Company"
+ },
+ "log.Panacea1.summary": {
+  "full": "In a shocking display of altruism the findings were published in a series of medical journals at the behest of the university's administration."
+ },
+ "log.SymposiumEvent3.title": {
+  "full": "The Fate of the Lecture Series"
+ },
+ "log.SymposiumEvent3.location": {
+  "full": "Laboratory"
+ },
+ "log.SymposiumEvent3.summary": {
+  "full": "The lecture series comes to a close."
+ },
+ "log.S5Special1b.title": {
+  "full": "Humble Beginnings"
+ },
+ "log.S5Special1b.location": {
+  "full": "Village"
+ },
+ "log.S5Special1b.summary": {
+  "full": "The family had made their first mark on the history of the town for good or ill."
+ },
+ "log.FeverServe1.title": {
+  "full": "Fortuitous Assistance"
+ },
+ "log.FeverServe1.location": {
+  "full": "Village House"
+ },
+ "log.FeverServe1.summary": {
+  "full": "Two young aristocrats and their spouses moved to a small village in France."
+ },
+ "log.FeverServe2.title": {
+  "full": "Daughters Entrusted"
+ },
+ "log.FeverServe2.location": {
+  "full": "Estate"
+ },
+ "log.FeverServe2.summary": {
+  "full": "A former business associate of their mother's requested a daughter be put under each of the houses' charge."
+ },
+ "log.Dubious.title": {
+  "full": "Dubious Bartering"
+ },
+ "log.Dubious.location": {
+  "full": "University"
+ },
+ "log.Dubious.summary": {
+  "full": "The bishop entreated the cousins to donate time and money to help aid the sick at the church."
+ },
+ "log.ElecY.title": {
+  "full": "Anger and Resentment"
+ },
+ "log.ElecY.location": {
+  "full": "Town Center"
+ },
+ "log.ElecY.summary": {
+  "full": "The mob's flaming torches set the Hospital and Town Hall ablaze leaving multiple individuals severely injured or deceased as they continued into the nearby hills."
+ },
+ "log.ElecN.title": {
+  "full": "Celebration and Anger"
+ },
+ "log.ElecN.location": {
+  "full": "Town Center"
+ },
+ "log.ElecN.summary": {
+  "full": "The townspeople sifted through the cousins; erudite proposal at the next town meeting and realized that they intended to support their ridiculous distrust of modern convenience."
+ },
+ "log.Lettercode.title": {
+  "full": "Surprising Correspondence"
+ },
+ "log.Lettercode.location": {
+  "full": "Estate Hall"
+ },
+ "log.Lettercode.summary": {
+  "full": "The cousins were amused to receive a plain letter of correspondence sealed with wax."
+ },
+ "log.NoUni3b.title": {
+  "full": "One Last Attempt"
+ },
+ "log.NoUni3b.location": {
+  "full": "Laboratory"
+ },
+ "log.NoUni3b.summary": {
+  "full": "Any player with a token that is not currently overtaken by the Angry Mob receives one final Perform Experiment action."
+ },
+ "log.BuildingsEnd.title": {
+  "full": "Good or Evil Intent"
+ },
+ "log.BuildingsEnd.location": {
+  "full": "Town Center"
+ },
+ "log.BuildingsEnd.summary": {
+  "full": "The town began to attract new interest from those with both genuine and nefarious motivations"
+ },
+ "log.S5Special1a.title": {
+  "full": "A Bid for Mayor"
+ },
+ "log.S5Special1a.location": {
+  "full": "Town Hall"
+ },
+ "log.S5Special1a.summary": {
+  "full": "All players take all their money into their hands and they then secretly choose any amount to place into their right hand to bid on becoming Mayor"
+ },
+ "log.DiseaseConsequence.title": {
+  "full": "Inescapable Plague"
+ },
+ "log.DiseaseConsequence.location": {
+  "full": "Village"
+ },
+ "log.DiseaseConsequence.summary": {
+  "full": "The group of young scientists found themselves stricken with a chronic illness that would remain with them for their entire lives."
+ },
+ "log.Immortality.title": {
+  "full": "Overcoming Death"
+ },
+ "log.Immortality.location": {
+  "full": "Living Room"
+ },
+ "log.Immortality.summary": {
+  "full": "A deep restlessness had set into the minds of each and even on the cusp of approval from the academic community they could not quell these thoughts."
+ },
+ "log.DetEffect1.title": {
+  "full": "Major Deleterious Effect"
+ },
+ "log.DetEffect1.location": {
+  "full": "Bed Room"
+ },
+ "log.DetEffect1.summary": {
+  "full": "Sick and unable to heal again stumbling blindly until the bones were brittle enough to snap their bodies had finally failed them."
+ },
+ "log.DetEffect2.title": {
+  "full": "Minor Deleterious Effect"
+ },
+ "log.DetEffect2.location": {
+  "full": "Village"
+ },
+ "log.DetEffect2.summary": {
+  "full": "They feared that their hasty solution had borne upon them irreversible effects."
+ },
+ "log.DetEffect3.title": {
+  "full": "Minor Deleterious Effect"
+ },
+ "log.DetEffect3.location": {
+  "full": "Village"
+ },
+ "log.DetEffect3.summary": {
+  "full": "They feared that their hasty solution had borne upon them irreversible effects."
+ },
+ "log.DetEffect4.title": {
+  "full": "No Effect"
+ },
+ "log.DetEffect4.location": {
+  "full": "Bed Room"
+ },
+ "log.DetEffect4.summary": {
+  "full": "The unthinkable had been achieved."
+ },
+ "log.InfinityClick1.title": {
+  "full": "Research Completed"
+ },
+ "log.InfinityClick1.location": {
+  "full": "Laboratory"
+ },
+ "log.InfinityClick1.summary": {
+  "full": "It seemed unimaginable; not simply a cure for all disease but a mysterious contrivance to extend life indefinitely."
+ },
+ "log.DevEventCure.title": {
+  "full": "An Alternative Cure"
+ },
+ "log.DevEventCure.location": {
+  "full": "Village"
+ },
+ "log.DevEventCure.summary": {
+  "full": "An envoy from the Fraternity of Hunters arrives presenting a cure."
+ },
+ "log.SymposiumEvent1.title": {
+  "full": "A collection of esteemed Colleagues"
+ },
+ "log.SymposiumEvent1.location": {
+  "full": "University"
+ },
+ "log.SymposiumEvent1.summary": {
+  "full": "The University was abuzz with activity as they attended various events and offered their prescribed greetings."
+ },
+ "log.LycanthropicMessage.title": {
+  "full": "The Form of the Wolf"
+ },
+ "log.LycanthropicMessage.location": {
+  "full": "Stone Room"
+ },
+ "log.LycanthropicMessage.summary": {
+  "full": "Do any player have the Lycanthropic Strength Masterwork Experiment?"
+ },
+ "log.LycanEvil.title": {
+  "full": "Strength Can Be Mine"
+ },
+ "log.LycanEvil.location": {
+  "full": "Stone Room"
+ },
+ "log.LycanEvil.summary": {
+  "full": "Could the catalyst of this truly powerful"
+ },
+ "log.HospitalVisitCheck.title": {
+  "full": "A Compulsory Visitation"
+ },
+ "log.HospitalVisitCheck.location": {
+  "full": "General Hospital"
+ },
+ "log.HospitalVisitCheck.summary": {
+  "full": "Established in 1865 it was instrumental in changing the public perception of a hospital from a place you go to die to a place of healing."
+ },
+ "log.NewMaster.title": {
+  "full": "Masters of Their Own Destiny"
+ },
+ "log.NewMaster.location": {
+  "full": "Laboratory"
+ },
+ "log.NewMaster.summary": {
+  "full": "It seemed the pervasive gloom of Xvillage had infected the halls of the great estates."
+ },
+ "log.EradicateDisease.title": {
+  "full": "The Cure"
+ },
+ "log.EradicateDisease.location": {
+  "full": "Dining Room"
+ },
+ "log.EradicateDisease.summary": {
+  "full": "Disease was hotly contested as the cure for Yellow Fever."
+ },
+ "log.CreepyStar.title": {
+  "full": "A Grudge Towards Intellect"
+ },
+ "log.CreepyStar.location": {
+  "full": "Pub"
+ },
+ "log.CreepyStar.summary": {
+  "full": "The reputation of a famed scientist in Budapest was reviled by the townsfolk."
+ },
+ "log.RippedMasterwork.title": {
+  "full": "Escaping The Curse"
+ },
+ "log.RippedMasterwork.location": {
+  "full": "Laboratory"
+ },
+ "log.RippedMasterwork.summary": {
+  "full": "With fists raised to the sky cursing the gods they ended the generation in desperation! Each individual experienced their own bout of isolation and self-destructive mania."
+ },
+ "log.PanaceaIntro.title": {
+  "full": "Eradication Forever"
+ },
+ "log.PanaceaIntro.location": {
+  "full": "Veranda"
+ },
+ "log.PanaceaIntro.summary": {
+  "full": "A Cure-All or Grecian Panacea became the newest topic of considerable divisiveness."
+ },
+ "log.EvilConsequences.title": {
+  "full": "The Consequences of Disobedience"
+ },
+ "log.EvilConsequences.location": {
+  "full": "Town Center"
+ },
+ "log.EvilConsequences.summary": {
+  "full": "The Order had revealed its true self swiftly taking over the town and demanding alliance in the most vicious of terms."
+ },
+ "log.CharityNegCons.title": {
+  "full": "Condescending Patronage"
+ },
+ "log.CharityNegCons.location": {
+  "full": "Village"
+ },
+ "log.CharityNegCons.summary": {
+  "full": "It was clear to the townsfolk that disease was caused by the presence of demons."
+ },
+ "log.Gen1-CreepyTrack.title": {
+  "full": "Enemy of the People"
+ },
+ "log.Gen1-CreepyTrack.location": {
+  "full": "Village"
+ },
+ "log.Gen1-CreepyTrack.summary": {
+  "full": "The increasingly eccentric actions of the siblings aroused dark memories from the previous generation."
+ },
+ "log.Gen1-SanityTrack.title": {
+  "full": "To Quell the Mind"
+ },
+ "log.Gen1-SanityTrack.location": {
+  "full": "Laboratory"
+ },
+ "log.Gen1-SanityTrack.summary": {
+  "full": "The siblings' scientific labors caused their brains to wander and ache for relief"
+ },
+ "log.Gen1-CreepyTrackRes.title": {
+  "full": "A Seedy Arrangement"
+ },
+ "log.Gen1-CreepyTrackRes.location": {
+  "full": "Dining Room"
+ },
+ "log.Gen1-CreepyTrackRes.summary": {
+  "full": "Player entertained unknown visitors to his estate"
+ },
+ "log.Gen1-SanityTrackRes.title": {
+  "full": "A Letter From an Old Friend"
+ },
+ "log.Gen1-SanityTrackRes.location": {
+  "full": "Post Office"
+ },
+ "log.Gen1-SanityTrackRes.summary": {
+  "full": "An old letter from an old colleague at university recommended a retreat in Rovinj."
+ },
+ "log.LycanGood.title": {
+  "full": "Strength Can Be Mine"
+ },
+ "log.LycanGood.location": {
+  "full": "Stone Room"
+ },
+ "log.LycanGood.summary": {
+  "full": "Could the catalyst of this truly powerful"
+ },
+ "log.GoodConsequences.title": {
+  "full": "The Consequences of Being Good"
+ },
+ "log.GoodConsequences.location": {
+  "full": "Village"
+ },
+ "log.GoodConsequences.summary": {
+  "full": "The town was desperate to move forward and they could not stomach the cousins' ambitions."
+ },
+ "log.WolvesEvil1.title": {
+  "full": "A Call for Assistance"
+ },
+ "log.WolvesEvil1.location": {
+  "full": "Estate Entrance"
+ },
+ "log.WolvesEvil1.summary": {
+  "full": "The gathering of clawed monstrosities celebrated with keening wails as the Masterwork was completed in all of its glory. Some scribbled away at notes copying the formulas and schematics as best they could."
+ },
+ "log.TaxesEventStart.title": {
+  "full": "The Hunt Begins"
+ },
+ "log.TaxesEventStart.location": {
+  "full": "Hunter's Lodge"
+ },
+ "log.TaxesEventStart.summary": {
+  "full": "The Fraternity claims to exterminate the plague of monsters that tormented the town."
+ },
+ "log.EvilHunter1EventYes.title": {
+  "full": "Prepare a Contest"
+ },
+ "log.EvilHunter1EventYes.location": {
+  "full": "Village"
+ },
+ "log.EvilHunter1EventYes.summary": {
+  "full": "The Fraternity would provide guaranteed proof of their supernatural exploits by confronting the cursed beasts of the evening in full view of the townspeople."
+ },
+ "log.ConfrontationFail.title": {
+  "full": "A Hero's Welcome"
+ },
+ "log.ConfrontationFail.location": {
+  "full": "Town"
+ },
+ "log.ConfrontationFail.summary": {
+  "full": "The gathered crowds became restless and burst into the Hunter's Lodge only to discover that the Fraternity had played them for fools."
+ },
+ "log.UniMayor.title": {
+  "full": "Legacy of Leadership"
+ },
+ "log.UniMayor.location": {
+  "full": "University"
+ },
+ "log.UniMayor.summary": {
+  "full": "The village arranged a large parade to christen the construction of the new university."
+ },
+ "log.UniEquity.title": {
+  "full": "The Guiding hand of Science"
+ },
+ "log.UniEquity.location": {
+  "full": "University"
+ },
+ "log.UniEquity.summary": {
+  "full": "The university decides to provide an “equitable” boost to amplify the standing of lesser-known scientists."
+ },
+ "log.UniEvent1-UltimateDisease.title": {
+  "full": "Ignored Amongst the Scientific Elite"
+ },
+ "log.UniEvent1-UltimateDisease.location": {
+  "full": "Street"
+ },
+ "log.UniEvent1-UltimateDisease.summary": {
+  "full": "With combined efforts the cousins plan to create the ''ultimate disease''."
+ },
+ "log.UniEvent2-UltimateDisease.title": {
+  "full": "The Ultimate Disease"
+ },
+ "log.UniEvent2-UltimateDisease.location": {
+  "full": "Laboratory"
+ },
+ "log.UniEvent2-UltimateDisease.summary": {
+  "full": "The cousins assemble to finalize their creation"
+ },
+ "log.UniEvent2-Success.title": {
+  "full": "A Wondrous Success"
+ },
+ "log.UniEvent2-Success.location": {
+  "full": "Farmer's Market"
+ },
+ "log.UniEvent2-Success.summary": {
+  "full": "By creating a disease that included all known symptoms the cousins had essentially inoculated the populace against all disease simultaneously."
+ },
+ "log.HunterJoin.title": {
+  "full": "Fraternity of Hunters"
+ },
+ "log.HunterJoin.location": {
+  "full": "Estate"
+ },
+ "log.HunterJoin.summary": {
+  "full": "A member of the fraternity arrives in the estate."
+ },
+ "log.RefusalEvent.title": {
+  "full": "An Illuminating Conversation"
+ },
+ "log.RefusalEvent.location": {
+  "full": "Stable"
+ },
+ "log.RefusalEvent.summary": {
+  "full": "I approached the stable hand who was generous with information."
+ },
+ "log.EquitableValues.title": {
+  "full": "Deplorable Equity"
+ },
+ "log.EquitableValues.location": {
+  "full": "Estate"
+ },
+ "log.EquitableValues.summary": {
+  "full": "For the first time in decades the townsfolk expressed a sense of community a singular and modern identity."
+ },
+ "log.WolvesEco-Friendly.title": {
+  "full": "A Message"
+ },
+ "log.WolvesEco-Friendly.location": {
+  "full": "Village"
+ },
+ "log.WolvesEco-Friendly.summary": {
+  "full": "A new sense of peace tarnished by the persistence of past injustices."
+ },
+ "log.AngryMobStorybook.title": {
+  "full": "A Frightful Day"
+ },
+ "log.AngryMobStorybook.location": {
+  "full": "Village"
+ },
+ "log.AngryMobStorybook.summary": {
+  "full": "The rage amongst the townsfolk would well up and explode in uncontrollably violent outbursts but for the monsters of the village it was a feverish bloodlust."
+ },
+ "log.GoodFrenzyEvent.title": {
+  "full": "A Reasoned Proposal"
+ },
+ "log.GoodFrenzyEvent.location": {
+  "full": "Village"
+ },
+ "log.GoodFrenzyEvent.summary": {
+  "full": "The imperfections of the progressive monster reform system."
+ },
+ "log.YesFrenzy.title": {
+  "full": "The Frenzy"
+ },
+ "log.YesFrenzy.location": {
+  "full": "Town Hall"
+ },
+ "log.YesFrenzy.summary": {
+  "full": "The effects of indulging in latent urges."
+ },
+ "log.NoFrenzy.title": {
+  "full": "A Reasoned Response"
+ },
+ "log.NoFrenzy.location": {
+  "full": "Town Hall"
+ },
+ "log.NoFrenzy.summary": {
+  "full": "The recommendation was accepted."
+ },
+ "log.WolvesEvil2.title": {
+  "full": "Once More The Accursed Contribution"
+ },
+ "log.WolvesEvil2.location": {
+  "full": "Veranda"
+ },
+ "log.WolvesEvil2.summary": {
+  "full": "The messenger appears at nightfall."
+ },
+ "log.DiseaseEnd.title": {
+  "full": "Longevity and Clarity"
+ },
+ "log.DiseaseEnd.location": {
+  "full": "Study Room"
+ },
+ "log.DiseaseEnd.summary": {
+  "full": "Notes from this time period detail potential blueprints for a special room."
+ },
+ "log.WolfJoin.title": {
+  "full": "Order of St. Hubertus"
+ },
+ "log.WolfJoin.location": {
+  "full": "Estate"
+ },
+ "log.WolfJoin.summary": {
+  "full": "A member of the order arrives in the estate."
+ },
+ "log.HelpingEvil.title": {
+  "full": "A Reward for Service"
+ },
+ "log.HelpingEvil.location": {
+  "full": "Estate Hall"
+ },
+ "log.HelpingEvil.summary": {
+  "full": "The Order of St. Hubertus gave the new generation of scientists a permanent structure to aid in their experiments."
+ },
+ "log.MWTokenResolve.title": {
+  "full": "The Work is Complete"
+ },
+ "log.MWTokenResolve.location": {
+  "full": "Stone Room"
+ },
+ "log.MWTokenResolve.summary": {
+  "full": "The gathering of clawed monstrosities celebrated with keening wails as the Masterwork was completed in all of its glory. Some scribbled away at notes copying the formulas and schematics as best they could."
+ },
+ "log.SymposiumMiddle.title": {
+  "full": "A Cure for Yellow Fever"
+ },
+ "log.SymposiumMiddle.location": {
+  "full": "University"
+ },
+ "log.SymposiumMiddle.summary": {
+  "full": "The notes from the lectures created a tableau of mixed reactions."
+ },
+ "log.NoHospitalCons.title": {
+  "full": "A Steady Focus"
+ },
+ "log.NoHospitalCons.location": {
+  "full": "Estate"
+ },
+ "log.NoHospitalCons.summary": {
+  "full": "For those that toiled endlessly on their infernal schemes their reward was one of a deeper understanding."
+ },
+ "log.CureNegCons.title": {
+  "full": "Distrust in Medicine"
+ },
+ "log.CureNegCons.location": {
+  "full": "Town Center"
+ },
+ "log.CureNegCons.summary": {
+  "full": "With the Hospital slowly falling into disrepair the church took great measures to warn the populace of the dangers of inoculation."
+ },
+ "log.ImmortalityMWUpdate2.title": {
+  "full": "The Possibility Exists"
+ },
+ "log.ImmortalityMWUpdate2.location": {
+  "full": "Laboratory"
+ },
+ "log.ImmortalityMWUpdate2.summary": {
+  "full": "The thoughts consumed their waking hours compelling them to action. It had to be done the shame they felt would weigh heavily on everything."
+ },
+ "log.EvilWolvesEventStart.title": {
+  "full": "The Monster Without"
+ },
+ "log.EvilWolvesEventStart.location": {
+  "full": "Stone Room"
+ },
+ "log.EvilWolvesEventStart.summary": {
+  "full": "The Order of St. HubertusLodge held a dark secret in the miasmic recesses beneath the edifice above. When they peered inside they saw the infernal spawning grounds. Slime-covered beasts wallowed within a murky pit sloshing with the putrid stench of rotten meat."
+ },
+ "log.roundEndKnowledge.title": {
+  "full": "The Curse of Knowledge"
+ },
+ "log.roundEndKnowledge.location": {
+  "full": "Village"
+ },
+ "log.roundEndKnowledge.summary": {
+  "full": "The townsfolk chose to remain ignorant of the technological advances of the age."
+ },
+ "log.TieredRewards1.title": {
+  "full": "Reckoning"
+ },
+ "log.TieredRewards1.location": {
+  "full": "Estate Entrance"
+ },
+ "log.TieredRewards1.summary": {
+  "full": "The messenger from the Order"
+ },
+ "log.CannotParticipate.title": {
+  "full": "In the Blood"
+ },
+ "log.CannotParticipate.location": {
+  "full": "Village"
+ },
+ "log.CannotParticipate.summary": {
+  "full": "The very thought of confronting the Hunters made the townsfolk desperately ill."
+ },
+ "log.OptiontoKillYes.title": {
+  "full": "The Inevitable"
+ },
+ "log.OptiontoKillYes.location": {
+  "full": "Living Room"
+ },
+ "log.OptiontoKillYes.summary": {
+  "full": "There would soon be horrible and unknowable consequences for unnaturally extending one's existence."
+ },
+ "log.OptiontoKillStart.title": {
+  "full": "A Peculiar Biological Study"
+ },
+ "log.OptiontoKillStart.location": {
+  "full": "Study Room"
+ },
+ "log.OptiontoKillStart.summary": {
+  "full": "In 1891 cousins became increasingly paranoid about the work of their hardy parental figures."
+ },
+ "log.NoUniMayornCreepy.title": {
+  "full": "A Somber End"
+ },
+ "log.NoUniMayornCreepy.location": {
+  "full": "Village"
+ },
+ "log.NoUniMayornCreepy.summary": {
+  "full": "Townsfolk showed little respect for the family's past political and charitable stances."
+ },
+ "log.TheVialUse.title": {
+  "full": "A Clear Choice"
+ },
+ "log.TheVialUse.location": {
+  "full": "Dirt Path"
+ },
+ "log.TheVialUse.summary": {
+  "full": "Charity III returned to their home with determination in their chest and retrieved the crystal"
+ },
+ "log.VialSold.title": {
+  "full": "The Unconscionable Choice"
+ },
+ "log.VialSold.location": {
+  "full": "Market"
+ },
+ "log.VialSold.summary": {
+  "full": "Turning the cure into a financial windfall."
+ },
+ "log.VialChanged.title": {
+  "full": "Selflessness for Change"
+ },
+ "log.VialChanged.location": {
+  "full": "Stream"
+ },
+ "log.VialChanged.summary": {
+  "full": "After less than a day the azalea blossoms that once dotted the landscape were in full bloom and the radiant sunlight bathed the valley in a honey glow."
+ },
+ "log.Gen1SanityYes.title": {
+  "full": "Vacation Offer Accepted"
+ },
+ "log.Gen1SanityYes.location": {
+  "full": "Beach"
+ },
+ "log.Gen1SanityYes.summary": {
+  "full": "Player child was left in the care of servants and spent their winters within the solitary stone walls of the cold estate."
+ },
+ "log.Gen1SanityNo.title": {
+  "full": "Time is Precious"
+ },
+ "log.Gen1SanityNo.location": {
+  "full": "Estate"
+ },
+ "log.Gen1SanityNo.summary": {
+  "full": "The cousins convinced that their obsession was more important than self-preservation"
+ },
+ "log.GloomyPenalty1.title": {
+  "full": "The Hunter's Tax"
+ },
+ "log.GloomyPenalty1.location": {
+  "full": "Fraternity Lodge"
+ },
+ "log.GloomyPenalty1.summary": {
+  "full": "The Fraternity Lodge held a town meeting gathering the majority of the townsfolk."
+ },
+ "log.GloomyPenalty3.title": {
+  "full": "The Hunter's Tax"
+ },
+ "log.GloomyPenalty3.location": {
+  "full": "Fraternity Lodge"
+ },
+ "log.GloomyPenalty3.summary": {
+  "full": "The Fraternity Lodge held a town meeting gathering the majority of the townsfolk."
+ },
+ "log.WolvesVote.title": {
+  "full": "An Opportunity"
+ },
+ "log.WolvesVote.location": {
+  "full": "Dining Room"
+ },
+ "log.WolvesVote.summary": {
+  "full": "Players will vote on whether to unleash this concoction to tame the demonic beasts of the land. Players will secretly choose a side to place face up in their palm. Then they will close their fist and extend it to the center of the table. Tally all the votes and the side with the most votes wins."
+ },
+ "log.WolvesVoteCheck.title": {
+  "full": "Remember the Cure"
+ },
+ "log.WolvesVoteCheck.location": {
+  "full": "Dining Room"
+ },
+ "log.WolvesVoteCheck.summary": {
+  "full": "All players with a disease card must flip their Vote token to Nay. Tally all votes once again."
+ },
+ "log.WolvesVoteChange.title": {
+  "full": "A Vote for Change"
+ },
+ "log.WolvesVoteChange.location": {
+  "full": "Village"
+ },
+ "log.WolvesVoteChange.summary": {
+  "full": "A group of cousins devise a serum powerful enough to reverse the evil blight upon the land."
+ },
+ "log.VialSoldforLess.title": {
+  "full": "Valuable Keepsake"
+ },
+ "log.VialSoldforLess.location": {
+  "full": "Market"
+ },
+ "log.VialSoldforLess.summary": {
+  "full": "A crystal vial of holy water was sold by a cousin for a significant sum of money."
+ },
+ "log.AwardSpawningPods.title": {
+  "full": "An Award For Research"
+ },
+ "log.AwardSpawningPods.location": {
+  "full": "Estate"
+ },
+ "log.AwardSpawningPods.summary": {
+  "full": "The monsters felt guilty about not honoring their word even if it stretched their sense of ethical duty to do so."
+ },
+ "log.InsanitySign.title": {
+  "full": "Another Opportunity"
+ },
+ "log.InsanitySign.location": {
+  "full": "House"
+ },
+ "log.InsanitySign.summary": {
+  "full": "The university consulted with the family on matters of progressive importance."
+ },
+ "log.HuntersChoice1.title": {
+  "full": "The First Night of the Hunt"
+ },
+ "log.HuntersChoice1.location": {
+  "full": "Crossing"
+ },
+ "log.HuntersChoice1.summary": {
+  "full": "It was time for the first night of the hunt."
+ },
+ "log.HuntersChoice2.title": {
+  "full": "The Second Night of the Hunt"
+ },
+ "log.HuntersChoice2.location": {
+  "full": "Crossing"
+ },
+ "log.HuntersChoice2.summary": {
+  "full": "It was time for the second night of the hunt."
+ },
+ "log.Huntround1.title": {
+  "full": "In Preparation for the Hunt"
+ },
+ "log.Huntround1.location": {
+  "full": "Valley"
+ },
+ "log.Huntround1.summary": {
+  "full": "The cousins were chosen to take part in the hunt."
+ },
+ "log.Huntround2.title": {
+  "full": "In Preparation for the Hunt"
+ },
+ "log.Huntround2.location": {
+  "full": "Valley"
+ },
+ "log.Huntround2.summary": {
+  "full": "The cousins were chosen to take part in the hunt."
+ },
+ "log.2p-FrenzyALT.title": {
+  "full": "Frenzy Decision"
+ },
+ "log.2p-FrenzyALT.location": {
+  "full": "Town Hall"
+ },
+ "log.2p-FrenzyALT.summary": {
+  "full": "Consulting with the order in private."
  }
 }

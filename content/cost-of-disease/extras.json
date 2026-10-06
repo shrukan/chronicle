@@ -1,0 +1,629 @@
+{
+ "endOfRound": {
+  "Fever1": {
+   "round": 1,
+   "text": "round.Fever1.end",
+   "then": "round.Fever1.then"
+  },
+  "Fever2": {
+   "round": 2,
+   "text": "round.Fever2.end",
+   "then": "round.Fever2.then"
+  },
+  "Fever3": {
+   "round": 0,
+   "text": "round.Fever3.end",
+   "then": "round.Fever3.then"
+  },
+  "Hospital1": {
+   "round": 4,
+   "text": "round.Hospital1.end",
+   "then": "round.Hospital1.then"
+  },
+  "Devastation1": {
+   "round": 4,
+   "text": "round.Devastation1.end",
+   "then": "round.Devastation1.then"
+  },
+  "Devastation2": {
+   "round": 5,
+   "text": "round.Devastation2.end",
+   "then": "round.Devastation2.then"
+  },
+  "Hospital2": {
+   "round": 5,
+   "text": "round.Hospital2.end",
+   "then": "round.Hospital2.then"
+  },
+  "Devastation3": {
+   "round": 0,
+   "text": "round.Devastation3.end",
+   "then": "round.Devastation3.then"
+  },
+  "Hospital3": {
+   "round": 0,
+   "text": "round.Hospital3.end",
+   "then": "round.Hospital3.then"
+  },
+  "NoUni1": {
+   "round": 7,
+   "text": "round.NoUni1.end",
+   "then": "round.NoUni1.then"
+  },
+  "Prosperity1": {
+   "round": 7,
+   "text": "round.Prosperity1.end",
+   "then": "round.Prosperity1.then"
+  },
+  "GloomyGothic1": {
+   "round": 7,
+   "text": "round.GloomyGothic1.end",
+   "then": "round.GloomyGothic1.then"
+  },
+  "University1": {
+   "round": 7,
+   "text": "round.University1.end",
+   "then": "round.University1.then"
+  },
+  "NoUni2": {
+   "round": 8,
+   "text": "round.NoUni2.end",
+   "then": "round.NoUni2.then"
+  },
+  "University2": {
+   "round": 8,
+   "text": "round.University2.end",
+   "then": "round.University2.then"
+  },
+  "Prosperity2": {
+   "round": 8,
+   "text": "round.Prosperity2.end",
+   "then": "round.Prosperity2.then"
+  },
+  "GloomyGothic2": {
+   "round": 8,
+   "text": "round.GloomyGothic2.end",
+   "then": "round.GloomyGothic2.then"
+  },
+  "NoUni3": {
+   "round": 0,
+   "text": "round.NoUni3.end",
+   "then": "round.NoUni3.then"
+  },
+  "University3": {
+   "round": 0,
+   "text": "round.University3.end",
+   "then": "round.University3.then"
+  },
+  "Prosperity3": {
+   "round": 0,
+   "text": "round.Prosperity3.end",
+   "then": "round.Prosperity3.then"
+  },
+  "GloomyGothic3": {
+   "round": 0,
+   "text": "round.GloomyGothic3.end",
+   "then": "round.GloomyGothic3.then"
+  }
+ },
+ "logBook": {
+  "S5SpecialSetup1": {
+   "title": "log.S5SpecialSetup1.title",
+   "location": "log.S5SpecialSetup1.location",
+   "summary": "log.S5SpecialSetup1.summary"
+  },
+  "S5Fate1": {
+   "title": "log.S5Fate1.title",
+   "location": "log.S5Fate1.location",
+   "summary": "log.S5Fate1.summary"
+  },
+  "S5Specialbar1": {
+   "title": "log.S5Specialbar1.title",
+   "location": "log.S5Specialbar1.location",
+   "summary": "log.S5Specialbar1.summary"
+  },
+  "SymposiumFail": {
+   "title": "log.SymposiumFail.title",
+   "location": "log.SymposiumFail.location",
+   "summary": "log.SymposiumFail.summary"
+  },
+  "SymposiumSuccess": {
+   "title": "log.SymposiumSuccess.title",
+   "location": "log.SymposiumSuccess.location",
+   "summary": "log.SymposiumSuccess.summary"
+  },
+  "Changes": {
+   "title": "log.Changes.title",
+   "location": "log.Changes.location",
+   "summary": "log.Changes.summary"
+  },
+  "CureMoonSick1": {
+   "title": "log.CureMoonSick1.title",
+   "location": "log.CureMoonSick1.location",
+   "summary": "log.CureMoonSick1.summary"
+  },
+  "Panacea": {
+   "title": "log.Panacea.title",
+   "location": "log.Panacea.location",
+   "summary": "log.Panacea.summary"
+  },
+  "Panacea1": {
+   "title": "log.Panacea1.title",
+   "location": "log.Panacea1.location",
+   "summary": "log.Panacea1.summary"
+  },
+  "SymposiumEvent3": {
+   "title": "log.SymposiumEvent3.title",
+   "location": "log.SymposiumEvent3.location",
+   "summary": "log.SymposiumEvent3.summary"
+  },
+  "S5Special1b": {
+   "title": "log.S5Special1b.title",
+   "location": "log.S5Special1b.location",
+   "summary": "log.S5Special1b.summary"
+  },
+  "FeverServe1": {
+   "title": "log.FeverServe1.title",
+   "location": "log.FeverServe1.location",
+   "summary": "log.FeverServe1.summary"
+  },
+  "FeverServe2": {
+   "title": "log.FeverServe2.title",
+   "location": "log.FeverServe2.location",
+   "summary": "log.FeverServe2.summary"
+  },
+  "Dubious": {
+   "title": "log.Dubious.title",
+   "location": "log.Dubious.location",
+   "summary": "log.Dubious.summary"
+  },
+  "ElecY": {
+   "title": "log.ElecY.title",
+   "location": "log.ElecY.location",
+   "summary": "log.ElecY.summary"
+  },
+  "ElecN": {
+   "title": "log.ElecN.title",
+   "location": "log.ElecN.location",
+   "summary": "log.ElecN.summary"
+  },
+  "Lettercode": {
+   "title": "log.Lettercode.title",
+   "location": "log.Lettercode.location",
+   "summary": "log.Lettercode.summary"
+  },
+  "NoUni3b": {
+   "title": "log.NoUni3b.title",
+   "location": "log.NoUni3b.location",
+   "summary": "log.NoUni3b.summary"
+  },
+  "BuildingsEnd": {
+   "title": "log.BuildingsEnd.title",
+   "location": "log.BuildingsEnd.location",
+   "summary": "log.BuildingsEnd.summary"
+  },
+  "S5Special1a": {
+   "title": "log.S5Special1a.title",
+   "location": "log.S5Special1a.location",
+   "summary": "log.S5Special1a.summary"
+  },
+  "DiseaseConsequence": {
+   "title": "log.DiseaseConsequence.title",
+   "location": "log.DiseaseConsequence.location",
+   "summary": "log.DiseaseConsequence.summary"
+  },
+  "Immortality": {
+   "title": "log.Immortality.title",
+   "location": "log.Immortality.location",
+   "summary": "log.Immortality.summary"
+  },
+  "DetEffect1": {
+   "title": "log.DetEffect1.title",
+   "location": "log.DetEffect1.location",
+   "summary": "log.DetEffect1.summary"
+  },
+  "DetEffect2": {
+   "title": "log.DetEffect2.title",
+   "location": "log.DetEffect2.location",
+   "summary": "log.DetEffect2.summary"
+  },
+  "DetEffect3": {
+   "title": "log.DetEffect3.title",
+   "location": "log.DetEffect3.location",
+   "summary": "log.DetEffect3.summary"
+  },
+  "DetEffect4": {
+   "title": "log.DetEffect4.title",
+   "location": "log.DetEffect4.location",
+   "summary": "log.DetEffect4.summary"
+  },
+  "InfinityClick1": {
+   "title": "log.InfinityClick1.title",
+   "location": "log.InfinityClick1.location",
+   "summary": "log.InfinityClick1.summary"
+  },
+  "DevEventCure": {
+   "title": "log.DevEventCure.title",
+   "location": "log.DevEventCure.location",
+   "summary": "log.DevEventCure.summary"
+  },
+  "SymposiumEvent1": {
+   "title": "log.SymposiumEvent1.title",
+   "location": "log.SymposiumEvent1.location",
+   "summary": "log.SymposiumEvent1.summary"
+  },
+  "LycanthropicMessage": {
+   "title": "log.LycanthropicMessage.title",
+   "location": "log.LycanthropicMessage.location",
+   "summary": "log.LycanthropicMessage.summary"
+  },
+  "LycanEvil": {
+   "title": "log.LycanEvil.title",
+   "location": "log.LycanEvil.location",
+   "summary": "log.LycanEvil.summary"
+  },
+  "HospitalVisitCheck": {
+   "title": "log.HospitalVisitCheck.title",
+   "location": "log.HospitalVisitCheck.location",
+   "summary": "log.HospitalVisitCheck.summary"
+  },
+  "NewMaster": {
+   "title": "log.NewMaster.title",
+   "location": "log.NewMaster.location",
+   "summary": "log.NewMaster.summary"
+  },
+  "EradicateDisease": {
+   "title": "log.EradicateDisease.title",
+   "location": "log.EradicateDisease.location",
+   "summary": "log.EradicateDisease.summary"
+  },
+  "CreepyStar": {
+   "title": "log.CreepyStar.title",
+   "location": "log.CreepyStar.location",
+   "summary": "log.CreepyStar.summary"
+  },
+  "RippedMasterwork": {
+   "title": "log.RippedMasterwork.title",
+   "location": "log.RippedMasterwork.location",
+   "summary": "log.RippedMasterwork.summary"
+  },
+  "PanaceaIntro": {
+   "title": "log.PanaceaIntro.title",
+   "location": "log.PanaceaIntro.location",
+   "summary": "log.PanaceaIntro.summary"
+  },
+  "EvilConsequences": {
+   "title": "log.EvilConsequences.title",
+   "location": "log.EvilConsequences.location",
+   "summary": "log.EvilConsequences.summary"
+  },
+  "CharityNegCons": {
+   "title": "log.CharityNegCons.title",
+   "location": "log.CharityNegCons.location",
+   "summary": "log.CharityNegCons.summary"
+  },
+  "Gen1-CreepyTrack": {
+   "title": "log.Gen1-CreepyTrack.title",
+   "location": "log.Gen1-CreepyTrack.location",
+   "summary": "log.Gen1-CreepyTrack.summary"
+  },
+  "Gen1-SanityTrack": {
+   "title": "log.Gen1-SanityTrack.title",
+   "location": "log.Gen1-SanityTrack.location",
+   "summary": "log.Gen1-SanityTrack.summary"
+  },
+  "Gen1-CreepyTrackRes": {
+   "title": "log.Gen1-CreepyTrackRes.title",
+   "location": "log.Gen1-CreepyTrackRes.location",
+   "summary": "log.Gen1-CreepyTrackRes.summary"
+  },
+  "Gen1-SanityTrackRes": {
+   "title": "log.Gen1-SanityTrackRes.title",
+   "location": "log.Gen1-SanityTrackRes.location",
+   "summary": "log.Gen1-SanityTrackRes.summary"
+  },
+  "LycanGood": {
+   "title": "log.LycanGood.title",
+   "location": "log.LycanGood.location",
+   "summary": "log.LycanGood.summary"
+  },
+  "GoodConsequences": {
+   "title": "log.GoodConsequences.title",
+   "location": "log.GoodConsequences.location",
+   "summary": "log.GoodConsequences.summary"
+  },
+  "WolvesEvil1": {
+   "title": "log.WolvesEvil1.title",
+   "location": "log.WolvesEvil1.location",
+   "summary": "log.WolvesEvil1.summary"
+  },
+  "TaxesEventStart": {
+   "title": "log.TaxesEventStart.title",
+   "location": "log.TaxesEventStart.location",
+   "summary": "log.TaxesEventStart.summary"
+  },
+  "EvilHunter1EventYes": {
+   "title": "log.EvilHunter1EventYes.title",
+   "location": "log.EvilHunter1EventYes.location",
+   "summary": "log.EvilHunter1EventYes.summary"
+  },
+  "ConfrontationFail": {
+   "title": "log.ConfrontationFail.title",
+   "location": "log.ConfrontationFail.location",
+   "summary": "log.ConfrontationFail.summary"
+  },
+  "UniMayor": {
+   "title": "log.UniMayor.title",
+   "location": "log.UniMayor.location",
+   "summary": "log.UniMayor.summary"
+  },
+  "UniEquity": {
+   "title": "log.UniEquity.title",
+   "location": "log.UniEquity.location",
+   "summary": "log.UniEquity.summary"
+  },
+  "UniEvent1-UltimateDisease": {
+   "title": "log.UniEvent1-UltimateDisease.title",
+   "location": "log.UniEvent1-UltimateDisease.location",
+   "summary": "log.UniEvent1-UltimateDisease.summary"
+  },
+  "UniEvent2-UltimateDisease": {
+   "title": "log.UniEvent2-UltimateDisease.title",
+   "location": "log.UniEvent2-UltimateDisease.location",
+   "summary": "log.UniEvent2-UltimateDisease.summary"
+  },
+  "UniEvent2-Success": {
+   "title": "log.UniEvent2-Success.title",
+   "location": "log.UniEvent2-Success.location",
+   "summary": "log.UniEvent2-Success.summary"
+  },
+  "HunterJoin": {
+   "title": "log.HunterJoin.title",
+   "location": "log.HunterJoin.location",
+   "summary": "log.HunterJoin.summary"
+  },
+  "RefusalEvent": {
+   "title": "log.RefusalEvent.title",
+   "location": "log.RefusalEvent.location",
+   "summary": "log.RefusalEvent.summary"
+  },
+  "EquitableValues": {
+   "title": "log.EquitableValues.title",
+   "location": "log.EquitableValues.location",
+   "summary": "log.EquitableValues.summary"
+  },
+  "WolvesEco-Friendly": {
+   "title": "log.WolvesEco-Friendly.title",
+   "location": "log.WolvesEco-Friendly.location",
+   "summary": "log.WolvesEco-Friendly.summary"
+  },
+  "AngryMobStorybook": {
+   "title": "log.AngryMobStorybook.title",
+   "location": "log.AngryMobStorybook.location",
+   "summary": "log.AngryMobStorybook.summary"
+  },
+  "GoodFrenzyEvent": {
+   "title": "log.GoodFrenzyEvent.title",
+   "location": "log.GoodFrenzyEvent.location",
+   "summary": "log.GoodFrenzyEvent.summary"
+  },
+  "YesFrenzy": {
+   "title": "log.YesFrenzy.title",
+   "location": "log.YesFrenzy.location",
+   "summary": "log.YesFrenzy.summary"
+  },
+  "NoFrenzy": {
+   "title": "log.NoFrenzy.title",
+   "location": "log.NoFrenzy.location",
+   "summary": "log.NoFrenzy.summary"
+  },
+  "WolvesEvil2": {
+   "title": "log.WolvesEvil2.title",
+   "location": "log.WolvesEvil2.location",
+   "summary": "log.WolvesEvil2.summary"
+  },
+  "DiseaseEnd": {
+   "title": "log.DiseaseEnd.title",
+   "location": "log.DiseaseEnd.location",
+   "summary": "log.DiseaseEnd.summary"
+  },
+  "WolfJoin": {
+   "title": "log.WolfJoin.title",
+   "location": "log.WolfJoin.location",
+   "summary": "log.WolfJoin.summary"
+  },
+  "HelpingEvil": {
+   "title": "log.HelpingEvil.title",
+   "location": "log.HelpingEvil.location",
+   "summary": "log.HelpingEvil.summary"
+  },
+  "MWTokenResolve": {
+   "title": "log.MWTokenResolve.title",
+   "location": "log.MWTokenResolve.location",
+   "summary": "log.MWTokenResolve.summary"
+  },
+  "SymposiumMiddle": {
+   "title": "log.SymposiumMiddle.title",
+   "location": "log.SymposiumMiddle.location",
+   "summary": "log.SymposiumMiddle.summary"
+  },
+  "NoHospitalCons": {
+   "title": "log.NoHospitalCons.title",
+   "location": "log.NoHospitalCons.location",
+   "summary": "log.NoHospitalCons.summary"
+  },
+  "CureNegCons": {
+   "title": "log.CureNegCons.title",
+   "location": "log.CureNegCons.location",
+   "summary": "log.CureNegCons.summary"
+  },
+  "ImmortalityMWUpdate2": {
+   "title": "log.ImmortalityMWUpdate2.title",
+   "location": "log.ImmortalityMWUpdate2.location",
+   "summary": "log.ImmortalityMWUpdate2.summary"
+  },
+  "EvilWolvesEventStart": {
+   "title": "log.EvilWolvesEventStart.title",
+   "location": "log.EvilWolvesEventStart.location",
+   "summary": "log.EvilWolvesEventStart.summary"
+  },
+  "roundEndKnowledge": {
+   "title": "log.roundEndKnowledge.title",
+   "location": "log.roundEndKnowledge.location",
+   "summary": "log.roundEndKnowledge.summary"
+  },
+  "TieredRewards1": {
+   "title": "log.TieredRewards1.title",
+   "location": "log.TieredRewards1.location",
+   "summary": "log.TieredRewards1.summary"
+  },
+  "CannotParticipate": {
+   "title": "log.CannotParticipate.title",
+   "location": "log.CannotParticipate.location",
+   "summary": "log.CannotParticipate.summary"
+  },
+  "OptiontoKillYes": {
+   "title": "log.OptiontoKillYes.title",
+   "location": "log.OptiontoKillYes.location",
+   "summary": "log.OptiontoKillYes.summary"
+  },
+  "OptiontoKillStart": {
+   "title": "log.OptiontoKillStart.title",
+   "location": "log.OptiontoKillStart.location",
+   "summary": "log.OptiontoKillStart.summary"
+  },
+  "NoUniMayornCreepy": {
+   "title": "log.NoUniMayornCreepy.title",
+   "location": "log.NoUniMayornCreepy.location",
+   "summary": "log.NoUniMayornCreepy.summary"
+  },
+  "TheVialUse": {
+   "title": "log.TheVialUse.title",
+   "location": "log.TheVialUse.location",
+   "summary": "log.TheVialUse.summary"
+  },
+  "VialSold": {
+   "title": "log.VialSold.title",
+   "location": "log.VialSold.location",
+   "summary": "log.VialSold.summary"
+  },
+  "VialChanged": {
+   "title": "log.VialChanged.title",
+   "location": "log.VialChanged.location",
+   "summary": "log.VialChanged.summary"
+  },
+  "Gen1SanityYes": {
+   "title": "log.Gen1SanityYes.title",
+   "location": "log.Gen1SanityYes.location",
+   "summary": "log.Gen1SanityYes.summary"
+  },
+  "Gen1SanityNo": {
+   "title": "log.Gen1SanityNo.title",
+   "location": "log.Gen1SanityNo.location",
+   "summary": "log.Gen1SanityNo.summary"
+  },
+  "GloomyPenalty1": {
+   "title": "log.GloomyPenalty1.title",
+   "location": "log.GloomyPenalty1.location",
+   "summary": "log.GloomyPenalty1.summary"
+  },
+  "GloomyPenalty3": {
+   "title": "log.GloomyPenalty3.title",
+   "location": "log.GloomyPenalty3.location",
+   "summary": "log.GloomyPenalty3.summary"
+  },
+  "WolvesVote": {
+   "title": "log.WolvesVote.title",
+   "location": "log.WolvesVote.location",
+   "summary": "log.WolvesVote.summary"
+  },
+  "WolvesVoteCheck": {
+   "title": "log.WolvesVoteCheck.title",
+   "location": "log.WolvesVoteCheck.location",
+   "summary": "log.WolvesVoteCheck.summary"
+  },
+  "WolvesVoteChange": {
+   "title": "log.WolvesVoteChange.title",
+   "location": "log.WolvesVoteChange.location",
+   "summary": "log.WolvesVoteChange.summary"
+  },
+  "VialSoldforLess": {
+   "title": "log.VialSoldforLess.title",
+   "location": "log.VialSoldforLess.location",
+   "summary": "log.VialSoldforLess.summary"
+  },
+  "AwardSpawningPods": {
+   "title": "log.AwardSpawningPods.title",
+   "location": "log.AwardSpawningPods.location",
+   "summary": "log.AwardSpawningPods.summary"
+  },
+  "InsanitySign": {
+   "title": "log.InsanitySign.title",
+   "location": "log.InsanitySign.location",
+   "summary": "log.InsanitySign.summary"
+  },
+  "HuntersChoice1": {
+   "title": "log.HuntersChoice1.title",
+   "location": "log.HuntersChoice1.location",
+   "summary": "log.HuntersChoice1.summary"
+  },
+  "HuntersChoice2": {
+   "title": "log.HuntersChoice2.title",
+   "location": "log.HuntersChoice2.location",
+   "summary": "log.HuntersChoice2.summary"
+  },
+  "Huntround1": {
+   "title": "log.Huntround1.title",
+   "location": "log.Huntround1.location",
+   "summary": "log.Huntround1.summary"
+  },
+  "Huntround2": {
+   "title": "log.Huntround2.title",
+   "location": "log.Huntround2.location",
+   "summary": "log.Huntround2.summary"
+  },
+  "2p-FrenzyALT": {
+   "title": "log.2p-FrenzyALT.title",
+   "location": "log.2p-FrenzyALT.location",
+   "summary": "log.2p-FrenzyALT.summary"
+  }
+ },
+ "voiceOver": {
+  "NoUniversityIntro": {
+   "male": "SFX/Male VO oggs/NoUniversityIntro.ogg",
+   "female": "SFX/female Takes VO oggs/NoUniversityIntro.ogg"
+  },
+  "ProsperityHunterIntro": {
+   "male": "SFX/Male VO oggs/ProsperityHunterIntro.ogg",
+   "female": "SFX/female Takes VO oggs/ProsperityHunterIntro.ogg"
+  },
+  "ProsperityWolvesIntro": {
+   "male": "SFX/Male VO oggs/ProsperityWolvesIntro.ogg",
+   "female": "SFX/female Takes VO oggs/ProsperityWolvesIntro.ogg"
+  },
+  "Scenario5Start": {
+   "male": "SFX/Male VO oggs/Scenario-5-start.ogg",
+   "female": "SFX/female Takes VO oggs/Scenario5Start.ogg"
+  },
+  "UniversityIntro": {
+   "male": "SFX/Male VO oggs/UniversityIntro.ogg",
+   "female": "SFX/female Takes VO oggs/UniversityIntro.ogg"
+  },
+  "DevastationIntro": {
+   "male": "SFX/Male VO oggs/DevestationIntro.ogg",
+   "female": "SFX/female Takes VO oggs/DevastationIntro.ogg"
+  },
+  "GloomyHunterIntro": {
+   "male": "SFX/Male VO oggs/GloomyHunterIntro.ogg",
+   "female": "SFX/female Takes VO oggs/GloomyHunterIntro.ogg"
+  },
+  "GloomyWolvesIntro": {
+   "male": "SFX/Male VO oggs/GloomyWolvesIntro.ogg",
+   "female": "SFX/Male VO oggs/GloomeyWolvesIntro-The Order Revealed.ogg"
+  },
+  "Hospitalintro": {
+   "male": "SFX/Male VO oggs/HospitalIntro.ogg",
+   "female": "SFX/female Takes VO oggs/Hospitalintro.ogg"
+  }
+ }
+}

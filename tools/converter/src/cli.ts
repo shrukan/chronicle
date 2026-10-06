@@ -8,6 +8,7 @@ import { mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { basename, join } from 'node:path';
 import { parseArgs } from 'node:util';
 import { convertScenario, type ConvertReport } from './convert.ts';
+import { extractExtras, type ExtrasReport } from './extras.ts';
 import { SCENARIOS } from './scenarios.ts';
 
 const { values, positionals } = parseArgs({
@@ -39,14 +40,17 @@ for (const config of selected) {
     file: basename(storyPath),
   });
 
+  const { extras, report: extrasReport } = extractExtras(scenario, strings, join(values.upstream, 'Assets'));
+
   const dir = join(values.out, config.id);
   mkdirSync(dir, { recursive: true });
   writeFileSync(join(dir, 'scenario.json'), json(scenario));
   writeFileSync(join(dir, 'strings.en.json'), json(strings));
+  writeFileSync(join(dir, 'extras.json'), json(extras));
   mkdirSync(values.reports, { recursive: true });
-  writeFileSync(join(values.reports, `${config.id}.json`), json(report));
+  writeFileSync(join(values.reports, `${config.id}.json`), json({ ...report, extras: extrasReport }));
 
-  summary(config.id, report);
+  summary(config.id, report, extrasReport);
   problems += report.manual.length + report.unknownExpressions.length + report.typing.issues.length;
 }
 
@@ -55,7 +59,7 @@ if (values.strict && problems) {
   process.exit(1);
 }
 
-function summary(id: string, r: ConvertReport): void {
+function summary(id: string, r: ConvertReport, x: ExtrasReport): void {
   const types: Record<string, number> = {};
   for (const t of Object.values(r.typing.types)) types[t] = (types[t] ?? 0) + 1;
   const manual: Record<string, number> = {};
@@ -67,5 +71,6 @@ function summary(id: string, r: ConvertReport): void {
   console.log(`  manual        ${r.manual.length}${r.manual.length ? ' ' + JSON.stringify(manual) : ''}`);
   console.log(`  unknown expr  ${r.unknownExpressions.length}`);
   console.log(`  typing issues ${r.typing.issues.length}`);
+  console.log(`  extras        ${x.endOfRound} end-of-round texts, ${x.logBook} log book entries, ${x.voiceOver} voice-over passages`);
   console.log(`  broken links  ${r.brokenTargets.length}${r.brokenTargets.length ? ' ' + r.brokenTargets.map((b) => `${b.passage}→${b.target}`).join(', ') : ''}`);
 }

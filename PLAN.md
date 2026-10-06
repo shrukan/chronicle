@@ -100,7 +100,8 @@ Each milestone has an exit criterion. Don't start the next until it's met (unles
 - Shared `common.*` string keys for repeated labels ("Click to continue...").
 - Text classification: default to `instruction` when unsure; use the CSV "physical instruction"
   column; mark developer-note passages (`DEV NOTE`) and exclude them.
-- Extract end-of-round texts, log-book data and voice-over mapping from the Unity assets.
+- ✅ Extract end-of-round texts, log-book data and voice-over mapping from the Unity assets
+  (`content/<id>/extras.json`).
 - **Exit:** all 361 passages converted, zero `manual` nodes, output committed to `content/`;
   passage list matches Deusald's chapter index.
 
@@ -210,4 +211,7 @@ CHANGELOG; CI runs lint, unit tests and `content:test` on every PR.
 - ~~Custom runtime vs Ink~~ → decided in M0: own runtime.
 - Public hosting in addition to the home server (GitHub Pages) → decided at M5, doesn't block anything.
 - Whether to commit generated `content/` JSON or regenerate in CI → recommend commit (reviewable diffs).
+- Voice-over → decide in M4. Recommendation: keep the 9 original recordings (intros), offer
+  optional read-aloud via the browser's Web Speech API for all other text; pre-generate neural
+  voices (self-hosted, e.g. Piper) only if device voices are not good enough.
 - Tailwind vs plain SCSS tokens → recommend Tailwind; revisit if it gets in the way of the custom look.
