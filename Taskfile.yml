@@ -92,14 +92,17 @@ tasks:
     cmd: npx ng serve
 
   frontend:build:
-    desc: Production build into build/web.
+    desc: "Production build into build/web (BASE_HREF: path the app is served under, e.g. /chronicle/)."
+
     deps: [deps:install, frontend:content]
     dir: frontend
     vars:
       OUTPUT_DIR: '{{.OUTPUT_DIR | default (joinPath .ROOT_DIR "build/web")}}'
+      BASE_HREF: '{{.BASE_HREF | default "/"}}'
+    label: frontend:build:{{.BASE_HREF}}
     sources: ["src/**/*", "public/**/*", "angular.json", "ngsw-config.json", "../engine/src/**/*.ts", "../package-lock.json"]
     generates: ["{{.OUTPUT_DIR}}/browser/index.html"]
-    cmd: npx ng build --configuration=production --output-path="{{.OUTPUT_DIR}}"
+    cmd: npx ng build --configuration=production --output-path="{{.OUTPUT_DIR}}" --base-href="{{.BASE_HREF}}"
 
   frontend:test:
     desc: Unit tests of the app (Vitest).

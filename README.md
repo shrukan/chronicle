@@ -26,6 +26,9 @@ installable web app that also works offline.
 - **Tested:** every scenario is explored automatically for dead ends and errors, and a full
   game is played in a real browser on every change.
 
+**Play it:** <https://shrukan.github.io/chronicle/> – open it on a phone or tablet and add it
+to the home screen; after the first visit it works offline.
+
 Found a bug? [Report it](https://github.com/shrukan/chronicle/issues/new?template=bug.yml) –
 or use the link in the app, which fills in the details.
 
@@ -78,13 +81,17 @@ task content:smoke RUNS=1000 # random playthroughs: errors, coverage, endings re
 
 ## Self-hosting
 
-The app is a static site served by an unprivileged nginx container. To run a release:
+The app is a static site served by an unprivileged nginx container. Each release is published
+as `ghcr.io/shrukan/chronicle` (amd64 and arm64; tags `<version>`, `<major>.<minor>`, `latest`):
 
 ```bash
-git checkout v0.1.0
-task project:build:docker    # image chronicle:<version>
-task project:up:prod         # http://localhost:8080
+docker run -d --name chronicle -p 8080:8080 --read-only --tmpfs /tmp \
+  --restart unless-stopped ghcr.io/shrukan/chronicle:latest
 ```
+
+Or with the [compose file](compose.yml):
+`IMAGE_NAME=ghcr.io/shrukan/chronicle:latest docker compose up -d --no-build`.
+To build the image yourself instead: `task project:up:prod`.
 
 Plain HTTP works. Over HTTP on anything but `localhost`, though, browsers switch off offline
 mode, installing the app to the home screen and keeping the screen on – put it behind a

@@ -4,7 +4,7 @@
  * bidding countdown), a tied final score through both tie-breakers, the ending and the
  * endings gallery. Fails on any page error or if the game cannot be finished.
  *
- * Usage: node tools/e2e/src/full-game.ts [--build build/web/browser] [--chrome /usr/bin/google-chrome] [--shots dir]
+ * Usage: node tools/e2e/src/full-game.ts [--build build/web/browser] [--base /sub/path/] [--chrome /usr/bin/google-chrome] [--shots dir]
  */
 import { mkdirSync } from 'node:fs';
 import { parseArgs } from 'node:util';
@@ -14,6 +14,8 @@ import { serve } from './serve.ts';
 const { values } = parseArgs({
   options: {
     build: { type: 'string', default: 'build/web/browser' },
+    // The path the build was made for (its base href).
+    base: { type: 'string', default: '/' },
     chrome: { type: 'string', default: process.env['CHROME_PATH'] ?? '/usr/bin/google-chrome' },
     shots: { type: 'string' },
     seed: { type: 'string', default: '3' },
@@ -32,7 +34,7 @@ async function shot(page: Page, name: string): Promise<void> {
   await page.screenshot({ path: `${values.shots}/${name}.png` });
 }
 
-const { url, server } = await serve(values.build);
+const { url, server } = await serve(values.build, values.base);
 const browser = await chromium.launch({ executablePath: values.chrome, args: ['--no-sandbox'] });
 const page = await (await browser.newContext({ viewport: { width: 430, height: 900 } })).newPage();
 const errors: string[] = [];

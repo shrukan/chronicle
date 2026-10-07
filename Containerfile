@@ -6,7 +6,9 @@
 ARG NODE_VERSION=24.15.0
 ARG NGINX_VERSION=1.29
 
-FROM docker.io/library/node:${NODE_VERSION}-trixie AS node-toolchain
+# Builds run on the build machine's own platform: the output is plain web files, so images for
+# other platforms (e.g. arm64) don't need an emulated build.
+FROM --platform=$BUILDPLATFORM docker.io/library/node:${NODE_VERSION}-trixie AS node-toolchain
 
 RUN npm install -g @go-task/cli@3.50.0
 

@@ -253,7 +253,7 @@ CHANGELOG; CI runs lint, unit tests and `content:test` on every PR.
 ## 8. Open decisions
 
 - ~~Custom runtime vs Ink~~ → decided in M0: own runtime.
-- Public hosting in addition to the home server (GitHub Pages) → decided at M5, doesn't block anything.
+- Public hosting in addition to the home server: GitHub Pages, deployed with each release (done early, before M5).
 - Whether to commit generated `content/` JSON or regenerate in CI → recommend commit (reviewable diffs).
 - Voice-over → decide in M4. Recommendation: keep the 9 original recordings (intros), offer
   optional read-aloud via the browser's Web Speech API for all other text; pre-generate neural
