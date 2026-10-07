@@ -13,10 +13,13 @@ import {
 } from '@chronicle/engine';
 import { AudioPlayer } from './audio';
 import { loadContent, type ScenarioContent, type ScenarioId } from './content';
-import { SaveStore, type GameSetup } from './save-store';
+import { SaveStore, type GameSetup, type UndoStep } from './save-store';
 import { Settings } from './settings';
 
 /** Labels that only move the reading on ("Click to continue…") – no decision, no secret. */
+/** How many choices can be undone. */
+const UNDO_LIMIT = 10;
+
 export const PLAIN_CONTINUE = /^(click( here)? to continue|continue)[.…\s]*$/i;
 
 /** Nodes that must not run without the players: leaving the page, asking a question. */
@@ -101,6 +104,9 @@ export class Game {
   private story?: Story;
   /** Last state without an open prompt – what a reload resumes from. */
   private lastSafe?: StorySnapshot;
+  /** States before the last choices, newest last. */
+  private readonly undoSteps = signal<UndoStep[]>([]);
+  readonly canUndo = computed(() => this.undoSteps().length > 0);
 
   /** Looks up a string; placeholders are filled by the rich-text renderer. */
   text(key: string, kind: TextKind = 'instruction'): string {
@@ -122,6 +128,7 @@ export class Game {
     this.setup.set(setup);
     this.log.set([]);
     this.playTime.set(0);
+    this.undoSteps.set([]);
     this.audio.playMusic(this.scenarioId());
     this.step(() => this.story!.start());
   }
@@ -135,6 +142,7 @@ export class Game {
     this.setup.set(saved.setup);
     this.log.set(saved.log);
     this.playTime.set(saved.playTime ?? 0);
+    this.undoSteps.set(saved.undo ?? []);
     this.audio.playMusic(this.scenarioId());
     this.step(() => this.story!.restore(saved.snapshot), false);
     return true;
@@ -145,6 +153,7 @@ export class Game {
     this.story = undefined;
     this.view.set(undefined);
     this.log.set([]);
+    this.undoSteps.set([]);
   }
 
   /** Adds elapsed time; saves now and then so a closed tab loses little. */
@@ -155,7 +164,30 @@ export class Game {
   }
 
   click(link: number, values?: Record<string, Value>): void {
+    this.remember();
     this.step(() => this.story!.click(link, values));
+  }
+
+  /**
+   * Goes back to the page before the last choice. A prompt's answer belongs to the choice that
+   * opened it, so undoing after an answer returns to before that choice.
+   */
+  undo(): void {
+    const steps = this.undoSteps();
+    const last = steps.at(-1);
+    if (!last || !this.story) return;
+    this.undoSteps.set(steps.slice(0, -1));
+    this.log.set(last.log);
+    this.audio.stopVoice();
+    this.step(() => this.story!.restore(last.snapshot), false);
+  }
+
+  /** Remembers the current page before a choice (not while a prompt waits: see undo). */
+  private remember(): void {
+    if (!this.lastSafe || this.view()?.prompt) return;
+    this.undoSteps.update((steps) =>
+      [...steps, { snapshot: this.lastSafe!, log: this.log() }].slice(-UNDO_LIMIT),
+    );
   }
 
   answer(value: Value): void {
@@ -232,6 +264,7 @@ export class Game {
       snapshot: this.lastSafe,
       log: this.log(),
       playTime: this.playTime(),
+      undo: this.undoSteps(),
       savedAt: Date.now(),
     });
   }

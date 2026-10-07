@@ -20,7 +20,13 @@ import { ModalStack } from './modal-stack';
   selector: 'cr-modal',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <dialog #dialog class="paper" (cancel)="onCancel($event)" [attr.aria-label]="label()">
+    <dialog
+      #dialog
+      [class.paper]="!fullscreen()"
+      [class.fullscreen]="fullscreen()"
+      (cancel)="onCancel($event)"
+      [attr.aria-label]="label()"
+    >
       <ng-content />
     </dialog>
   `,
@@ -36,12 +42,27 @@ import { ModalStack } from './modal-stack';
       border-image: var(--frame-image) 70 / 1.1rem stretch;
       background-clip: padding-box;
     }
+    /* Covers the whole screen, e.g. to hide a page until the right player holds the device. */
+    dialog.fullscreen {
+      width: 100vw;
+      height: 100dvh;
+      max-width: none;
+      max-height: none;
+      margin: 0;
+      border: 0;
+      padding: 0;
+      background: var(--color-backdrop) var(--backdrop-image, none) center / cover;
+    }
     dialog::backdrop {
       background: rgb(10 8 6 / 0.7);
       backdrop-filter: blur(2px);
     }
     dialog[open] {
       animation: appear 0.25s ease-out;
+    }
+    /* Opaque from the first frame: a fade-in would show the page it hides. */
+    dialog.fullscreen[open] {
+      animation: none;
     }
     @keyframes appear {
       from {
@@ -55,6 +76,7 @@ export class Modal {
   readonly open = input(true);
   readonly label = input('');
   readonly dismissable = input(false);
+  readonly fullscreen = input(false);
   readonly closed = output<void>();
 
   private readonly dialog = viewChild.required<ElementRef<HTMLDialogElement>>('dialog');

@@ -4,10 +4,30 @@ An unofficial, fan-made companion app for the board game **My Father's Work**
 (Renegade Game Studios). It replaces the original app, which is no longer maintained, with an
 installable web app that also works offline.
 
-> **Status:** early development (milestone M4). _The Cost of Disease_ is fully playable in the
-> browser, from setup to the endings – see [PLAN.md](PLAN.md).
+[![CI](https://github.com/shrukan/chronicle/actions/workflows/ci.yml/badge.svg)](https://github.com/shrukan/chronicle/actions/workflows/ci.yml)
+[![Release](https://img.shields.io/github/v/release/shrukan/chronicle)](https://github.com/shrukan/chronicle/releases)
 
-Source: <https://github.com/shrukan/chronicle>
+> **Status:** early, but playable. _The Cost of Disease_ works from setup to the endings; the
+> other two scenarios follow. See [PLAN.md](PLAN.md) and the [changelog](CHANGELOG.md).
+
+## Features
+
+- **The complete storybook** of _The Cost of Disease_: game setup, story, location pages, end of
+  round, secret bids and votes, final scoring, endings – with the original's art, music and
+  voice-over.
+- **Made for the table:** pages open at once instead of click by click; a full-screen notice
+  when the storybook is passed on, so secrets stay secret; undo the last choice; the screen
+  stays on during a game; works with the keyboard (Enter / Space).
+- **Easy to read:** story text, game rules and instructions for the app look different.
+- **Never loses a game:** saves on every step and resumes after a reload; log book, play time
+  and an endings gallery.
+- **Installable and offline:** a web app (PWA) for phones, tablets and computers – once
+  loaded, it needs no connection.
+- **Tested:** every scenario is explored automatically for dead ends and errors, and a full
+  game is played in a real browser on every change.
+
+Found a bug? [Report it](https://github.com/shrukan/chronicle/issues/new?template=bug.yml) –
+or use the link in the app, which fills in the details.
 
 ## How it works
 
@@ -29,6 +49,7 @@ story tester and the terminal player.
 | `tools/converter/`    | Converts the original C# story scripts into `content/`                        |
 | `tools/story-cli/`    | Terminal player and random-playthrough smoke test                             |
 | `tools/story-tester/` | Static checks and coverage-guided exploration of every scenario               |
+| `tools/e2e/`          | Plays a full game in headless Chrome against the production build             |
 | `content/`            | Converted story data (© Renegade Game Studios, used under CC BY-NC 4.0 terms) |
 | `docs/`               | Notes, e.g. [M0 findings](docs/m0-findings.md)                                |
 | `upstream/`           | Reference clone of the original project (git-ignored)                         |
@@ -49,10 +70,29 @@ task project:check          # type-check + unit tests
 task content:convert         # clone the original sources and regenerate content/
 task content:test            # story tester: dead ends, errors, coverage (spoiler-free output)
 task frontend:serve:dev      # the app at http://localhost:4200
+task frontend:e2e            # a full game in headless Chrome
 task project:up:prod         # the production container at http://localhost:8080
 task story:play              # play The Cost of Disease in the terminal
 task content:smoke RUNS=1000 # random playthroughs: errors, coverage, endings reached
 ```
+
+## Self-hosting
+
+The app is a static site served by an unprivileged nginx container. To run a release:
+
+```bash
+git checkout v0.1.0
+task project:build:docker    # image chronicle:<version>
+task project:up:prod         # http://localhost:8080
+```
+
+Serve it over HTTPS (e.g. behind a reverse proxy) – browsers only install the app and keep it
+offline on secure origins.
+
+## Contributing
+
+See [CONTRIBUTING.md](CONTRIBUTING.md). Commit messages follow Conventional Commits; releases
+and the changelog are made by release-please.
 
 ## Licence
 

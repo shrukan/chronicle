@@ -16,7 +16,15 @@ export interface SavedGame {
   log: string[];
   /** Time spent in the storybook, in milliseconds. */
   playTime?: number;
+  /** Earlier states for "undo last choice", oldest first. */
+  undo?: UndoStep[];
   savedAt: number;
+}
+
+/** A state to go back to, with the log book as it was then. */
+export interface UndoStep {
+  snapshot: StorySnapshot;
+  log: string[];
 }
 
 /** Endings reached on this device: passage → first time reached. */

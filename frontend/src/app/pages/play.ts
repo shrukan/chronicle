@@ -4,6 +4,7 @@ import {
   computed,
   DestroyRef,
   inject,
+  linkedSignal,
   signal,
 } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
@@ -11,6 +12,8 @@ import { form, FormField, FormRoot, required } from '@angular/forms/signals';
 import { AudioPlayer } from '../core/audio';
 import { Game, PLAIN_CONTINUE } from '../core/game';
 import { bugReportUrl } from '../core/bug-report';
+import { keepScreenOn } from '../core/wake-lock';
+import { Autofocus } from '../ui/autofocus';
 import { Library } from '../core/library';
 import { LogBook } from '../story/log-book';
 import { RichText } from '../story/rich-text';
@@ -37,9 +40,31 @@ function findStoryLink(out: Out[], id: number): Extract<Out, { t: 'link' }> | un
   selector: 'cr-play',
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: { '(document:keydown)': 'onKey($event)' },
-  imports: [StoryOutput, RichText, FormField, FormRoot, Modal, SettingsPanel, LogBook, RouterLink],
+  imports: [
+    Autofocus,
+    StoryOutput,
+    RichText,
+    FormField,
+    FormRoot,
+    Modal,
+    SettingsPanel,
+    LogBook,
+    RouterLink,
+  ],
   template: `
     @if (game.view(); as view) {
+      @if (handover(); as notice) {
+        <!-- A dialog, so it queues ahead of the page's own pop-ups instead of under them. -->
+        <cr-modal [fullscreen]="true" label="Pass the storybook">
+          <div class="handover">
+            <div class="hand" aria-hidden="true"></div>
+            <p><cr-rich-text [text]="game.text(notice.key)" [args]="notice.args" /></p>
+            <button crAutofocus type="button" class="btn" (click)="handedOver.set(true)">
+              Ready – show the page
+            </button>
+          </div>
+        </cr-modal>
+      }
       <header class="bar">
         <button type="button" class="icon-btn" (click)="logOpen.set(true)" aria-label="Log book">
           @if (library.ui('general/book-icon-1'); as src) {
@@ -134,6 +159,23 @@ function findStoryLink(out: Out[], id: number): Extract<Out, { t: 'link' }> | un
           }}
         </h2>
         <p class="paused-time">Play time {{ playTime() }}</p>
+        @if (game.canUndo()) {
+          <div class="undo">
+            @if (!confirmUndo()) {
+              <button type="button" class="btn quiet" (click)="confirmUndo.set(true)">
+                ↶ Undo last choice
+              </button>
+            } @else {
+              <p>This shows the previous page again. Make sure it isn't another player's secret.</p>
+              <div class="row">
+                <button type="button" class="btn quiet" (click)="confirmUndo.set(false)">
+                  Cancel
+                </button>
+                <button type="button" class="btn" (click)="undo()">Undo</button>
+              </div>
+            }
+          </div>
+        }
         <cr-settings-panel [showHeading]="false" (done)="pauseOpen.set(false)">
           <button actions type="button" class="btn quiet" (click)="toTitle()">Main menu</button>
         </cr-settings-panel>
@@ -191,7 +233,8 @@ function findStoryLink(out: Out[], id: number): Extract<Out, { t: 'link' }> | un
     .title {
       margin: 0;
       text-align: center;
-      font-size: 1.7rem;
+      /* Long titles stay on one line on phones where possible. */
+      font-size: clamp(1.2rem, 5.5vw, 1.7rem);
       color: var(--color-on-backdrop);
       text-shadow: 0 0.15rem 0.5rem rgb(0 0 0 / 0.7);
     }
@@ -263,6 +306,45 @@ function findStoryLink(out: Out[], id: number): Extract<Out, { t: 'link' }> | un
       margin: 0 0 0.25rem;
       text-align: center;
       font-size: 1.6rem;
+    }
+    /* Covers the page until the player it is meant for has the storybook. */
+    .handover {
+      min-height: 100%;
+      display: grid;
+      place-content: center;
+      justify-items: center;
+      gap: 1.5rem;
+      padding: 2rem max(1.5rem, env(safe-area-inset-left));
+      color: var(--color-on-backdrop);
+      text-align: center;
+    }
+    .handover p {
+      max-width: 26rem;
+      margin: 0;
+      font-size: 1.35rem;
+      line-height: 1.5;
+    }
+    .handover .hand {
+      width: 4.5rem;
+      height: 4.5rem;
+      background: var(--color-on-backdrop);
+      mask: var(--command-icon) center / contain no-repeat;
+    }
+    .undo {
+      display: grid;
+      justify-items: center;
+      gap: 0.5rem;
+      margin: 0 0 1rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid var(--color-rule);
+      text-align: center;
+    }
+    .undo p {
+      margin: 0;
+    }
+    .undo .quiet,
+    .row .quiet {
+      color: var(--color-ink);
     }
     .report {
       margin: 1rem 0 0;
@@ -345,7 +427,7 @@ export class Play {
   protected onKey(event: KeyboardEvent): void {
     const way = this.onlyWay();
     const target = event.target as HTMLElement;
-    if (!way || (event.key !== ' ' && event.key !== 'Enter')) return;
+    if (!way || this.handover() || (event.key !== ' ' && event.key !== 'Enter')) return;
     if (
       target.closest('input, button, a, textarea, select, dialog[open]') ||
       document.querySelector('dialog[open]')
@@ -353,6 +435,30 @@ export class Play {
       return;
     event.preventDefault();
     this.game.click(way.id);
+  }
+
+  protected readonly confirmUndo = signal(false);
+
+  /** Set once the page's handover notice has been confirmed; every new page starts unset. */
+  protected readonly handedOver = linkedSignal({
+    source: () => this.game.view(),
+    computation: () => false,
+  });
+
+  /** An app command opening the page ("hand the storybook to …"): shown full screen first. */
+  protected readonly handover = computed(() => {
+    if (this.handedOver()) return undefined;
+    const first = this.body()
+      .filter((o) => o.t !== 'br')
+      .slice(0, 2)
+      .find((o) => o.t === 'text' && o.kind === 'command');
+    return first?.t === 'text' ? first : undefined;
+  });
+
+  protected undo(): void {
+    this.confirmUndo.set(false);
+    this.pauseOpen.set(false);
+    this.game.undo();
   }
 
   /** True while a reload picks up the saved game. */
@@ -375,7 +481,9 @@ export class Play {
     const onVisibility = () => document.visibilityState === 'hidden' && save();
     document.addEventListener('visibilitychange', onVisibility);
     window.addEventListener('pagehide', save);
+    const releaseScreen = keepScreenOn();
     inject(DestroyRef).onDestroy(() => {
+      releaseScreen();
       clearInterval(timer);
       document.removeEventListener('visibilitychange', onVisibility);
       window.removeEventListener('pagehide', save);

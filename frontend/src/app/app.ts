@@ -20,11 +20,13 @@ import { Library } from './core/library';
     <main>
       <router-outlet />
     </main>
-    <footer>
-      Unofficial fan project · Story, art and music © Renegade Game Studios ·
-      <a routerLink="/about">Chronicle {{ version }} – about &amp; credits</a> ·
-      <a [href]="bugReport()" target="_blank" rel="noopener">Report a bug ↗</a>
-    </footer>
+    @if (showFooter()) {
+      <footer>
+        Unofficial fan project · Story, art and music © Renegade Game Studios ·
+        <a routerLink="/about">Chronicle {{ version }} – about &amp; credits</a> ·
+        <a [href]="bugReport()" target="_blank" rel="noopener">Report a bug ↗</a>
+      </footer>
+    }
   `,
   styles: `
     :host {
@@ -60,6 +62,10 @@ import { Library } from './core/library';
   `,
 })
 export class App {
+  /** Credits and links on the menu pages; the storybook keeps the screen for the story. */
+  protected readonly showFooter = computed(() =>
+    ['/', '/about', '/endings', '/help'].includes(this.url().split(/[?#]/)[0]!),
+  );
   protected readonly version = VERSION;
   protected bugReport(): string {
     return bugReportUrl({ where: location.pathname });
@@ -68,7 +74,7 @@ export class App {
   private readonly audio = inject(AudioPlayer);
   private readonly router = inject(Router);
 
-  private readonly url = toSignal(
+  protected readonly url = toSignal(
     this.router.events.pipe(
       filter((e) => e instanceof NavigationEnd),
       map((e) => e.urlAfterRedirects),
