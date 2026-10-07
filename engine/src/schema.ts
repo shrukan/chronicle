@@ -221,8 +221,8 @@ export interface AssetManifest {
   setup: Record<string, string>;
   /** UI art, keyed by its path in the original (lower-case, dashes). */
   ui: Record<string, string>;
-  /** Story music per scenario; a scenario without its own track uses the title music. */
-  music: { title: string; scenario: Record<string, string> };
+  /** Story music per scenario (a scenario without its own track uses the title music) and the endings' music. */
+  music: { title: string; scenario: Record<string, string>; ending?: string };
   effects: Record<string, string>;
   /** Passage → voice-over clips. */
   voiceOver: Record<string, { male?: string; female?: string }>;

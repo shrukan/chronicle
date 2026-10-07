@@ -252,9 +252,12 @@
  },
  "music": {
   "title": "audio/music/title.mp3",
-  "scenario": {}
+  "scenario": {},
+  "ending": "audio/music/ending.mp3"
  },
  "effects": {
+  "click": "audio/effects/click.mp3",
+  "select": "audio/effects/select.mp3",
   "welcome": "audio/effects/welcome.mp3",
   "footsteps": "audio/effects/footsteps.mp3",
   "setupWindow": "audio/effects/setup-window.mp3",

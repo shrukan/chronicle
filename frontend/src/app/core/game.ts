@@ -143,6 +143,7 @@ export class Game {
     this.audio.playVoice(current);
     this.newEnding.set(undefined);
     if (this.content()?.scenario.passages[current]?.tags.includes('ending')) {
+      this.audio.playEndingMusic();
       void this.saves
         .unlock(this.scenarioId(), current)
         .then((first) => first && this.newEnding.set(current));

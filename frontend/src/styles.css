@@ -41,6 +41,11 @@ body {
   margin: 0;
 }
 
+/* Sliders, checkboxes and radio buttons in the theme colour. */
+:root {
+  accent-color: var(--color-accent);
+}
+
 @layer components {
   /* Weathered paper: where story text and forms live. */
   .paper {

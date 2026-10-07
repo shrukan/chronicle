@@ -60,6 +60,10 @@ export class Library {
     return this.url((scenario && m?.scenario[scenario]) || m?.title);
   }
 
+  endingMusic(): string | undefined {
+    return this.url(this.assets()?.music.ending);
+  }
+
   effect(name: string): string | undefined {
     return this.url(this.assets()?.effects[name]);
   }

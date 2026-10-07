@@ -17,6 +17,9 @@ import { guidIndex } from './unity.ts';
 
 /** Sound effects by the screen that plays them (from the main scene's components). */
 const EFFECTS: Record<string, string> = {
+  // Nearly every button and every story link in the original plays this.
+  click: 'New SFX/click-to-continue.ogg',
+  select: 'SFX/UI Select.ogg',
   welcome: 'SFX/New_8_April/welcome to my fathers work-window.ogg',
   footsteps: 'SFX/Enter room-footsteps.ogg',
   setupWindow: 'SFX/New_8_April/set up window-new.ogg',
@@ -35,6 +38,8 @@ const EFFECTS: Record<string, string> = {
  */
 const MUSIC = {
   title: 'SFX/Fathers work Title theme.ogg',
+  /** Plays once an ending is reached (`EndGameAudioSource`). */
+  ending: 'SFX/New_8_April/My Fathers Work-OST/Chronicle Part  Three.ogg',
   scenario: {
     'cost-of-disease': 'SFX/New_8_April/My Fathers Work-OST/Chronicle Part one_1-2.ogg',
     'fear-of-the-unknown': 'SFX/New_8_April/My Fathers Work-OST/Chronicle Part Two_2-2.ogg',
@@ -153,6 +158,8 @@ export function extractAssets(assets: string, out: string, voiceOver: ScenarioEx
     return tryConvert(() => audio(join(assets, src), file)) ? rel(file) : undefined;
   };
   m.music.title = music(MUSIC.title, 'music/title') ?? '';
+  const ending = music(MUSIC.ending, 'music/ending');
+  if (ending) m.music.ending = ending;
   for (const [id, src] of Object.entries(MUSIC.scenario)) {
     const file = music(src, `music/${id}`);
     if (file) m.music.scenario[id] = file;
@@ -189,7 +196,7 @@ if (import.meta.main) {
   const count = (o: object) => Object.keys(o).length;
   console.log(
     `assets: ${count(manifest.icons)} icons, ${count(manifest.setup)} setup pictures, ${count(manifest.ui)} UI images, ` +
-      `${(manifest.music.title ? 1 : 0) + count(manifest.music.scenario)} music tracks, ${count(manifest.effects)} effects, ${count(manifest.voiceOver)} voiced passages`,
+      `${(manifest.music.title ? 1 : 0) + (manifest.music.ending ? 1 : 0) + count(manifest.music.scenario)} music tracks, ${count(manifest.effects)} effects, ${count(manifest.voiceOver)} voiced passages`,
   );
   if (manifest.missing.length) console.log(`missing source files (${manifest.missing.length}):\n  ${manifest.missing.join('\n  ')}`);
 }

@@ -14,6 +14,8 @@ export class AudioPlayer {
   private music?: HTMLAudioElement;
   private musicSrc?: string;
   private voice?: HTMLAudioElement;
+  /** Loaded effects, so short sounds like the click play without delay. */
+  private readonly effects = new Map<string, HTMLAudioElement>();
 
   constructor() {
     effect(() => {
@@ -28,7 +30,15 @@ export class AudioPlayer {
 
   /** Loops the music of a scenario (or the title music); keeps playing if it's already on. */
   playMusic(scenario?: string): void {
-    const src = this.library.music(scenario);
+    this.loop(this.library.music(scenario));
+  }
+
+  /** The original switches to its own music once an ending is reached. */
+  playEndingMusic(): void {
+    this.loop(this.library.endingMusic());
+  }
+
+  private loop(src: string | undefined): void {
     if (!src || src === this.musicSrc) return;
     this.music?.pause();
     this.musicSrc = src;
@@ -44,10 +54,29 @@ export class AudioPlayer {
     this.musicSrc = undefined;
   }
 
+  /** Loads effects ahead of time (the click should never lag). */
+  preload(...names: string[]): void {
+    for (const name of names) {
+      const src = this.library.effect(name);
+      if (src && !this.effects.has(src)) {
+        const a = new Audio(src);
+        a.preload = 'auto';
+        this.effects.set(src, a);
+      }
+    }
+  }
+
   effect(name: string): void {
     const src = this.library.effect(name);
     if (!src || this.settings.effects() === 0) return;
-    const a = new Audio(src);
+    let loaded = this.effects.get(src);
+    if (!loaded) {
+      loaded = new Audio(src);
+      loaded.preload = 'auto';
+      this.effects.set(src, loaded);
+    }
+    // A copy, so quick repeated clicks overlap instead of cutting each other off.
+    const a = loaded.cloneNode() as HTMLAudioElement;
     a.volume = this.settings.effects();
     void a.play().catch(() => undefined);
   }

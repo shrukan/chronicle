@@ -22,6 +22,8 @@ import {
   `,
   styles: `
     dialog {
+      /* Tailwind's reset removes the browser's margin: auto, which centres a modal dialog. */
+      margin: auto;
       width: min(36rem, calc(100vw - 2rem));
       max-height: calc(100dvh - 2rem);
       overflow: auto;

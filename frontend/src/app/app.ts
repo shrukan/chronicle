@@ -12,6 +12,7 @@ import { Library } from './core/library';
   host: {
     '(document:pointerdown)': 'startMusic()',
     '(document:keydown)': 'startMusic()',
+    '(document:click)': 'clickSound($event)',
   },
   template: `
     <main>
@@ -64,7 +65,7 @@ export class App {
   private musicStarted = false;
 
   constructor() {
-    void this.library.load();
+    void this.library.load().then(() => this.audio.preload('click'));
     effect(() => {
       const src = this.backdrop();
       document.documentElement.style.setProperty(
@@ -72,6 +73,12 @@ export class App {
         src ? `url("${src}")` : 'none',
       );
     });
+  }
+
+  /** Like the original, every button and story link clicks. */
+  protected clickSound(event: Event): void {
+    const target = (event.target as Element | null)?.closest('button, a, [role="tab"], input[type="radio"], input[type="checkbox"]');
+    if (target && !(target as HTMLButtonElement).disabled) this.audio.effect('click');
   }
 
   /** Browsers only allow sound after a user gesture: start the title music on the first one. */
