@@ -1,6 +1,8 @@
 import { ChangeDetectionStrategy, Component, inject, input } from '@angular/core';
 import { SETUP_CONTINUE_KEY, type Out } from '@chronicle/engine';
 import { Game } from '../core/game';
+import { Library } from '../core/library';
+import { Modal } from '../ui/modal';
 import { RichText } from './rich-text';
 import { ScreenCard } from './screen-card';
 
@@ -8,7 +10,7 @@ import { ScreenCard } from './screen-card';
 @Component({
   selector: 'cr-story-output',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [RichText, ScreenCard],
+  imports: [RichText, ScreenCard, Modal],
   template: `
     @for (o of items(); track $index) {
       @switch (o.t) {
@@ -22,8 +24,8 @@ import { ScreenCard } from './screen-card';
           @if (o.disabled) {
             <cr-rich-text class="used-link" [text]="game.text(o.key)" [args]="o.args" />
           } @else if (o.key === setupContinue) {
-            <button type="button" class="setup-continue" (click)="game.click(o.id)">
-              {{ game.text(o.key) }}
+            <button type="button" class="btn setup-continue" (click)="game.click(o.id)">
+              {{ library.text('UI/ItemObtain/ViewArea/Acceptbtn/Text (TMP)', 'Accept') }}
             </button>
           } @else {
             <button type="button" class="story-link" (click)="game.click(o.id)">
@@ -35,13 +37,23 @@ import { ScreenCard } from './screen-card';
           <cr-story-output [items]="o.children" />
         }
         @case ('block') {
-          <section class="block" [class]="o.style">
-            @if (o.style === 'setupEvent' || o.style === 'setup') {
-              <!-- The original shows an image here (o.image); images arrive in M4. -->
-              <header>Setup</header>
-            }
-            <cr-story-output [items]="o.children" />
-          </section>
+          @if (o.style === 'setupEvent') {
+            <!-- The original shows these as a pop-up with a picture; ACCEPT continues. -->
+            <cr-modal [label]="setupLabel">
+              <h2 class="heading setup-heading">{{ setupLabel }}</h2>
+              @if (o.image && library.setupImage(o.image); as src) {
+                <img class="setup-image" [src]="src" alt="" />
+              }
+              <div class="setup-body"><cr-story-output [items]="o.children" /></div>
+            </cr-modal>
+          } @else {
+            <section class="block" [class]="o.style">
+              @if (o.style === 'setup') {
+                <header>{{ setupLabel }}</header>
+              }
+              <cr-story-output [items]="o.children" />
+            </section>
+          }
         }
         @case ('ui') {
           <cr-screen-card [screen]="o" />
@@ -53,6 +65,10 @@ import { ScreenCard } from './screen-card';
 })
 export class StoryOutput {
   protected readonly game = inject(Game);
+  protected readonly library = inject(Library);
   readonly items = input.required<Out[]>();
   protected readonly setupContinue = SETUP_CONTINUE_KEY;
+  protected get setupLabel(): string {
+    return this.library.text('@TwineTMProPlayer.setupText', 'Setup');
+  }
 }

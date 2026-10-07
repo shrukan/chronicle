@@ -1,13 +1,15 @@
 @import 'tailwindcss';
 
 /*
- * Theme tokens. Light: parchment and ink; dark: candle-lit study. Components use the
- * CSS variables, so a reading mode or a new theme only swaps these values.
+ * Theme tokens. The original app: dark textured backgrounds with text on weathered paper.
+ * Components use the CSS variables; a new theme or reading mode only swaps these values.
  */
 @theme {
   --font-display: 'IM Fell English SC', 'IM Fell English', Georgia, serif;
   --font-body: 'EB Garamond', Georgia, 'Times New Roman', serif;
 
+  --color-backdrop: #1b1f1d;
+  --color-on-backdrop: #e9dfc9;
   --color-bg: #f3ead8;
   --color-panel: #ebdfc6;
   --color-ink: #2a2118;
@@ -23,27 +25,78 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --color-bg: #16120f;
-    --color-panel: #221b16;
-    --color-ink: #e6dcc8;
-    --color-heading: #e9c79a;
-    --color-muted: #9b8b74;
-    --color-rule: #3d3128;
-    --color-accent: #c26a4a;
-    --color-on-accent: #16120f;
-    --color-link: #e3a372;
-    --color-link-hover: #f2c39b;
-    --color-error: #ff8a80;
+    --color-bg: #e6dac0;
+    --color-panel: #ddcfb1;
   }
 }
 
 html {
-  background: var(--color-bg);
-  color: var(--color-ink);
+  background: var(--color-backdrop) var(--backdrop-image, none) center / cover fixed;
+  color: var(--color-on-backdrop);
   font-family: var(--font-body);
   font-size: 17px;
 }
 
 body {
   margin: 0;
+}
+
+@layer components {
+  /* Weathered paper: where story text and forms live. */
+  .paper {
+    background: var(--color-bg) var(--paper-image, none) center / 100% 100%;
+    color: var(--color-ink);
+    border-radius: 0.4rem;
+    box-shadow: 0 0.5rem 1.5rem rgb(0 0 0 / 0.45);
+    padding: 1.5rem 1.25rem;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+    padding: 0.5rem 1.2rem;
+    border: 1px solid var(--color-accent);
+    border-radius: 0.4rem;
+    background: var(--color-accent);
+    color: var(--color-on-accent);
+    font-family: var(--font-display);
+    font-size: 1.05rem;
+    letter-spacing: 0.05em;
+    cursor: pointer;
+    text-decoration: none;
+  }
+  .btn:hover:not(:disabled) {
+    filter: brightness(1.12);
+  }
+  .btn:disabled {
+    opacity: 0.45;
+    cursor: default;
+  }
+  .btn.quiet {
+    background: transparent;
+    color: inherit;
+    border-color: currentColor;
+  }
+
+  .heading {
+    font-family: var(--font-display);
+    font-weight: normal;
+    color: var(--color-heading);
+  }
+
+  .field {
+    display: grid;
+    gap: 0.3rem;
+  }
+  .field input,
+  .field select {
+    padding: 0.45rem 0.6rem;
+    border: 1px solid var(--color-rule);
+    border-radius: 0.3rem;
+    background: rgb(255 255 255 / 0.55);
+    color: var(--color-ink);
+    font: inherit;
+  }
 }

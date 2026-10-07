@@ -71,14 +71,25 @@
   font-size: 1.3rem;
 }
 
-.setup-continue {
+.setup-heading {
+  margin: 0 0 0.75rem;
+  font-size: 1.4rem;
+  text-align: center;
+}
+
+.setup-image {
   display: block;
-  margin-top: 0.75rem;
-  padding: 0.4rem 1rem;
-  border-radius: 0.4rem;
-  border: 1px solid var(--color-accent);
-  background: var(--color-accent);
-  color: var(--color-on-accent);
-  font: inherit;
-  cursor: pointer;
+  max-width: 10rem;
+  max-height: 10rem;
+  margin: 0 auto 0.75rem;
+  object-fit: contain;
+}
+
+.setup-body {
+  line-height: 1.55;
+}
+
+.setup-continue {
+  display: flex;
+  margin: 1rem auto 0;
 }

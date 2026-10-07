@@ -21,7 +21,9 @@
       "updateMode": "prefetch",
       "resources": {
         "files": [
-          "/**/*.(svg|cur|jpg|jpeg|png|apng|webp|avif|gif|otf|ttf|woff|woff2)"
+          "/icons/**",
+          "/media/**",
+          "/*.(svg|cur|jpg|jpeg|png|webp|avif|gif|otf|ttf|woff|woff2)"
         ]
       }
     },
@@ -31,7 +33,22 @@
       "updateMode": "prefetch",
       "resources": {
         "files": [
-          "/content/**/*.json"
+          "/content/*/*.json",
+          "/content/ui.en.json",
+          "/content/assets/manifest.json",
+          "/content/assets/icons/**",
+          "/content/assets/ui/**"
+        ]
+      }
+    },
+    {
+      "name": "pictures-and-sound",
+      "installMode": "lazy",
+      "updateMode": "prefetch",
+      "resources": {
+        "files": [
+          "/content/assets/setup/**",
+          "/content/assets/audio/**"
         ]
       }
     }

@@ -12,6 +12,9 @@
     },
     {
       "path": "tools/story-tester"
+    },
+    {
+      "path": "tools/e2e"
     }
   ]
 }

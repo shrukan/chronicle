@@ -1,11 +1,35 @@
 import type { Routes } from '@angular/router';
 
 export const routes: Routes = [
-  { path: '', loadComponent: () => import('./pages/home').then((m) => m.Home), title: 'Chronicle' },
+  {
+    path: '',
+    loadComponent: () => import('./pages/main-menu').then((m) => m.MainMenu),
+    title: "Chronicle – My Father's Work",
+  },
+  {
+    path: 'setup',
+    loadComponent: () => import('./pages/setup').then((m) => m.Setup),
+    title: 'Chronicle – new game',
+  },
   {
     path: 'play',
     loadComponent: () => import('./pages/play').then((m) => m.Play),
-    title: 'Chronicle – story',
+    title: 'Chronicle – storybook',
+  },
+  {
+    path: 'score',
+    loadComponent: () => import('./pages/score').then((m) => m.Score),
+    title: 'Chronicle – scoring',
+  },
+  {
+    path: 'endings',
+    loadComponent: () => import('./pages/endings').then((m) => m.Endings),
+    title: 'Chronicle – endings',
+  },
+  {
+    path: 'help',
+    loadComponent: () => import('./pages/help').then((m) => m.Help),
+    title: 'Chronicle – help',
   },
   { path: '**', redirectTo: '' },
 ];

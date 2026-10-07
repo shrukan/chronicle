@@ -1,20 +1,24 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { RouterLink, RouterOutlet } from '@angular/router';
+import { ChangeDetectionStrategy, Component, computed, effect, inject } from '@angular/core';
+import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
+import { toSignal } from '@angular/core/rxjs-interop';
+import { filter, map } from 'rxjs';
+import { AudioPlayer } from './core/audio';
+import { Library } from './core/library';
 
 @Component({
   selector: 'cr-root',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [RouterOutlet, RouterLink],
+  imports: [RouterOutlet],
+  host: {
+    '(document:pointerdown)': 'startMusic()',
+    '(document:keydown)': 'startMusic()',
+  },
   template: `
-    <header class="bar">
-      <a routerLink="/" class="brand">Chronicle</a>
-      <span class="sub">a companion for My Father's Work</span>
-    </header>
     <main>
       <router-outlet />
     </main>
     <footer>
-      Unofficial fan project. Story, text and art © Renegade Game Studios (CC BY-NC 4.0).
+      Unofficial fan project. Story, text, art and music © Renegade Game Studios (CC BY-NC 4.0).
     </footer>
   `,
   styles: `
@@ -23,36 +27,57 @@ import { RouterLink, RouterOutlet } from '@angular/router';
       flex-direction: column;
       min-height: 100dvh;
     }
-    .bar {
-      display: flex;
-      align-items: baseline;
-      gap: 0.75rem;
-      padding: 0.75rem 1rem;
-      border-bottom: 1px solid var(--color-rule);
-    }
-    .brand {
-      font-family: var(--font-display);
-      font-size: 1.4rem;
-      color: var(--color-heading);
-      text-decoration: none;
-    }
-    .sub {
-      font-size: 0.9rem;
-      color: var(--color-muted);
-    }
     main {
       flex: 1;
       width: 100%;
-      max-width: 44rem;
+      max-width: 46rem;
       margin: 0 auto;
-      padding: 1.5rem 1rem 3rem;
+      padding: 1.25rem 1rem 3rem;
+      box-sizing: border-box;
     }
     footer {
       padding: 1rem;
-      font-size: 0.8rem;
+      font-size: 0.75rem;
       text-align: center;
-      color: var(--color-muted);
+      opacity: 0.6;
     }
   `,
 })
-export class App {}
+export class App {
+  private readonly library = inject(Library);
+  private readonly audio = inject(AudioPlayer);
+  private readonly router = inject(Router);
+
+  private readonly url = toSignal(
+    this.router.events.pipe(
+      filter((e) => e instanceof NavigationEnd),
+      map((e) => e.urlAfterRedirects),
+    ),
+    { initialValue: '/' },
+  );
+  /** Scoring has its own (purple) background in the original. */
+  private readonly backdrop = computed(() =>
+    this.library.ui(
+      this.url().startsWith('/score') ? 'general/main-bg-scoring' : 'general/main-bg',
+    ),
+  );
+  private musicStarted = false;
+
+  constructor() {
+    void this.library.load();
+    effect(() => {
+      const src = this.backdrop();
+      document.documentElement.style.setProperty(
+        '--backdrop-image',
+        src ? `url("${src}")` : 'none',
+      );
+    });
+  }
+
+  /** Browsers only allow sound after a user gesture: start the title music on the first one. */
+  protected startMusic(): void {
+    if (this.musicStarted) return;
+    this.musicStarted = true;
+    if (!this.url().startsWith('/play')) this.audio.playMusic();
+  }
+}
