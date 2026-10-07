@@ -11,6 +11,8 @@ interface Stored {
   readingMode: ReadingMode;
   /** Open plain "continue" reveals automatically, so a page appears in one piece. */
   wholePage: boolean;
+  /** All sound off, without touching the volumes. */
+  muted: boolean;
 }
 
 const KEY = 'chronicle.settings';
@@ -21,6 +23,7 @@ const DEFAULTS: Stored = {
   voiceOver: 1,
   readingMode: 'full',
   wholePage: true,
+  muted: false,
 };
 
 function read(): Stored {
@@ -41,6 +44,7 @@ export class Settings {
   readonly voiceOver = signal(this.initial.voiceOver);
   readonly readingMode = signal<ReadingMode>(this.initial.readingMode);
   readonly wholePage = signal(this.initial.wholePage);
+  readonly muted = signal(this.initial.muted);
 
   constructor() {
     effect(() => {
@@ -51,6 +55,7 @@ export class Settings {
         voiceOver: this.voiceOver(),
         readingMode: this.readingMode(),
         wholePage: this.wholePage(),
+        muted: this.muted(),
       };
       try {
         localStorage.setItem(KEY, JSON.stringify(value));

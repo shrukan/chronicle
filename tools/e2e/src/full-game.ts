@@ -81,7 +81,7 @@ try {
         await dialog.getByRole('button', { name: /accept/i }).click({ timeout: 6000 });
       } else {
         if (seen.dialogs === 1) await shot(page, '2-dialog');
-        await dialog.locator('button').last().click({ timeout: 5000 }).catch(() => undefined);
+        await dialog.locator('button:not(.sound)').last().click({ timeout: 5000 }).catch(() => undefined);
       }
       continue;
     }

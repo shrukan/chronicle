@@ -46,6 +46,15 @@ import { Settings, type Voice } from '../core/settings';
       </span>
     </label>
 
+    <label class="toggle">
+      <input
+        type="checkbox"
+        [checked]="settings.muted()"
+        (change)="settings.muted.set($any($event.target).checked)"
+      />
+      <span>Mute all sound</span>
+    </label>
+
     @for (s of sliders; track s.fallback) {
       <label class="field slider">
         {{ t(s.key, s.fallback) }}

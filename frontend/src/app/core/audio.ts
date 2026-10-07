@@ -16,15 +16,24 @@ export class AudioPlayer {
   private voice?: HTMLAudioElement;
   /** Loaded effects, so short sounds like the click play without delay. */
   private readonly effects = new Map<string, HTMLAudioElement>();
+  /** Effects still playing, so muting or the effects slider reaches them too. */
+  private readonly playing = new Set<HTMLAudioElement>();
 
   constructor() {
     effect(() => {
       const volume = this.settings.music();
-      if (this.music) this.music.volume = volume;
+      const muted = this.settings.muted();
+      if (this.music) Object.assign(this.music, { volume, muted });
+    });
+    effect(() => {
+      const volume = this.settings.effects();
+      const muted = this.settings.muted();
+      for (const a of this.playing) Object.assign(a, { volume, muted });
     });
     effect(() => {
       const volume = this.settings.voiceOver();
-      if (this.voice) this.voice.volume = volume;
+      const muted = this.settings.muted();
+      if (this.voice) Object.assign(this.voice, { volume, muted });
     });
   }
 
@@ -45,6 +54,7 @@ export class AudioPlayer {
     this.music = new Audio(src);
     this.music.loop = true;
     this.music.volume = this.settings.music();
+    this.music.muted = this.settings.muted();
     void this.music.play().catch(() => (this.musicSrc = undefined));
   }
 
@@ -68,7 +78,7 @@ export class AudioPlayer {
 
   effect(name: string): void {
     const src = this.library.effect(name);
-    if (!src || this.settings.effects() === 0) return;
+    if (!src || this.settings.effects() === 0 || this.settings.muted()) return;
     let loaded = this.effects.get(src);
     if (!loaded) {
       loaded = new Audio(src);
@@ -78,7 +88,9 @@ export class AudioPlayer {
     // A copy, so quick repeated clicks overlap instead of cutting each other off.
     const a = loaded.cloneNode() as HTMLAudioElement;
     a.volume = this.settings.effects();
-    void a.play().catch(() => undefined);
+    this.playing.add(a);
+    a.addEventListener('ended', () => this.playing.delete(a), { once: true });
+    void a.play().catch(() => this.playing.delete(a));
   }
 
   /** Voice-over of a passage in the chosen voice; stops any voice-over still playing. */
@@ -88,6 +100,7 @@ export class AudioPlayer {
     if (!src || this.settings.voiceOver() === 0) return;
     this.voice = new Audio(src);
     this.voice.volume = this.settings.voiceOver();
+    this.voice.muted = this.settings.muted();
     void this.voice.play().catch(() => undefined);
   }
 

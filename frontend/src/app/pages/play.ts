@@ -15,6 +15,7 @@ import { bugReportUrl } from '../core/bug-report';
 import { keepScreenOn } from '../core/wake-lock';
 import { Autofocus } from '../ui/autofocus';
 import { Library } from '../core/library';
+import { Settings } from '../core/settings';
 import { LogBook } from '../story/log-book';
 import { RichText } from '../story/rich-text';
 import { StoryOutput } from '../story/story-output';
@@ -81,9 +82,21 @@ function findStoryLink(out: Out[], id: number): Extract<Out, { t: 'link' }> | un
           </h1>
           <p class="clock" [attr.aria-label]="'Play time ' + playTime()">⏱ {{ playTime() }}</p>
         </div>
-        <button type="button" class="icon-btn" (click)="pauseOpen.set(true)" aria-label="Menu">
-          ☰
-        </button>
+        <div class="end">
+          <button
+            type="button"
+            class="icon-btn"
+            (click)="settings.muted.set(!settings.muted())"
+            [attr.aria-label]="settings.muted() ? 'Turn sound on' : 'Mute all sound'"
+            [attr.aria-pressed]="settings.muted()"
+            [title]="settings.muted() ? 'Turn sound on' : 'Mute all sound'"
+          >
+            <span class="speaker" [class.off]="settings.muted()" aria-hidden="true"></span>
+          </button>
+          <button type="button" class="icon-btn" (click)="pauseOpen.set(true)" aria-label="Menu">
+            ☰
+          </button>
+        </div>
       </header>
 
       <article class="paper passage" [class.hub]="game.isHub()" aria-live="polite">
@@ -205,10 +218,25 @@ function findStoryLink(out: Out[], id: number): Extract<Out, { t: 'link' }> | un
     }
     .bar {
       display: grid;
-      grid-template-columns: 2.75rem 1fr 2.75rem;
+      /* Symmetric, so the title stays centred: log book left; sound and menu right. */
+      grid-template-columns: 6rem 1fr 6rem;
       align-items: center;
       gap: 0.5rem;
       margin-bottom: 0.75rem;
+    }
+    .end {
+      display: flex;
+      justify-content: flex-end;
+      gap: 0.5rem;
+    }
+    .speaker {
+      width: 1.35rem;
+      height: 1.35rem;
+      background: currentColor;
+      mask: var(--icon-sound) center / contain no-repeat;
+    }
+    .speaker.off {
+      mask-image: var(--icon-muted);
     }
     .center {
       display: grid;
@@ -383,6 +411,7 @@ export class Play {
 
   protected readonly game = inject(Game);
   protected readonly library = inject(Library);
+  protected readonly settings = inject(Settings);
   private readonly router = inject(Router);
   private readonly audio = inject(AudioPlayer);
 

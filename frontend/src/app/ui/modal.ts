@@ -9,6 +9,7 @@ import {
   output,
   viewChild,
 } from '@angular/core';
+import { Settings } from '../core/settings';
 import { ModalStack } from './modal-stack';
 
 /**
@@ -28,6 +29,18 @@ import { ModalStack } from './modal-stack';
       [attr.aria-label]="label()"
     >
       <ng-content />
+      <!-- Dialogs block the rest of the page, the header's mute button included. Last in the
+           DOM so the dialog's own first button gets the focus (Enter). -->
+      <button
+        type="button"
+        class="sound"
+        (click)="settings.muted.set(!settings.muted())"
+        [attr.aria-label]="settings.muted() ? 'Turn sound on' : 'Mute all sound'"
+        [attr.aria-pressed]="settings.muted()"
+        [title]="settings.muted() ? 'Turn sound on' : 'Mute all sound'"
+      >
+        <span class="speaker" [class.off]="settings.muted()" aria-hidden="true"></span>
+      </button>
     </dialog>
   `,
   styles: `
@@ -53,6 +66,38 @@ import { ModalStack } from './modal-stack';
       padding: 0;
       background: var(--color-backdrop) var(--backdrop-image, none) center / cover;
     }
+    .sound {
+      position: absolute;
+      top: 0.4rem;
+      right: 0.4rem;
+      display: grid;
+      place-items: center;
+      width: 2.25rem;
+      height: 2.25rem;
+      border: 0;
+      border-radius: 50%;
+      background: none;
+      color: var(--color-muted);
+      cursor: pointer;
+    }
+    dialog.fullscreen .sound {
+      top: max(0.75rem, env(safe-area-inset-top));
+      right: 0.75rem;
+      color: var(--color-on-backdrop);
+    }
+    .sound:hover,
+    .sound:focus-visible {
+      color: var(--color-accent);
+    }
+    .speaker {
+      width: 1.2rem;
+      height: 1.2rem;
+      background: currentColor;
+      mask: var(--icon-sound) center / contain no-repeat;
+    }
+    .speaker.off {
+      mask-image: var(--icon-muted);
+    }
     dialog::backdrop {
       background: rgb(10 8 6 / 0.7);
       backdrop-filter: blur(2px);
@@ -77,6 +122,7 @@ export class Modal {
   readonly label = input('');
   readonly dismissable = input(false);
   readonly fullscreen = input(false);
+  protected readonly settings = inject(Settings);
   readonly closed = output<void>();
 
   private readonly dialog = viewChild.required<ElementRef<HTMLDialogElement>>('dialog');
