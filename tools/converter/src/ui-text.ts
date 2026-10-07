@@ -1,7 +1,10 @@
 /**
- * Extracts the English screen texts of the original app from its main scene: every
- * TextMeshPro text, keyed by its object path (`Canvas/MainMenu/Welcome/Text`). The app's
- * screens pick the texts they need by path.
+ * Extracts the English screen texts of the original app from its main scene:
+ *  - every TextMeshPro text, keyed by its object path (`UI/MainMenu/…/Text`);
+ *  - texts the screen scripts assemble at runtime, which live in per-language string arrays
+ *    on the components (index 0 = English), keyed `@Script.field` (e.g. `@ViewPlayerIntro.introText1`);
+ *  - lists such as the achievements and the ending passages, keyed the same way.
+ * The app's screens pick the texts they need by key.
  *
  * Usage: node tools/converter/src/ui-text.ts [--upstream upstream/UnityOriginalApp] [--out content/ui.en.json]
  */
@@ -10,6 +13,7 @@ import { join } from 'node:path';
 import { parseArgs } from 'node:util';
 import { parse } from 'yaml';
 import { toMarkup } from './passage.ts';
+import { guidIndex } from './unity.ts';
 
 interface UnityDoc {
   type: string;
@@ -25,7 +29,8 @@ function documents(source: string): Map<string, UnityDoc> {
     const type = /^(\w+):/.exec(yaml)?.[1] ?? '';
     // Parse only what we need, the scene is large.
     if (!['GameObject', 'RectTransform', 'Transform', 'MonoBehaviour'].includes(type)) continue;
-    if (type === 'MonoBehaviour' && !/^\s+m_text:/m.test(yaml)) continue;
+    // Text components, and screen scripts with per-language text arrays or lists.
+    if (type === 'MonoBehaviour' && !/^\s+(m_text:|\w+:\s*\n\s+- )/m.test(yaml)) continue;
     try {
       docs.set(id, { type, body: (parse(yaml) as Record<string, Record<string, unknown>>)[type]! });
     } catch {
@@ -37,7 +42,17 @@ function documents(source: string): Map<string, UnityDoc> {
 
 type Ref = { fileID: number | string };
 
-export function extractUiText(scene: string): Record<string, string> {
+/**
+ * Script fields that are real lists (passages, achievements). Every other string array is a
+ * per-language text (English first; the original has 2 or 7 languages depending on the field).
+ */
+const LIST_FIELDS = new Set([
+  'endingPassageList', 'genHubEPassageList', 'genHubMPassageList', 'genHubLPassageList', 'genIntroPassageNameList',
+  'ignorPassageNameList', 'scoringPassageList', 'storyPreparationPassageName', 'TotalAchievements', 'specialAchievement', 'storyNameList',
+]);
+
+export function extractUiText(scene: string, assets: string): Record<string, string | string[]> {
+  const guids = guidIndex(assets);
   const docs = documents(scene);
   const names = new Map<string, string>(); // GameObject id → name
   const parents = new Map<string, string>(); // GameObject id → parent GameObject id
@@ -62,9 +77,24 @@ export function extractUiText(scene: string): Record<string, string> {
     return parts.join('/');
   };
 
-  const texts: Record<string, string> = {};
+  const texts: Record<string, string | string[]> = {};
   for (const d of docs.values()) {
     if (d.type !== 'MonoBehaviour') continue;
+    const script = (guids.get(String((d.body['m_Script'] as { guid?: string } | undefined)?.guid)) ?? '').split('/').pop()?.replace(/\.cs$/, '');
+    if (script && !script.startsWith('TMP')) {
+      for (const [field, value] of Object.entries(d.body)) {
+        if (!Array.isArray(value) || field.startsWith('m_')) continue;
+        // `progress` (end-of-round texts) is extracted with the scenario extras.
+        if (!value.length || field === 'progress') continue;
+        if (value.every((v) => typeof v === 'string')) {
+          texts[`@${script}.${field}`] = LIST_FIELDS.has(field) ? value.map((v: string) => toMarkup(v.trim())) : toMarkup(String(value[0]).trim());
+        } else if (value.every((v) => v && typeof v === 'object')) {
+          // Per-language lists (`[{ Achievement: [...] }, …]`): keep English.
+          const inner = Object.values(value[0] as object)[0];
+          if (Array.isArray(inner) && inner.every((v) => typeof v === 'string')) texts[`@${script}.${field}`] = inner.map((v: string) => toMarkup(v.trim()));
+        }
+      }
+    }
     const text = d.body['m_text'];
     if (typeof text !== 'string' || !text.trim()) continue;
     let key = path(String((d.body['m_GameObject'] as Ref).fileID));
@@ -81,8 +111,10 @@ if (import.meta.main) {
       out: { type: 'string', default: 'content/ui.en.json' },
     },
   });
-  const texts = extractUiText(readFileSync(join(values.upstream, 'Assets/Scenes/Main.unity'), 'utf8'));
+  const assets = join(values.upstream, 'Assets');
+  const texts = extractUiText(readFileSync(join(assets, 'Scenes/Main.unity'), 'utf8'), assets);
   writeFileSync(values.out, JSON.stringify(texts, null, 1) + '\n');
-  const screens = new Set(Object.keys(texts).map((k) => k.split('/').slice(0, 2).join('/')));
-  console.log(`ui text: ${Object.keys(texts).length} texts on ${screens.size} screens`);
+  const keys = Object.keys(texts);
+  const screens = new Set(keys.filter((k) => !k.startsWith('@')).map((k) => k.split('/').slice(0, 2).join('/')));
+  console.log(`ui text: ${keys.filter((k) => !k.startsWith('@')).length} texts on ${screens.size} screens, ${keys.filter((k) => k.startsWith('@')).length} script fields`);
 }
