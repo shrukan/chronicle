@@ -4,6 +4,7 @@ services:
     container_name: ${CONTAINER_NAME:-chronicle}
     build:
       context: .
+      dockerfile: Containerfile
       target: runtime
     ports:
       - "${PORT:-8080}:8080"

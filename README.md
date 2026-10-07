@@ -33,7 +33,10 @@ story tester and the terminal player.
 
 ## Getting started
 
-Requirements: Node.js 24+, [Task](https://taskfile.dev).
+Requirements: Node.js 24+, [Task](https://taskfile.dev); Docker or Podman for the container.
+
+With Podman, prefix the container tasks with `CONTAINER_ENGINE=podman`. `podman compose` (used by
+`project:up:prod`) needs Podman's API socket: `systemctl --user enable --now podman.socket`.
 
 ```bash
 task deps:install

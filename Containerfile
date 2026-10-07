@@ -6,7 +6,7 @@
 ARG NODE_VERSION=24.15.0
 ARG NGINX_VERSION=1.29
 
-FROM node:${NODE_VERSION}-trixie AS node-toolchain
+FROM docker.io/library/node:${NODE_VERSION}-trixie AS node-toolchain
 
 RUN npm install -g @go-task/cli@3.50.0
 
@@ -39,7 +39,7 @@ RUN task frontend:build CI=true OUTPUT_DIR=/out
 # Description: Static files served by unprivileged nginx on port 8080. HTTPS is
 # expected to be terminated by a reverse proxy (needed for the service worker).
 # --------------------------------------------------------------------------- #
-FROM nginxinc/nginx-unprivileged:${NGINX_VERSION}-alpine AS runtime
+FROM docker.io/nginxinc/nginx-unprivileged:${NGINX_VERSION}-alpine AS runtime
 
 COPY docker/nginx.conf /etc/nginx/conf.d/default.conf
 COPY --from=build-frontend /out/browser /usr/share/nginx/html

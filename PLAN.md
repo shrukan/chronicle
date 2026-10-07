@@ -117,11 +117,16 @@ Each milestone has an exit criterion. Don't start the next until it's met (unles
 - Most uncovered branches are "pick only once" guards the original needed because its pop-ups
   re-rendered passages; they cannot trigger in our engine.
 
-**M3 – Story player (Angular PWA skeleton)**
-- Angular standalone + signals, PWA, routing, persistence service (IndexedDB), story engine
-  service running the JSON. UI per §7.
-- Dockerfile + compose; `task project:up:prod` runs the PWA locally in the container.
-- **Exit:** Cost of Disease playable end to end with placeholder setup (hard-coded players).
+**M3 – Story player (Angular PWA skeleton)** ✅ done
+- `frontend/`: Angular 22 (standalone, zoneless, OnPush, signals, Signal Forms, Tailwind theme
+  tokens, light/dark). Game service drives the engine and saves after every step (IndexedDB,
+  engine snapshots). Placeholder setup screen; app screens (end of round, bidding, scoring) as
+  simple cards.
+- Verified in headless Chrome: a full game from setup to an ending (277 steps, no errors),
+  resume after reload, offline play from the service worker with the server stopped.
+- `Containerfile` (Docker or Podman, `CONTAINER_ENGINE=podman`), unprivileged nginx with
+  PWA-safe cache headers, `compose.yml`; CI runs frontend tests/build and builds the image.
+- Fixed on the way: 36 strings with raw TextMeshPro tags; nginx MIME types.
 
 **M4 – Full game flow**
 - Setup screens, log book, end of round/generation, scoring + tie-breakers, endings, save/resume,
@@ -161,7 +166,7 @@ chronicle/
   tools/story-tester/                                                 – MIT
   content/             generated JSON, string tables, images, audio   – CC BY-NC 4.0, © Renegade Game Studios
   docker/nginx.conf
-  Dockerfile  compose.yml  Taskfile.yml
+  Containerfile  compose.yml  Taskfile.yml
   package.json         npm workspaces (frontend, engine, tools/*)
   prek.toml  .commitlintrc.yml  .editorconfig  release-please-config.json
   upstream/            reference clone, git-ignored
@@ -183,7 +188,7 @@ chronicle/
 | `project:up:prod` / `project:down:prod` / `project:log:docker` | compose on this machine |
 
 **Container**
-- Multi-stage Dockerfile: `node-toolchain` (Node 24 + Angular CLI + Task) →
+- Multi-stage Containerfile (works with Docker and Podman): `node-toolchain` (Node 24 + Angular CLI + Task) →
   `build-frontend` (runs `task frontend:build` with npm cache mounts) → `runtime`.
 - Runtime: `nginx:alpine` (unprivileged variant) serving `build/web/browser`. No backend needed.
   nginx config: SPA fallback to `index.html`; long cache for hashed assets; **no cache** for
