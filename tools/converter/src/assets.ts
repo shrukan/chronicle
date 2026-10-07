@@ -12,24 +12,8 @@ import { spawnSync } from 'node:child_process';
 import { existsSync, mkdirSync, readdirSync, readFileSync, statSync, writeFileSync } from 'node:fs';
 import { basename, dirname, extname, join } from 'node:path';
 import { parseArgs } from 'node:util';
-import type { ScenarioExtras } from '@chronicle/engine';
+import type { AssetManifest, ScenarioExtras } from '@chronicle/engine';
 import { guidIndex } from './unity.ts';
-
-export interface AssetManifest {
-  /** Icon name as used in `{icon:NAME}` → file. */
-  icons: Record<string, string>;
-  /** Setup picture name as set in `_SetupImage` → file. */
-  setup: Record<string, string>;
-  /** UI art, keyed by its path in the original (lower-case, dashes). */
-  ui: Record<string, string>;
-  /** Story music per scenario; missing when the source file is not available. */
-  music: { title: string; scenario: Record<string, string> };
-  effects: Record<string, string>;
-  /** Passage → voice-over files. */
-  voiceOver: Record<string, { male?: string; female?: string }>;
-  /** Source files that were not found (e.g. in another part of a split download). */
-  missing: string[];
-}
 
 /** Sound effects by the screen that plays them (from the main scene's components). */
 const EFFECTS: Record<string, string> = {
@@ -83,7 +67,37 @@ function convert(input: string, output: string, args: string[]): void {
 
 class MissingSource extends Error {}
 
-const image = (input: string, output: string) => convert(input, output, ['-c:v', 'libwebp', '-quality', '85', '-compression_level', '6']);
+/**
+ * Bounding box of the non-transparent pixels. Unity textures are often padded to a power of
+ * two with transparent space (e.g. a 2048×2048 file whose picture fills the lower-left part).
+ */
+function opaqueBounds(input: string): { x: number; y: number; w: number; h: number } | undefined {
+  const probe = spawnSync('ffprobe', ['-v', 'error', '-select_streams', 'v:0', '-show_entries', 'stream=width,height', '-of', 'csv=p=0', input], { encoding: 'utf8' });
+  const [width, height] = probe.stdout.trim().split(',').map(Number);
+  if (!width || !height) return undefined;
+  const raw = spawnSync('ffmpeg', ['-v', 'error', '-i', input, '-f', 'rawvideo', '-pix_fmt', 'rgba', '-'], { maxBuffer: width * height * 4 + 1024 });
+  const px = raw.stdout as Buffer;
+  if (px.length < width * height * 4) return undefined;
+  let x0 = width, y0 = height, x1 = -1, y1 = -1;
+  for (let y = 0; y < height; y++) {
+    for (let x = 0; x < width; x++) {
+      if (px[(y * width + x) * 4 + 3]! > 8) {
+        if (x < x0) x0 = x;
+        if (x > x1) x1 = x;
+        if (y < y0) y0 = y;
+        if (y > y1) y1 = y;
+      }
+    }
+  }
+  if (x1 < 0 || (x0 === 0 && y0 === 0 && x1 === width - 1 && y1 === height - 1)) return undefined;
+  return { x: x0, y: y0, w: x1 - x0 + 1, h: y1 - y0 + 1 };
+}
+
+const image = (input: string, output: string) => {
+  if (existsSync(output) && existsSync(input) && statSync(output).mtimeMs >= statSync(input).mtimeMs) return;
+  const crop = existsSync(input) ? opaqueBounds(input) : undefined;
+  convert(input, output, [...(crop ? ['-vf', `crop=${crop.w}:${crop.h}:${crop.x}:${crop.y}`] : []), '-c:v', 'libwebp', '-quality', '85', '-compression_level', '6']);
+};
 /** Music and effects: VBR stereo. Speech: 48 kbit/s mono is plenty and a third of the size. */
 const audio = (input: string, output: string, speech = false) =>
   convert(input, output, ['-vn', '-c:a', 'libmp3lame', ...(speech ? ['-b:a', '48k', '-ac', '1', '-ar', '32000'] : ['-q:a', '4'])]);

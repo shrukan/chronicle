@@ -208,3 +208,30 @@ export interface ScenarioExtras {
   /** Voice-over clips per passage, as paths of the original Unity assets. */
   voiceOver: Record<string, { male?: string; female?: string }>;
 }
+
+// ---------------------------------------------------------------------------
+// Assets (`assets/manifest.json`) and screen texts (`ui.en.json`)
+// ---------------------------------------------------------------------------
+
+/** Paths are relative to the assets folder. */
+export interface AssetManifest {
+  /** Icon name as used in `{icon:NAME}`. */
+  icons: Record<string, string>;
+  /** Setup picture name as set in `_SetupImage`. */
+  setup: Record<string, string>;
+  /** UI art, keyed by its path in the original (lower-case, dashes). */
+  ui: Record<string, string>;
+  /** Story music per scenario; a scenario without its own track uses the title music. */
+  music: { title: string; scenario: Record<string, string> };
+  effects: Record<string, string>;
+  /** Passage → voice-over clips. */
+  voiceOver: Record<string, { male?: string; female?: string }>;
+  /** Source files that were not available when the assets were extracted. */
+  missing: string[];
+}
+
+/**
+ * Screen texts of the original app: object paths (`UI/MainMenu/…`) → text, and
+ * `@Script.field` → text or list (texts the original's scripts assemble).
+ */
+export type UiText = Record<string, string | string[]>;
