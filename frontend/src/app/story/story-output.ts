@@ -1,6 +1,7 @@
+import { Autofocus } from '../ui/autofocus';
 import { ChangeDetectionStrategy, Component, inject, input } from '@angular/core';
 import { SETUP_CONTINUE_KEY, type Out } from '@chronicle/engine';
-import { Game } from '../core/game';
+import { Game, PLAIN_CONTINUE } from '../core/game';
 import { Library } from '../core/library';
 import { Modal } from '../ui/modal';
 import { RichText } from './rich-text';
@@ -10,7 +11,7 @@ import { ScreenCard } from './screen-card';
 @Component({
   selector: 'cr-story-output',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [RichText, ScreenCard, Modal],
+  imports: [Autofocus, RichText, ScreenCard, Modal],
   template: `
     @for (o of items(); track $index) {
       @switch (o.t) {
@@ -21,10 +22,19 @@ import { ScreenCard } from './screen-card';
           <br />
         }
         @case ('link') {
-          @if (o.disabled) {
+          @if (o.id === primaryLink()) {
+            <button type="button" class="btn continue-inline" (click)="game.click(o.id)">
+              @if (isPlain(o.key)) {
+                Continue
+              } @else {
+                <cr-rich-text [text]="game.text(o.key)" [args]="o.args" />
+              }
+              <span aria-hidden="true">›</span>
+            </button>
+          } @else if (o.disabled) {
             <cr-rich-text class="used-link" [text]="game.text(o.key)" [args]="o.args" />
           } @else if (o.key === setupContinue) {
-            <button type="button" class="btn setup-continue" (click)="game.click(o.id)">
+            <button crAutofocus type="button" class="btn setup-continue" (click)="game.click(o.id)">
               {{ library.text('UI/ItemObtain/ViewArea/Acceptbtn/Text (TMP)', 'Accept') }}
             </button>
           } @else {
@@ -34,7 +44,7 @@ import { ScreenCard } from './screen-card';
           }
         }
         @case ('group') {
-          <cr-story-output [items]="o.children" />
+          <cr-story-output [items]="o.children" [primaryLink]="primaryLink()" />
         }
         @case ('block') {
           @if (o.style === 'setupEvent') {
@@ -44,14 +54,16 @@ import { ScreenCard } from './screen-card';
               @if (o.image && library.setupImage(o.image); as src) {
                 <img class="setup-image" [src]="src" alt="" />
               }
-              <div class="setup-body"><cr-story-output [items]="trim(o.children)" /></div>
+              <div class="setup-body">
+                <cr-story-output [items]="trim(o.children)" [primaryLink]="primaryLink()" />
+              </div>
             </cr-modal>
           } @else {
             <section class="block" [class]="o.style">
               @if (o.style === 'setup') {
                 <header>{{ setupLabel }}</header>
               }
-              <cr-story-output [items]="trim(o.children)" />
+              <cr-story-output [items]="trim(o.children)" [primaryLink]="primaryLink()" />
             </section>
           }
         }
@@ -67,7 +79,13 @@ export class StoryOutput {
   protected readonly game = inject(Game);
   protected readonly library = inject(Library);
   readonly items = input.required<Out[]>();
+  /** The page's only way forward: shown as a button instead of a text link. */
+  readonly primaryLink = input<number | undefined>(undefined);
   protected readonly setupContinue = SETUP_CONTINUE_KEY;
+
+  protected isPlain(key: string): boolean {
+    return PLAIN_CONTINUE.test(this.game.text(key).replace(/[*\\]/g, '').trim());
+  }
 
   /** Line breaks at the start or end of a block only add empty space. */
   protected trim(out: Out[]): Out[] {

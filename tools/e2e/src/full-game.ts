@@ -69,14 +69,17 @@ try {
     await page.waitForTimeout(15);
     const dialog = page.locator('dialog[open]').last();
     if (await dialog.count()) {
+      // Dialogs queue up, so the one just counted may already be closing.
+      const text = await dialog.innerText({ timeout: 2000 }).catch(() => undefined);
+      if (text === undefined) continue;
       seen.dialogs++;
-      if (/Secret (Bid|Vote)/.test(await dialog.innerText())) {
+      if (/Secret (Bid|Vote)/.test(text)) {
         seen.bidding++;
         await dialog.getByRole('button', { name: /start/i }).click();
         await dialog.getByRole('button', { name: /accept/i }).click({ timeout: 6000 });
       } else {
         if (seen.dialogs === 1) await shot(page, '2-dialog');
-        await dialog.locator('button').last().click();
+        await dialog.locator('button').last().click({ timeout: 5000 }).catch(() => undefined);
       }
       continue;
     }
@@ -91,7 +94,8 @@ try {
       await page.waitForURL('**/score');
       break;
     }
-    const links = page.locator('button.story-link');
+    // Story links; a page's single way forward is shown as a button.
+    const links = page.locator('button.story-link, button.continue-inline');
     const n = await links.count();
     if (!n) break;
     seen.links++;
@@ -132,7 +136,10 @@ try {
   check((await page.locator('.slots li:not(.locked)').count()) === 1, 'the gallery shows the unlocked ending');
   check((await page.locator('.slots li.locked strong').allInnerTexts()).every((t) => t === '???'), 'locked endings stay hidden');
 } catch (e) {
-  failures.push(String(e).split('\n')[0]!);
+  const lines = String(e).split('\n');
+  const message = [lines[0], lines.find((l) => l.includes('waiting for'))?.trim()].filter(Boolean).join(' – ');
+  console.log(`  ✖ ${message} (at ${page.url()})`);
+  failures.push(message);
   await shot(page, 'failure');
 } finally {
   check(errors.length === 0, `no page errors${errors.length ? `: ${errors.slice(0, 3).join(' | ')}` : ''}`);

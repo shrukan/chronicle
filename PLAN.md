@@ -149,8 +149,9 @@ ending → endings & achievements gallery. Help and settings from the main menu.
 - **M4.5 End-to-end test:** a scripted full playthrough in a real browser, in CI.
 - **Status (7 Oct 2026):** M4.1–M4.5 done. All screens, dialogs, scoring, endings gallery, help,
   settings, music, effects and voice-over work; `task frontend:e2e` plays a whole game in Chrome.
-  Open: the three scenario music tracks (in the parts of Renegade's download not unpacked yet –
-  until then the title music plays during the story); hub passages are shown inline rather than
+  The three scenario music tracks are not part of Renegade's community files: the title music
+  plays during the story, the original's ending music at the endings.
+  Open: hub passages are shown inline rather than
   on a separate page; shortened texts (reading mode) remain for later.
 - **Exit:** a real board-game session played start to finish with the app, no workarounds.
 
@@ -161,9 +162,9 @@ ending → endings & achievements gallery. Help and settings from the main menu.
 - Optional: also publish the static build to GitHub Pages for people without a server.
 
 **M6 – Reading modes: Easy and Short** (after v1)
-- *Easy*: the same story in plain English (B1 level) for non-native speakers – shorter sentences,
-  common words, nothing left out. Covers narrative **and** instructions, so every instruction
-  needs a careful human check against the rules.
+- *Easy*: the flavour text in plain English (B1 level) for non-native speakers – shorter
+  sentences, common words, nothing left out. Game instructions stay untouched: they are already
+  plain, and leaving them alone means no rule can change by accident.
 - *Short*: narrative condensed (about a third), instructions unchanged.
 - Data: `StringEntry` gets an `easy` variant next to `short`; both only show once reviewed,
   otherwise the full text appears. Setting in the pause menu, switchable mid-game.

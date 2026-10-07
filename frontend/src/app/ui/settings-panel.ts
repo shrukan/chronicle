@@ -1,3 +1,4 @@
+import { Autofocus } from './autofocus';
 import { ChangeDetectionStrategy, Component, inject, input, output } from '@angular/core';
 import { Library } from '../core/library';
 import { Settings, type Voice } from '../core/settings';
@@ -6,6 +7,7 @@ import { Settings, type Voice } from '../core/settings';
 @Component({
   selector: 'cr-settings-panel',
   changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [Autofocus],
   template: `
     @if (showHeading()) {
       <h2 class="heading">
@@ -60,7 +62,7 @@ import { Settings, type Voice } from '../core/settings';
 
     <div class="actions">
       <ng-content select="[actions]" />
-      <button type="button" class="btn" (click)="done.emit()">
+      <button crAutofocus type="button" class="btn" (click)="done.emit()">
         {{
           t(
             'UI/MainMenu/Viewarea/Settings UI/Settings Panel/Panel/confirmbtn/Text (TMP)',

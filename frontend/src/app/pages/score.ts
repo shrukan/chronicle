@@ -1,3 +1,4 @@
+import { Autofocus } from '../ui/autofocus';
 import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import type { Out } from '@chronicle/engine';
@@ -36,7 +37,7 @@ export function rankPlayers(players: Player[]): {
 @Component({
   selector: 'cr-score',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [RouterLink],
+  imports: [Autofocus, RouterLink],
   template: `
     <section class="paper sheet">
       @if (!link()) {
@@ -69,6 +70,7 @@ export function rankPlayers(players: Player[]): {
                         [attr.aria-label]="'Score of ' + p.name"
                         [value]="scores()[p.index] ?? ''"
                         (input)="setScore(p.index, $any($event.target).value)"
+                        (keydown.enter)="allScored() && afterEntry()"
                       />
                     </td>
                   </tr>
@@ -114,7 +116,7 @@ export function rankPlayers(players: Player[]): {
                 }
               </tbody>
             </table>
-            <button type="button" class="btn" (click)="afterMasterwork()">
+            <button crAutofocus type="button" class="btn" (click)="afterMasterwork()">
               {{ continueLabel() }}
             </button>
           }
@@ -149,6 +151,7 @@ export function rankPlayers(players: Player[]): {
                         [attr.aria-label]="'Estate Upgrades of ' + p.name"
                         [value]="upgrades()[p.index] ?? ''"
                         (input)="setUpgrades(p.index, $any($event.target).value)"
+                        (keydown.enter)="allUpgrades() && afterUpgrades()"
                       />
                     </td>
                   </tr>
@@ -176,7 +179,9 @@ export function rankPlayers(players: Player[]): {
             @if (result().familyWins) {
               <p class="family">{{ family }} share the victory.</p>
             }
-            <button type="button" class="btn" (click)="finish()">{{ continueLabel() }}</button>
+            <button crAutofocus type="button" class="btn" (click)="finish()">
+              {{ continueLabel() }}
+            </button>
           }
         }
       }

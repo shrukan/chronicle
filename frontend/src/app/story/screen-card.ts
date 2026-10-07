@@ -1,3 +1,4 @@
+import { Autofocus } from '../ui/autofocus';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -27,7 +28,7 @@ const ROMAN = ['i', 'ii', 'iii'];
 @Component({
   selector: 'cr-screen-card',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [RichText, Modal],
+  imports: [Autofocus, RichText, Modal],
   template: `
     @switch (screen().ui) {
       @case ('endOfRound') {
@@ -44,7 +45,7 @@ const ROMAN = ['i', 'ii', 'iii'];
             <p><cr-rich-text [text]="game.text(r.text)" /></p>
             <p><cr-rich-text [text]="game.text(r.then)" /></p>
             <div class="actions">
-              <button type="button" class="btn" (click)="continue()">
+              <button crAutofocus type="button" class="btn" (click)="continue()">
                 {{ text('UI/EndOfRound/ViewArea/Acceptbtn/Text (TMP)', 'Confirm') }}
               </button>
             </div>
@@ -56,7 +57,7 @@ const ROMAN = ['i', 'ii', 'iii'];
           <h2 class="heading title">{{ generationTitle }}</h2>
           <p><cr-rich-text [text]="game.text(arg('text'))" /></p>
           <div class="actions">
-            <button type="button" class="btn" (click)="dismissed.set(true)">
+            <button crAutofocus type="button" class="btn" (click)="dismissed.set(true)">
               {{ text('UI/EndOfGeneration/ViewArea/Acceptbtn/Text (TMP)', 'Confirm') }}
             </button>
           </div>
@@ -72,7 +73,7 @@ const ROMAN = ['i', 'ii', 'iii'];
             }
           </div>
           <div class="actions">
-            <button type="button" class="btn" (click)="dismissed.set(true)">
+            <button crAutofocus type="button" class="btn" (click)="dismissed.set(true)">
               {{ text('UI/SpecialEvent/ViewArea/Acceptbtn/Text (TMP)', 'Accept') }}
             </button>
           </div>
@@ -93,7 +94,7 @@ const ROMAN = ['i', 'ii', 'iii'];
                 <p>{{ text('UI/BidingSystem/ViewArea/Prompt/details2') }}</p>
               }
               <div class="actions">
-                <button type="button" class="btn" (click)="startCountdown()">
+                <button crAutofocus type="button" class="btn" (click)="startCountdown()">
                   {{
                     voting()
                       ? 'Start Voting'
@@ -115,7 +116,7 @@ const ROMAN = ['i', 'ii', 'iii'];
                 {{ text('UI/BidingSystem/ViewArea/Prompt/BG/Reveal/RevealText', 'Reveal') }}
               </div>
               <div class="actions">
-                <button type="button" class="btn" (click)="continue()">
+                <button crAutofocus type="button" class="btn" (click)="continue()">
                   {{ text('UI/BidingSystem/ViewArea/Acceptbtn/Text (TMP)', 'Accept') }}
                 </button>
               </div>
@@ -125,7 +126,7 @@ const ROMAN = ['i', 'ii', 'iii'];
       }
       @case ('scoreEntry') {
         <div class="actions inline">
-          <button type="button" class="btn" (click)="router.navigate(['/score'])">
+          <button crAutofocus type="button" class="btn" (click)="router.navigate(['/score'])">
             {{ text('UI/Scoring/ViewArea/Title', 'Score Entry') }}
           </button>
         </div>

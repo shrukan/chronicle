@@ -61,7 +61,7 @@ function findStoryLink(out: Out[], id: number): Extract<Out, { t: 'link' }> | un
       </header>
 
       <article class="paper passage" [class.hub]="game.isHub()" aria-live="polite">
-        <cr-story-output [items]="body()" />
+        <cr-story-output [items]="body()" [primaryLink]="onlyWay()?.id" />
 
         @if (view.prompt; as prompt) {
           <form class="prompt" [formRoot]="answerForm">
@@ -102,19 +102,6 @@ function findStoryLink(out: Out[], id: number): Extract<Out, { t: 'link' }> | un
         }
       </article>
 
-      @if (onlyWay(); as way) {
-        <nav class="continue-bar">
-          <button type="button" class="btn continue" (click)="game.click(way.id)">
-            @if (way.plain) {
-              Continue
-            } @else {
-              <cr-rich-text [text]="game.text(way.key)" [args]="way.args" />
-            }
-            <span aria-hidden="true">›</span>
-          </button>
-        </nav>
-      }
-
       <cr-modal
         [open]="logOpen()"
         [dismissable]="true"
@@ -150,6 +137,11 @@ function findStoryLink(out: Out[], id: number): Extract<Out, { t: 'link' }> | un
           </button>
         </cr-settings-panel>
       </cr-modal>
+    } @else if (game.error(); as error) {
+      <section class="paper empty">
+        <p class="error" role="alert">The storybook could not be opened: {{ error }}</p>
+        <a class="btn" routerLink="/">Back to the title</a>
+      </section>
     } @else if (resuming()) {
       <p class="loading">Opening the storybook…</p>
     } @else {
@@ -264,23 +256,6 @@ function findStoryLink(out: Out[], id: number): Extract<Out, { t: 'link' }> | un
       margin-top: 1rem;
       color: var(--color-error);
     }
-    .continue-bar {
-      position: sticky;
-      bottom: 0;
-      display: flex;
-      justify-content: center;
-      margin-top: 1rem;
-      padding: 0.75rem 0 calc(0.75rem + env(safe-area-inset-bottom));
-      pointer-events: none;
-    }
-    .continue {
-      width: min(28rem, 100%);
-      padding: 0.8rem 1.2rem;
-      font-size: 1.15rem;
-      justify-content: space-between;
-      pointer-events: auto;
-      box-shadow: 0 0.4rem 1.2rem rgb(0 0 0 / 0.55);
-    }
     .loading {
       text-align: center;
       font-style: italic;
@@ -326,8 +301,8 @@ export class Play {
   });
 
   /**
-   * The single way forward when a page offers no choice: shown as a large bar at the bottom
-   * (easy to reach on a phone or tablet) and bound to Space / Enter.
+   * The single way forward when a page offers no choice: shown as a clear button where the
+   * link is, and bound to Space / Enter.
    */
   protected readonly onlyWay = computed(() => {
     const view = this.game.view();

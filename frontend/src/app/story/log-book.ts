@@ -1,3 +1,4 @@
+import { Autofocus } from '../ui/autofocus';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -17,7 +18,7 @@ const PER_PAGE = 4;
 @Component({
   selector: 'cr-log-book',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [RichText],
+  imports: [Autofocus, RichText],
   template: `
     <h2 class="heading">Log Book</h2>
     @if (entries().length) {
@@ -63,7 +64,7 @@ const PER_PAGE = 4;
       <p class="empty">Nothing recorded yet.</p>
     }
     <div class="actions">
-      <button type="button" class="btn" (click)="done.emit()">Close</button>
+      <button crAutofocus type="button" class="btn" (click)="done.emit()">Close</button>
     </div>
   `,
   styles: `

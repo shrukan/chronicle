@@ -67,7 +67,14 @@
               "buildTarget": "frontend:build:development"
             }
           },
-          "defaultConfiguration": "development"
+          "defaultConfiguration": "development",
+          "options": {
+            "prebundle": {
+              "exclude": [
+                "@chronicle/engine"
+              ]
+            }
+          }
         },
         "test": {
           "builder": "@angular/build:unit-test"

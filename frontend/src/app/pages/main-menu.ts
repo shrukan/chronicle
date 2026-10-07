@@ -1,3 +1,4 @@
+import { Autofocus } from '../ui/autofocus';
 import { ChangeDetectionStrategy, Component, inject, resource, signal } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { AudioPlayer } from '../core/audio';
@@ -10,7 +11,7 @@ import { SettingsPanel } from '../ui/settings-panel';
 @Component({
   selector: 'cr-main-menu',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [RouterLink, Modal, SettingsPanel],
+  imports: [Autofocus, RouterLink, Modal, SettingsPanel],
   template: `
     <section class="menu">
       @if (library.ui('general/myfatherswork-logo'); as logo) {
@@ -22,7 +23,7 @@ import { SettingsPanel } from '../ui/settings-panel';
 
       <nav class="buttons">
         @if (hasSave.value()) {
-          <button type="button" class="btn" (click)="resume()">
+          <button crAutofocus type="button" class="btn" (click)="resume()">
             {{ t('UI/MainMenu/Viewarea/GridButtons/Continue/Text (TMP)', 'Continue') }}
           </button>
         }

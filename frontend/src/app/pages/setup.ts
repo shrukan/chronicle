@@ -1,3 +1,4 @@
+import { Autofocus } from '../ui/autofocus';
 import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import { form, FormField, FormRoot, required } from '@angular/forms/signals';
@@ -20,7 +21,7 @@ const LETTERS = 'ABCDE';
 @Component({
   selector: 'cr-setup',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [FormField, FormRoot, RichText],
+  imports: [Autofocus, FormField, FormRoot, RichText],
   template: `
     <section class="paper sheet">
       @switch (step()) {
@@ -40,7 +41,9 @@ const LETTERS = 'ABCDE';
               </button>
             }
           </div>
-          <button type="button" class="btn" (click)="go('players')">{{ continueLabel() }}</button>
+          <button crAutofocus type="button" class="btn" (click)="go('players')">
+            {{ continueLabel() }}
+          </button>
         }
 
         @case ('players') {
@@ -65,14 +68,18 @@ const LETTERS = 'ABCDE';
               </button>
             }
           </div>
-          <button type="button" class="btn" (click)="go('intro')">{{ continueLabel() }}</button>
+          <button crAutofocus type="button" class="btn" (click)="go('intro')">
+            {{ continueLabel() }}
+          </button>
         }
 
         @case ('intro') {
           <p class="letter">
             <cr-rich-text [text]="introPanel()" />
           </p>
-          <button type="button" class="btn" (click)="startNames()">{{ continueLabel() }}</button>
+          <button crAutofocus type="button" class="btn" (click)="startNames()">
+            {{ continueLabel() }}
+          </button>
         }
 
         @case ('name') {
@@ -80,7 +87,7 @@ const LETTERS = 'ABCDE';
             <p class="tooltip">{{ passTo() }}</p>
             <label class="field">
               {{ namePrompt() }}
-              <input type="text" [formField]="nameForm.name" autocomplete="off" />
+              <input crAutofocus type="text" [formField]="nameForm.name" autocomplete="off" />
             </label>
             <button type="submit" class="btn" [disabled]="nameForm().invalid()">
               {{ continueLabel() }}
@@ -98,7 +105,9 @@ const LETTERS = 'ABCDE';
             <p class="name">{{ names()[current()] }}</p>
             <p>{{ t('@ViewPlayerIntro.introText' + (current() + 1), 'Our warmest regards.') }}</p>
           </div>
-          <button type="button" class="btn" (click)="nextName()">{{ continueLabel() }}</button>
+          <button crAutofocus type="button" class="btn" (click)="nextName()">
+            {{ continueLabel() }}
+          </button>
         }
 
         @case ('village') {
@@ -112,7 +121,7 @@ const LETTERS = 'ABCDE';
                   'Please collectively enter the name of the town in which your inheritance resides.'
                 )
               }}
-              <input type="text" [formField]="villageForm.village" autocomplete="off" />
+              <input crAutofocus type="text" [formField]="villageForm.village" autocomplete="off" />
             </label>
             <button type="submit" class="btn" [disabled]="villageForm().invalid()">
               {{ continueLabel() }}
@@ -134,7 +143,9 @@ const LETTERS = 'ABCDE';
               }}
             </p>
           </div>
-          <button type="button" class="btn" (click)="go('scenario')">{{ continueLabel() }}</button>
+          <button crAutofocus type="button" class="btn" (click)="go('scenario')">
+            {{ continueLabel() }}
+          </button>
         }
 
         @case ('scenario') {
@@ -146,6 +157,7 @@ const LETTERS = 'ABCDE';
           <div class="scenarios">
             @for (s of scenarioCards; track s.id) {
               <button
+                crAutofocus
                 type="button"
                 class="scenario"
                 [disabled]="!s.available"
