@@ -99,6 +99,9 @@ import { SettingsPanel } from '../ui/settings-panel';
     }
     .logo {
       width: min(22rem, 80vw);
+      /* Shrinks on short windows so the menu and footer fit without scrolling. */
+      max-height: 30dvh;
+      object-fit: contain;
       filter: drop-shadow(0 0.5rem 1rem rgb(0 0 0 / 0.6));
     }
     h1 {
