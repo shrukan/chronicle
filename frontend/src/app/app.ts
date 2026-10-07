@@ -1,15 +1,16 @@
 import { ChangeDetectionStrategy, Component, computed, effect, inject } from '@angular/core';
-import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
+import { NavigationEnd, Router, RouterLink, RouterOutlet } from '@angular/router';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { filter, map } from 'rxjs';
 import { AudioPlayer } from './core/audio';
 import { bugReportUrl, REPOSITORY } from './core/bug-report';
+import { VERSION } from './version';
 import { Library } from './core/library';
 
 @Component({
   selector: 'cr-root',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [RouterOutlet],
+  imports: [RouterLink, RouterOutlet],
   host: {
     '(document:pointerdown)': 'startMusic()',
     '(document:keydown)': 'startMusic()',
@@ -21,14 +22,18 @@ import { Library } from './core/library';
     </main>
     <footer>
       <p>
-        Unofficial fan project. Story, text, art and music © Renegade Game Studios (CC BY-NC 4.0).
+        Unofficial fan project. Story, art and music © Renegade Game Studios, adapted under
+        <a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener"
+          >CC BY-NC 4.0</a
+        >.
       </p>
       <p class="by">
-        App by Shrukan, code under the
+        Chronicle {{ version }} by Shrukan, code under the
         <a [href]="repository + '/blob/main/LICENSE'" target="_blank" rel="noopener">MIT licence</a>
       </p>
       <p class="links">
-        <a [href]="repository" target="_blank" rel="noopener">Source code on GitHub ↗</a> ·
+        <a routerLink="/about">About &amp; credits</a> ·
+        <a [href]="repository" target="_blank" rel="noopener">Source code ↗</a> ·
         <a [href]="bugReport()" target="_blank" rel="noopener">Report a bug ↗</a>
       </p>
     </footer>
@@ -81,6 +86,7 @@ import { Library } from './core/library';
 })
 export class App {
   protected readonly repository = REPOSITORY;
+  protected readonly version = VERSION;
   protected bugReport(): string {
     return bugReportUrl({ where: location.pathname });
   }

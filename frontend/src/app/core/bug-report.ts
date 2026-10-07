@@ -1,3 +1,5 @@
+import { VERSION } from '../version';
+
 export const REPOSITORY = 'https://github.com/shrukan/chronicle';
 
 /**
@@ -8,6 +10,7 @@ export function bugReportUrl(details: { error?: string; where?: string } = {}): 
   const params = new URLSearchParams({ template: 'bug.yml' });
   if (details.error) params.set('error', details.error);
   if (details.where) params.set('where', details.where);
+  params.set('version', VERSION);
   params.set('device', navigator.userAgent);
   return `${REPOSITORY}/issues/new?${params}`;
 }

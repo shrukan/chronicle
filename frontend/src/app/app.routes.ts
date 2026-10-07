@@ -27,6 +27,11 @@ export const routes: Routes = [
     title: 'Chronicle – endings',
   },
   {
+    path: 'about',
+    loadComponent: () => import('./pages/about').then((m) => m.About),
+    title: 'Chronicle – about',
+  },
+  {
     path: 'help',
     loadComponent: () => import('./pages/help').then((m) => m.Help),
     title: 'Chronicle – help',

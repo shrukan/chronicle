@@ -8,6 +8,7 @@ describe('bugReportUrl', () => {
     expect(url.searchParams.get('template')).toBe('bug.yml');
     expect(url.searchParams.get('error')).toBe('Unknown passage X');
     expect(url.searchParams.get('where')).toBe('Play: Start');
+    expect(url.searchParams.get('version')).toMatch(/^\d+\.\d+\.\d+/);
     expect(url.searchParams.get('device')).toBeTruthy();
   });
 });

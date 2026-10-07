@@ -25,6 +25,11 @@ body:
       label: Where in the app?
       description: Screen or passage, filled in automatically when you report from the app.
   - type: input
+    id: version
+    attributes:
+      label: App version
+      description: Shown in the footer and on the About page.
+  - type: input
     id: device
     attributes:
       label: Device and browser
