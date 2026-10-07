@@ -3,7 +3,7 @@ import { NavigationEnd, Router, RouterLink, RouterOutlet } from '@angular/router
 import { toSignal } from '@angular/core/rxjs-interop';
 import { filter, map } from 'rxjs';
 import { AudioPlayer } from './core/audio';
-import { bugReportUrl, REPOSITORY } from './core/bug-report';
+import { bugReportUrl } from './core/bug-report';
 import { VERSION } from './version';
 import { Library } from './core/library';
 
@@ -21,21 +21,9 @@ import { Library } from './core/library';
       <router-outlet />
     </main>
     <footer>
-      <p>
-        Unofficial fan project. Story, art and music © Renegade Game Studios, adapted under
-        <a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener"
-          >CC BY-NC 4.0</a
-        >.
-      </p>
-      <p class="by">
-        Chronicle {{ version }} by Shrukan, code under the
-        <a [href]="repository + '/blob/main/LICENSE'" target="_blank" rel="noopener">MIT licence</a>
-      </p>
-      <p class="links">
-        <a routerLink="/about">About &amp; credits</a> ·
-        <a [href]="repository" target="_blank" rel="noopener">Source code ↗</a> ·
-        <a [href]="bugReport()" target="_blank" rel="noopener">Report a bug ↗</a>
-      </p>
+      Unofficial fan project · Story, art and music © Renegade Game Studios ·
+      <a routerLink="/about">Chronicle {{ version }} – about &amp; credits</a> ·
+      <a [href]="bugReport()" target="_blank" rel="noopener">Report a bug ↗</a>
     </footer>
   `,
   styles: `
@@ -58,19 +46,6 @@ import { Library } from './core/library';
       text-align: center;
       opacity: 0.6;
     }
-    footer p {
-      margin: 0.2rem 0;
-    }
-    /* Wide enough: author, licence and links on one line. */
-    @media (min-width: 48rem) {
-      footer .by,
-      footer .links {
-        display: inline;
-      }
-      footer .by::after {
-        content: ' · ';
-      }
-    }
     footer a {
       color: inherit;
       text-decoration: underline;
@@ -85,7 +60,6 @@ import { Library } from './core/library';
   `,
 })
 export class App {
-  protected readonly repository = REPOSITORY;
   protected readonly version = VERSION;
   protected bugReport(): string {
     return bugReportUrl({ where: location.pathname });

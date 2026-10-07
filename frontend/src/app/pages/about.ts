@@ -29,16 +29,19 @@ import { VERSION } from '../version';
       <h2>Story, art and music</h2>
       <p>
         <em>My Father's Work</em> and its companion app's story, text, images, music and voice-over
-        © Renegade Game Studios, released to the community in June 2026 under
-        <a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener"
-          >Creative Commons Attribution-NonCommercial 4.0 (CC BY-NC 4.0) ↗</a
-        >. The story scripts were taken from the
+        © Renegade Game Studios, released to the community in June 2026. Chronicle takes the story
+        scripts from the
         <a
           href="https://github.com/Deusald/MyFathersWork-FanMadeCompanionApp"
           target="_blank"
           rel="noopener"
           >fan-made companion app repository ↗</a
-        >, which publishes them under the same licence.
+        >
+        and uses them, like that repository, under the terms of
+        <a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener"
+          >Creative Commons Attribution-NonCommercial 4.0 (CC BY-NC 4.0) ↗</a
+        >: non-commercially and with attribution. The content will be removed on request by Renegade
+        Game Studios.
       </p>
       <p>
         <strong>Changes:</strong> the story scripts were converted into a new data format, a few

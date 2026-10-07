@@ -4,7 +4,7 @@ An unofficial, fan-made companion app for the board game **My Father's Work**
 (Renegade Game Studios). It replaces the original app, which is no longer maintained, with an
 installable web app that also works offline.
 
-> **Status:** early development (milestone M4). *The Cost of Disease* is fully playable in the
+> **Status:** early development (milestone M4). _The Cost of Disease_ is fully playable in the
 > browser, from setup to the endings – see [PLAN.md](PLAN.md).
 
 Source: <https://github.com/shrukan/chronicle>
@@ -22,16 +22,16 @@ story tester and the terminal player.
 
 ## Repository layout
 
-| Path | What |
-|---|---|
-| `frontend/` | Angular PWA (signals, zoneless, Signal Forms, Tailwind, CDK) |
-| `engine/` | Story format (`schema.ts`), runtime, value semantics, text markup |
-| `tools/converter/` | Converts the original C# story scripts into `content/` |
-| `tools/story-cli/` | Terminal player and random-playthrough smoke test |
-| `tools/story-tester/` | Static checks and coverage-guided exploration of every scenario |
-| `content/` | Converted story data (CC BY-NC 4.0, © Renegade Game Studios) |
-| `docs/` | Notes, e.g. [M0 findings](docs/m0-findings.md) |
-| `upstream/` | Reference clone of the original project (git-ignored) |
+| Path                  | What                                                                          |
+| --------------------- | ----------------------------------------------------------------------------- |
+| `frontend/`           | Angular PWA (signals, zoneless, Signal Forms, Tailwind, CDK)                  |
+| `engine/`             | Story format (`schema.ts`), runtime, value semantics, text markup             |
+| `tools/converter/`    | Converts the original C# story scripts into `content/`                        |
+| `tools/story-cli/`    | Terminal player and random-playthrough smoke test                             |
+| `tools/story-tester/` | Static checks and coverage-guided exploration of every scenario               |
+| `content/`            | Converted story data (© Renegade Game Studios, used under CC BY-NC 4.0 terms) |
+| `docs/`               | Notes, e.g. [M0 findings](docs/m0-findings.md)                                |
+| `upstream/`           | Reference clone of the original project (git-ignored)                         |
 
 ## Getting started
 
@@ -57,7 +57,8 @@ task content:smoke RUNS=1000 # random playthroughs: errors, coverage, endings re
 ## Licence
 
 - Code: [MIT](LICENSE)
-- Story content, images and audio: [CC BY-NC 4.0](content/LICENSE.md), © Renegade Game Studios.
+- Story content, images and audio: © Renegade Game Studios, used non-commercially under
+  CC BY-NC 4.0 terms – see [content/LICENSE.md](content/LICENSE.md).
   Non-commercial use only.
 
 This project is not affiliated with or endorsed by Renegade Game Studios.
