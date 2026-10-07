@@ -37,6 +37,13 @@ html {
   font-size: 17px;
 }
 
+/* Tablets and desktops: the app is read aloud at the table, so text gets larger. */
+@media (min-width: 48rem) {
+  html {
+    font-size: 19px;
+  }
+}
+
 body {
   margin: 0;
 }
@@ -49,7 +56,7 @@ body {
 @layer components {
   /* Weathered paper: where story text and forms live. */
   .paper {
-    background: var(--color-bg) var(--paper-image, none) center / 100% 100%;
+    background: var(--color-bg) var(--paper-image, none) center / cover;
     color: var(--color-ink);
     border-radius: 0.4rem;
     box-shadow: 0 0.5rem 1.5rem rgb(0 0 0 / 0.45);

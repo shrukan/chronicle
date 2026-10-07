@@ -9,6 +9,8 @@ interface Stored {
   effects: number;
   voiceOver: number;
   readingMode: ReadingMode;
+  /** Open plain "continue" reveals automatically, so a page appears in one piece. */
+  wholePage: boolean;
 }
 
 const KEY = 'chronicle.settings';
@@ -18,6 +20,7 @@ const DEFAULTS: Stored = {
   effects: 0.8,
   voiceOver: 1,
   readingMode: 'full',
+  wholePage: true,
 };
 
 function read(): Stored {
@@ -37,6 +40,7 @@ export class Settings {
   readonly effects = signal(this.initial.effects);
   readonly voiceOver = signal(this.initial.voiceOver);
   readonly readingMode = signal<ReadingMode>(this.initial.readingMode);
+  readonly wholePage = signal(this.initial.wholePage);
 
   constructor() {
     effect(() => {
@@ -46,6 +50,7 @@ export class Settings {
         effects: this.effects(),
         voiceOver: this.voiceOver(),
         readingMode: this.readingMode(),
+        wholePage: this.wholePage(),
       };
       try {
         localStorage.setItem(KEY, JSON.stringify(value));

@@ -117,6 +117,18 @@ export class Story {
     return view;
   }
 
+  /** Where a link leads: another passage (`to`) or a fragment revealed in place. */
+  linkTarget(id: number): { to?: string; reveal?: string; revealFrom?: string; replace: boolean } | undefined {
+    const l = this.links.get(id);
+    if (!l) return undefined;
+    return {
+      replace: l.replace,
+      ...(l.to !== undefined ? { to: l.to } : {}),
+      ...(l.reveal !== undefined ? { reveal: l.reveal } : {}),
+      revealFrom: l.revealFrom ?? l.passage.name,
+    };
+  }
+
   snapshot(): StorySnapshot {
     if (this.suspended) throw new StoryError('Cannot snapshot while a prompt is waiting');
     return structuredClone({

@@ -9,19 +9,33 @@ import {
 import { Router, RouterLink } from '@angular/router';
 import { form, FormField, FormRoot, required } from '@angular/forms/signals';
 import { AudioPlayer } from '../core/audio';
-import { Game } from '../core/game';
+import { Game, PLAIN_CONTINUE } from '../core/game';
 import { Library } from '../core/library';
 import { LogBook } from '../story/log-book';
 import { RichText } from '../story/rich-text';
 import { StoryOutput } from '../story/story-output';
+import { SETUP_CONTINUE_KEY, type Out } from '@chronicle/engine';
 import { formatDuration } from '../ui/duration';
 import { Modal } from '../ui/modal';
 import { SettingsPanel } from '../ui/settings-panel';
+
+/** A clickable story link (not one inside a setup pop-up, which the pop-up handles). */
+function findStoryLink(out: Out[], id: number): Extract<Out, { t: 'link' }> | undefined {
+  for (const o of out) {
+    if (o.t === 'link' && o.id === id && !o.disabled && o.key !== SETUP_CONTINUE_KEY) return o;
+    if (o.t === 'group' || (o.t === 'block' && o.style !== 'setupEvent')) {
+      const inner = findStoryLink(o.children, id);
+      if (inner) return inner;
+    }
+  }
+  return undefined;
+}
 
 /** The storybook: current passage, log book, pause menu, prompts and endings. */
 @Component({
   selector: 'cr-play',
   changeDetection: ChangeDetectionStrategy.OnPush,
+  host: { '(document:keydown)': 'onKey($event)' },
   imports: [StoryOutput, RichText, FormField, FormRoot, Modal, SettingsPanel, LogBook, RouterLink],
   template: `
     @if (game.view(); as view) {
@@ -88,6 +102,19 @@ import { SettingsPanel } from '../ui/settings-panel';
         }
       </article>
 
+      @if (onlyWay(); as way) {
+        <nav class="continue-bar">
+          <button type="button" class="btn continue" (click)="game.click(way.id)">
+            @if (way.plain) {
+              Continue
+            } @else {
+              <cr-rich-text [text]="game.text(way.key)" [args]="way.args" />
+            }
+            <span aria-hidden="true">›</span>
+          </button>
+        </nav>
+      }
+
       <cr-modal
         [open]="logOpen()"
         [dismissable]="true"
@@ -123,6 +150,8 @@ import { SettingsPanel } from '../ui/settings-panel';
           </button>
         </cr-settings-panel>
       </cr-modal>
+    } @else if (resuming()) {
+      <p class="loading">Opening the storybook…</p>
     } @else {
       <section class="paper empty">
         <p>No game in progress.</p>
@@ -235,6 +264,28 @@ import { SettingsPanel } from '../ui/settings-panel';
       margin-top: 1rem;
       color: var(--color-error);
     }
+    .continue-bar {
+      position: sticky;
+      bottom: 0;
+      display: flex;
+      justify-content: center;
+      margin-top: 1rem;
+      padding: 0.75rem 0 calc(0.75rem + env(safe-area-inset-bottom));
+      pointer-events: none;
+    }
+    .continue {
+      width: min(28rem, 100%);
+      padding: 0.8rem 1.2rem;
+      font-size: 1.15rem;
+      justify-content: space-between;
+      pointer-events: auto;
+      box-shadow: 0 0.4rem 1.2rem rgb(0 0 0 / 0.55);
+    }
+    .loading {
+      text-align: center;
+      font-style: italic;
+      opacity: 0.7;
+    }
     .empty {
       display: grid;
       justify-items: center;
@@ -274,7 +325,42 @@ export class Play {
     return out.slice(i);
   });
 
+  /**
+   * The single way forward when a page offers no choice: shown as a large bar at the bottom
+   * (easy to reach on a phone or tablet) and bound to Space / Enter.
+   */
+  protected readonly onlyWay = computed(() => {
+    const view = this.game.view();
+    if (!view || view.prompt || view.links.length !== 1) return undefined;
+    const link = findStoryLink(view.output, view.links[0]!);
+    if (!link) return undefined;
+    const label = this.game.text(link.key).replace(/[*\\]/g, '').trim();
+    return { id: link.id, key: link.key, args: link.args, plain: PLAIN_CONTINUE.test(label) };
+  });
+
+  protected onKey(event: KeyboardEvent): void {
+    const way = this.onlyWay();
+    const target = event.target as HTMLElement;
+    if (!way || (event.key !== ' ' && event.key !== 'Enter')) return;
+    if (
+      target.closest('input, button, a, textarea, select, dialog[open]') ||
+      document.querySelector('dialog[open]')
+    )
+      return;
+    event.preventDefault();
+    this.game.click(way.id);
+  }
+
+  /** True while a reload picks up the saved game. */
+  protected readonly resuming = signal(false);
+
   constructor() {
+    // After a reload (or opening /play directly) continue the saved game.
+    if (!this.game.view()) {
+      this.resuming.set(true);
+      void this.game.resume().finally(() => this.resuming.set(false));
+    }
+
     // Count play time while the storybook is on screen and the story isn't over.
     const timer = setInterval(() => {
       if (document.visibilityState === 'visible' && this.game.view() && !this.game.isEnding())

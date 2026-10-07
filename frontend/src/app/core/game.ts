@@ -3,7 +3,9 @@ import {
   resolveText,
   Story,
   StoryError,
+  type Node,
   type Out,
+  type Passage,
   type StorySnapshot,
   type StoryView,
   type TextKind,
@@ -13,6 +15,41 @@ import { AudioPlayer } from './audio';
 import { loadContent, type ScenarioContent, type ScenarioId } from './content';
 import { SaveStore, type GameSetup } from './save-store';
 import { Settings } from './settings';
+
+/** Labels that only move the reading on ("Click to continue…") – no decision, no secret. */
+export const PLAIN_CONTINUE = /^(click( here)? to continue|continue)[.…\s]*$/i;
+
+/** Nodes that must not run without the players: leaving the page, asking a question. */
+function interrupts(
+  nodes: Node[],
+  passages: Record<string, Passage>,
+  seen = new Set<string>(),
+): boolean {
+  return nodes.some((n) => {
+    if (n.t === 'goto' || n.t === 'prompt' || n.t === 'manual') return true;
+    if (n.t === 'include') {
+      const name = 'lit' in n.passage ? String(n.passage.lit) : undefined;
+      if (!name) return true;
+      if (seen.has(name)) return false;
+      seen.add(name);
+      return interrupts(passages[name]?.body ?? [], passages, seen);
+    }
+    if (n.t === 'block') return interrupts(n.body, passages, seen);
+    if (n.t === 'if') return n.branches.some((b) => interrupts(b.body, passages, seen));
+    return false;
+  });
+}
+
+function findLink(out: Out[], id: number): Extract<Out, { t: 'link' }> | undefined {
+  for (const o of out) {
+    if (o.t === 'link' && o.id === id) return o;
+    if (o.t === 'block' || o.t === 'group') {
+      const inner = findLink(o.children, id);
+      if (inner) return inner;
+    }
+  }
+  return undefined;
+}
 
 /** First title of a passage's output (its heading in the original). */
 function titleKey(out: Out[]): string | undefined {
@@ -128,7 +165,7 @@ export class Game {
   private step(action: () => StoryView, entering = true): void {
     const before = this.story?.history.length ?? 0;
     try {
-      const view = action();
+      const view = this.revealPlainContinues(action());
       this.error.set(undefined);
       // The engine reuses its output tree; hand the UI a copy so signals see a change.
       this.view.set({ ...view, output: structuredClone(view.output) });
@@ -140,6 +177,30 @@ export class Game {
         throw e;
       this.error.set(e.message);
     }
+  }
+
+  /**
+   * "Show page at once": opens reveals whose label only says "continue" and whose content
+   * stays on the page – the reader would click them anyway. Reveals with their own label
+   * (often hiding something from the other players), jumps and prompts still wait.
+   */
+  private revealPlainContinues(view: StoryView): StoryView {
+    if (!this.settings.wholePage()) return view;
+    const passages = this.content()?.scenario.passages ?? {};
+    for (let i = 0; i < 30 && !view.prompt; i++) {
+      const next = view.links.find((id) => {
+        const target = this.story!.linkTarget(id);
+        if (!target?.reveal || !target.replace) return false;
+        const out = findLink(view.output, id);
+        if (!out || !PLAIN_CONTINUE.test(this.text(out.key).replace(/[*\\]/g, '').trim()))
+          return false;
+        const fragment = passages[target.revealFrom!]?.fragments[target.reveal];
+        return !!fragment && !interrupts(fragment, passages);
+      });
+      if (next === undefined) break;
+      view = this.story!.click(next);
+    }
+    return view;
   }
 
   /** Bookkeeping for passages just entered: log book, voice-over, endings. */

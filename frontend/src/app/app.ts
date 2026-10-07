@@ -31,7 +31,7 @@ import { Library } from './core/library';
     main {
       flex: 1;
       width: 100%;
-      max-width: 46rem;
+      max-width: 50rem;
       margin: 0 auto;
       padding: 1.25rem 1rem 3rem;
       box-sizing: border-box;
@@ -67,10 +67,14 @@ export class App {
   constructor() {
     void this.library.load().then(() => this.audio.preload('click'));
     effect(() => {
-      const src = this.backdrop();
-      document.documentElement.style.setProperty(
-        '--backdrop-image',
-        src ? `url("${src}")` : 'none',
+      const root = document.documentElement.style;
+      const url = (src: string | undefined) => (src ? `url("${src}")` : 'none');
+      root.setProperty('--backdrop-image', url(this.backdrop()));
+      // The original's paper and gold frame (see styles.css and the modal).
+      root.setProperty('--paper-image', url(this.library.ui('popup-panels/weathered-paper')));
+      root.setProperty(
+        '--frame-image',
+        url(this.library.ui('general/mfw-borders/mfw-border-gold')),
       );
     });
   }

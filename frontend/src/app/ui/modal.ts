@@ -27,7 +27,10 @@ import {
       width: min(36rem, calc(100vw - 2rem));
       max-height: calc(100dvh - 2rem);
       overflow: auto;
-      border: 0;
+      /* The original's gold frame around dialogs. */
+      border: 1.1rem solid transparent;
+      border-image: var(--frame-image) 70 / 1.1rem stretch;
+      background-clip: padding-box;
     }
     dialog::backdrop {
       background: rgb(10 8 6 / 0.7);

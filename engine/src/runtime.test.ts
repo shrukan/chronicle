@@ -64,6 +64,18 @@ describe('Story', () => {
     assert.deepEqual(keys(s.click(v.links[0]!).output), ['before', 'revealed', 'after']);
   });
 
+  it('tells where a link leads', () => {
+    const s = new Story(
+      scenario({
+        A: { body: [{ t: 'link', key: 'more', reveal: '0', replace: true }, { t: 'link', key: 'go', to: { lit: 'B' } }], fragments: { '0': [] } },
+        B: { body: [] },
+      }),
+    );
+    const [reveal, go] = s.start().links;
+    assert.deepEqual(s.linkTarget(reveal!), { replace: true, reveal: '0', revealFrom: 'A' });
+    assert.deepEqual(s.linkTarget(go!), { replace: false, to: 'B', revealFrom: 'A' });
+  });
+
   it('disables a non-replacing reveal link after one click', () => {
     const s = new Story(
       scenario({
