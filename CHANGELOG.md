@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.0](https://github.com/shrukan/chronicle/compare/v0.1.0...v0.2.0) (2026-10-07)
+
+
+### Features
+
+* **frontend:** undo, handover screen and screen wake lock ([a2bc973](https://github.com/shrukan/chronicle/commit/a2bc9738620d21a87412b93b8a764059fa8e7adb))
+
 ## 0.1.0 (2026-10-07)
 
 
