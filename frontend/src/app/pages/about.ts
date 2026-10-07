@@ -17,7 +17,12 @@ import { VERSION } from '../version';
       </p>
       <dl>
         <dt>Version</dt>
-        <dd>{{ version }}</dd>
+        <dd>
+          {{ version }} –
+          <a [href]="repository + '/blob/main/CHANGELOG.md'" target="_blank" rel="noopener"
+            >what's new ↗</a
+          >
+        </dd>
         <dt>App</dt>
         <dd>
           by Shrukan –
