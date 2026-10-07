@@ -112,6 +112,16 @@ tasks:
       IDS: '{{.IDS | default "cost-of-disease"}}'
     cmd: node tools/converter/src/cli.ts --upstream {{.UPSTREAM_DIR}}/UnityOriginalApp --out content --reports build/reports {{.IDS}}
 
+  content:ui:
+    desc: Extract the original app's screen texts into content/ui.en.json.
+    deps: [deps:install, upstream:clone]
+    cmd: node tools/converter/src/ui-text.ts --upstream {{.UPSTREAM_DIR}}/UnityOriginalApp --out content/ui.en.json
+
+  content:assets:
+    desc: Extract icons, pictures, UI art and audio into content/assets (needs ffmpeg and the real media files, not Git LFS pointers).
+    deps: [deps:install, upstream:clone]
+    cmd: node tools/converter/src/assets.ts --upstream {{.UPSTREAM_DIR}}/UnityOriginalApp --out content/assets
+
   content:test:
     desc: "Story tester: static checks + coverage-guided exploration, spoiler-free summary (vars: ID, SECONDS; CLI_ARGS e.g. -- --spoilers)."
     deps: [deps:install]

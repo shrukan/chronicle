@@ -2,10 +2,11 @@
  * Data the original app keeps outside the story scripts: end-of-round texts (scene data),
  * log book entries (CSV, matched by passage title) and voice-over clips (ScriptableObject).
  */
-import { readdirSync, readFileSync } from 'node:fs';
-import { join, relative } from 'node:path';
+import { readFileSync } from 'node:fs';
+import { join } from 'node:path';
 import { parse } from 'yaml';
 import { toMarkup } from './passage.ts';
+import { guidIndex } from './unity.ts';
 import { type Node, type Scenario, type ScenarioExtras as Extras, type StringTable } from '@chronicle/engine';
 
 export interface ExtrasReport {
@@ -29,22 +30,6 @@ function yamlSection(source: string, name: string): unknown {
 function titleOf(nodes: Node[], strings: StringTable): string | undefined {
   const title = nodes.find((n) => n.t === 'text' && n.kind === 'title');
   return title?.t === 'text' ? strings[title.key]!.full.replace(/\*+/g, '').replace(/\\(.)/g, '$1').trim() : undefined;
-}
-
-function metaIndex(assets: string): Map<string, string> {
-  const index = new Map<string, string>();
-  const visit = (dir: string) => {
-    for (const e of readdirSync(dir, { withFileTypes: true })) {
-      const p = join(dir, e.name);
-      if (e.isDirectory()) visit(p);
-      else if (e.name.endsWith('.meta')) {
-        const guid = /^guid: (\w+)/m.exec(readFileSync(p, 'utf8'))?.[1];
-        if (guid) index.set(guid, relative(assets, p.slice(0, -'.meta'.length)));
-      }
-    }
-  };
-  visit(assets);
-  return index;
 }
 
 /**
@@ -99,7 +84,7 @@ export function extractExtras(scenario: Scenario, strings: StringTable, assets: 
   // Voice-over: VOAudio.asset maps passage names to clips by Unity GUID.
   const vo = readFileSync(join(assets, 'Scripts/ScriptableObject/VOAudio.asset'), 'utf8').replace(/^(%|---).*$/gm, '');
   const data = (parse(vo) as { MonoBehaviour: Record<string, { PassageName: string; clip: { guid: string } }[]> }).MonoBehaviour;
-  const guids = metaIndex(assets);
+  const guids = guidIndex(assets);
   for (const [field, voice] of [['MaleAudioDatas', 'male'], ['FemaleAudioDatas', 'female']] as const) {
     for (const { PassageName, clip } of data[field] ?? []) {
       const file = guids.get(clip.guid);
