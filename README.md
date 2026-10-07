@@ -32,6 +32,24 @@ to the home screen; after the first visit it works offline.
 Found a bug? [Report it](https://github.com/shrukan/chronicle/issues/new?template=bug.yml) –
 or use the link in the app, which fills in the details.
 
+## Your data
+
+Chronicle has no server and no accounts: everything stays in the browser of the device you
+play on, and nothing is sent anywhere.
+
+| What                                                | Where                                  |
+| --------------------------------------------------- | -------------------------------------- |
+| Game in progress (state, log book, play time, undo) | IndexedDB `chronicle`, store `saves`   |
+| Unlocked endings                                    | IndexedDB `chronicle`, store `unlocks` |
+| Settings (voice, volumes, page display)             | localStorage `chronicle.settings`      |
+| App, story, images and audio for offline use        | the service worker's Cache Storage     |
+
+So a game belongs to one device, one browser and one address (the GitHub Pages version and a
+self-hosted one keep separate games). Clearing the browser's site data or closing a private
+window deletes it. Chronicle asks the browser to keep its data even when storage runs low;
+on iPhone and iPad, add it to the home screen – Safari otherwise clears website data after
+seven days without a visit.
+
 ## How it works
 
 The original app's stories were written in Twine and compiled to C#. Chronicle converts them

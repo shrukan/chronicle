@@ -125,6 +125,8 @@ export class Game {
       .split('')
       .forEach((letter, i) => (vars[`name${letter}`] = i < setup.players ? setup.names[i]! : ''));
     this.story = new Story(content.scenario, { vars });
+    // Ask the browser not to clear saves when storage runs low (some browsers ask the user).
+    void navigator.storage?.persist?.().catch(() => false);
     this.setup.set(setup);
     this.log.set([]);
     this.playTime.set(0);

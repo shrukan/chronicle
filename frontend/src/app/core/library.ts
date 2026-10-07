@@ -1,4 +1,4 @@
-import { Injectable, signal } from '@angular/core';
+import { computed, Injectable, signal } from '@angular/core';
 import type { AssetManifest, UiText } from '@chronicle/engine';
 
 const BASE = 'content';
@@ -42,9 +42,17 @@ export class Library {
     return path ? `${BASE}/assets/${path}` : undefined;
   }
 
+  /** An icon by name; the original's texts aren't consistent about case (`storybook`). */
   icon(name: string): string | undefined {
-    return this.url(this.assets()?.icons[name]);
+    const icons = this.assets()?.icons;
+    if (!icons) return undefined;
+    const key = name in icons ? name : this.iconKeys().get(name.toLowerCase());
+    return this.url(key ? icons[key] : undefined);
   }
+
+  private readonly iconKeys = computed(
+    () => new Map(Object.keys(this.assets()?.icons ?? {}).map((k) => [k.toLowerCase(), k])),
+  );
 
   setupImage(name: string): string | undefined {
     return this.url(this.assets()?.setup[name]);

@@ -1,5 +1,7 @@
 import { ChangeDetectionStrategy, Component, computed, inject, input } from '@angular/core';
 import { parseMarkup } from '@chronicle/engine';
+
+type Span = ReturnType<typeof parseMarkup>[number];
 import { Library } from '../core/library';
 
 /** Renders string-table markup: **bold**, *italic*, {icon:NAME}, {0} placeholders. */
@@ -15,15 +17,21 @@ import { Library } from '../core/library';
           }}</span>
         }
         @case ('icon') {
+          <!-- An icon keeps the punctuation after it on its line (no whitespace in between). -->
           @if (library.icon(span.name); as src) {
-            <img
-              class="icon"
-              [src]="src"
-              [alt]="iconLabel(span.name)"
-              [title]="iconLabel(span.name)"
-            />
+            <span class="glue"
+              ><img
+                class="icon"
+                [src]="src"
+                [alt]="iconLabel(span.name)"
+                [title]="iconLabel(span.name)"
+              />{{ span.tail }}</span
+            >
           } @else {
-            <span class="icon-label" [title]="span.name">{{ iconLabel(span.name) }}</span>
+            <span class="glue"
+              ><span class="icon-label" [title]="span.name">{{ iconLabel(span.name) }}</span
+              >{{ span.tail }}</span
+            >
           }
         }
         @case ('newline') {
@@ -33,6 +41,9 @@ import { Library } from '../core/library';
     }
   `,
   styles: `
+    .glue {
+      white-space: nowrap;
+    }
     .icon {
       display: inline-block;
       width: 1.6em;
@@ -57,7 +68,18 @@ export class RichText {
   readonly text = input.required<string>();
   readonly args = input<string[]>([]);
 
-  protected readonly spans = computed(() => parseMarkup(this.text(), this.args()));
+  /** Punctuation right after an icon moves into the icon's span (`tail`), so it can't wrap away. */
+  protected readonly spans = computed(() => {
+    const spans: (Span & { tail?: string })[] = parseMarkup(this.text(), this.args());
+    return spans.map((span, i) => {
+      const next = spans[i + 1];
+      if (span.t !== 'icon' || next?.t !== 'text') return span;
+      const tail = /^[.,;:!?)\]…]+/.exec(next.text)?.[0];
+      if (!tail) return span;
+      spans[i + 1] = { ...next, text: next.text.slice(tail.length) };
+      return { ...span, tail };
+    });
+  });
 
   protected iconLabel(name: string): string {
     return name
