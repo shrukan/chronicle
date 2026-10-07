@@ -4,7 +4,9 @@
  * Images become WebP, audio becomes MP3 (plays in every browser). A manifest maps the
  * names the app uses to files.
  *
- * Usage: node tools/converter/src/assets.ts [--upstream upstream/UnityOriginalApp] [--out content/assets]
+ * Usage: node tools/converter/src/assets.ts [--media <Unity Assets folder>] [--out content/assets]
+ *   --media: an `Assets` folder with the real media files – Renegade's community download
+ *            (the fan repo on GitHub only has Git LFS pointers).
  */
 import { spawnSync } from 'node:child_process';
 import { existsSync, mkdirSync, readdirSync, readFileSync, statSync, writeFileSync } from 'node:fs';
@@ -20,10 +22,13 @@ export interface AssetManifest {
   setup: Record<string, string>;
   /** UI art, keyed by its path in the original (lower-case, dashes). */
   ui: Record<string, string>;
+  /** Story music per scenario; missing when the source file is not available. */
   music: { title: string; scenario: Record<string, string> };
   effects: Record<string, string>;
   /** Passage → voice-over files. */
   voiceOver: Record<string, { male?: string; female?: string }>;
+  /** Source files that were not found (e.g. in another part of a split download). */
+  missing: string[];
 }
 
 /** Sound effects by the screen that plays them (from the main scene's components). */
@@ -69,20 +74,35 @@ function slug(path: string): string {
 
 /** Runs ffmpeg unless the output is newer than the input. */
 function convert(input: string, output: string, args: string[]): void {
+  if (!existsSync(input)) throw new MissingSource(input);
   if (existsSync(output) && statSync(output).mtimeMs >= statSync(input).mtimeMs) return;
   mkdirSync(dirname(output), { recursive: true });
   const r = spawnSync('ffmpeg', ['-hide_banner', '-loglevel', 'error', '-y', '-i', input, ...args, output], { encoding: 'utf8' });
   if (r.status !== 0) throw new Error(`ffmpeg failed for ${input}: ${r.stderr}`);
 }
 
+class MissingSource extends Error {}
+
 const image = (input: string, output: string) => convert(input, output, ['-c:v', 'libwebp', '-quality', '85', '-compression_level', '6']);
-const audio = (input: string, output: string, mono = false) =>
-  convert(input, output, ['-vn', '-c:a', 'libmp3lame', '-q:a', mono ? '6' : '4', ...(mono ? ['-ac', '1'] : [])]);
+/** Music and effects: VBR stereo. Speech: 48 kbit/s mono is plenty and a third of the size. */
+const audio = (input: string, output: string, speech = false) =>
+  convert(input, output, ['-vn', '-c:a', 'libmp3lame', ...(speech ? ['-b:a', '48k', '-ac', '1', '-ar', '32000'] : ['-q:a', '4'])]);
 
 export function extractAssets(assets: string, out: string, voiceOver: ScenarioExtras['voiceOver']): AssetManifest {
   const guids = guidIndex(assets);
-  const m: AssetManifest = { icons: {}, setup: {}, ui: {}, music: { title: '', scenario: {} }, effects: {}, voiceOver: {} };
+  const m: AssetManifest = { icons: {}, setup: {}, ui: {}, music: { title: '', scenario: {} }, effects: {}, voiceOver: {}, missing: [] };
   const rel = (p: string) => p.slice(out.length + 1);
+  /** Runs one conversion; a missing source is recorded instead of failing the whole run. */
+  const tryConvert = (fn: () => void): boolean => {
+    try {
+      fn();
+      return true;
+    } catch (e) {
+      if (!(e instanceof MissingSource)) throw e;
+      m.missing.push(e.message.slice(assets.length + 1));
+      return false;
+    }
+  };
 
   // Icons: every TextMeshPro sprite asset is one 64×64 glyph covering its whole texture.
   const spriteDir = join(assets, 'TextMesh Pro/Resources/Sprite Assets');
@@ -92,16 +112,14 @@ export function extractAssets(assets: string, out: string, voiceOver: ScenarioEx
     const texture = guids.get(/spriteSheet: \{fileID: \d+, guid: (\w+)/.exec(readFileSync(join(spriteDir, f), 'utf8'))?.[1] ?? '');
     if (!texture) continue;
     const file = join(out, 'icons', `${slug(name)}.webp`);
-    image(join(assets, texture), file);
-    m.icons[name] = rel(file);
+    if (tryConvert(() => image(join(assets, texture), file))) m.icons[name] = rel(file);
   }
 
   // Setup pictures (`_SetupImage` names), loaded by name from Resources in the original.
   const setupDir = join(assets, 'Resources/setupImages');
   for (const f of readdirSync(setupDir).filter((f) => f.endsWith('.png'))) {
     const file = join(out, 'setup', `${slug(f)}.webp`);
-    image(join(setupDir, f), file);
-    m.setup[basename(f, '.png')] = rel(file);
+    if (tryConvert(() => image(join(setupDir, f), file))) m.setup[basename(f, '.png')] = rel(file);
   }
 
   // UI art.
@@ -112,24 +130,27 @@ export function extractAssets(assets: string, out: string, voiceOver: ScenarioEx
     const key = slug(f);
     if (m.ui[key]) continue; // duplicates like "bracket-left (1).png"
     const file = join(out, 'ui', `${key}.webp`);
-    image(join(uiDir, f), file);
-    m.ui[key] = rel(file);
+    if (tryConvert(() => image(join(uiDir, f), file))) m.ui[key] = rel(file);
   }
 
   // Music, effects, voice-over.
-  const music = (src: string, name: string) => {
+  const music = (src: string, name: string): string | undefined => {
     const file = join(out, 'audio', `${name}.mp3`);
-    audio(join(assets, src), file);
-    return rel(file);
+    return tryConvert(() => audio(join(assets, src), file)) ? rel(file) : undefined;
   };
-  m.music.title = music(MUSIC.title, 'music/title');
-  for (const [id, src] of Object.entries(MUSIC.scenario)) m.music.scenario[id] = music(src, `music/${id}`);
-  for (const [name, src] of Object.entries(EFFECTS)) m.effects[name] = music(src, `effects/${slug(name)}`);
+  m.music.title = music(MUSIC.title, 'music/title') ?? '';
+  for (const [id, src] of Object.entries(MUSIC.scenario)) {
+    const file = music(src, `music/${id}`);
+    if (file) m.music.scenario[id] = file;
+  }
+  for (const [name, src] of Object.entries(EFFECTS)) {
+    const file = music(src, `effects/${slug(name)}`);
+    if (file) m.effects[name] = file;
+  }
   for (const [passage, voices] of Object.entries(voiceOver)) {
     for (const [voice, src] of Object.entries(voices) as [keyof typeof voices, string][]) {
       const file = join(out, 'audio', 'voice', voice, `${slug(basename(src))}.mp3`);
-      audio(join(assets, src), file, true);
-      (m.voiceOver[passage] ??= {})[voice] = rel(file);
+      if (tryConvert(() => audio(join(assets, src), file, true))) (m.voiceOver[passage] ??= {})[voice] = rel(file);
     }
   }
   return m;
@@ -138,7 +159,7 @@ export function extractAssets(assets: string, out: string, voiceOver: ScenarioEx
 if (import.meta.main) {
   const { values } = parseArgs({
     options: {
-      upstream: { type: 'string', default: 'upstream/UnityOriginalApp' },
+      media: { type: 'string', default: 'media/my-fathers-work-master-4/Assets' },
       out: { type: 'string', default: 'content/assets' },
       content: { type: 'string', default: 'content' },
     },
@@ -149,11 +170,12 @@ if (import.meta.main) {
     const extras = join(values.content, id, 'extras.json');
     if (existsSync(extras)) Object.assign(voiceOver, (JSON.parse(readFileSync(extras, 'utf8')) as ScenarioExtras).voiceOver);
   }
-  const manifest = extractAssets(join(values.upstream, 'Assets'), values.out, voiceOver);
+  const manifest = extractAssets(values.media, values.out, voiceOver);
   writeFileSync(join(values.out, 'manifest.json'), JSON.stringify(manifest, null, 1) + '\n');
   const count = (o: object) => Object.keys(o).length;
   console.log(
     `assets: ${count(manifest.icons)} icons, ${count(manifest.setup)} setup pictures, ${count(manifest.ui)} UI images, ` +
-      `${1 + count(manifest.music.scenario)} music tracks, ${count(manifest.effects)} effects, ${count(manifest.voiceOver)} voiced passages`,
+      `${(manifest.music.title ? 1 : 0) + count(manifest.music.scenario)} music tracks, ${count(manifest.effects)} effects, ${count(manifest.voiceOver)} voiced passages`,
   );
+  if (manifest.missing.length) console.log(`missing source files (${manifest.missing.length}):\n  ${manifest.missing.join('\n  ')}`);
 }

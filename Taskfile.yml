@@ -118,9 +118,9 @@ tasks:
     cmd: node tools/converter/src/ui-text.ts --upstream {{.UPSTREAM_DIR}}/UnityOriginalApp --out content/ui.en.json
 
   content:assets:
-    desc: Extract icons, pictures, UI art and audio into content/assets (needs ffmpeg and the real media files, not Git LFS pointers).
-    deps: [deps:install, upstream:clone]
-    cmd: node tools/converter/src/assets.ts --upstream {{.UPSTREAM_DIR}}/UnityOriginalApp --out content/assets
+    desc: 'Extract icons, pictures, UI art and audio into content/assets (needs ffmpeg and the media folder, see README; MEDIA=<Assets folder> to override).'
+    deps: [deps:install]
+    cmd: node tools/converter/src/assets.ts {{if .MEDIA}}--media "{{.MEDIA}}"{{end}} --out content/assets
 
   content:test:
     desc: "Story tester: static checks + coverage-guided exploration, spoiler-free summary (vars: ID, SECONDS; CLI_ARGS e.g. -- --spoilers)."

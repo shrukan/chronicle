@@ -35,6 +35,9 @@ story tester and the terminal player.
 
 Requirements: Node.js 24+, [Task](https://taskfile.dev); Docker or Podman for the container.
 
+Images and audio come from Renegade's community download (the fan repo on GitHub only stores
+Git LFS pointers): unpack it into `media/` (git-ignored) and run `task content:assets`.
+
 With Podman, prefix the container tasks with `CONTAINER_ENGINE=podman`. `podman compose` (used by
 `project:up:prod`) needs Podman's API socket: `systemctl --user enable --now podman.socket`.
 
