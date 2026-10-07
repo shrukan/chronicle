@@ -19,10 +19,22 @@ import { Library } from './core/library';
       <router-outlet />
     </main>
     <footer>
-      Unofficial fan project. Story, text, art and music © Renegade Game Studios (CC BY-NC 4.0).
-      <a href="https://github.com/shrukan/chronicle" target="_blank" rel="noopener"
-        >Source on GitHub</a
-      >
+      <p>
+        Unofficial fan project. Story, text, art and music © Renegade Game Studios (CC BY-NC 4.0).
+      </p>
+      <p>
+        App by Shrukan, code under the
+        <a
+          href="https://github.com/shrukan/chronicle/blob/main/LICENSE"
+          target="_blank"
+          rel="noopener"
+          >MIT licence</a
+        >
+        ·
+        <a href="https://github.com/shrukan/chronicle" target="_blank" rel="noopener"
+          >Source code on GitHub ↗</a
+        >
+      </p>
     </footer>
   `,
   styles: `
@@ -36,18 +48,28 @@ import { Library } from './core/library';
       width: 100%;
       max-width: 50rem;
       margin: 0 auto;
-      padding: 1.25rem 1rem 3rem;
+      padding: 1.25rem 1rem 0.75rem;
       box-sizing: border-box;
     }
     footer {
-      padding: 1rem;
+      padding: 0.25rem 1rem calc(1.75rem + env(safe-area-inset-bottom));
       font-size: 0.75rem;
       text-align: center;
       opacity: 0.6;
     }
+    footer p {
+      margin: 0.2rem 0;
+    }
     footer a {
       color: inherit;
+      text-decoration: underline;
+      text-underline-offset: 0.2em;
       white-space: nowrap;
+    }
+    footer a:hover,
+    footer a:focus-visible {
+      opacity: 1;
+      color: var(--color-on-backdrop);
     }
   `,
 })
