@@ -129,8 +129,24 @@ Each milestone has an exit criterion. Don't start the next until it's met (unles
 - Fixed on the way: 36 strings with raw TextMeshPro tags; nginx MIME types.
 
 **M4 – Full game flow**
-- Setup screens, log book, end of round/generation, scoring + tie-breakers, endings, save/resume,
-  help, music.
+Original flow (from `ViewController` and the screen scripts): main menu → voice choice → player
+count → player intro → player names → village → village intro → scenario → story (story page +
+hub page, log book) → end of round / generation dialogs → score entry → tie-breakers → ranking →
+ending → endings & achievements gallery. Help and settings from the main menu.
+
+- **M4.1 Assets:** converter step that extracts icons (TextMeshPro sprite assets), setup images,
+  UI art (backgrounds, logo, scenario art, panels, crown) and audio (music, effects, male/female
+  voice-over) into `content/assets/` with a manifest; images → WebP, audio → MP3 (plays
+  everywhere). Original fonts are skipped (licences unclear).
+- **M4.2 UI copy:** the original screen texts (intros, help, prompts, endings) from the scene into
+  `content/ui.en.json`, grouped by screen.
+- **M4.3 Screens:** setup flow, story page with generation title and hub view, log book,
+  dialogs (CDK) for setup pop-ups / end of round / end of generation / special events,
+  bidding & voting with the countdown reveal, score entry + tie-breakers + ranking (original
+  rules; fix: player 5 was missing from score entry), endings & achievements gallery
+  (unlocks stored locally), help, settings (voice, volumes, reading mode later).
+- **M4.4 Audio:** music per scenario/screen, effects, voice-over for the 9 passages.
+- **M4.5 End-to-end test:** a scripted full playthrough in a real browser, in CI.
 - **Exit:** a real board-game session played start to finish with the app, no workarounds.
 
 **M5 – Release v1**
