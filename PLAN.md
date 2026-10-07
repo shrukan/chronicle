@@ -229,7 +229,7 @@ chronicle/
 - `compose.yml` with `IMAGE_NAME` / `CONTAINER_NAME`, `restart: unless-stopped`, port via env.
 - **HTTPS is required** for the service worker (offline mode) on anything but `localhost`.
   On the home server the container sits behind the existing reverse proxy with TLS.
-- Images: `ghcr.io/<user>/chronicle:<version>` built by GitHub Actions on release; the home server pins the version.
+- Images: `ghcr.io/shrukan/chronicle:<version>` built by GitHub Actions on release; the home server pins the version.
 
 **Repo hygiene:** conventional commits enforced by prek + commitlint (scopes e.g. `frontend`,
 `engine`, `converter`, `tester`, `content`, `docker`, `task`); release-please for versions and

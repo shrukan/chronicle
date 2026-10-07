@@ -4,8 +4,10 @@ An unofficial, fan-made companion app for the board game **My Father's Work**
 (Renegade Game Studios). It replaces the original app, which is no longer maintained, with an
 installable web app that also works offline.
 
-> **Status:** early development (milestone M3). *The Cost of Disease* is playable in the browser
-> with a placeholder setup screen – see [PLAN.md](PLAN.md).
+> **Status:** early development (milestone M4). *The Cost of Disease* is fully playable in the
+> browser, from setup to the endings – see [PLAN.md](PLAN.md).
+
+Source: <https://github.com/shrukan/chronicle>
 
 ## How it works
 

@@ -20,6 +20,9 @@ import { Library } from './core/library';
     </main>
     <footer>
       Unofficial fan project. Story, text, art and music © Renegade Game Studios (CC BY-NC 4.0).
+      <a href="https://github.com/shrukan/chronicle" target="_blank" rel="noopener"
+        >Source on GitHub</a
+      >
     </footer>
   `,
   styles: `
@@ -41,6 +44,10 @@ import { Library } from './core/library';
       font-size: 0.75rem;
       text-align: center;
       opacity: 0.6;
+    }
+    footer a {
+      color: inherit;
+      white-space: nowrap;
     }
   `,
 })
