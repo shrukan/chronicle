@@ -53,8 +53,12 @@ export type Node =
   | UiNode
   | ManualNode;
 
-/** What a piece of text is for. Reading modes may only rewrite `narrative`. */
-export type TextKind = 'narrative' | 'instruction' | 'title';
+/**
+ * What a piece of text is for: `narrative` (flavour text), `instruction` (game rules and
+ * actions), `command` (instructions about the app itself, e.g. handing the storybook to a
+ * player), `title`. Reading modes may only rewrite `narrative`.
+ */
+export type TextKind = 'narrative' | 'instruction' | 'command' | 'title';
 
 /**
  * A run of inline rich text. The string table entry may contain:

@@ -130,6 +130,39 @@ function slug(text: string): string {
   return text.toLowerCase().replace(/<[^>]+>/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '').slice(0, 40);
 }
 
+/** Links that move the game on (to the next round or generation) rather than finish an action. */
+const PROGRESSION_LINK = /^click( here)? (at the end of the (second )?(round|generation)|to continue to the next round)/i;
+
+/**
+ * The original puts the "end of the round" links inside the boxed action of a location
+ * (hubDetails). They aren't part of the action, so they move below the box. Returns how many moved.
+ */
+export function hoistProgressionLinks(passages: Passages, strings: StringTable): number {
+  let moved = 0;
+  const visit = (nodes: Node[]): Node[] =>
+    nodes.flatMap((n): Node[] => {
+      if (n.t === 'if') n.branches.forEach((b) => (b.body = visit(b.body)));
+      if (n.t !== 'block') return [n];
+      n.body = visit(n.body);
+      if (n.style !== 'hubDetails') return [n];
+      let end = n.body.length;
+      while (end > 0 && n.body[end - 1]!.t === 'br') end--;
+      const last = n.body[end - 1];
+      const text = last?.t === 'link' ? strings[last.key]?.full.replace(/[*\\]/g, '').trim() : undefined;
+      if (!last || !text || !PROGRESSION_LINK.test(text)) return [n];
+      let start = end - 1;
+      while (start > 0 && n.body[start - 1]!.t === 'br') start--;
+      n.body = n.body.slice(0, start);
+      moved++;
+      return [n, last];
+    });
+  for (const p of Object.values(passages)) {
+    p.body = visit(p.body);
+    for (const f of Object.keys(p.fragments)) p.fragments[f] = visit(p.fragments[f]!);
+  }
+  return moved;
+}
+
 /**
  * Builds the final string table: link labels used at least `minUses` times share one
  * `common.*` key, everything else is numbered per passage in reading order
@@ -151,7 +184,7 @@ export function finalizeStrings(
   });
 
   const out: StringTable = { ...extra };
-  const kindCount: Record<TextKind, number> = { narrative: 0, instruction: 0, title: 0 };
+  const kindCount: Record<TextKind, number> = { narrative: 0, instruction: 0, command: 0, title: 0 };
   const common: Record<string, number> = {};
   const commonKey = new Map<string, string>();
   for (const [text, uses] of labelUses) {

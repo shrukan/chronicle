@@ -61,7 +61,10 @@ function findStoryLink(out: Out[], id: number): Extract<Out, { t: 'link' }> | un
       </header>
 
       <article class="paper passage" [class.hub]="game.isHub()" aria-live="polite">
-        <cr-story-output [items]="body()" [primaryLink]="onlyWay()?.id" />
+        <cr-story-output
+          [items]="body()"
+          [primaryLink]="onlyWay()?.plain ? onlyWay()?.id : undefined"
+        />
 
         @if (view.prompt; as prompt) {
           <form class="prompt" [formRoot]="answerForm">
@@ -72,6 +75,7 @@ function findStoryLink(out: Out[], id: number): Extract<Out, { t: 'link' }> | un
               <input
                 id="answer"
                 [type]="prompt.input === 'number' ? 'number' : 'text'"
+                [class.number]="prompt.input === 'number'"
                 [formField]="answerForm.value"
                 autocomplete="off"
               />
@@ -92,7 +96,7 @@ function findStoryLink(out: Out[], id: number): Extract<Out, { t: 'link' }> | un
             <p class="played">Played in {{ playTime() }}</p>
             <div class="row">
               <a class="btn quiet" routerLink="/endings">Endings</a>
-              <button type="button" class="btn" (click)="toTitle()">Return to title</button>
+              <button type="button" class="btn" (click)="toTitle()">Main menu</button>
             </div>
           </footer>
         }
@@ -127,14 +131,7 @@ function findStoryLink(out: Out[], id: number): Extract<Out, { t: 'link' }> | un
         </h2>
         <p class="paused-time">Play time {{ playTime() }}</p>
         <cr-settings-panel [showHeading]="false" (done)="pauseOpen.set(false)">
-          <button actions type="button" class="btn quiet" (click)="toTitle()">
-            {{
-              library.text(
-                'UI/GanrationEnding/Viewarea/PausePopup/Settings Panel/Panel/GotoMain/Text (TMP)',
-                'Return to title'
-              )
-            }}
-          </button>
+          <button actions type="button" class="btn quiet" (click)="toTitle()">Main menu</button>
         </cr-settings-panel>
       </cr-modal>
     } @else if (game.error(); as error) {
@@ -220,11 +217,17 @@ function findStoryLink(out: Out[], id: number): Extract<Out, { t: 'link' }> | un
       background: var(--color-panel);
       border: 1px solid var(--color-accent);
     }
+    /* Inputs keep a ~20 character default width in a flex row unless given one. */
+    .prompt input.number {
+      width: 6rem;
+      text-align: center;
+    }
     .prompt .row {
       margin-top: 0.75rem;
     }
     .prompt input {
-      flex: 1;
+      width: min(18rem, 100%);
+      min-width: 0;
       padding: 0.4rem 0.6rem;
       border-radius: 0.3rem;
       border: 1px solid var(--color-rule);

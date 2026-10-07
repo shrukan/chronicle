@@ -529,8 +529,10 @@ export class PassageConverter {
     if (!out.trim()) return undefined;
 
     const allBold = run.every((p) => p.bold || (p.k === 'text' && !p.text.trim()));
+    // App commands first: they often open a passage in bold, which would look like a title.
     const kind: TextKind =
-      first && allBold ? 'title'
+      isAppCommand(plain) ? 'command'
+      : first && allBold ? 'title'
       : inBlock === 'setup' || inBlock === 'setupEvent' || inBlock === 'hubTitle' ? 'instruction'
       : isNarrative(plain, out) ? 'narrative'
       : 'instruction';
@@ -590,15 +592,36 @@ export function normNum(n: string): string {
 }
 
 const GAME_TERMS =
-  /\b\d+\s?VP\b|\$\d|\bVP\b|\b(gain|gains|lose|loses|place|places|draw|draws|discard|discards|pay|pays|take|takes|return|returns|token|tokens|card|cards|marker|board|supply|Estate|Village Chronicle|Storybook|turn to|round|player|players|cost|costs|score|scores)\b/i;
+  /\b\d+\s?VP\b|\$\d|\bVP\b|\b(gain|gains|lose|loses|place|places|draw|draws|discard|discards|pay|pays|take|takes|return|returns|token|tokens|card|cards|marker|board|supply|Estate|Village Chronicle|Storybook|turn to|round|player|players|cost|costs|score|scores)\b/gi;
+
+/** Rule text usually starts with an action or addresses the players. */
+const IMPERATIVE =
+  /^(\W*)(gain|lose|place|take|discard|pay|draw|return|move|add|remove|retrieve|give|choose|shuffle|turn to|perform|flip|put|count|reveal|collect|keep|look through|look at|search|find|roll|read|resolve|spend|donate|vote|bid|select|decide|check|score|record|write|tally|each player|all players|the player|any player|if a player|if any player|if there is|players|then,? (place|take|gain|lose|return|give|move|add|remove|each)|note:?|setup|reward:?|cost:?)\b/i;
+
+/** Instructions about the app rather than the board game: who holds the storybook, what others may see. */
+const APP_COMMAND = [
+  /\b(storybook device|see the screen)\b/i,
+  /\b(hand|pass|give|bring)\b[^.]{0,40}\bstorybook\b(?!\s+(token|icon|track|space))/i,
+  /\b(pick up|take|hold)\b[^.]{0,20}\bstorybook\b(?!\s+(token|icon|track|space))/i,
+  /\bdo not (allow|let)\b[^.]{0,60}\b(see|look|read)\b/i,
+  /\bclick here (to reveal|for a storybook message)\b/i,
+];
+
+export function isAppCommand(plain: string): boolean {
+  return APP_COMMAND.some((r) => r.test(plain));
+}
 
 /**
- * Narrative = prose the Short reading mode may shorten. When in doubt, text counts as an
- * instruction: wrongly calling prose an instruction only means it isn't shortened, while
- * the reverse could drop a game rule.
+ * Narrative = flavour text, the part the Easy and Short reading modes may rewrite. Rule text
+ * starts with an action, contains icons, points, money or several numbers, or is dense with
+ * game terms; long prose that mentions a player or a round now and then stays narrative.
  */
 export function isNarrative(plain: string, markup: string): boolean {
-  if (markup.includes('{icon:')) return false;
-  if (plain.trim().split(/\s+/).length < 8) return false;
-  return !GAME_TERMS.test(plain);
+  if (markup.includes('{icon:') || /\b\d+\s?VP\b|\$\d/.test(plain)) return false;
+  // Several numbers: a cost list, a track position, a count – game material.
+  if ((plain.replace(/\{\d+\}/g, ' ').match(/\b\d{1,2}\b/g) ?? []).length >= 2) return false;
+  const words = plain.trim().split(/\s+/).length;
+  if (words < 8 || IMPERATIVE.test(plain.trim())) return false;
+  const hits = (plain.match(GAME_TERMS) ?? []).length;
+  return hits === 0 || (words >= 20 && hits / words < 0.05);
 }

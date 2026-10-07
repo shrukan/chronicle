@@ -7,6 +7,8 @@
 @theme {
   --font-display: 'IM Fell English SC', 'IM Fell English', Georgia, serif;
   --font-body: 'EB Garamond', Georgia, 'Times New Roman', serif;
+  /* Rule text: a plain sans like on the game's cards. */
+  --font-rules: 'Source Sans 3', 'Segoe UI', system-ui, sans-serif;
 
   --color-backdrop: #1b1f1d;
   --color-on-backdrop: #e9dfc9;
@@ -21,6 +23,9 @@
   --color-link: #7b2d26;
   --color-link-hover: #a63c32;
   --color-error: #a32020;
+  --color-rules: #2f2a24;
+  /* A hand pointing at the next reader, for app commands. */
+  --command-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%237b2d26' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M18 11V6a2 2 0 0 0-4 0v1M14 10V4a2 2 0 0 0-4 0v2M10 10.5V6a2 2 0 0 0-4 0v8'/%3E%3Cpath d='M18 8a2 2 0 1 1 4 0v6a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-5.99-2.34l-3.6-3.6a2 2 0 0 1 2.83-2.82L7 15'/%3E%3C/svg%3E");
 }
 
 @media (prefers-color-scheme: dark) {

@@ -13,7 +13,7 @@ import { ScreenCard } from './screen-card';
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [Autofocus, RichText, ScreenCard, Modal],
   template: `
-    @for (o of items(); track $index) {
+    @for (o of tidy(items()); track $index) {
       @switch (o.t) {
         @case ('text') {
           <cr-rich-text [text]="game.text(o.key, o.kind)" [args]="o.args" [class]="o.kind" />
@@ -95,6 +95,30 @@ export class StoryOutput {
     while (end > start && out[end - 1]!.t === 'br') end--;
     return out.slice(start, end);
   }
+
+  /**
+   * The original stacks line breaks generously. Boxes and notices bring their own spacing, so
+   * breaks next to them go; elsewhere at most one empty line remains.
+   */
+  protected tidy(out: Out[]): Out[] {
+    const boxed = (o: Out | undefined): boolean =>
+      o !== undefined &&
+      (o.t === 'block' || o.t === 'ui' || (o.t === 'text' && o.kind === 'command'));
+    const kept: Out[] = [];
+    for (let k = 0; k < out.length; k++) {
+      const o = out[k]!;
+      if (o.t === 'br') {
+        const prev = kept[kept.length - 1];
+        let next = k + 1;
+        while (out[next]?.t === 'br') next++;
+        if (boxed(prev) || boxed(out[next])) continue;
+        if (prev?.t === 'br' && kept[kept.length - 2]?.t === 'br') continue;
+      }
+      kept.push(o);
+    }
+    return kept;
+  }
+
   protected get setupLabel(): string {
     return this.library.text('@TwineTMProPlayer.setupText', 'Setup');
   }

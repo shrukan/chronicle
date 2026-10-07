@@ -5,6 +5,7 @@ import {
   dropDeadFragments,
   tagEndings,
   finalizeStrings,
+  hoistProgressionLinks,
   manualNodes,
   reachable,
   usedVariables,
@@ -112,6 +113,7 @@ export async function convertScenario(input: ConvertInput): Promise<ConvertResul
   const unusedVariables = Object.keys(allVars).filter((v) => !used.has(v) && !(v in EXTERNAL_VARIABLES)).sort();
   const variables = Object.fromEntries(Object.entries(allVars).filter(([v]) => used.has(v) || v in EXTERNAL_VARIABLES));
 
+  hoistProgressionLinks(passages, converter.strings);
   const final = finalizeStrings(passages, converter.strings, converter.kinds, { [SETUP_CONTINUE_KEY]: { full: 'Continue' } });
 
   const raw: Scenario = { format: FORMAT_VERSION, id: config.id, start: config.start, variables, passages };
