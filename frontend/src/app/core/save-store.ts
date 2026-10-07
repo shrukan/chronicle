@@ -14,6 +14,8 @@ export interface SavedGame {
   snapshot: StorySnapshot;
   /** Passages with a log book entry, in the order they were reached. */
   log: string[];
+  /** Time spent in the storybook, in milliseconds. */
+  playTime?: number;
   savedAt: number;
 }
 

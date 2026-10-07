@@ -1,4 +1,11 @@
-import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  DestroyRef,
+  inject,
+  signal,
+} from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { form, FormField, FormRoot, required } from '@angular/forms/signals';
 import { AudioPlayer } from '../core/audio';
@@ -7,6 +14,7 @@ import { Library } from '../core/library';
 import { LogBook } from '../story/log-book';
 import { RichText } from '../story/rich-text';
 import { StoryOutput } from '../story/story-output';
+import { formatDuration } from '../ui/duration';
 import { Modal } from '../ui/modal';
 import { SettingsPanel } from '../ui/settings-panel';
 
@@ -25,11 +33,14 @@ import { SettingsPanel } from '../ui/settings-panel';
             📖
           }
         </button>
-        <h1 class="heading title" [class.hub]="game.isHub()">
-          @if (game.title()) {
-            <cr-rich-text [text]="game.title()" />
-          }
-        </h1>
+        <div class="center">
+          <h1 class="heading title" [class.hub]="game.isHub()">
+            @if (game.title()) {
+              <cr-rich-text [text]="game.title()" />
+            }
+          </h1>
+          <p class="clock" [attr.aria-label]="'Play time ' + playTime()">⏱ {{ playTime() }}</p>
+        </div>
         <button type="button" class="icon-btn" (click)="pauseOpen.set(true)" aria-label="Menu">
           ☰
         </button>
@@ -64,6 +75,7 @@ import { SettingsPanel } from '../ui/settings-panel';
                 {{ library.text('@ViewShareEnding.EndingText', 'ending.') }}
               </p>
             }
+            <p class="played">Played in {{ playTime() }}</p>
             <div class="row">
               <a class="btn quiet" routerLink="/endings">Endings</a>
               <button type="button" class="btn" (click)="toTitle()">Return to title</button>
@@ -99,17 +111,17 @@ import { SettingsPanel } from '../ui/settings-panel';
             )
           }}
         </h2>
-        <cr-settings-panel (done)="pauseOpen.set(false)" />
-        <div class="row">
-          <button type="button" class="btn quiet" (click)="toTitle()">
+        <p class="paused-time">Play time {{ playTime() }}</p>
+        <cr-settings-panel [showHeading]="false" (done)="pauseOpen.set(false)">
+          <button actions type="button" class="btn quiet" (click)="toTitle()">
             {{
               library.text(
-                'UI/GanrationEnding/Viewarea/PausePopup/Settings Panel/Panel/GotoMainMenu/Text (TMP)',
+                'UI/GanrationEnding/Viewarea/PausePopup/Settings Panel/Panel/GotoMain/Text (TMP)',
                 'Return to title'
               )
             }}
           </button>
-        </div>
+        </cr-settings-panel>
       </cr-modal>
     } @else {
       <section class="paper empty">
@@ -128,6 +140,26 @@ import { SettingsPanel } from '../ui/settings-panel';
       align-items: center;
       gap: 0.5rem;
       margin-bottom: 0.75rem;
+    }
+    .center {
+      display: grid;
+      justify-items: center;
+      gap: 0.1rem;
+    }
+    .clock {
+      margin: 0;
+      font-size: 0.85rem;
+      color: var(--color-on-backdrop);
+      opacity: 0.7;
+      font-variant-numeric: tabular-nums;
+    }
+    .played,
+    .paused-time {
+      margin: 0 0 0.75rem;
+      text-align: center;
+      font-style: italic;
+      color: var(--color-muted);
+      font-variant-numeric: tabular-nums;
     }
     .title {
       margin: 0;
@@ -195,8 +227,9 @@ import { SettingsPanel } from '../ui/settings-panel';
       font-size: 1.15rem;
     }
     .paused {
-      margin: 0 0 1rem;
+      margin: 0 0 0.25rem;
       text-align: center;
+      font-size: 1.6rem;
     }
     .error {
       margin-top: 1rem;
@@ -215,6 +248,8 @@ export class Play {
   protected readonly library = inject(Library);
   private readonly router = inject(Router);
   private readonly audio = inject(AudioPlayer);
+
+  protected readonly playTime = computed(() => formatDuration(this.game.playTime()));
 
   protected readonly logOpen = signal(false);
   protected readonly pauseOpen = signal(false);
@@ -238,6 +273,25 @@ export class Play {
     while (out[i]?.t === 'br') i++;
     return out.slice(i);
   });
+
+  constructor() {
+    // Count play time while the storybook is on screen and the story isn't over.
+    const timer = setInterval(() => {
+      if (document.visibilityState === 'visible' && this.game.view() && !this.game.isEnding())
+        this.game.tick(1000);
+    }, 1000);
+    // Save on leaving and when the app goes to the background (phones may close it there).
+    const save = () => void this.game.persist();
+    const onVisibility = () => document.visibilityState === 'hidden' && save();
+    document.addEventListener('visibilitychange', onVisibility);
+    window.addEventListener('pagehide', save);
+    inject(DestroyRef).onDestroy(() => {
+      clearInterval(timer);
+      document.removeEventListener('visibilitychange', onVisibility);
+      window.removeEventListener('pagehide', save);
+      save();
+    });
+  }
 
   private readonly endingTitles = computed(() => {
     const content = this.game.content();

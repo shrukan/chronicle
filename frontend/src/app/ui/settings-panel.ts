@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, inject, output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, input, output } from '@angular/core';
 import { Library } from '../core/library';
 import { Settings, type Voice } from '../core/settings';
 
@@ -7,9 +7,11 @@ import { Settings, type Voice } from '../core/settings';
   selector: 'cr-settings-panel',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <h2 class="heading">
-      {{ t('UI/MainMenu/Viewarea/Settings UI/Settings Panel/Panel/SettingsHeader', 'Settings') }}
-    </h2>
+    @if (showHeading()) {
+      <h2 class="heading">
+        {{ t('UI/MainMenu/Viewarea/Settings UI/Settings Panel/Panel/SettingsHeader', 'Settings') }}
+      </h2>
+    }
 
     <fieldset class="voice">
       <legend>{{ t('UI/VoiceTrack/Viewarea/Prompt/Heading', 'Choose Audio Voice') }}</legend>
@@ -42,6 +44,7 @@ import { Settings, type Voice } from '../core/settings';
     }
 
     <div class="actions">
+      <ng-content select="[actions]" />
       <button type="button" class="btn" (click)="done.emit()">
         {{
           t(
@@ -71,8 +74,10 @@ import { Settings, type Voice } from '../core/settings';
     }
     .actions {
       display: flex;
+      flex-wrap: wrap;
       justify-content: center;
-      margin-top: 1rem;
+      gap: 0.75rem;
+      margin-top: 1.25rem;
     }
   `,
 })
@@ -80,6 +85,8 @@ export class SettingsPanel {
   protected readonly settings = inject(Settings);
   private readonly library = inject(Library);
   readonly done = output<void>();
+  /** Off when the panel sits in another dialog with its own heading (pause menu). */
+  readonly showHeading = input(true);
 
   protected readonly voices: { value: Voice; key: string; fallback: string }[] = [
     { value: 'female', key: 'UI/VoiceTrack/Viewarea/Prompt/Female/Lable', fallback: 'Feminine' },

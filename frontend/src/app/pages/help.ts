@@ -51,10 +51,11 @@ const TABS = [
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
-      gap: 0.5rem;
+      gap: 0.35rem;
     }
     .tabs button {
-      padding: 0.4rem 1rem;
+      padding: 0.3rem 0.7rem;
+      font-size: 0.9rem;
       border: 1px solid var(--color-rule);
       border-radius: 0.4rem;
       background: transparent;

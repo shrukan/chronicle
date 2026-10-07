@@ -69,6 +69,7 @@ body {
     font-family: var(--font-display);
     font-size: 1.05rem;
     letter-spacing: 0.05em;
+    text-transform: uppercase;
     cursor: pointer;
     text-decoration: none;
   }

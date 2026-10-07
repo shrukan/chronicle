@@ -53,7 +53,7 @@ const LETTERS = 'ABCDE';
               )
             }}
           </p>
-          <div class="choices">
+          <div class="choices players">
             @for (n of [2, 3, 4, 5]; track n) {
               <button
                 type="button"
@@ -178,7 +178,6 @@ const LETTERS = 'ABCDE';
       max-width: 34rem;
       margin: 0 auto;
       text-align: center;
-      position: relative;
     }
     h1 {
       margin: 0;
@@ -189,6 +188,10 @@ const LETTERS = 'ABCDE';
       flex-wrap: wrap;
       justify-content: center;
       gap: 0.6rem;
+    }
+    .choices.players {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(7rem, 1fr));
     }
     .choice {
       padding: 0.6rem 1rem;
@@ -271,9 +274,9 @@ const LETTERS = 'ABCDE';
       cursor: default;
     }
     .back {
-      position: absolute;
-      top: 0.75rem;
-      left: 0.75rem;
+      order: -1;
+      justify-self: start;
+      margin: -0.5rem 0 -0.5rem -0.25rem;
       border: 0;
       background: none;
       color: var(--color-muted);

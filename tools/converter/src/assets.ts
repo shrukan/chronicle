@@ -47,6 +47,9 @@ const MUSIC = {
   },
 };
 
+/** Sizes of the PWA icons (PNG: what web app manifests and iOS expect). */
+const APP_ICON_SIZES = [72, 96, 128, 144, 152, 180, 192, 384, 512];
+
 /** UI art folders that are not used (animation frames, Unity-specific widgets). */
 const SKIP_UI = /^(ScreenTransitions|CollapseAssets|SettingPanel|FakeLight)\//;
 
@@ -151,6 +154,13 @@ export function extractAssets(assets: string, out: string, voiceOver: ScenarioEx
     const file = join(out, 'ui', `${key}.webp`);
     if (tryConvert(() => image(join(uiDir, f), file))) m.ui[key] = rel(file);
   }
+
+  // App icon (browser tab, home screen) from the original's 1024 px icon.
+  const appIcon = join(assets, 'New_UI_Assets/General/MFWAppIcon-1024x1024.png');
+  for (const size of APP_ICON_SIZES) {
+    tryConvert(() => convert(appIcon, join(out, 'app-icon', `icon-${size}.png`), ['-vf', `scale=${size}:${size}:flags=lanczos`]));
+  }
+  tryConvert(() => convert(appIcon, join(out, 'app-icon', 'favicon.ico'), ['-vf', 'scale=48:48:flags=lanczos']));
 
   // Music, effects, voice-over.
   const music = (src: string, name: string): string | undefined => {

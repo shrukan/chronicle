@@ -77,7 +77,9 @@ export class App {
 
   /** Like the original, every button and story link clicks. */
   protected clickSound(event: Event): void {
-    const target = (event.target as Element | null)?.closest('button, a, [role="tab"], input[type="radio"], input[type="checkbox"]');
+    const target = (event.target as Element | null)?.closest(
+      'button, a, [role="tab"], input[type="radio"], input[type="checkbox"]',
+    );
     if (target && !(target as HTMLButtonElement).disabled) this.audio.effect('click');
   }
 

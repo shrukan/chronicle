@@ -43,6 +43,8 @@ export class Game {
   readonly error = signal<string | undefined>(undefined);
   /** Log book: passages with an entry, in the order reached. */
   readonly log = signal<string[]>([]);
+  /** Time spent in the storybook, in milliseconds (counted by the story page while visible). */
+  readonly playTime = signal(0);
   /** Set when the passage just reached is an ending that was unlocked for the first time. */
   readonly newEnding = signal<string | undefined>(undefined);
 
@@ -82,6 +84,7 @@ export class Game {
     this.story = new Story(content.scenario, { vars });
     this.setup.set(setup);
     this.log.set([]);
+    this.playTime.set(0);
     this.audio.playMusic(this.scenarioId());
     this.step(() => this.story!.start());
   }
@@ -94,6 +97,7 @@ export class Game {
     this.story = new Story(content.scenario);
     this.setup.set(saved.setup);
     this.log.set(saved.log);
+    this.playTime.set(saved.playTime ?? 0);
     this.audio.playMusic(this.scenarioId());
     this.step(() => this.story!.restore(saved.snapshot), false);
     return true;
@@ -104,6 +108,13 @@ export class Game {
     this.story = undefined;
     this.view.set(undefined);
     this.log.set([]);
+  }
+
+  /** Adds elapsed time; saves now and then so a closed tab loses little. */
+  tick(ms: number): void {
+    const before = this.playTime();
+    this.playTime.set(before + ms);
+    if (Math.floor(before / 30_000) !== Math.floor((before + ms) / 30_000)) void this.persist();
   }
 
   click(link: number, values?: Record<string, Value>): void {
@@ -150,7 +161,8 @@ export class Game {
     }
   }
 
-  private async persist(): Promise<void> {
+  /** Saves the game now (also called when leaving the storybook or hiding the app). */
+  async persist(): Promise<void> {
     const setup = this.setup();
     if (!setup || !this.lastSafe) return;
     await this.saves.save({
@@ -158,6 +170,7 @@ export class Game {
       setup,
       snapshot: this.lastSafe,
       log: this.log(),
+      playTime: this.playTime(),
       savedAt: Date.now(),
     });
   }

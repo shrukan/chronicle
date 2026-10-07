@@ -44,14 +44,14 @@ import { ScreenCard } from './screen-card';
               @if (o.image && library.setupImage(o.image); as src) {
                 <img class="setup-image" [src]="src" alt="" />
               }
-              <div class="setup-body"><cr-story-output [items]="o.children" /></div>
+              <div class="setup-body"><cr-story-output [items]="trim(o.children)" /></div>
             </cr-modal>
           } @else {
             <section class="block" [class]="o.style">
               @if (o.style === 'setup') {
                 <header>{{ setupLabel }}</header>
               }
-              <cr-story-output [items]="o.children" />
+              <cr-story-output [items]="trim(o.children)" />
             </section>
           }
         }
@@ -68,6 +68,15 @@ export class StoryOutput {
   protected readonly library = inject(Library);
   readonly items = input.required<Out[]>();
   protected readonly setupContinue = SETUP_CONTINUE_KEY;
+
+  /** Line breaks at the start or end of a block only add empty space. */
+  protected trim(out: Out[]): Out[] {
+    let start = 0,
+      end = out.length;
+    while (start < end && out[start]!.t === 'br') start++;
+    while (end > start && out[end - 1]!.t === 'br') end--;
+    return out.slice(start, end);
+  }
   protected get setupLabel(): string {
     return this.library.text('@TwineTMProPlayer.setupText', 'Setup');
   }
