@@ -147,6 +147,11 @@ ending → endings & achievements gallery. Help and settings from the main menu.
   (unlocks stored locally), help, settings (voice, volumes, reading mode later).
 - **M4.4 Audio:** music per scenario/screen, effects, voice-over for the 9 passages.
 - **M4.5 End-to-end test:** a scripted full playthrough in a real browser, in CI.
+- **Status (7 Oct 2026):** M4.1–M4.5 done. All screens, dialogs, scoring, endings gallery, help,
+  settings, music, effects and voice-over work; `task frontend:e2e` plays a whole game in Chrome.
+  Open: the three scenario music tracks (in the parts of Renegade's download not unpacked yet –
+  until then the title music plays during the story); hub passages are shown inline rather than
+  on a separate page; shortened texts (reading mode) remain for later.
 - **Exit:** a real board-game session played start to finish with the app, no workarounds.
 
 **M5 – Release v1**
