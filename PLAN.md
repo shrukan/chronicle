@@ -160,6 +160,17 @@ ending → endings & achievements gallery. Help and settings from the main menu.
 - Credits page, open-source the repo, post to the Discord.
 - Optional: also publish the static build to GitHub Pages for people without a server.
 
+**M6 – Reading modes: Easy and Short** (after v1)
+- *Easy*: the same story in plain English (B1 level) for non-native speakers – shorter sentences,
+  common words, nothing left out. Covers narrative **and** instructions, so every instruction
+  needs a careful human check against the rules.
+- *Short*: narrative condensed (about a third), instructions unchanged.
+- Data: `StringEntry` gets an `easy` variant next to `short`; both only show once reviewed,
+  otherwise the full text appears. Setting in the pause menu, switchable mid-game.
+- Workflow: draft with an LLM per passage (with the passage's context), review in a small
+  side-by-side tool, mark reviewed; the story tester checks every key has its variant.
+- Order: Easy first (it helps more people and needs no decisions about what to cut).
+
 **After v1** (order flexible): Fear of the Unknown → A Time of War → reading modes
 (Short) → voice-over → other UI languages → Capacitor.
 
