@@ -7,8 +7,6 @@
 @theme {
   --font-display: 'IM Fell English SC', 'IM Fell English', Georgia, serif;
   --font-body: 'EB Garamond', Georgia, 'Times New Roman', serif;
-  /* Rule text: a plain sans like on the game's cards. */
-  --font-rules: 'Source Sans 3', 'Segoe UI', system-ui, sans-serif;
 
   --color-backdrop: #1b1f1d;
   --color-on-backdrop: #e9dfc9;

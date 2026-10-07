@@ -60,7 +60,7 @@ import { VERSION } from '../version';
         The code of this app is released under the
         <a [href]="repository + '/blob/main/LICENSE'" target="_blank" rel="noopener"
           >MIT licence ↗</a
-        >. Fonts: EB Garamond and Source Sans 3 (SIL Open Font License).
+        >. Fonts: EB Garamond and IM Fell English SC (SIL Open Font License).
       </p>
 
       <a class="btn" routerLink="/">Back</a>
