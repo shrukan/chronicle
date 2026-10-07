@@ -10,6 +10,7 @@ import { Router, RouterLink } from '@angular/router';
 import { form, FormField, FormRoot, required } from '@angular/forms/signals';
 import { AudioPlayer } from '../core/audio';
 import { Game, PLAIN_CONTINUE } from '../core/game';
+import { bugReportUrl } from '../core/bug-report';
 import { Library } from '../core/library';
 import { LogBook } from '../story/log-book';
 import { RichText } from '../story/rich-text';
@@ -102,7 +103,10 @@ function findStoryLink(out: Out[], id: number): Extract<Out, { t: 'link' }> | un
         }
 
         @if (game.error(); as error) {
-          <p class="error" role="alert">{{ error }}</p>
+          <p class="error" role="alert">
+            {{ error }}
+            <a [href]="bugReport(error)" target="_blank" rel="noopener">Report this error ↗</a>
+          </p>
         }
       </article>
 
@@ -133,11 +137,16 @@ function findStoryLink(out: Out[], id: number): Extract<Out, { t: 'link' }> | un
         <cr-settings-panel [showHeading]="false" (done)="pauseOpen.set(false)">
           <button actions type="button" class="btn quiet" (click)="toTitle()">Main menu</button>
         </cr-settings-panel>
+        <p class="report">
+          Something wrong on this page?
+          <a [href]="bugReport()" target="_blank" rel="noopener">Report a bug ↗</a>
+        </p>
       </cr-modal>
     } @else if (game.error(); as error) {
       <section class="paper empty">
         <p class="error" role="alert">The storybook could not be opened: {{ error }}</p>
-        <a class="btn" routerLink="/">Back to the title</a>
+        <a class="btn" routerLink="/">Main menu</a>
+        <a [href]="bugReport(error)" target="_blank" rel="noopener">Report this error ↗</a>
       </section>
     } @else if (resuming()) {
       <p class="loading">Opening the storybook…</p>
@@ -255,6 +264,17 @@ function findStoryLink(out: Out[], id: number): Extract<Out, { t: 'link' }> | un
       text-align: center;
       font-size: 1.6rem;
     }
+    .report {
+      margin: 1rem 0 0;
+      text-align: center;
+      font-size: 0.9rem;
+      color: var(--color-muted);
+    }
+    .report a,
+    .error a {
+      color: inherit;
+      text-decoration: underline;
+    }
     .error {
       margin-top: 1rem;
       color: var(--color-error);
@@ -273,6 +293,12 @@ function findStoryLink(out: Out[], id: number): Extract<Out, { t: 'link' }> | un
   `,
 })
 export class Play {
+  /** A bug report that names the current passage (and the error, if any). */
+  protected bugReport(error?: string): string {
+    const passage = this.game.view()?.passage;
+    return bugReportUrl({ error, where: passage ? `Passage ${passage}` : 'Storybook' });
+  }
+
   protected readonly game = inject(Game);
   protected readonly library = inject(Library);
   private readonly router = inject(Router);

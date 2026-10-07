@@ -3,6 +3,7 @@ import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { filter, map } from 'rxjs';
 import { AudioPlayer } from './core/audio';
+import { bugReportUrl, REPOSITORY } from './core/bug-report';
 import { Library } from './core/library';
 
 @Component({
@@ -22,18 +23,13 @@ import { Library } from './core/library';
       <p>
         Unofficial fan project. Story, text, art and music © Renegade Game Studios (CC BY-NC 4.0).
       </p>
-      <p>
+      <p class="by">
         App by Shrukan, code under the
-        <a
-          href="https://github.com/shrukan/chronicle/blob/main/LICENSE"
-          target="_blank"
-          rel="noopener"
-          >MIT licence</a
-        >
-        ·
-        <a href="https://github.com/shrukan/chronicle" target="_blank" rel="noopener"
-          >Source code on GitHub ↗</a
-        >
+        <a [href]="repository + '/blob/main/LICENSE'" target="_blank" rel="noopener">MIT licence</a>
+      </p>
+      <p class="links">
+        <a [href]="repository" target="_blank" rel="noopener">Source code on GitHub ↗</a> ·
+        <a [href]="bugReport()" target="_blank" rel="noopener">Report a bug ↗</a>
       </p>
     </footer>
   `,
@@ -60,6 +56,16 @@ import { Library } from './core/library';
     footer p {
       margin: 0.2rem 0;
     }
+    /* Wide enough: author, licence and links on one line. */
+    @media (min-width: 48rem) {
+      footer .by,
+      footer .links {
+        display: inline;
+      }
+      footer .by::after {
+        content: ' · ';
+      }
+    }
     footer a {
       color: inherit;
       text-decoration: underline;
@@ -74,6 +80,10 @@ import { Library } from './core/library';
   `,
 })
 export class App {
+  protected readonly repository = REPOSITORY;
+  protected bugReport(): string {
+    return bugReportUrl({ where: location.pathname });
+  }
   private readonly library = inject(Library);
   private readonly audio = inject(AudioPlayer);
   private readonly router = inject(Router);
