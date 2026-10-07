@@ -45,8 +45,7 @@ import { VERSION } from '../version';
         and uses them, like that repository, under the terms of
         <a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener"
           >Creative Commons Attribution-NonCommercial 4.0 (CC BY-NC 4.0) ↗</a
-        >: non-commercially and with attribution. The content will be removed on request by Renegade
-        Game Studios.
+        >: non-commercially and with attribution.
       </p>
       <p>
         <strong>Changes:</strong> the story scripts were converted into a new data format, a few

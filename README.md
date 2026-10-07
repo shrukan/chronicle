@@ -86,8 +86,9 @@ task project:build:docker    # image chronicle:<version>
 task project:up:prod         # http://localhost:8080
 ```
 
-Serve it over HTTPS (e.g. behind a reverse proxy) – browsers only install the app and keep it
-offline on secure origins.
+Plain HTTP works. Over HTTP on anything but `localhost`, though, browsers switch off offline
+mode, installing the app to the home screen and keeping the screen on – put it behind a
+reverse proxy with HTTPS if you want those.
 
 ## Contributing
 
