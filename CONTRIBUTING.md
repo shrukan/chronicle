@@ -1,5 +1,8 @@
 # Contributing
 
+Pull requests are very welcome. For anything bigger than a small fix, open an issue first so
+we can agree on the approach. Keep story spoilers out of issues, commits and pull requests.
+
 ## Setup
 
 ```bash

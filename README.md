@@ -117,8 +117,15 @@ reverse proxy with HTTPS if you want those.
 
 ## Contributing
 
-See [CONTRIBUTING.md](CONTRIBUTING.md). Commit messages follow Conventional Commits; releases
-and the changelog are made by release-please.
+Feature requests and pull requests are very welcome – whether it's an idea from your last
+game night, a fix, a translation or one of the scenarios still to come.
+
+- **Ideas:** [request a feature](https://github.com/shrukan/chronicle/issues/new?template=feature.yml)
+- **Bugs:** [report a bug](https://github.com/shrukan/chronicle/issues/new?template=bug.yml)
+- **Code:** see [CONTRIBUTING.md](CONTRIBUTING.md) for setup and conventions. For bigger
+  changes, open an issue first so we can agree on the approach.
+
+Please keep story spoilers out of issues and pull requests.
 
 ## Licence
 

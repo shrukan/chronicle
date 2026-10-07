@@ -1,0 +1,28 @@
+name: Feature request
+description: An idea for Chronicle – something that would help at your table.
+labels: [enhancement]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for the idea! Issues are public – please don't quote longer story passages or name endings.
+  - type: textarea
+    id: idea
+    attributes:
+      label: What would you like?
+      description: Describe the feature and the situation at the table where it would help.
+    validations:
+      required: true
+  - type: textarea
+    id: why
+    attributes:
+      label: Why does it matter?
+      description: What is hard or missing today?
+  - type: dropdown
+    id: help
+    attributes:
+      label: Would you like to work on it?
+      options:
+        - "No, just the idea"
+        - "Maybe, with some guidance"
+        - "Yes, I'd open a pull request"
