@@ -19,7 +19,7 @@ import { SettingsPanel } from '../ui/settings-panel';
       } @else {
         <h1 class="heading">My Father's Work</h1>
       }
-      <p class="sub">An unofficial companion</p>
+      <p class="sub">Chronicle · an unofficial companion app</p>
 
       <nav class="buttons">
         @if (hasSave.value()) {
