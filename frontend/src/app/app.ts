@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, Component, computed, effect, inject } from '@a
 import { NavigationEnd, Router, RouterLink, RouterOutlet } from '@angular/router';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { filter, map } from 'rxjs';
+import { AppUpdate } from './core/app-update';
 import { AudioPlayer } from './core/audio';
 import { bugReportUrl } from './core/bug-report';
 import { VERSION } from './version';
@@ -20,6 +21,13 @@ import { Library } from './core/library';
     <main>
       <router-outlet />
     </main>
+    @if (update.ready()) {
+      <aside class="update" role="status">
+        <span>A new version of Chronicle is ready.</span>
+        <button type="button" class="btn" (click)="update.reload()">Reload</button>
+        <button type="button" class="later" (click)="update.ready.set(false)">Later</button>
+      </aside>
+    }
     @if (showFooter()) {
       <footer>
         Unofficial fan project · Story, art and music © Renegade Game Studios ·
@@ -41,6 +49,39 @@ import { Library } from './core/library';
       margin: 0 auto;
       padding: 1.25rem 1rem 0.75rem;
       box-sizing: border-box;
+    }
+    /* Over every page, dialogs excepted: reloading is safe, the game is saved after every step. */
+    .update {
+      position: fixed;
+      left: 50%;
+      bottom: calc(1rem + env(safe-area-inset-bottom));
+      z-index: 5;
+      transform: translateX(-50%);
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem 1rem;
+      width: max-content;
+      max-width: calc(100vw - 2rem);
+      box-sizing: border-box;
+      padding: 0.6rem 1rem;
+      border: 1px solid var(--color-rule);
+      border-radius: 0.5rem;
+      background: var(--color-bg) var(--paper-image, none) center / cover;
+      color: var(--color-ink);
+      box-shadow: 0 0.5rem 1.5rem rgb(0 0 0 / 0.5);
+    }
+    .update .btn {
+      padding: 0.3rem 0.9rem;
+    }
+    .later {
+      border: 0;
+      background: none;
+      font: inherit;
+      color: var(--color-muted);
+      text-decoration: underline;
+      cursor: pointer;
     }
     footer {
       padding: 0.25rem 1rem calc(1.75rem + env(safe-area-inset-bottom));
@@ -72,6 +113,7 @@ export class App {
   }
   private readonly library = inject(Library);
   private readonly audio = inject(AudioPlayer);
+  protected readonly update = inject(AppUpdate);
   private readonly router = inject(Router);
 
   protected readonly url = toSignal(
