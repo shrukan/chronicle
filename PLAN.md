@@ -89,8 +89,9 @@ Each milestone has an exit criterion. Don't start the next until it's met (unles
   A Time of War 297. The handoff's "869" counted generated methods, not passages.
 
 **M1 – Converter (Cost of Disease, EN)** ✅ done
-- `tools/converter/` (C# → JSON, normalisation to strict types, extras) with fixture tests;
-  `tools/story-cli/` (terminal player, random playthroughs).
+- `tools/converter/` (C# → JSON, normalisation to strict types, extras) with fixture tests.
+  (A terminal player and random-playthrough script existed early on; the story tester and the
+  app replaced them.)
 - `content/cost-of-disease/`: 315 reachable passages, 0 manual nodes, 0 typing issues,
   0 broken links; `extras.json` with 21 end-of-round texts, 96 log book entries, 9 voice-over clips.
 - The 46 dropped passages match Deusald's chapter index exactly: dev notes, the old setup and
@@ -212,13 +213,14 @@ chronicle/
 
 | Task | What it does |
 |---|---|
-| `content:convert` | run converter on `upstream/` → `content/` |
-| `content:test` | run story tester, fail on new issues |
-| `frontend:serve:dev` | `ng serve` |
-| `frontend:build` | production build → `build/web` |
-| `project:lint` / `project:test` | lint + unit tests across workspaces |
-| `project:build:docker` | build runtime image |
-| `project:up:prod` / `project:down:prod` / `project:log:docker` | compose on this machine |
+| `deps:install` | install all workspace dependencies |
+| `project:check` | everything CI checks: types, unit tests, app build, story tester |
+| `content:convert` | converter on `upstream/` → `content/` (stories and screen texts) |
+| `content:assets` | images and audio from Renegade's download → `content/assets` |
+| `content:test` | story tester, fails on new issues |
+| `frontend:serve:dev` / `frontend:build` | `ng serve` / production build → `build/web` |
+| `frontend:test` / `frontend:e2e` | unit tests / a full game in headless Chrome |
+| `project:build:docker` / `project:up:prod` / `project:down:prod` | runtime image and compose on this machine |
 
 **Container**
 - Multi-stage Containerfile (works with Docker and Podman): `node-toolchain` (Node 24 + Angular CLI + Task) →

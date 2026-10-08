@@ -68,7 +68,6 @@ story tester and the terminal player.
 | `frontend/`           | Angular PWA (signals, zoneless, Signal Forms, Tailwind, CDK)                  |
 | `engine/`             | Story format (`schema.ts`), runtime, value semantics, text markup             |
 | `tools/converter/`    | Converts the original C# story scripts into `content/`                        |
-| `tools/story-cli/`    | Terminal player and random-playthrough smoke test                             |
 | `tools/story-tester/` | Static checks and coverage-guided exploration of every scenario               |
 | `tools/e2e/`          | Plays a full game in headless Chrome against the production build             |
 | `content/`            | Converted story data (© Renegade Game Studios, used under CC BY-NC 4.0 terms) |
@@ -93,8 +92,6 @@ task content:test            # story tester: dead ends, errors, coverage (spoile
 task frontend:serve:dev      # the app at http://localhost:4200
 task frontend:e2e            # a full game in headless Chrome
 task project:up:prod         # the production container at http://localhost:8080
-task story:play              # play The Cost of Disease in the terminal
-task content:smoke RUNS=1000 # random playthroughs: errors, coverage, endings reached
 ```
 
 ## Self-hosting

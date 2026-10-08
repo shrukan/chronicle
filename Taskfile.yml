@@ -43,38 +43,27 @@ tasks:
     desc: Stop the locally running production container.
     cmd: IMAGE_NAME="{{.DEFAULT_IMAGE_NAME}}" {{.CONTAINER_ENGINE}} compose down
 
-  project:log:docker:
-    desc: Show the container logs.
-    cmd: IMAGE_NAME="{{.DEFAULT_IMAGE_NAME}}" {{.CONTAINER_ENGINE}} compose logs chronicle
-
   # Upstream reference sources
   upstream:clone:
     desc: Clone the original Unity project (reference only, git-ignored).
+    internal: true
     status: ["test -d {{.UPSTREAM_DIR}}"]
     cmd: git clone --depth 1 {{.UPSTREAM_REPO}} {{.UPSTREAM_DIR}}
 
   # Project
-  project:typecheck:
-    desc: Type-check all workspaces.
-    deps: [deps:install]
-    cmd: npx tsc -b
-
-  project:test:
-    desc: Run unit tests of all workspaces.
-    deps: [deps:install]
-    cmd: npm test
-
   project:check:
-    desc: Everything CI runs.
+    desc: "Everything CI checks: types, unit tests, app build, story tester."
+    deps: [deps:install]
     cmds:
-      - task: project:typecheck
-      - task: project:test
+      - npx tsc -b
+      - npm test
       - task: frontend:test
       - task: frontend:build
       - task: content:test
 
   # Frontend
   frontend:content:
+    internal: true
     desc: Copy the content the app serves (scenario data, screen texts, assets) into frontend/public/content (git-ignored).
     sources: ["content/*/scenario.json", "content/*/strings.en.json", "content/*/extras.json", "content/ui.en.json", "content/assets/**/*"]
     generates: ["frontend/public/content/**/*"]
@@ -117,16 +106,13 @@ tasks:
 
   # Content
   content:convert:
-    desc: "Convert the original story scripts into content/ (IDS: scenario ids; only Cost of Disease is in scope for v1)."
+    desc: "Convert the original story scripts and screen texts into content/ (IDS: scenario ids)."
     deps: [deps:install, upstream:clone]
     vars:
       IDS: '{{.IDS | default "cost-of-disease"}}'
-    cmd: node tools/converter/src/cli.ts --upstream {{.UPSTREAM_DIR}}/UnityOriginalApp --out content --reports build/reports {{.IDS}}
-
-  content:ui:
-    desc: Extract the original app's screen texts into content/ui.en.json.
-    deps: [deps:install, upstream:clone]
-    cmd: node tools/converter/src/ui-text.ts --upstream {{.UPSTREAM_DIR}}/UnityOriginalApp --out content/ui.en.json
+    cmds:
+      - node tools/converter/src/cli.ts --upstream {{.UPSTREAM_DIR}}/UnityOriginalApp --out content --reports build/reports {{.IDS}}
+      - node tools/converter/src/ui-text.ts --upstream {{.UPSTREAM_DIR}}/UnityOriginalApp --out content/ui.en.json
 
   content:assets:
     desc: 'Extract icons, pictures, UI art and audio into content/assets (needs ffmpeg and the media folder, see README; MEDIA=<Assets folder> to override).'
@@ -140,18 +126,3 @@ tasks:
       ID: '{{.ID | default "cost-of-disease"}}'
       SECONDS: '{{.SECONDS | default "120"}}'
     cmd: node tools/story-tester/src/cli.ts {{.ID}} --seconds {{.SECONDS}} {{.CLI_ARGS}}
-
-  content:smoke:
-    desc: "Random playthroughs of a converted scenario (vars: ID, RUNS)."
-    vars:
-      ID: '{{.ID | default "cost-of-disease"}}'
-      RUNS: '{{.RUNS | default "1000"}}'
-    cmd: node tools/story-cli/src/smoke.ts --runs {{.RUNS}} --steps 3000 {{.ID}} content
-
-  story:play:
-    desc: "Play a scenario in the terminal (vars: ID, PLAYERS, START; CLI_ARGS e.g. -- --short)."
-    interactive: true
-    vars:
-      ID: '{{.ID | default "cost-of-disease"}}'
-      PLAYERS: '{{.PLAYERS | default "3"}}'
-    cmd: node tools/story-cli/src/play.ts --players {{.PLAYERS}} {{if .START}}--start "{{.START}}"{{end}} {{.CLI_ARGS}} {{.ID}} content

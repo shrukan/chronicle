@@ -8,9 +8,6 @@
       "path": "tools/converter"
     },
     {
-      "path": "tools/story-cli"
-    },
-    {
       "path": "tools/story-tester"
     },
     {
