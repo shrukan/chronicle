@@ -143,6 +143,11 @@ export class App {
         '--frame-image',
         url(this.library.ui('general/mfw-borders/mfw-border-gold')),
       );
+      root.setProperty('--button-image', url(this.library.ui('general/buttons/button-red')));
+      root.setProperty(
+        '--button-quiet-image',
+        url(this.library.ui('general/buttons/blank-button-brown')),
+      );
     });
   }
 

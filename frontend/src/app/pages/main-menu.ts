@@ -118,9 +118,6 @@ import { SettingsPanel } from '../ui/settings-panel';
       gap: 0.75rem;
       width: min(18rem, 80vw);
     }
-    .buttons .quiet {
-      color: var(--color-on-backdrop);
-    }
     .confirm {
       margin: 0 0 1.25rem;
       font-size: 1.2rem;

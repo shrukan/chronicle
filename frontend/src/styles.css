@@ -69,34 +69,83 @@ body {
     padding: 1.5rem 1.25rem;
   }
 
+  /* The original's buttons: metal-framed plates (red for the main action, brown otherwise),
+     drawn as a 9-slice border image so they fit any width. Hover lights them up like the
+     original's highlight plate; pressing sinks them in. */
   .btn {
+    position: relative;
+    isolation: isolate;
     display: inline-flex;
     align-items: center;
     justify-content: center;
     gap: 0.4rem;
-    padding: 0.5rem 1.2rem;
-    border: 1px solid var(--color-accent);
-    border-radius: 0.4rem;
-    background: var(--color-accent);
-    color: var(--color-on-accent);
+    padding: 0.2rem 0.8rem;
+    border: 0.7em solid transparent;
+    border-image: var(--button-image, none) 90 fill / 0.7em stretch;
+    /* Without the image: a plain plate in the same colour. */
+    background: var(--color-accent) padding-box;
+    border-radius: 0.6em;
+    color: #f6ead8;
+    text-shadow: 0 1px 2px rgb(0 0 0 / 0.8);
     font-family: var(--font-display);
     font-size: 1.05rem;
-    letter-spacing: 0.05em;
+    letter-spacing: 0.06em;
     text-transform: uppercase;
     cursor: pointer;
-    text-decoration: none;
-  }
-  .btn:hover:not(:disabled) {
-    filter: brightness(1.12);
-  }
-  .btn:disabled {
-    opacity: 0.45;
-    cursor: default;
+    transition:
+      transform 0.12s ease-out,
+      filter 0.18s ease-out;
   }
   .btn.quiet {
-    background: transparent;
-    color: inherit;
-    border-color: currentColor;
+    border-image-source: var(--button-quiet-image, none);
+    background-color: #5a4a3a;
+  }
+  /* The warm glow of the original's highlight plate, under the label. */
+  .btn::before {
+    content: '';
+    position: absolute;
+    inset: -0.35em;
+    z-index: -1;
+    border-radius: 0.4em;
+    background: radial-gradient(
+      ellipse 70% 60% at 50% 75%,
+      rgb(255 226 170 / 0.55),
+      transparent 70%
+    );
+    mix-blend-mode: screen;
+    opacity: 0;
+    transition: opacity 0.2s ease-out;
+    pointer-events: none;
+  }
+  .btn:is(:hover, :focus-visible):not(:disabled)::before {
+    opacity: 1;
+  }
+  .btn:hover:not(:disabled) {
+    transform: translateY(-1px);
+    filter: brightness(1.08);
+  }
+  .btn:active:not(:disabled) {
+    transform: translateY(1px) scale(0.985);
+    filter: brightness(0.9);
+    transition-duration: 0.05s;
+  }
+  .btn:focus-visible {
+    outline: 2px solid #e6c47a;
+    outline-offset: 3px;
+  }
+  .btn:disabled {
+    filter: grayscale(0.7) brightness(0.8);
+    opacity: 0.6;
+    cursor: default;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .btn,
+    .btn::before {
+      transition: none;
+    }
+    .btn:is(:hover, :active):not(:disabled) {
+      transform: none;
+    }
   }
 
   .heading {

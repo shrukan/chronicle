@@ -370,10 +370,6 @@ function findStoryLink(out: Out[], id: number): Extract<Out, { t: 'link' }> | un
     .undo p {
       margin: 0;
     }
-    .undo .quiet,
-    .row .quiet {
-      color: var(--color-ink);
-    }
     .report {
       margin: 1rem 0 0;
       text-align: center;
