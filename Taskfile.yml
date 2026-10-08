@@ -9,8 +9,10 @@ vars:
   DEFAULT_IMAGE_NAME: "{{.PROJECT_NAME}}:{{.APP_VERSION}}"
   # docker or podman
   CONTAINER_ENGINE: '{{.CONTAINER_ENGINE | default "docker"}}'
-  UPSTREAM_DIR: '{{joinPath .ROOT_DIR "upstream"}}'
-  UPSTREAM_REPO: https://github.com/Deusald/MyFathersWork-FanMadeCompanionApp.git
+  # The original files the converter reads (see sources/README.md).
+  SOURCES_DIR: '{{joinPath .ROOT_DIR "sources/original"}}'
+  # Optional full clone of the fan repository, only needed to re-extract the screen texts.
+  UPSTREAM_DIR: '{{joinPath .ROOT_DIR "upstream/UnityOriginalApp"}}'
 
 tasks:
   # Dependencies
@@ -42,13 +44,6 @@ tasks:
   project:down:prod:
     desc: Stop the locally running production container.
     cmd: IMAGE_NAME="{{.DEFAULT_IMAGE_NAME}}" {{.CONTAINER_ENGINE}} compose down
-
-  # Upstream reference sources
-  upstream:clone:
-    desc: Clone the original Unity project (reference only, git-ignored).
-    internal: true
-    status: ["test -d {{.UPSTREAM_DIR}}"]
-    cmd: git clone --depth 1 {{.UPSTREAM_REPO}} {{.UPSTREAM_DIR}}
 
   # Project
   project:check:
@@ -106,13 +101,19 @@ tasks:
 
   # Content
   content:convert:
-    desc: "Convert the original story scripts and screen texts into content/ (IDS: scenario ids)."
-    deps: [deps:install, upstream:clone]
+    desc: "Convert the original story scripts in sources/ into content/ (IDS: scenario ids; screen texts too if upstream/ is cloned)."
+    deps: [deps:install]
     vars:
       IDS: '{{.IDS | default "cost-of-disease"}}'
     cmds:
-      - node tools/converter/src/cli.ts --upstream {{.UPSTREAM_DIR}}/UnityOriginalApp --out content --reports build/reports {{.IDS}}
-      - node tools/converter/src/ui-text.ts --upstream {{.UPSTREAM_DIR}}/UnityOriginalApp --out content/ui.en.json
+      - node tools/converter/src/cli.ts --upstream {{.SOURCES_DIR}} --out content --reports build/reports {{.IDS}}
+      # The screen texts need the whole Unity project; content/ui.en.json is complete for all scenarios.
+      - |
+        if [ -d "{{.UPSTREAM_DIR}}" ]; then
+          node tools/converter/src/ui-text.ts --upstream "{{.UPSTREAM_DIR}}" --out content/ui.en.json
+        else
+          echo "upstream/ not cloned: keeping content/ui.en.json"
+        fi
 
   content:assets:
     desc: 'Extract icons, pictures, UI art and audio into content/assets (needs ffmpeg and the media folder, see README; MEDIA=<Assets folder> to override).'

@@ -72,7 +72,8 @@ story tester and the terminal player.
 | `tools/e2e/`          | Plays a full game in headless Chrome against the production build             |
 | `content/`            | Converted story data (© Renegade Game Studios, used under CC BY-NC 4.0 terms) |
 | `docs/`               | Notes, e.g. [M0 findings](docs/m0-findings.md)                                |
-| `upstream/`           | Reference clone of the original project (git-ignored)                         |
+| `sources/original/`   | The original files the converter reads (story scripts, scene, log book, VO)   |
+| `upstream/`           | Optional full clone of the fan repository, for reference (git-ignored)        |
 
 ## Getting started
 

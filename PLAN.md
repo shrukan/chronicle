@@ -157,10 +157,10 @@ ending → endings & achievements gallery. Help and settings from the main menu.
 - **Exit:** a real board-game session played start to finish with the app, no workarounds.
 
 **M5 – Release v1**
-- release-please tags `v1.0.0` → GitHub Actions pushes the image to `ghcr.io`.
-- Home server pulls the pinned image version and runs it behind HTTPS.
-- Credits page, open-source the repo, post to the Discord.
-- Optional: also publish the static build to GitHub Pages for people without a server.
+- Done early (0.2.0): every release pushes the image to `ghcr.io` and the app to GitHub Pages;
+  about & credits page; the repo is public.
+- Open: a beta announcement on BoardGameGeek after the first table session (no Discord post);
+  `v1.0.0` once the feedback from it is in.
 
 **M6 – Reading modes: Easy and Short** (after v1)
 - *Easy*: the flavour text in plain English (B1 level) for non-native speakers – shorter
@@ -178,6 +178,19 @@ ending → endings & achievements gallery. Help and settings from the main menu.
 
 Short mode is placed after the scenarios on purpose: the content model supports it from M1,
 but writing short texts is a content job and works best once the logic is stable.
+
+**Content lifecycle: the converter is a migration tool**
+1. *Now:* the converter is the source of truth; `content/` is generated and can be regenerated
+   at any time. Its inputs are copied into `sources/original/` (the three story scripts plus the
+   few files for end-of-round texts, log book and voice-over), so conversion no longer depends
+   on the fan repository staying online.
+2. *Convert Fear of the Unknown and A Time of War*, check them with the story tester and at the
+   table. Fixes in the converter still reach all scenarios at once.
+3. *Freeze:* `content/` becomes the source of truth and is edited directly (fixes, Easy and Short
+   texts, translations). The story tester stays as the safety net – it reads the JSON only.
+   The first hand edit marks this point: converting again afterwards would overwrite it.
+4. *Retire:* tag `converter-final`, then remove `tools/converter/`, `sources/`, the asset
+   extraction and the `content:convert` / `content:assets` tasks. They stay in the git history.
 
 ## 5. Risks
 
