@@ -123,7 +123,7 @@ import { SaveStore } from '../core/save-store';
       padding: 0.6rem 0.75rem;
       border: 1px solid var(--color-rule);
       border-radius: 0.4rem;
-      background: rgb(255 255 255 / 0.35);
+      background: var(--color-field);
     }
     .slots li.locked {
       opacity: 0.55;

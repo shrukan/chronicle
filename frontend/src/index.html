@@ -9,6 +9,15 @@
     <link rel="icon" type="image/x-icon" href="content/assets/app-icon/favicon.ico" />
     <link rel="apple-touch-icon" href="content/assets/app-icon/icon-180.png" />
     <link rel="manifest" href="manifest.webmanifest" />
+    <script>
+      // Light or dark paper before the first paint (the app keeps it up to date).
+      try {
+        var t = JSON.parse(localStorage.getItem('chronicle.settings') || '{}').theme;
+        if (t !== 'light' && t !== 'dark')
+          t = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        document.documentElement.dataset.theme = t;
+      } catch (e) {}
+    </script>
   </head>
   <body>
     <cr-root></cr-root>

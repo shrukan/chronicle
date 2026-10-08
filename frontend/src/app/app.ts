@@ -1,4 +1,11 @@
-import { ChangeDetectionStrategy, Component, computed, effect, inject } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  effect,
+  inject,
+  signal,
+} from '@angular/core';
 import { NavigationEnd, Router, RouterLink, RouterOutlet } from '@angular/router';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { filter, map } from 'rxjs';
@@ -7,6 +14,7 @@ import { AudioPlayer } from './core/audio';
 import { bugReportUrl } from './core/bug-report';
 import { VERSION } from './version';
 import { Library } from './core/library';
+import { Settings } from './core/settings';
 
 @Component({
   selector: 'cr-root',
@@ -69,6 +77,7 @@ import { Library } from './core/library';
       border: 1px solid var(--color-rule);
       border-radius: 0.5rem;
       background: var(--color-bg) var(--paper-image, none) center / cover;
+      background-blend-mode: var(--paper-blend);
       color: var(--color-ink);
       box-shadow: 0 0.5rem 1.5rem rgb(0 0 0 / 0.5);
     }
@@ -114,6 +123,7 @@ export class App {
   private readonly library = inject(Library);
   private readonly audio = inject(AudioPlayer);
   protected readonly update = inject(AppUpdate);
+  private readonly settings = inject(Settings);
   private readonly router = inject(Router);
 
   protected readonly url = toSignal(
@@ -133,6 +143,15 @@ export class App {
 
   constructor() {
     void this.library.load().then(() => this.audio.preload('click'));
+    // Light or dark paper; "Automatic" follows the system, also when it changes (styles.css).
+    const systemDark = matchMedia('(prefers-color-scheme: dark)');
+    const prefersDark = signal(systemDark.matches);
+    systemDark.addEventListener('change', (e) => prefersDark.set(e.matches));
+    effect(() => {
+      const theme = this.settings.theme();
+      const dark = theme === 'dark' || (theme === 'auto' && prefersDark());
+      document.documentElement.dataset['theme'] = dark ? 'dark' : 'light';
+    });
     effect(() => {
       const root = document.documentElement.style;
       const url = (src: string | undefined) => (src ? `url("${src}")` : 'none');

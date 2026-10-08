@@ -18,10 +18,13 @@
   --color-rule: #cdb994;
   --color-accent: #7b2d26;
   --color-on-accent: #f8f0e1;
+  /* The accent as text on the paper (lighter on dark paper). */
+  --color-accent-text: #7b2d26;
   --color-link: #7b2d26;
   --color-link-hover: #a63c32;
   --color-error: #a32020;
-  --color-rules: #2f2a24;
+  /* Input fields and inset slots on the paper. */
+  --color-field: rgb(255 255 255 / 0.55);
   /* Speaker on / off for the mute button. */
   --icon-sound: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M11 5 6 9H2v6h4l5 4V5z'/%3E%3Cpath d='M15.5 8.5a5 5 0 0 1 0 7M19 5a10 10 0 0 1 0 14'/%3E%3C/svg%3E");
   --icon-muted: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M11 5 6 9H2v6h4l5 4V5z'/%3E%3Cpath d='m22 9-6 6M16 9l6 6'/%3E%3C/svg%3E");
@@ -29,11 +32,33 @@
   --command-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%237b2d26' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M18 11V6a2 2 0 0 0-4 0v1M14 10V4a2 2 0 0 0-4 0v2M10 10.5V6a2 2 0 0 0-4 0v8'/%3E%3Cpath d='M18 8a2 2 0 1 1 4 0v6a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-5.99-2.34l-3.6-3.6a2 2 0 0 1 2.83-2.82L7 15'/%3E%3C/svg%3E");
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --color-bg: #e6dac0;
-    --color-panel: #ddcfb1;
-  }
+/*
+ * Dark paper for evenings: the paper texture multiplied onto a dark brown, light ink.
+ * <html data-theme> is always set – "Automatic" is resolved from the system setting by a
+ * script in index.html (before the first paint) and by the app – so this is the one place
+ * the dark values live. Buttons keep the original's plates in both.
+ */
+:root {
+  --paper-blend: normal;
+  --icon-halo: none;
+}
+:root[data-theme='dark'] {
+  color-scheme: dark;
+  --color-bg: #3a3027;
+  --color-panel: #2e261f;
+  --color-field: rgb(0 0 0 / 0.3);
+  --color-ink: #e8dccb;
+  --color-heading: #e6b48f;
+  --color-muted: #ab9b84;
+  --color-rule: #5c4c3c;
+  --color-link: #e7a184;
+  --color-link-hover: #f4c0a8;
+  --color-error: #ff8f80;
+  --paper-blend: multiply;
+  --color-accent-text: #e7a184;
+  /* Black icons (e.g. the scenario symbol) get a light halo to stay visible. */
+  --icon-halo: drop-shadow(0 0 1.5px rgb(255 240 220 / 0.85));
+  --command-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23e7a184' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M18 11V6a2 2 0 0 0-4 0v1M14 10V4a2 2 0 0 0-4 0v2M10 10.5V6a2 2 0 0 0-4 0v8'/%3E%3Cpath d='M18 8a2 2 0 1 1 4 0v6a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-5.99-2.34l-3.6-3.6a2 2 0 0 1 2.83-2.82L7 15'/%3E%3C/svg%3E");
 }
 
 html {
@@ -63,6 +88,7 @@ body {
   /* Weathered paper: where story text and forms live. */
   .paper {
     background: var(--color-bg) var(--paper-image, none) center / cover;
+    background-blend-mode: var(--paper-blend);
     color: var(--color-ink);
     border-radius: 0.4rem;
     box-shadow: 0 0.5rem 1.5rem rgb(0 0 0 / 0.45);

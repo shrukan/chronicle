@@ -14,7 +14,7 @@
   background: rgb(123 45 38 / 0.07) no-repeat 0.75rem 0.65rem / 1.3rem;
   background-image: var(--command-icon);
   font-weight: 600;
-  color: var(--color-accent);
+  color: var(--color-accent-text);
 }
 
 .title {
@@ -57,7 +57,7 @@
   font-size: 0.9rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: var(--color-accent);
+  color: var(--color-accent-text);
 }
 
 .block.setup,

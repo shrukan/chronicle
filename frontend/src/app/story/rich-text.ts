@@ -45,6 +45,7 @@ import { Library } from '../core/library';
       white-space: nowrap;
     }
     .icon {
+      filter: var(--icon-halo, none);
       display: inline-block;
       width: 1.6em;
       height: 1.6em;
@@ -59,7 +60,7 @@ import { Library } from '../core/library';
       border-radius: 0.3em;
       font-size: 0.8em;
       font-variant: small-caps;
-      color: var(--color-accent);
+      color: var(--color-accent-text);
     }
   `,
 })

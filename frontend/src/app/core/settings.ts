@@ -2,6 +2,8 @@ import { effect, Injectable, signal } from '@angular/core';
 import type { ReadingMode } from '@chronicle/engine';
 
 export type Voice = 'male' | 'female';
+/** Light or dark paper; `auto` follows the system. */
+export type Theme = 'auto' | 'light' | 'dark';
 
 interface Stored {
   voice: Voice;
@@ -13,6 +15,7 @@ interface Stored {
   wholePage: boolean;
   /** All sound off, without touching the volumes. */
   muted: boolean;
+  theme: Theme;
 }
 
 const KEY = 'chronicle.settings';
@@ -24,6 +27,7 @@ const DEFAULTS: Stored = {
   readingMode: 'full',
   wholePage: true,
   muted: false,
+  theme: 'auto',
 };
 
 function read(): Stored {
@@ -45,6 +49,7 @@ export class Settings {
   readonly readingMode = signal<ReadingMode>(this.initial.readingMode);
   readonly wholePage = signal(this.initial.wholePage);
   readonly muted = signal(this.initial.muted);
+  readonly theme = signal<Theme>(this.initial.theme);
 
   constructor() {
     effect(() => {
@@ -56,6 +61,7 @@ export class Settings {
         readingMode: this.readingMode(),
         wholePage: this.wholePage(),
         muted: this.muted(),
+        theme: this.theme(),
       };
       try {
         localStorage.setItem(KEY, JSON.stringify(value));

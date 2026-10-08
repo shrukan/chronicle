@@ -223,7 +223,7 @@ export function rankPlayers(players: Player[]): {
       padding: 0.35rem;
       border: 1px solid var(--color-rule);
       border-radius: 0.3rem;
-      background: rgb(255 255 255 / 0.6);
+      background: var(--color-field);
       font: inherit;
       text-align: center;
     }

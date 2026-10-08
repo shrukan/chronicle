@@ -103,7 +103,7 @@ import { VERSION } from '../version';
       margin: 0;
     }
     a:not(.btn) {
-      color: var(--color-accent);
+      color: var(--color-accent-text);
     }
     .btn {
       justify-self: center;

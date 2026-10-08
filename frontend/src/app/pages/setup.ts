@@ -252,7 +252,7 @@ const LETTERS = 'ABCDE';
       padding: 0.6rem;
       border: 1px solid var(--color-rule);
       border-radius: 0.4rem;
-      background: rgb(255 255 255 / 0.35);
+      background: var(--color-field);
       color: inherit;
       font: inherit;
       text-align: left;

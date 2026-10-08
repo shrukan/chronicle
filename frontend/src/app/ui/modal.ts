@@ -87,7 +87,7 @@ import { ModalStack } from './modal-stack';
     }
     .sound:hover,
     .sound:focus-visible {
-      color: var(--color-accent);
+      color: var(--color-accent-text);
     }
     .speaker {
       width: 1.2rem;

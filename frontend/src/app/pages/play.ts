@@ -313,7 +313,7 @@ function findStoryLink(out: Out[], id: number): Extract<Out, { t: 'link' }> | un
       padding: 0.4rem 0.6rem;
       border-radius: 0.3rem;
       border: 1px solid var(--color-rule);
-      background: rgb(255 255 255 / 0.6);
+      background: var(--color-field);
       color: inherit;
       font: inherit;
     }

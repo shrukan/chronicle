@@ -1,7 +1,7 @@
 import { Autofocus } from './autofocus';
 import { ChangeDetectionStrategy, Component, inject, input, output } from '@angular/core';
 import { Library } from '../core/library';
-import { Settings, type Voice } from '../core/settings';
+import { Settings, type Theme, type Voice } from '../core/settings';
 
 /** Voice and volumes. Used from the main menu and the pause menu. */
 @Component({
@@ -27,6 +27,22 @@ import { Settings, type Voice } from '../core/settings';
             (change)="settings.voice.set(v.value)"
           />
           {{ t(v.key, v.fallback) }}
+        </label>
+      }
+    </fieldset>
+
+    <fieldset class="voice">
+      <legend>Paper</legend>
+      @for (th of themes; track th.value) {
+        <label>
+          <input
+            type="radio"
+            name="theme"
+            [value]="th.value"
+            [checked]="settings.theme() === th.value"
+            (change)="settings.theme.set(th.value)"
+          />
+          {{ th.label }}
         </label>
       }
     </fieldset>
@@ -89,7 +105,8 @@ import { Settings, type Voice } from '../core/settings';
     }
     .voice {
       display: flex;
-      gap: 1.5rem;
+      flex-wrap: wrap;
+      gap: 0.5rem 1.5rem;
       margin: 0 0 1rem;
       padding: 0.5rem 0.75rem;
       border: 1px solid var(--color-rule);
@@ -133,6 +150,11 @@ export class SettingsPanel {
   protected readonly voices: { value: Voice; key: string; fallback: string }[] = [
     { value: 'female', key: 'UI/VoiceTrack/Viewarea/Prompt/Female/Lable', fallback: 'Feminine' },
     { value: 'male', key: 'UI/VoiceTrack/Viewarea/Prompt/Male/Lable', fallback: 'Masculine' },
+  ];
+  protected readonly themes: { value: Theme; label: string }[] = [
+    { value: 'auto', label: 'Automatic' },
+    { value: 'light', label: 'Light' },
+    { value: 'dark', label: 'Dark' },
   ];
   protected readonly sliders = [
     {

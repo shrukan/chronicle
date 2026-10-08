@@ -199,7 +199,7 @@ const ROMAN = ['i', 'ii', 'iii'];
       font-size: 3rem;
       letter-spacing: 0.15em;
       text-transform: uppercase;
-      color: var(--color-accent);
+      color: var(--color-accent-text);
       animation: emerge 0.6s ease-out;
     }
   `,
