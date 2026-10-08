@@ -33,8 +33,9 @@ const LETTERS = 'ABCDE';
             @for (v of voices; track v.value) {
               <button
                 type="button"
-                class="choice"
+                class="btn quiet choice"
                 [class.selected]="settings.voice() === v.value"
+                [attr.aria-pressed]="settings.voice() === v.value"
                 (click)="settings.voice.set(v.value)"
               >
                 {{ t(v.key, v.fallback) }}
@@ -60,8 +61,9 @@ const LETTERS = 'ABCDE';
             @for (n of [2, 3, 4, 5]; track n) {
               <button
                 type="button"
-                class="choice"
+                class="btn quiet choice"
                 [class.selected]="players() === n"
+                [attr.aria-pressed]="players() === n"
                 (click)="players.set(n)"
               >
                 {{ n }} Players
@@ -205,19 +207,10 @@ const LETTERS = 'ABCDE';
       display: grid;
       grid-template-columns: repeat(2, minmax(7rem, 1fr));
     }
+    /* Brown plates; the chosen one lit like the original's highlight plate. Red stays for
+       the action (Continue). */
     .choice {
-      padding: 0.6rem 1rem;
-      border: 1px solid var(--color-rule);
-      border-radius: 0.4rem;
-      background: transparent;
-      color: inherit;
-      font: inherit;
-      cursor: pointer;
-    }
-    .choice.selected {
-      border-color: var(--color-accent);
-      background: var(--color-accent);
-      color: var(--color-on-accent);
+      min-width: 7rem;
     }
     .letter {
       max-width: 28rem;

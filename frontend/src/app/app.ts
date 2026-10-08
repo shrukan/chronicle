@@ -145,6 +145,10 @@ export class App {
       );
       root.setProperty('--button-image', url(this.library.ui('general/buttons/button-red')));
       root.setProperty(
+        '--button-selected-image',
+        url(this.library.ui('general/blank-button-brown-highlight')),
+      );
+      root.setProperty(
         '--button-quiet-image',
         url(this.library.ui('general/buttons/blank-button-brown')),
       );

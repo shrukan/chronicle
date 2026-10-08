@@ -100,6 +100,13 @@ body {
     border-image-source: var(--button-quiet-image, none);
     background-color: #5a4a3a;
   }
+  /* A chosen option (e.g. the number of players): the original's lit plate. */
+  .btn.quiet.selected {
+    border-image-source: var(--button-selected-image, var(--button-quiet-image, none));
+    background-color: #b08a55;
+    color: #2b1b10;
+    text-shadow: 0 1px 1px rgb(255 240 210 / 0.6);
+  }
   /* The warm glow of the original's highlight plate, under the label. */
   .btn::before {
     content: '';
