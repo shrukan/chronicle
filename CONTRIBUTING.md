@@ -13,17 +13,30 @@ task project:check
 
 ## Commits
 
-[Conventional Commits](https://www.conventionalcommits.org/), enforced by commitlint:
+[Conventional Commits](https://www.conventionalcommits.org/), enforced by commitlint.
 
-```
-feat(engine): support include of fragments
-fix(converter): resolve fragments of renumbered passages
-```
+**The changelog is for players.** release-please builds `CHANGELOG.md` – which the app links
+to – from `feat` and `fix` commits only. So:
+
+- Use `feat` / `fix` only for changes players notice, **without a scope**, and write the subject
+  from their side of the screen:
+  ```
+  feat: undo your last choice from the pause menu
+  fix: sound effects stop when you mute
+  ```
+- Everything else – converter, story tester, engine internals, CI, tooling – uses `build`,
+  `chore`, `ci`, `refactor`, `test`, `perf` or `docs`, with a scope:
+  ```
+  build(converter): extract the log book from the original CSV
+  test(tester): explore prompts with values from comparisons
+  ```
+- The release PR is the last chance to polish the wording: edit its changelog text before
+  merging.
 
 Scopes: `engine`, `converter`, `cli`, `tester`, `frontend`, `content`, `docker`, `task`,
 `ci`, `deps`, `docs`, `repo`.
 
-Versions and the changelog are managed by release-please – don't edit version numbers by hand.
+Versions are managed by release-please – don't edit version numbers by hand.
 
 ## Code
 
