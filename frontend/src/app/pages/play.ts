@@ -3,11 +3,13 @@ import {
   Component,
   computed,
   DestroyRef,
+  effect,
   inject,
+  isDevMode,
   linkedSignal,
   signal,
 } from '@angular/core';
-import { Router, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { form, FormField, FormRoot, required } from '@angular/forms/signals';
 import { AudioPlayer } from '../core/audio';
 import { Game, PLAIN_CONTINUE } from '../core/game';
@@ -491,9 +493,22 @@ export class Play {
 
   constructor() {
     // After a reload (or opening /play directly) continue the saved game.
-    if (!this.game.view()) {
-      this.resuming.set(true);
-      void this.game.resume().finally(() => this.resuming.set(false));
+    const resumed = this.game.view()
+      ? Promise.resolve(true)
+      : (this.resuming.set(true), this.game.resume().finally(() => this.resuming.set(false)));
+
+    // Development only – the passage names would give the story away to players:
+    // the URL shows the current passage, and /play?passage=<name> jumps there.
+    if (isDevMode()) {
+      const jump = inject(ActivatedRoute).snapshot.queryParamMap.get('passage');
+      if (jump)
+        void resumed.then(async () => {
+          if (jump !== this.game.view()?.passage) await this.game.jumpTo(jump);
+        });
+      effect(() => {
+        const passage = this.game.view()?.passage;
+        if (passage) void this.router.navigate([], { queryParams: { passage }, replaceUrl: true });
+      });
     }
 
     // Count play time while the storybook is on screen and the story isn't over.

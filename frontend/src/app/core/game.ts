@@ -171,6 +171,22 @@ export class Game {
   }
 
   /**
+   * Development only (see Play): jumps to a passage. Within a game the variables stay as they
+   * are; without one, a test game with three players starts first.
+   */
+  async jumpTo(passage: string): Promise<void> {
+    if (!this.story) {
+      await this.newGame({
+        players: 3,
+        names: ['Ada', 'Bram', 'Cosima', 'Dara', 'Emil'],
+        village: 'Testville',
+      });
+    }
+    this.remember();
+    this.step(() => this.story!.start(passage));
+  }
+
+  /**
    * Goes back to the page before the last choice. A prompt's answer belongs to the choice that
    * opened it, so undoing after an answer returns to before that choice.
    */
