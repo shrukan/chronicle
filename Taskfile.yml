@@ -4,7 +4,7 @@ version: "3"
 
 vars:
   PROJECT_NAME: chronicle
-  APP_VERSION: "0.2.0" # x-release-please-version
+  APP_VERSION: "0.3.0" # x-release-please-version
 
   DEFAULT_IMAGE_NAME: "{{.PROJECT_NAME}}:{{.APP_VERSION}}"
   # docker or podman
