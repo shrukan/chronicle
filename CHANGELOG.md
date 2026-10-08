@@ -5,15 +5,18 @@
 
 ### Features
 
-* **frontend:** clearer location pages, kept saves ([f80e76d](https://github.com/shrukan/chronicle/commit/f80e76d1fddcb34ae3c812f53d7bab596942e8ca))
-* **frontend:** mute all sound, from anywhere ([5d59658](https://github.com/shrukan/chronicle/commit/5d596582542e55264e783fd82cc41280a7935c24))
-* **frontend:** name the app on the main menu ([7bf5b4a](https://github.com/shrukan/chronicle/commit/7bf5b4adc31ecb5a8c2bc379ff4dd8fb1da7515e))
+* location pages are easier to scan: one heading style per section, with a line between sections ([f80e76d](https://github.com/shrukan/chronicle/commit/f80e76d1fddcb34ae3c812f53d7bab596942e8ca))
+* your browser is asked to keep saved games even when storage runs low ([f80e76d](https://github.com/shrukan/chronicle/commit/f80e76d1fddcb34ae3c812f53d7bab596942e8ca))
+* mute all sound with one tap, from the storybook's header or any dialog ([5d59658](https://github.com/shrukan/chronicle/commit/5d596582542e55264e783fd82cc41280a7935c24))
+* the main menu shows the app's name ([7bf5b4a](https://github.com/shrukan/chronicle/commit/7bf5b4adc31ecb5a8c2bc379ff4dd8fb1da7515e))
 * tell you when a new version is ready, and reload into it ([608d818](https://github.com/shrukan/chronicle/commit/608d81878292c13ca8416fc4c12f7f4026865613))
 
 
 ### Bug Fixes
 
-* **frontend:** one typeface for story and rules ([fe49f76](https://github.com/shrukan/chronicle/commit/fe49f76285c1555b964fd96be2cb2c7adf9f8a3c))
+* story and rules use one typeface, instead of switching fonts in the middle of a paragraph ([fe49f76](https://github.com/shrukan/chronicle/commit/fe49f76285c1555b964fd96be2cb2c7adf9f8a3c))
+* the storybook icon shows in every heading, and punctuation after an icon stays on the same line ([f80e76d](https://github.com/shrukan/chronicle/commit/f80e76d1fddcb34ae3c812f53d7bab596942e8ca))
+* sound effects that are already playing follow the volume and mute settings ([5d59658](https://github.com/shrukan/chronicle/commit/5d596582542e55264e783fd82cc41280a7935c24))
 
 ## [0.2.0](https://github.com/shrukan/chronicle/compare/v0.1.0...v0.2.0) (2026-10-07)
 
