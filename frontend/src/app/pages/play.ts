@@ -2,12 +2,15 @@ import {
   ChangeDetectionStrategy,
   Component,
   computed,
+  afterRenderEffect,
   DestroyRef,
   effect,
+  ElementRef,
   inject,
   isDevMode,
   linkedSignal,
   signal,
+  viewChild,
 } from '@angular/core';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { form, FormField, FormRoot, required } from '@angular/forms/signals';
@@ -77,7 +80,7 @@ function findStoryLink(out: Out[], id: number): Extract<Out, { t: 'link' }> | un
           }
         </button>
         <div class="center">
-          <h1 class="heading title" [class.hub]="game.isHub()">
+          <h1 #title class="heading title" [class.hub]="game.isHub()" tabindex="-1">
             @if (game.title()) {
               <cr-rich-text [text]="game.title()" />
             }
@@ -101,7 +104,7 @@ function findStoryLink(out: Out[], id: number): Extract<Out, { t: 'link' }> | un
         </div>
       </header>
 
-      <article class="paper passage" [class.hub]="game.isHub()" aria-live="polite">
+      <article class="paper passage" [class.hub]="game.isHub()">
         <cr-story-output
           [items]="body()"
           [primaryLink]="onlyWay()?.plain ? onlyWay()?.id : undefined"
@@ -260,6 +263,10 @@ function findStoryLink(out: Out[], id: number): Extract<Out, { t: 'link' }> | un
       font-style: italic;
       color: var(--color-muted);
       font-variant-numeric: tabular-nums;
+    }
+    /* Focused on every new page, for screen readers; not a control, so no ring. */
+    .title:focus {
+      outline: none;
     }
     .title {
       margin: 0;
@@ -467,6 +474,9 @@ export class Play {
 
   protected readonly confirmUndo = signal(false);
 
+  private readonly titleRef = viewChild<ElementRef<HTMLElement>>('title');
+  private readonly passage = computed(() => this.game.view()?.passage);
+
   /** Set once the page's handover notice has been confirmed; every new page starts unset. */
   protected readonly handedOver = linkedSignal({
     source: () => this.game.view(),
@@ -511,6 +521,16 @@ export class Play {
         if (passage) void this.router.navigate([], { queryParams: { passage }, replaceUrl: true });
       });
     }
+
+    // A new page moves the focus to its title: screen readers announce the page, and the
+    // keyboard starts from the top of it. Dialogs and the answer field keep theirs.
+    afterRenderEffect(() => {
+      const passage = this.passage();
+      const title = this.titleRef()?.nativeElement;
+      if (!passage || !title || document.querySelector('dialog[open]')) return;
+      if (document.activeElement?.matches('input, textarea, select')) return;
+      title.focus({ preventScroll: true });
+    });
 
     // Count play time while the storybook is on screen and the story isn't over.
     const timer = setInterval(() => {
