@@ -1,5 +1,32 @@
 # Changelog
 
+## [0.4.0](https://github.com/shrukan/chronicle/compare/v0.3.0...v0.4.0) (2026-10-09)
+
+
+### Features
+
+* buttons look like the original's metal-framed plates and light up when you point at them ([5979f17](https://github.com/shrukan/chronicle/commit/5979f17fd3a019fb3cf48580e677e008f687f11d))
+* dark paper for evening sessions, automatic or chosen in the settings ([b76ed44](https://github.com/shrukan/chronicle/commit/b76ed44fe9e7858d51b64ca8e565ac04a5c1cec6))
+* see versions that are published but not on your device yet, and update right there ([9a3ce73](https://github.com/shrukan/chronicle/commit/9a3ce7316f222f1d1a8cee3e40b98c5ea5eb7d0e))
+* see what's new in the app, also offline, with a note on the main menu after each update ([796225a](https://github.com/shrukan/chronicle/commit/796225a75c9db49e9d34d0a3c854f011efe2071e))
+* the voice and player-count choices use the plates too, the chosen one lit up ([cfcc310](https://github.com/shrukan/chronicle/commit/cfcc3101ec0ee7b50aa49e48a3f546cfc10c2dc1))
+
+
+### Bug Fixes
+
+* dialogs open with their paper and gold frame from the very first time ([69537fc](https://github.com/shrukan/chronicle/commit/69537fca83355e6de6632c977ca089962b5a1184))
+* long page titles in the storybook header wrap less on phones ([32a4024](https://github.com/shrukan/chronicle/commit/32a402434bc79e7ff9de40091178bc34bc7f1845))
+* passing the storybook for a secret takes one tap instead of three ([741cdd6](https://github.com/shrukan/chronicle/commit/741cdd6633a70f0d4274cabe4fa171fc5122223c))
+* player and village names are easy to read while you type them on dark paper ([4473bcf](https://github.com/shrukan/chronicle/commit/4473bcf7c3e44a06fe931b1547876eb3ee6a1361))
+* players with the same score share their place in the rankings ([0aacdd1](https://github.com/shrukan/chronicle/commit/0aacdd1c57d7a32d9c99c6484844412772da51b0))
+* screen readers announce each new page by its title instead of reading out the whole page ([c095f5e](https://github.com/shrukan/chronicle/commit/c095f5ea64fb1454a45b1be5543b70ea2772941d))
+* the credits and links under the main menu are easier to read ([2771a09](https://github.com/shrukan/chronicle/commit/2771a09c2a915665ac33b13627d82b25f1fb8bfd))
+* the paper fills its whole sheet, without pale strips along the edges ([8b93cf8](https://github.com/shrukan/chronicle/commit/8b93cf8ffd675d002922dc3ee08d5ca81d485efb))
+* the player-count plates fit on one line on phones, with clearly readable numbers ([5271c2b](https://github.com/shrukan/chronicle/commit/5271c2b82e12c778daef5bc45541d42bd6d2b6a8))
+* the scenario you can play lights up when you point at it, and Back is easier to tap ([d5fd538](https://github.com/shrukan/chronicle/commit/d5fd5386e78b5924ace9198e80ba8a1828ca58aa))
+* the selected tab in Endings and Help stands out, and arrow keys switch tabs ([e2a0aea](https://github.com/shrukan/chronicle/commit/e2a0aeab719ec81dcadbf6d42a6047ebd74f02a8))
+* undo after passing the storybook goes back to the page before, not to the hand-over ([71c1fa9](https://github.com/shrukan/chronicle/commit/71c1fa96cbec3fad7150cac48f3698943728765a))
+
 ## [0.3.0](https://github.com/shrukan/chronicle/compare/v0.2.0...v0.3.0) (2026-10-08)
 
 
