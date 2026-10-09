@@ -4,6 +4,8 @@
   "voices": "https://github.com/thewh1teagle/kokoro-onnx/releases/download/model-files-v1.0/voices-v1.0.bin"
  },
  "paragraphPause": 0.6,
+ "loudness": -14,
+ "truePeak": -1,
  "bitrate": "48k",
  "voices": {
   "emma": {

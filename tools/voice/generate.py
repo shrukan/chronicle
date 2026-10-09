@@ -69,6 +69,18 @@ def texts(passage: dict, strings: dict) -> dict[str, list[str]] | None:
     return {mode: [plain(t) for t in paras] for mode, paras in out.items()}
 
 
+def loudness(wav: str, voice: dict) -> str:
+    """Two-pass loudness normalisation to the original recordings' level (about -14 LUFS)."""
+    target = f"loudnorm=I={CONFIG['loudness']}:TP={CONFIG['truePeak']}:LRA=11"
+    log = subprocess.run(
+        ["ffmpeg", "-hide_banner", "-i", wav, "-af", f"{voice['filter']},{target}:print_format=json", "-f", "null", "-"],
+        capture_output=True, text=True, check=True,
+    ).stderr
+    m = json.loads(log[log.rindex("{"):])
+    return (f"{target}:measured_I={m['input_i']}:measured_TP={m['input_tp']}:measured_LRA={m['input_lra']}"
+            f":measured_thresh={m['input_thresh']}:offset={m['target_offset']}:linear=true")
+
+
 def speak(kokoro: Kokoro, voice: dict, paragraphs: list[str], target: Path) -> float:
     chunks, rate = [], 24000
     for text in paragraphs:
@@ -78,8 +90,8 @@ def speak(kokoro: Kokoro, voice: dict, paragraphs: list[str], target: Path) -> f
         sf.write(wav.name, np.concatenate(chunks), rate)
         target.parent.mkdir(parents=True, exist_ok=True)
         subprocess.run(
-            ["ffmpeg", "-v", "error", "-y", "-i", wav.name, "-af", voice["filter"],
-             "-ac", "1", "-b:a", CONFIG["bitrate"], str(target)],
+            ["ffmpeg", "-v", "error", "-y", "-i", wav.name, "-af", f"{voice['filter']},{loudness(wav.name, voice)}",
+             "-ar", "24000", "-ac", "1", "-b:a", CONFIG["bitrate"], str(target)],
             check=True,
         )
     return sum(len(c) for c in chunks) / rate
