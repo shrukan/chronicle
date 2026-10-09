@@ -7,8 +7,10 @@ vars:
   APP_VERSION: "0.4.0" # x-release-please-version
 
   DEFAULT_IMAGE_NAME: "{{.PROJECT_NAME}}:{{.APP_VERSION}}"
-  # docker or podman
-  CONTAINER_ENGINE: '{{.CONTAINER_ENGINE | default "docker"}}'
+  # podman or docker
+  CONTAINER_ENGINE: '{{.CONTAINER_ENGINE | default "podman"}}'
+  # `podman compose` hands over to docker-compose, which talks to Podman's API socket.
+  COMPOSE_SOCKET: '{{if eq .CONTAINER_ENGINE "podman"}}systemctl --user start podman.socket && {{end}}'
   # The original files the converter reads (see sources/README.md).
   SOURCES_DIR: '{{joinPath .ROOT_DIR "sources/original"}}'
   # Optional full clone of the fan repository, only needed to re-extract the screen texts.
@@ -36,14 +38,14 @@ tasks:
       - touch .docker_image_marker.lock
 
   project:up:prod:
-    desc: "Run the production image locally with Docker Compose (vars: PORT, default 8080)."
+    desc: "Run the production image locally with Podman, or CONTAINER_ENGINE=docker (vars: PORT, default 8080)."
     deps:
       - task: project:build:docker
-    cmd: IMAGE_NAME="{{.DEFAULT_IMAGE_NAME}}" PORT="{{.PORT | default "8080"}}" {{.CONTAINER_ENGINE}} compose up -d
+    cmd: '{{.COMPOSE_SOCKET}}IMAGE_NAME="{{.DEFAULT_IMAGE_NAME}}" PORT="{{.PORT | default "8080"}}" {{.CONTAINER_ENGINE}} compose up -d'
 
   project:down:prod:
     desc: Stop the locally running production container.
-    cmd: IMAGE_NAME="{{.DEFAULT_IMAGE_NAME}}" {{.CONTAINER_ENGINE}} compose down
+    cmd: '{{.COMPOSE_SOCKET}}IMAGE_NAME="{{.DEFAULT_IMAGE_NAME}}" {{.CONTAINER_ENGINE}} compose down'
 
   # Project
   project:check:
