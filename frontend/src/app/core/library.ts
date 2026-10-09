@@ -1,4 +1,4 @@
-import { computed, inject, Injectable, signal } from '@angular/core';
+import { computed, effect, inject, Injectable, signal } from '@angular/core';
 import {
   resolveEntry,
   type AssetManifest,
@@ -10,10 +10,23 @@ import { Settings } from './settings';
 
 const BASE = 'content';
 
-/** The original app's voices, named by its screen texts. */
+/**
+ * The original app's voices, named by its screen texts. They only read the original English
+ * text; with another version or language the generated `standIn` takes over.
+ */
 const ORIGINAL_VOICES = [
-  { value: 'female', key: 'UI/VoiceTrack/Viewarea/Prompt/Female/Lable', fallback: 'Feminine' },
-  { value: 'male', key: 'UI/VoiceTrack/Viewarea/Prompt/Male/Lable', fallback: 'Masculine' },
+  {
+    value: 'female',
+    key: 'UI/VoiceTrack/Viewarea/Prompt/Female/Lable',
+    fallback: 'Feminine',
+    standIn: 'emma',
+  },
+  {
+    value: 'male',
+    key: 'UI/VoiceTrack/Viewarea/Prompt/Male/Lable',
+    fallback: 'Masculine',
+    standIn: 'george',
+  },
 ];
 
 /**
@@ -28,9 +41,30 @@ export class Library {
   private readonly generated = signal<GeneratedVoices>({ voices: {}, clips: {} });
   private loading?: Promise<void>;
 
-  /** Voice choices: the original recordings, then the generated voices. */
+  constructor() {
+    // An original narrator chosen while the text is not the original: its stand-in reads instead.
+    effect(() => {
+      const voice = this.settings.voice();
+      const original = ORIGINAL_VOICES.find((v) => v.value === voice);
+      const voices = this.generated().voices;
+      if (original && !this.originalText() && Object.keys(voices).length)
+        this.settings.voice.set(
+          original.standIn in voices ? original.standIn : Object.keys(voices)[0]!,
+        );
+    });
+  }
+
+  /** True while the original recordings can be chosen: English in its original version. */
+  private readonly originalText = computed(
+    () => this.settings.language() === 'en' && this.settings.readingMode() === 'full',
+  );
+
+  /** Voice choices: the original recordings (with the original text only), then the generated voices. */
   readonly voices = computed(() => [
-    ...ORIGINAL_VOICES.map((v) => ({ value: v.value, label: this.text(v.key, v.fallback) })),
+    ...(this.originalText() ? ORIGINAL_VOICES : []).map((v) => ({
+      value: v.value,
+      label: `${this.text(v.key, v.fallback)} (original)`,
+    })),
     ...Object.entries(this.generated().voices).map(([value, name]) => ({
       value,
       label: `${name} (generated)`,

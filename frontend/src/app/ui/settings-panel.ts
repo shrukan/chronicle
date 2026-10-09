@@ -50,6 +50,7 @@ import { LANGUAGES, Settings, type Theme } from '../core/settings';
             </option>
           }
         </select>
+        <small class="hint">The original recordings only read the original English text.</small>
       </label>
     </div>
 
