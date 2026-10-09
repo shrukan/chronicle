@@ -39,6 +39,9 @@ player-facing fix in the app has no `(frontend)` while a refactoring there does 
 release-please would print the scope in front of the changelog entry, and players don't need
 to know which part of the code changed. The rule is a convention, not checked by commitlint.
 
+Pull requests are squashed, so for a pull request only its title ends up on `main` and in the
+changelog: give the title this form; the commits inside the pull request can be worded freely.
+
 Scopes: `engine`, `converter`, `cli`, `tester`, `frontend`, `content`, `docker`, `task`,
 `ci`, `deps`, `docs`, `repo`.
 
