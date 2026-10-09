@@ -52,6 +52,11 @@ const APP_ICON_SIZES = [72, 96, 128, 144, 152, 180, 192, 384, 512];
 
 /** UI art folders that are not used (animation frames, Unity-specific widgets). */
 const SKIP_UI = /^(ScreenTransitions|CollapseAssets|SettingPanel|FakeLight)\//;
+/**
+ * Textures the app stretches over whole panels. The paper is a slightly tilted sheet: its
+ * see-through corners would show as pale wedges at the panel's edges, so only its inside is kept.
+ */
+const FILL_UI = /^PopupPanels\/WeatheredPaper\.png$/;
 
 function slug(path: string): string {
   return path
@@ -75,17 +80,26 @@ function convert(input: string, output: string, args: string[]): void {
 
 class MissingSource extends Error {}
 
-/**
- * Bounding box of the non-transparent pixels. Unity textures are often padded to a power of
- * two with transparent space (e.g. a 2048×2048 file whose picture fills the lower-left part).
- */
-function opaqueBounds(input: string): { x: number; y: number; w: number; h: number } | undefined {
+/** The image's pixels as RGBA, or undefined if ffmpeg can't read it. */
+function rgba(input: string): { px: Buffer; width: number; height: number } | undefined {
   const probe = spawnSync('ffprobe', ['-v', 'error', '-select_streams', 'v:0', '-show_entries', 'stream=width,height', '-of', 'csv=p=0', input], { encoding: 'utf8' });
   const [width, height] = probe.stdout.trim().split(',').map(Number);
   if (!width || !height) return undefined;
   const raw = spawnSync('ffmpeg', ['-v', 'error', '-i', input, '-f', 'rawvideo', '-pix_fmt', 'rgba', '-'], { maxBuffer: width * height * 4 + 1024 });
   const px = raw.stdout as Buffer;
-  if (px.length < width * height * 4) return undefined;
+  return px.length < width * height * 4 ? undefined : { px, width, height };
+}
+
+type Box = { x: number; y: number; w: number; h: number };
+
+/**
+ * Bounding box of the non-transparent pixels. Unity textures are often padded to a power of
+ * two with transparent space (e.g. a 2048×2048 file whose picture fills the lower-left part).
+ */
+function opaqueBounds(input: string): Box | undefined {
+  const img = rgba(input);
+  if (!img) return undefined;
+  const { px, width, height } = img;
   let x0 = width, y0 = height, x1 = -1, y1 = -1;
   for (let y = 0; y < height; y++) {
     for (let x = 0; x < width; x++) {
@@ -101,9 +115,33 @@ function opaqueBounds(input: string): { x: number; y: number; w: number; h: numb
   return { x: x0, y: y0, w: x1 - x0 + 1, h: y1 - y0 + 1 };
 }
 
-const image = (input: string, output: string) => {
+/**
+ * A rectangle with no see-through pixels: starting from the picture's bounds, the edges move
+ * inwards until each is fully opaque.
+ */
+function opaqueInterior(input: string): Box | undefined {
+  const img = rgba(input);
+  if (!img) return undefined;
+  const { px, width } = img;
+  const solid = (x: number, y: number) => px[(y * width + x) * 4 + 3]! >= 250;
+  const bounds = opaqueBounds(input) ?? { x: 0, y: 0, w: width, h: img.height };
+  let x0 = bounds.x, y0 = bounds.y, x1 = bounds.x + bounds.w - 1, y1 = bounds.y + bounds.h - 1;
+  while (x0 < x1 && y0 < y1) {
+    const row = (y: number) => { for (let x = x0; x <= x1; x++) if (!solid(x, y)) return false; return true; };
+    const col = (x: number) => { for (let y = y0; y <= y1; y++) if (!solid(x, y)) return false; return true; };
+    const [top, bottom, left, right] = [row(y0), row(y1), col(x0), col(x1)];
+    if (top && bottom && left && right) return { x: x0, y: y0, w: x1 - x0 + 1, h: y1 - y0 + 1 };
+    if (!top) y0++;
+    if (!bottom) y1--;
+    if (!left) x0++;
+    if (!right) x1--;
+  }
+  return undefined;
+}
+
+const image = (input: string, output: string, fill = false) => {
   if (existsSync(output) && existsSync(input) && statSync(output).mtimeMs >= statSync(input).mtimeMs) return;
-  const crop = existsSync(input) ? opaqueBounds(input) : undefined;
+  const crop = existsSync(input) ? (fill ? opaqueInterior : opaqueBounds)(input) : undefined;
   convert(input, output, [...(crop ? ['-vf', `crop=${crop.w}:${crop.h}:${crop.x}:${crop.y}`] : []), '-c:v', 'libwebp', '-quality', '85', '-compression_level', '6']);
 };
 /** Music and effects: VBR stereo. Speech: 48 kbit/s mono is plenty and a third of the size. */
@@ -152,7 +190,7 @@ export function extractAssets(assets: string, out: string, voiceOver: ScenarioEx
     const key = slug(f);
     if (m.ui[key]) continue; // duplicates like "bracket-left (1).png"
     const file = join(out, 'ui', `${key}.webp`);
-    if (tryConvert(() => image(join(uiDir, f), file))) m.ui[key] = rel(file);
+    if (tryConvert(() => image(join(uiDir, f), file, FILL_UI.test(f)))) m.ui[key] = rel(file);
   }
 
   // App icon (browser tab, home screen) from the original's 1024 px icon.
