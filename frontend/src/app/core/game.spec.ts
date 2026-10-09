@@ -101,6 +101,37 @@ describe('Game', () => {
     expect(game.error()).toBeUndefined();
   });
 
+  it('undoes a step the app took for the players together with the choice before it', async () => {
+    const page = (name: string, to: string) => ({
+      name,
+      tags: [],
+      fragments: {},
+      body: [{ t: 'link' as const, key: 'A.2', to: { lit: to } }],
+    });
+    const chain = {
+      ...scenario,
+      passages: { A: page('A', 'H'), H: page('H', 'S'), S: page('S', 'A') },
+    };
+    const files: Record<string, unknown> = {
+      'scenario.json': chain,
+      'strings.en.json': strings,
+      'extras.json': extras,
+    };
+    vi.stubGlobal(
+      'fetch',
+      async (url: string) => new Response(JSON.stringify(files[url.split('/').pop()!])),
+    );
+    const game = TestBed.inject(Game);
+    await game.newGame({ players: 2, names: ['Ada', 'Bram', '', '', ''], village: 'Ravensbrück' });
+    game.click(game.view()!.links[0]!);
+    game.click(game.view()!.links[0]!, undefined, false);
+    expect(game.view()?.passage).toBe('S');
+
+    game.undo();
+    expect(game.view()?.passage).toBe('A');
+    expect(game.canUndo()).toBe(false);
+  });
+
   it('saves after each step and resumes', async () => {
     const game = TestBed.inject(Game);
     await game.newGame({ players: 2, names: ['Ada', 'Bram', '', '', ''], village: 'Ravensbrück' });

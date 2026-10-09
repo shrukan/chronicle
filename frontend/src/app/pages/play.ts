@@ -515,7 +515,9 @@ export class Play {
   protected showPage(): void {
     const link = this.handoverLink();
     this.handedOver.set(true);
-    if (link !== undefined) this.game.click(link);
+    // Not a choice of its own: undoing it would land on this notice again, whose only way on
+    // is the same link.
+    if (link !== undefined) this.game.click(link, undefined, false);
   }
 
   protected undo(): void {

@@ -170,8 +170,12 @@ export class Game {
     if (Math.floor(before / 30_000) !== Math.floor((before + ms) / 30_000)) void this.persist();
   }
 
-  click(link: number, values?: Record<string, Value>): void {
-    this.remember();
+  /**
+   * Follows a link. `undoable: false` folds it into the previous choice, for a step the app
+   * takes for the players (see Play.showPage): undo then skips the page it leaves.
+   */
+  click(link: number, values?: Record<string, Value>, undoable = true): void {
+    if (undoable) this.remember();
     this.step(() => this.story!.click(link, values));
   }
 
