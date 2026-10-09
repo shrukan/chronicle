@@ -25,7 +25,7 @@ FROM node-toolchain AS build-frontend
 COPY package.json package-lock.json Taskfile.yml tsconfig.base.json ./
 COPY engine/package.json engine/
 COPY tools/converter/package.json tools/converter/
-COPY tools/story-cli/package.json tools/story-cli/
+COPY tools/e2e/package.json tools/e2e/
 COPY tools/story-tester/package.json tools/story-tester/
 COPY frontend/package.json frontend/
 RUN --mount=type=cache,target=/root/.npm \
