@@ -13,6 +13,9 @@
    }
   }
  },
+ "intros": {
+  "cost-of-disease": "Scenario5Start"
+ },
  "voices": {
   "emma": "Emma",
   "george": "George"

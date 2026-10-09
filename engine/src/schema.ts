@@ -246,6 +246,8 @@ export interface GeneratedVoices {
   /** Voice id → name shown in the settings. */
   voices: Record<string, string>;
   clips: Record<string, Record<string, Partial<Record<ReadingMode, string>>>>;
+  /** Scenario id → its introduction's passage, for the voice test page. */
+  intros?: Record<string, string>;
 }
 
 /**

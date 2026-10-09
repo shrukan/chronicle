@@ -5,13 +5,14 @@
 """
 Generated voice-over: reads a passage's flavour text with Kokoro, in each reading mode that has
 its own text, and writes the clips to content/assets/audio/voice/<voice>/ and their index to
-content/assets/voices.json. Voices and their sound (speed, pauses, sibilance filter) are set in
-tools/voice/voices.json.
+content/assets/voices.json. Voices and their sound (speed, pauses, sibilance filter, loudness) are
+set in tools/voice/voices.json, as is each scenario's introduction: the page the dev-only voice
+test page (/voices) plays.
 
 Spoiler-free output: prints passage names and counts, never the text.
 
 Usage: uv run tools/voice/generate.py [--scenario ID] [--voices emma,george] [PASSAGE …]
-       Without passages: the passages the original app has voice-over for.
+       Without passages: the introduction and the passages the original app has voice-over for.
 """
 
 import argparse
@@ -103,18 +104,22 @@ def main() -> None:
     parser.add_argument("--voices", default=",".join(CONFIG["voices"]))
     parser.add_argument("passages", nargs="*")
     args = parser.parse_args()
+    voices = args.voices.split(",")
+    if unknown := [v for v in voices if v not in CONFIG["voices"]]:
+        sys.exit(f"unknown voice: {', '.join(unknown)}")
 
     folder = CONTENT / args.scenario
     scenario = json.loads((folder / "scenario.json").read_text())
     strings = json.loads((folder / "strings.en.json").read_text())
-    passages = args.passages or list(json.loads((folder / "extras.json").read_text())["voiceOver"])
-    voices = args.voices.split(",")
-    unknown = [v for v in voices if v not in CONFIG["voices"]] + [p for p in passages if p not in scenario["passages"]]
-    if unknown:
-        sys.exit(f"unknown voice or passage: {', '.join(unknown)}")
+    intro = CONFIG["intros"].get(args.scenario)
+    voiced = json.loads((folder / "extras.json").read_text())["voiceOver"]
+    passages = args.passages or list(dict.fromkeys([*([intro] if intro else []), *voiced]))
+    if unknown := [p for p in passages if p not in scenario["passages"]]:
+        sys.exit(f"unknown passage: {', '.join(unknown)}")
 
     index = json.loads(INDEX.read_text()) if INDEX.exists() else {"voices": {}, "clips": {}}
     index["voices"] = {v: c["label"] for v, c in CONFIG["voices"].items()}
+    index["intros"] = CONFIG["intros"]
     kokoro = model()
     for name in passages:
         by_mode = texts(scenario["passages"][name], strings)

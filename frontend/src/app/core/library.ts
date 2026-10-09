@@ -59,17 +59,27 @@ export class Library {
     () => this.settings.language() === 'en' && this.settings.readingMode() === 'full',
   );
 
-  /** Voice choices: the original recordings (with the original text only), then the generated voices. */
-  readonly voices = computed(() => [
-    ...(this.originalText() ? ORIGINAL_VOICES : []).map((v) => ({
+  /** Every voice: the original recordings, then the generated voices. */
+  readonly allVoices = computed(() => [
+    ...ORIGINAL_VOICES.map((v) => ({
       value: v.value,
       label: `${this.text(v.key, v.fallback)} (original)`,
+      original: true,
     })),
     ...Object.entries(this.generated().voices).map(([value, name]) => ({
       value,
       label: `${name} (generated)`,
+      original: false,
     })),
   ]);
+
+  /** Voice choices: the original recordings only with the original text. */
+  readonly voices = computed(() =>
+    this.allVoices().filter((v) => this.originalText() || !v.original),
+  );
+
+  /** Scenario id → its introduction's passage (voice test page). */
+  readonly intros = computed(() => this.generated().intros ?? {});
 
   load(): Promise<void> {
     this.loading ??= (async () => {

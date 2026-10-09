@@ -1,4 +1,4 @@
-import { inject } from '@angular/core';
+import { inject, isDevMode } from '@angular/core';
 import { Router, type Routes } from '@angular/router';
 import { Game } from './core/game';
 
@@ -53,5 +53,15 @@ export const routes: Routes = [
     loadComponent: () => import('./pages/help').then((m) => m.Help),
     title: 'Chronicle – help',
   },
+  // Development only: compare voices and versions on each scenario's introduction.
+  ...(isDevMode()
+    ? [
+        {
+          path: 'voices',
+          loadComponent: () => import('./pages/voices').then((m) => m.Voices),
+          title: 'Chronicle – voice test',
+        },
+      ]
+    : []),
   { path: '**', redirectTo: '' },
 ];
