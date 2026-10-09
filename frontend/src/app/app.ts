@@ -103,9 +103,9 @@ const THEME_IMAGES = {
     }
     footer {
       padding: 0.25rem 1rem calc(1.75rem + env(safe-area-inset-bottom));
-      font-size: 0.75rem;
+      font-size: 0.8rem;
       text-align: center;
-      opacity: 0.6;
+      opacity: 0.85;
     }
     footer a {
       color: inherit;
