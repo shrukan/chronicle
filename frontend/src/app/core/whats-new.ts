@@ -64,6 +64,15 @@ export function compareVersions(a: string, b: string): number {
   return 0;
 }
 
+/** The changelog shipped with this version, or with `latest` the server's current one. */
+function fetchChangelog(latest = false): Promise<string> {
+  // ngsw-bypass: past the service worker, which serves the version this device runs.
+  const url = latest ? 'content/changelog.md?ngsw-bypass=1' : 'content/changelog.md';
+  return fetch(url, latest ? { cache: 'no-store' } : {}).then((r) =>
+    r.ok ? r.text() : Promise.reject(new Error(`changelog: ${r.status}`)),
+  );
+}
+
 const SEEN_KEY = 'chronicle.seenVersion';
 /** Present for anyone who used the app before it remembered the versions they had seen. */
 const SETTINGS_KEY = 'chronicle.settings';
@@ -105,16 +114,24 @@ export class WhatsNew {
   /** True after an update, until the notes are opened or the reminder is dismissed. */
   readonly unseen = computed(() => compareVersions(VERSION, this.seen()) > 0);
 
-  private readonly changelog = resource({
-    loader: () =>
-      fetch('content/changelog.md').then((r) => (r.ok ? r.text() : Promise.reject(r.status))),
-  });
+  private readonly changelog = resource({ loader: () => fetchChangelog() });
   readonly releases = computed(() => {
     const md = this.changelog.hasValue() ? this.changelog.value() : '';
-    return parseChangelog(md);
+    // Without the service worker's copy (e.g. a first visit) the file may be newer than the app.
+    return parseChangelog(md).filter((r) => compareVersions(r.version, VERSION) <= 0);
   });
   readonly loading = computed(() => this.changelog.isLoading());
   readonly failed = computed(() => !!this.changelog.error());
+
+  /**
+   * Versions the server already has but this device doesn't run yet, newest first. Asks the
+   * server past the offline copy; empty when offline. Loaded by whoever shows them.
+   */
+  upcoming(): Promise<Release[]> {
+    return fetchChangelog(true)
+      .then((md) => parseChangelog(md).filter((r) => compareVersions(r.version, VERSION) > 0))
+      .catch(() => []);
+  }
 
   markSeen(): void {
     this.seen.set(VERSION);

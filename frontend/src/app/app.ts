@@ -40,7 +40,10 @@ const THEME_IMAGES = {
     </main>
     @if (update.ready()) {
       <aside class="update" role="status">
-        <span>A new version of Chronicle is ready.</span>
+        <span>
+          A new version of Chronicle is ready –
+          <a routerLink="/whats-new">see what's new</a>.
+        </span>
         <button type="button" class="btn" (click)="update.reload()">Reload</button>
         <button type="button" class="later" (click)="update.ready.set(false)">Later</button>
       </aside>
@@ -93,6 +96,9 @@ const THEME_IMAGES = {
     }
     .update .btn {
       padding: 0.3rem 0.9rem;
+    }
+    .update a {
+      color: var(--color-accent-text);
     }
     .later {
       border: 0;

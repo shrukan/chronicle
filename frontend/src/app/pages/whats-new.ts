@@ -1,38 +1,55 @@
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { NgTemplateOutlet } from '@angular/common';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  effect,
+  inject,
+  resource,
+  untracked,
+} from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { AppUpdate } from '../core/app-update';
 import { bugReportUrl, REPOSITORY } from '../core/bug-report';
 import { compareVersions, WhatsNew as Notes } from '../core/whats-new';
 
-/** The changelog, shipped with the app so it reads offline. Opening it counts as seen. */
+/**
+ * The changelog, shipped with the app so it reads offline. Opening it counts as seen. When
+ * online, versions the server has but this device doesn't run yet are shown first.
+ */
 @Component({
   selector: 'cr-whats-new',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [RouterLink],
+  imports: [NgTemplateOutlet, RouterLink],
   template: `
     <section class="paper sheet">
       <h1 class="heading">What's new</h1>
       <p class="current">You are using Chronicle {{ notes.version }}.</p>
 
-      @for (r of notes.releases(); track r.version) {
-        <article class="release">
-          <h2>
-            <span class="heading">Version {{ r.version }}</span>
-            @if (isNew(r.version)) {
-              <span class="badge">New for you</span>
-            }
-            @if (r.date) {
-              <time [attr.datetime]="r.date">{{ date(r.date) }}</time>
-            }
-          </h2>
-          @for (s of r.sections; track s.title) {
-            <h3>{{ s.title }}</h3>
-            <ul>
-              @for (e of s.entries; track $index) {
-                <li>{{ e }}</li>
-              }
-            </ul>
+      @if (upcoming.value()?.length) {
+        <section class="upcoming" aria-labelledby="upcoming-title">
+          <h2 id="upcoming-title" class="heading">On its way</h2>
+          <p>
+            Published, but not on this device yet. Your game is saved after every step, so updating
+            loses nothing.
+          </p>
+          @if (update.ready() || !update.controlled) {
+            <button type="button" class="btn" (click)="update.reload()">Update now</button>
+          } @else {
+            <p class="status">Downloading the new version…</p>
           }
-        </article>
+          @for (r of upcoming.value(); track r.version) {
+            <ng-container *ngTemplateOutlet="release; context: { $implicit: r, badge: '' }" />
+          }
+        </section>
+      }
+
+      @for (r of notes.releases(); track r.version) {
+        <ng-container
+          *ngTemplateOutlet="
+            release;
+            context: { $implicit: r, badge: isNew(r.version) ? 'New for you' : '' }
+          "
+        />
       } @empty {
         @if (notes.loading()) {
           <p class="status">Opening the notes…</p>
@@ -52,6 +69,28 @@ import { compareVersions, WhatsNew as Notes } from '../core/whats-new';
 
       <a class="btn" routerLink="/">Back</a>
     </section>
+
+    <ng-template #release let-r let-badge="badge">
+      <article class="release">
+        <h2>
+          <span class="heading">Version {{ r.version }}</span>
+          @if (badge) {
+            <span class="badge">{{ badge }}</span>
+          }
+          @if (r.date) {
+            <time [attr.datetime]="r.date">{{ date(r.date) }}</time>
+          }
+        </h2>
+        @for (s of r.sections; track s.title) {
+          <h3>{{ s.title }}</h3>
+          <ul>
+            @for (e of s.entries; track $index) {
+              <li>{{ e }}</li>
+            }
+          </ul>
+        }
+      </article>
+    </ng-template>
   `,
   styles: `
     :host {
@@ -74,6 +113,30 @@ import { compareVersions, WhatsNew as Notes } from '../core/whats-new';
       text-align: center;
       font-style: italic;
       color: var(--color-muted);
+    }
+    /* Versions not yet on this device: set apart from the installed history. */
+    .upcoming {
+      display: grid;
+      gap: 0.6rem;
+      padding: 0.75rem 1rem 1rem;
+      border: 1px dashed var(--color-accent-text);
+      border-radius: 0.5rem;
+      background: var(--color-field);
+    }
+    .upcoming > h2 {
+      justify-content: center;
+      font-size: 1.5rem;
+      color: var(--color-heading);
+    }
+    .upcoming > p {
+      margin: 0;
+      text-align: center;
+    }
+    .upcoming .btn {
+      justify-self: center;
+    }
+    .upcoming .release:first-of-type {
+      margin-top: 0.25rem;
     }
     .release {
       padding-top: 0.75rem;
@@ -137,11 +200,18 @@ import { compareVersions, WhatsNew as Notes } from '../core/whats-new';
 })
 export class WhatsNew {
   protected readonly notes = inject(Notes);
+  protected readonly update = inject(AppUpdate);
+  /** Asked for each time the page opens; nothing when offline. */
+  protected readonly upcoming = resource({ loader: () => this.notes.upcoming() });
   protected readonly releases = `${REPOSITORY}/releases`;
   protected readonly bugReport = bugReportUrl({ where: "What's new" });
 
   constructor() {
     this.notes.markSeen();
+    // Newer notes on the server: start downloading that version, so it can be switched to.
+    effect(() => {
+      if (this.upcoming.value()?.length) void untracked(() => this.update.check());
+    });
   }
 
   /** Released since the notes this device saw before (not on a first visit). */
