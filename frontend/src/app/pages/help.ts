@@ -1,37 +1,29 @@
-import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { AudioPlayer } from '../core/audio';
 import { Library } from '../core/library';
 import { RichText } from '../story/rich-text';
+import { Tabs } from '../ui/tabs';
 
 const TABS = [
-  { id: 'HowToUSe', label: 'How to use' },
-  { id: 'StoryActions', label: 'Story Actions' },
-  { id: 'EndOfRound', label: 'End of Round' },
+  { id: 'HowToUSe', key: 'HowToUSebtn/howtouseText', label: 'How to use' },
+  { id: 'StoryActions', key: 'StoryActionsbtn/storyactionText', label: 'Story Actions' },
+  { id: 'EndOfRound', key: 'EndOfRoundbtn/endofroundText', label: 'End of Round' },
 ] as const;
 
 /** The original's help: how to use the storybook, story actions, end of round. */
 @Component({
   selector: 'cr-help',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [RouterLink, RichText],
+  imports: [RouterLink, RichText, Tabs],
   template: `
     <section class="paper sheet">
-      <nav class="tabs" role="tablist">
-        @for (tab of tabs; track tab.id) {
-          <button
-            type="button"
-            role="tab"
-            [attr.aria-selected]="active() === tab.id"
-            (click)="active.set(tab.id)"
-          >
-            {{ tab.label }}
-          </button>
-        }
-      </nav>
-      <h1 class="heading">{{ t('UI/Help/Viewarea/' + active() + '/DetailsPanel/title') }}</h1>
-      <div class="details">
-        <cr-rich-text [text]="t('UI/Help/Viewarea/' + active() + '/DetailsPanel/details')" />
+      <cr-tabs #tabBar [tabs]="tabs()" [(selected)]="active" panelId="help" />
+      <div id="help" class="panel" role="tabpanel" [attr.aria-labelledby]="tabBar.tabId(active())">
+        <h1 class="heading">{{ t('UI/Help/Viewarea/' + active() + '/DetailsPanel/title') }}</h1>
+        <div class="details">
+          <cr-rich-text [text]="t('UI/Help/Viewarea/' + active() + '/DetailsPanel/details')" />
+        </div>
       </div>
       <a class="btn" routerLink="/">Back</a>
     </section>
@@ -47,25 +39,10 @@ const TABS = [
       max-width: 36rem;
       margin: 0 auto;
     }
-    .tabs {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 0.35rem;
-    }
-    .tabs button {
-      padding: 0.3rem 0.7rem;
-      font-size: 0.9rem;
-      border: 1px solid var(--color-rule);
-      border-radius: 0.4rem;
-      background: transparent;
-      color: var(--color-muted);
-      font: inherit;
-      cursor: pointer;
-    }
-    .tabs button[aria-selected='true'] {
-      border-color: var(--color-accent);
-      color: var(--color-ink);
+    .panel {
+      display: grid;
+      gap: 1rem;
+      width: 100%;
     }
     h1 {
       margin: 0;
@@ -81,8 +58,13 @@ const TABS = [
 })
 export class Help {
   private readonly library = inject(Library);
-  protected readonly tabs = TABS;
-  protected readonly active = signal<(typeof TABS)[number]['id']>('HowToUSe');
+  protected readonly tabs = computed(() =>
+    TABS.map((tab) => ({
+      id: tab.id,
+      label: this.library.text(`UI/Help/Viewarea/HowToUSe/${tab.key}`, tab.label),
+    })),
+  );
+  protected readonly active = signal<string>('HowToUSe');
 
   constructor() {
     inject(AudioPlayer).effect('help');

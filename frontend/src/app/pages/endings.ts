@@ -10,6 +10,7 @@ import { RouterLink } from '@angular/router';
 import { Game } from '../core/game';
 import { Library } from '../core/library';
 import { SaveStore } from '../core/save-store';
+import { Tabs } from '../ui/tabs';
 
 /**
  * Endings and achievements unlocked on this device. Locked endings stay hidden ("???"), as
@@ -18,57 +19,42 @@ import { SaveStore } from '../core/save-store';
 @Component({
   selector: 'cr-endings',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [RouterLink],
+  imports: [RouterLink, Tabs],
   template: `
     <section class="paper sheet">
-      <nav class="tabs" role="tablist">
-        <button
-          type="button"
-          role="tab"
-          [attr.aria-selected]="tab() === 'endings'"
-          (click)="tab.set('endings')"
-        >
-          {{ t('UI/Endings and Achievement/Viewarea/ending/Text (TMP)', 'Endings') }}
-        </button>
-        <button
-          type="button"
-          role="tab"
-          [attr.aria-selected]="tab() === 'achievements'"
-          (click)="tab.set('achievements')"
-        >
-          {{ t('UI/Endings and Achievement/Viewarea/achievement/Text (TMP)', 'Achievements') }}
-        </button>
-      </nav>
+      <cr-tabs #tabBar [tabs]="tabs()" [(selected)]="tab" panelId="unlocks" />
 
-      <h1 class="heading">{{ scenarioName }}</h1>
+      <div id="unlocks" class="panel" role="tabpanel" [attr.aria-labelledby]="tabBar.tabId(tab())">
+        <h1 class="heading">{{ scenarioName }}</h1>
 
-      @if (tab() === 'endings') {
-        <p class="count">
-          {{ unlockedCount() }}
-          {{ t('@ViewShareEnding.endingScenarioText', 'out of 8 endings for this scenario.') }}
-        </p>
-        <ol class="slots">
-          @for (e of endings(); track e.passage) {
-            <li [class.locked]="!e.unlocked">
-              @if (e.unlocked) {
-                <strong>{{ e.title }}</strong>
-                <small>{{ e.date }}</small>
-              } @else {
-                <strong>???</strong>
-              }
-            </li>
-          }
-        </ol>
-      } @else {
-        <ul class="slots">
-          @for (a of achievements(); track a.text) {
-            <li [class.locked]="!a.done">
-              <strong>{{ a.text }}</strong>
-              <small>{{ a.done ? 'Unlocked' : 'Locked' }}</small>
-            </li>
-          }
-        </ul>
-      }
+        @if (tab() === 'endings') {
+          <p class="count">
+            {{ unlockedCount() }}
+            {{ t('@ViewShareEnding.endingScenarioText', 'out of 8 endings for this scenario.') }}
+          </p>
+          <ol class="slots">
+            @for (e of endings(); track e.passage) {
+              <li [class.locked]="!e.unlocked">
+                @if (e.unlocked) {
+                  <strong>{{ e.title }}</strong>
+                  <small>{{ e.date }}</small>
+                } @else {
+                  <strong>???</strong>
+                }
+              </li>
+            }
+          </ol>
+        } @else {
+          <ul class="slots">
+            @for (a of achievements(); track a.text) {
+              <li [class.locked]="!a.done">
+                <strong>{{ a.text }}</strong>
+                <small>{{ a.done ? 'Unlocked' : 'Locked' }}</small>
+              </li>
+            }
+          </ul>
+        }
+      </div>
 
       <a class="btn" routerLink="/">Back</a>
     </section>
@@ -85,22 +71,11 @@ import { SaveStore } from '../core/save-store';
       margin: 0 auto;
       text-align: center;
     }
-    .tabs {
-      display: flex;
-      gap: 0.5rem;
-    }
-    .tabs button {
-      padding: 0.4rem 1rem;
-      border: 1px solid var(--color-rule);
-      border-radius: 0.4rem;
-      background: transparent;
-      color: var(--color-muted);
-      font: inherit;
-      cursor: pointer;
-    }
-    .tabs button[aria-selected='true'] {
-      border-color: var(--color-accent);
-      color: var(--color-ink);
+    .panel {
+      display: grid;
+      justify-items: center;
+      gap: 1rem;
+      width: 100%;
     }
     h1 {
       margin: 0;
@@ -144,7 +119,17 @@ export class Endings {
   private readonly game = inject(Game);
   private readonly saves = inject(SaveStore);
 
-  protected readonly tab = signal<'endings' | 'achievements'>('endings');
+  protected readonly tab = signal('endings');
+  protected readonly tabs = computed(() => [
+    {
+      id: 'endings',
+      label: this.t('UI/Endings and Achievement/Viewarea/ending/Text (TMP)', 'Endings'),
+    },
+    {
+      id: 'achievements',
+      label: this.t('UI/Endings and Achievement/Viewarea/achievement/Text (TMP)', 'Achievements'),
+    },
+  ]);
   protected readonly scenarioName = 'The Cost of Disease';
   private readonly unlocks = resource({ loader: () => this.saves.unlocks(this.game.scenarioId()) });
   /** Ending titles need the scenario's strings. */
