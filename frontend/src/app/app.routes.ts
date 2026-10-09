@@ -1,4 +1,15 @@
-import type { Routes } from '@angular/router';
+import { inject } from '@angular/core';
+import { Router, type Routes } from '@angular/router';
+import { Game } from './core/game';
+
+/**
+ * A new game replaces the saved one, so it starts from the main menu, which asks first: opening
+ * /setup directly while a game is saved leads there.
+ */
+const noSavedGame = async () => {
+  const [game, router] = [inject(Game), inject(Router)];
+  return (await game.hasSave()) ? router.parseUrl('/') : true;
+};
 
 export const routes: Routes = [
   {
@@ -9,6 +20,7 @@ export const routes: Routes = [
   {
     path: 'setup',
     loadComponent: () => import('./pages/setup').then((m) => m.Setup),
+    canActivate: [noSavedGame],
     title: 'Chronicle – new game',
   },
   {
