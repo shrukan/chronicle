@@ -153,6 +153,9 @@ export class Game {
     this.undoSteps.set(saved.undo ?? []);
     this.audio.playMusic(this.scenarioId());
     this.step(() => this.story!.restore(saved.snapshot), false);
+    // The page's voice-over starts again, as when it was first reached.
+    const passage = this.view()?.passage;
+    if (passage) this.audio.playVoice(passage, this.voiceMode(passage));
     return true;
   }
 

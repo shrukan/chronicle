@@ -4,8 +4,9 @@ import { Library } from './library';
 import { Settings } from './settings';
 
 /**
- * Music, sound effects and voice-over. Browsers only allow sound after a user gesture, so
- * everything is started from clicks and failures to play are ignored.
+ * Music, sound effects and voice-over. Browsers only allow sound after a user gesture: music
+ * and voice-over blocked that way (after a reload) start with the first tap or key press,
+ * other failures to play are ignored.
  */
 @Injectable({ providedIn: 'root' })
 export class AudioPlayer {
@@ -56,7 +57,8 @@ export class AudioPlayer {
     this.music.loop = true;
     this.music.volume = this.settings.music();
     this.music.muted = this.settings.muted();
-    void this.music.play().catch(() => (this.musicSrc = undefined));
+    const music = this.music;
+    this.start(music, () => this.music === music);
   }
 
   stopMusic(): void {
@@ -105,7 +107,23 @@ export class AudioPlayer {
     this.voice = new Audio(src);
     this.voice.volume = this.settings.voiceOver();
     this.voice.muted = this.settings.muted();
-    void this.voice.play().catch(() => undefined);
+    const voice = this.voice;
+    this.start(voice, () => this.voice === voice);
+  }
+
+  /** Plays `a`; if the browser waits for a gesture, on the first one while `wanted` holds. */
+  private start(a: HTMLAudioElement, wanted: () => boolean): void {
+    a.play().catch((e: unknown) => {
+      if ((e as Error).name !== 'NotAllowedError') return;
+      const retry = () => {
+        for (const type of ['pointerdown', 'keydown'] as const)
+          document.removeEventListener(type, retry, true);
+        // After the gesture's own handlers: a tap that opens another page replaces the sound.
+        setTimeout(() => wanted() && void a.play().catch(() => undefined));
+      };
+      for (const type of ['pointerdown', 'keydown'] as const)
+        document.addEventListener(type, retry, { capture: true });
+    });
   }
 
   stopVoice(): void {
