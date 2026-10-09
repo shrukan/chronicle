@@ -98,6 +98,17 @@ function findStoryLink(out: Out[], id: number): Extract<Out, { t: 'link' }> | un
           >
             <span class="speaker" [class.off]="settings.muted()" aria-hidden="true"></span>
           </button>
+          @if (game.canUndo()) {
+            <button
+              type="button"
+              class="icon-btn"
+              (click)="confirmUndo.set(true)"
+              aria-label="Undo last choice"
+              title="Undo last choice"
+            >
+              ↶
+            </button>
+          }
           <button type="button" class="icon-btn" (click)="pauseOpen.set(true)" aria-label="Menu">
             ☰
           </button>
@@ -162,6 +173,25 @@ function findStoryLink(out: Out[], id: number): Extract<Out, { t: 'link' }> | un
         <cr-log-book (done)="logOpen.set(false)" />
       </cr-modal>
 
+      <!-- Asks first: the page before may be another player's secret. -->
+      <cr-modal
+        [open]="confirmUndo()"
+        [dismissable]="true"
+        (closed)="confirmUndo.set(false)"
+        label="Undo last choice"
+      >
+        <div class="undo">
+          <h2 class="heading">Undo last choice?</h2>
+          <p>This shows the previous page again. Make sure it isn't another player's secret.</p>
+          <div class="row">
+            <button crAutofocus type="button" class="btn quiet" (click)="confirmUndo.set(false)">
+              Cancel
+            </button>
+            <button type="button" class="btn" (click)="undo()">Undo</button>
+          </div>
+        </div>
+      </cr-modal>
+
       <cr-modal
         [open]="pauseOpen()"
         [dismissable]="true"
@@ -177,23 +207,6 @@ function findStoryLink(out: Out[], id: number): Extract<Out, { t: 'link' }> | un
           }}
         </h2>
         <p class="paused-time">Play time {{ playTime() }}</p>
-        @if (game.canUndo()) {
-          <div class="undo">
-            @if (!confirmUndo()) {
-              <button type="button" class="btn quiet" (click)="confirmUndo.set(true)">
-                ↶ Undo last choice
-              </button>
-            } @else {
-              <p>This shows the previous page again. Make sure it isn't another player's secret.</p>
-              <div class="row">
-                <button type="button" class="btn quiet" (click)="confirmUndo.set(false)">
-                  Cancel
-                </button>
-                <button type="button" class="btn" (click)="undo()">Undo</button>
-              </div>
-            }
-          </div>
-        }
         <cr-settings-panel [showHeading]="false" (done)="pauseOpen.set(false)">
           <button actions type="button" class="btn quiet" (click)="toTitle()">Main menu</button>
         </cr-settings-panel>
@@ -288,6 +301,20 @@ function findStoryLink(out: Out[], id: number): Extract<Out, { t: 'link' }> | un
       font-size: 1.4rem;
       cursor: pointer;
     }
+    /* Narrow phones: each side only as wide as its buttons, so the title keeps its room. */
+    @media (max-width: 26rem) {
+      .bar {
+        grid-template-columns: auto minmax(0, 1fr) auto;
+        gap: 0.35rem;
+      }
+      .end {
+        gap: 0.35rem;
+      }
+      .icon-btn {
+        width: 2.5rem;
+        height: 2.5rem;
+      }
+    }
     .icon-btn img {
       width: 2rem;
       height: 2rem;
@@ -371,11 +398,12 @@ function findStoryLink(out: Out[], id: number): Extract<Out, { t: 'link' }> | un
     .undo {
       display: grid;
       justify-items: center;
-      gap: 0.5rem;
-      margin: 0 0 1rem;
-      padding-bottom: 1rem;
-      border-bottom: 1px solid var(--color-rule);
+      gap: 0.75rem;
       text-align: center;
+    }
+    .undo h2 {
+      margin: 0;
+      font-size: 1.5rem;
     }
     .undo p {
       margin: 0;
