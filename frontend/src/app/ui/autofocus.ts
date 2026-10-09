@@ -1,4 +1,11 @@
-import { afterNextRender, booleanAttribute, Directive, ElementRef, inject, input } from '@angular/core';
+import {
+  afterNextRender,
+  booleanAttribute,
+  Directive,
+  ElementRef,
+  inject,
+  input,
+} from '@angular/core';
 
 /**
  * Focuses the element when it appears, so the screen's main action reacts to Enter
