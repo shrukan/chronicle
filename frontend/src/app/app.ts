@@ -16,6 +16,15 @@ import { VERSION } from './version';
 import { Library } from './core/library';
 import { Settings } from './core/settings';
 
+/** Images the styles use everywhere, by CSS variable. */
+const THEME_IMAGES = {
+  '--paper-image': 'popup-panels/weathered-paper',
+  '--frame-image': 'general/mfw-borders/mfw-border-gold',
+  '--button-image': 'general/buttons/button-red',
+  '--button-selected-image': 'general/blank-button-brown-highlight',
+  '--button-quiet-image': 'general/buttons/blank-button-brown',
+};
+
 @Component({
   selector: 'cr-root',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -152,25 +161,17 @@ export class App {
       const dark = theme === 'dark' || (theme === 'auto' && prefersDark());
       document.documentElement.dataset['theme'] = dark ? 'dark' : 'light';
     });
+    const root = document.documentElement.style;
+    const url = (src: string | undefined) => (src ? `url("${src}")` : 'none');
+    effect(() => root.setProperty('--backdrop-image', url(this.backdrop())));
     effect(() => {
-      const root = document.documentElement.style;
-      const url = (src: string | undefined) => (src ? `url("${src}")` : 'none');
-      root.setProperty('--backdrop-image', url(this.backdrop()));
-      // The original's paper and gold frame (see styles.css and the modal).
-      root.setProperty('--paper-image', url(this.library.ui('popup-panels/weathered-paper')));
-      root.setProperty(
-        '--frame-image',
-        url(this.library.ui('general/mfw-borders/mfw-border-gold')),
-      );
-      root.setProperty('--button-image', url(this.library.ui('general/buttons/button-red')));
-      root.setProperty(
-        '--button-selected-image',
-        url(this.library.ui('general/blank-button-brown-highlight')),
-      );
-      root.setProperty(
-        '--button-quiet-image',
-        url(this.library.ui('general/buttons/blank-button-brown')),
-      );
+      // The original's paper, gold frame and buttons (see styles.css and the modal). Fetched
+      // right away: otherwise the first dialog opens plain and its frame appears a moment later.
+      for (const [name, key] of Object.entries(THEME_IMAGES)) {
+        const src = this.library.ui(key);
+        root.setProperty(name, url(src));
+        if (src) new Image().src = src;
+      }
     });
   }
 
