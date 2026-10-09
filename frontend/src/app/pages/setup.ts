@@ -160,7 +160,7 @@ const LETTERS = 'ABCDE';
           <div class="scenarios">
             @for (s of scenarioCards; track s.id) {
               <button
-                crAutofocus
+                [crAutofocus]="s.available"
                 type="button"
                 class="scenario"
                 [disabled]="!s.available"
@@ -284,14 +284,25 @@ const LETTERS = 'ABCDE';
     .scenario span {
       font-size: 0.95rem;
     }
+    .scenario:not(:disabled):is(:hover, :focus-visible) {
+      border-color: var(--color-accent-text);
+      box-shadow: 0 0.2rem 0.8rem rgb(0 0 0 / 0.2);
+    }
+    .scenario:focus-visible {
+      outline: 2px solid var(--color-accent-text);
+      outline-offset: 2px;
+    }
     .scenario:disabled {
       opacity: 0.5;
       cursor: default;
     }
+    /* A finger-sized target; the negative margin keeps the text where it was. */
     .back {
       order: -1;
       justify-self: start;
-      margin: -0.5rem 0 -0.5rem -0.25rem;
+      min-height: 2.75rem;
+      margin: -1rem 0 -1rem -0.75rem;
+      padding: 0 0.5rem;
       border: 0;
       background: none;
       color: var(--color-muted);
