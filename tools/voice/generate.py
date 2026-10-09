@@ -9,7 +9,7 @@ content/assets/voices.json. Voices and their sound (speed, pauses, sibilance fil
 set in tools/voice/voices.json, as is each scenario's introduction: the page the dev-only voice
 test page (/voices) plays.
 
-Spoiler-free output: prints passage names and counts, never the text.
+Spoiler-free output: pages are counted ("page 3 of 9"), never named, and no text is printed.
 
 Usage: uv run tools/voice/generate.py [--scenario ID] [--voices emma,george] [PASSAGE …]
        Without passages: the introduction and the passages the original app has voice-over for.
@@ -131,10 +131,11 @@ def main() -> None:
     index["voices"] = {v: c["label"] for v, c in CONFIG["voices"].items()}
     index["intros"] = CONFIG["intros"]
     kokoro = model()
-    for name in passages:
+    for number, name in enumerate(passages, 1):
+        page = f"page {number} of {len(passages)}"
         by_mode = texts(scenario["passages"][name], strings)
         if by_mode is None:
-            print(f"{name}: skipped (no flavour text, or it contains names typed in at the table)")
+            print(f"{page}: skipped (no flavour text, or it contains names typed in at the table)")
             continue
         for voice in voices:
             clips = {}
@@ -142,8 +143,10 @@ def main() -> None:
                 file = Path("audio/voice") / voice / f"{name.lower()}{'' if mode == 'full' else '-' + mode}.mp3"
                 seconds = speak(kokoro, CONFIG["voices"][voice], paragraphs, ASSETS / file)
                 clips[mode] = file.as_posix()
-                print(f"{name} · {voice} · {mode}: {seconds:.0f} s")
+                print(f"{page} · {voice} · {mode}: {seconds:.0f} s", flush=True)
             index["clips"].setdefault(name, {})[voice] = clips
+            # Saved after each page, so an interrupted run keeps what it has done.
+            INDEX.write_text(json.dumps(index, indent=1, sort_keys=True) + "\n")
     INDEX.write_text(json.dumps(index, indent=1, sort_keys=True) + "\n")
 
 

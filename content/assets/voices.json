@@ -1,5 +1,89 @@
 {
  "clips": {
+  "DevastationIntro": {
+   "emma": {
+    "easy": "audio/voice/emma/devastationintro-easy.mp3",
+    "full": "audio/voice/emma/devastationintro.mp3",
+    "short": "audio/voice/emma/devastationintro-short.mp3"
+   },
+   "george": {
+    "easy": "audio/voice/george/devastationintro-easy.mp3",
+    "full": "audio/voice/george/devastationintro.mp3",
+    "short": "audio/voice/george/devastationintro-short.mp3"
+   }
+  },
+  "GloomyHunterIntro": {
+   "emma": {
+    "easy": "audio/voice/emma/gloomyhunterintro-easy.mp3",
+    "full": "audio/voice/emma/gloomyhunterintro.mp3",
+    "short": "audio/voice/emma/gloomyhunterintro-short.mp3"
+   },
+   "george": {
+    "easy": "audio/voice/george/gloomyhunterintro-easy.mp3",
+    "full": "audio/voice/george/gloomyhunterintro.mp3",
+    "short": "audio/voice/george/gloomyhunterintro-short.mp3"
+   }
+  },
+  "GloomyWolvesIntro": {
+   "emma": {
+    "easy": "audio/voice/emma/gloomywolvesintro-easy.mp3",
+    "full": "audio/voice/emma/gloomywolvesintro.mp3",
+    "short": "audio/voice/emma/gloomywolvesintro-short.mp3"
+   },
+   "george": {
+    "easy": "audio/voice/george/gloomywolvesintro-easy.mp3",
+    "full": "audio/voice/george/gloomywolvesintro.mp3",
+    "short": "audio/voice/george/gloomywolvesintro-short.mp3"
+   }
+  },
+  "Hospitalintro": {
+   "emma": {
+    "easy": "audio/voice/emma/hospitalintro-easy.mp3",
+    "full": "audio/voice/emma/hospitalintro.mp3",
+    "short": "audio/voice/emma/hospitalintro-short.mp3"
+   },
+   "george": {
+    "easy": "audio/voice/george/hospitalintro-easy.mp3",
+    "full": "audio/voice/george/hospitalintro.mp3",
+    "short": "audio/voice/george/hospitalintro-short.mp3"
+   }
+  },
+  "NoUniversityIntro": {
+   "emma": {
+    "easy": "audio/voice/emma/nouniversityintro-easy.mp3",
+    "full": "audio/voice/emma/nouniversityintro.mp3",
+    "short": "audio/voice/emma/nouniversityintro-short.mp3"
+   },
+   "george": {
+    "easy": "audio/voice/george/nouniversityintro-easy.mp3",
+    "full": "audio/voice/george/nouniversityintro.mp3",
+    "short": "audio/voice/george/nouniversityintro-short.mp3"
+   }
+  },
+  "ProsperityHunterIntro": {
+   "emma": {
+    "easy": "audio/voice/emma/prosperityhunterintro-easy.mp3",
+    "full": "audio/voice/emma/prosperityhunterintro.mp3",
+    "short": "audio/voice/emma/prosperityhunterintro-short.mp3"
+   },
+   "george": {
+    "easy": "audio/voice/george/prosperityhunterintro-easy.mp3",
+    "full": "audio/voice/george/prosperityhunterintro.mp3",
+    "short": "audio/voice/george/prosperityhunterintro-short.mp3"
+   }
+  },
+  "ProsperityWolvesIntro": {
+   "emma": {
+    "easy": "audio/voice/emma/prosperitywolvesintro-easy.mp3",
+    "full": "audio/voice/emma/prosperitywolvesintro.mp3",
+    "short": "audio/voice/emma/prosperitywolvesintro-short.mp3"
+   },
+   "george": {
+    "easy": "audio/voice/george/prosperitywolvesintro-easy.mp3",
+    "full": "audio/voice/george/prosperitywolvesintro.mp3",
+    "short": "audio/voice/george/prosperitywolvesintro-short.mp3"
+   }
+  },
   "Scenario5Start": {
    "emma": {
     "easy": "audio/voice/emma/scenario5start-easy.mp3",
@@ -10,6 +94,18 @@
     "easy": "audio/voice/george/scenario5start-easy.mp3",
     "full": "audio/voice/george/scenario5start.mp3",
     "short": "audio/voice/george/scenario5start-short.mp3"
+   }
+  },
+  "UniversityIntro": {
+   "emma": {
+    "easy": "audio/voice/emma/universityintro-easy.mp3",
+    "full": "audio/voice/emma/universityintro.mp3",
+    "short": "audio/voice/emma/universityintro-short.mp3"
+   },
+   "george": {
+    "easy": "audio/voice/george/universityintro-easy.mp3",
+    "full": "audio/voice/george/universityintro.mp3",
+    "short": "audio/voice/george/universityintro-short.mp3"
    }
   }
  },
