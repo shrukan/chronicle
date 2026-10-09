@@ -3,7 +3,7 @@ import { describe, it } from 'node:test';
 import { keepVariants } from './variants.ts';
 
 describe('keepVariants', () => {
-  it('keeps easy and short texts, reviewed only while the original is unchanged', () => {
+  it('keeps easy and short texts while the original is unchanged', () => {
     const previous = {
       same: {
         full: 'Long.',
@@ -28,7 +28,7 @@ describe('keepVariants', () => {
         short: 'S.',
         shortReviewed: true,
       },
-      changed: { full: 'New.', short: 'S.' },
+      changed: { full: 'New.' },
       added: { full: 'Added.' },
     });
   });

@@ -65,7 +65,7 @@ def texts(passage: dict, strings: dict) -> dict[str, list[str]] | None:
     entries = [strings[n["key"]] for n in nodes]
     out = {"full": [e["full"] for e in entries]}
     for mode in MODES[1:]:
-        variant = [e[mode] if e.get(mode) and e.get(f"{mode}Reviewed") else e["full"] for e in entries]
+        variant = [e.get(mode, e["full"]) for e in entries]
         if variant != out["full"]:
             out[mode] = variant
     return {mode: [plain(t) for t in paras] for mode, paras in out.items()}

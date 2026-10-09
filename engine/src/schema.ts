@@ -197,7 +197,10 @@ export interface StringEntry {
   /** Like `shortReviewed`, for the easy text. */
   easyReviewed?: boolean;
   short?: string;
-  /** Shortened text is only shown once a human reviewed it. */
+  /**
+   * A person has checked the short text. Unchecked texts show too (the versions are in beta);
+   * the flag tracks what is left to review.
+   */
   shortReviewed?: boolean;
 }
 
