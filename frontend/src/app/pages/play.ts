@@ -220,8 +220,9 @@ function findStoryLink(out: Out[], id: number): Extract<Out, { t: 'link' }> | un
     }
     .bar {
       display: grid;
-      /* Symmetric, so the title stays centred: log book left; sound and menu right. */
-      grid-template-columns: 6rem 1fr 6rem;
+      /* Symmetric while there is room; on phones the sides shrink to their buttons so long
+         titles get more width. */
+      grid-template-columns: 1fr minmax(0, auto) 1fr;
       align-items: center;
       gap: 0.5rem;
       margin-bottom: 0.75rem;
