@@ -1,14 +1,16 @@
 import type { ReadingMode, StringTable, TextKind } from './schema.ts';
 
 /**
- * Picks the text for a key. Only narrative text uses the short variant, and only once
+ * Picks the text for a key. Only narrative text uses the easy or short variant, and only once
  * it has been reviewed; everything else always shows the full text so no game
  * instruction can get lost.
  */
 export function resolveText(table: StringTable, key: string, mode: ReadingMode = 'full', kind: TextKind = 'narrative'): string {
   const entry = table[key];
   if (!entry) return `⟦${key}⟧`;
-  if (mode === 'short' && kind === 'narrative' && entry.short !== undefined && entry.shortReviewed) return entry.short;
+  if (kind !== 'narrative') return entry.full;
+  if (mode === 'easy' && entry.easy !== undefined && entry.easyReviewed) return entry.easy;
+  if (mode === 'short' && entry.short !== undefined && entry.shortReviewed) return entry.short;
   return entry.full;
 }
 

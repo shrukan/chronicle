@@ -297,19 +297,39 @@
   "full": "**Yellow Fever**"
  },
  "Scenario5Start.3": {
-  "full": "The siblings' arrival to claim their considerable inheritance was met with the indifference of a murky countryside, gray and overcast. The sky was heavy with moisture, but could not crack into a tempest, as if heralding the unfortunate circumstances to which they would soon find themselves."
+  "full": "The siblings' arrival to claim their considerable inheritance was met with the indifference of a murky countryside, gray and overcast. The sky was heavy with moisture, but could not crack into a tempest, as if heralding the unfortunate circumstances to which they would soon find themselves.",
+  "easy": "The brothers and sisters came to the village to claim their large inheritance. The countryside was dark and gray, and nobody cared that they had arrived. Heavy clouds hung in the sky, but the storm never came. It was as if the weather knew that bad times were coming.",
+  "easyReviewed": true,
+  "short": "The siblings arrived to claim their inheritance beneath a heavy, gray sky that promised misfortune.",
+  "shortReviewed": true
  },
  "Scenario5Start.4": {
-  "full": "Upon reaching the village, a foul stench tinged the air as teams of horses pulled the charcoal wagons like a silent funeral procession through the muddy streets. Emaciated peasants shielded their faces from the ashen gloom, seemingly unbothered by the display, and went about their somber activities uninterrupted. Several canvas-bound carts lined the edges of the main road, the dismal, gray skin of a human foot sometimes dangling freely from a rip in the fabric."
+  "full": "Upon reaching the village, a foul stench tinged the air as teams of horses pulled the charcoal wagons like a silent funeral procession through the muddy streets. Emaciated peasants shielded their faces from the ashen gloom, seemingly unbothered by the display, and went about their somber activities uninterrupted. Several canvas-bound carts lined the edges of the main road, the dismal, gray skin of a human foot sometimes dangling freely from a rip in the fabric.",
+  "easy": "When they reached the village, the air smelled terrible. Horses slowly pulled wagons full of charcoal through the muddy streets, like a silent funeral. Thin, hungry villagers covered their faces against the gray ash. They did not seem to care, and they went on with their sad work. Carts covered with cloth stood along the main road. Sometimes the gray foot of a dead person hung out through a hole in the cloth.",
+  "easyReviewed": true,
+  "short": "The village stank. Charcoal wagons crawled through the mud like a funeral procession, and from the covered carts along the road a gray, lifeless foot sometimes dangled.",
+  "shortReviewed": true
  },
  "Scenario5Start.5": {
-  "full": "The Yellow Fever had struck the village, and for several weeks any visit to its somber limits forced the young heirs to keep a cloth handkerchief about their mouth and nostrils to protect from the miasma. While they were remiss to admit it, this seemed the perfect macabre backdrop in which to advance their father's dreadful business."
+  "full": "The Yellow Fever had struck the village, and for several weeks any visit to its somber limits forced the young heirs to keep a cloth handkerchief about their mouth and nostrils to protect from the miasma. While they were remiss to admit it, this seemed the perfect macabre backdrop in which to advance their father's dreadful business.",
+  "easy": "Yellow Fever had come to the village. For weeks, the young family had to hold a cloth over their mouth and nose whenever they went there, to protect themselves from the sick air. They did not like to say it, but this dark, deadly place was perfect for their father's terrible business.",
+  "easyReviewed": true,
+  "short": "Yellow Fever had struck. The heirs kept handkerchiefs pressed to their faces, yet secretly found it the perfect backdrop for their father's dreadful business.",
+  "shortReviewed": true
  },
  "Scenario5Start.6": {
-  "full": "While the prevailing mood in the village was one of morose caution, the young entrepreneurs saw potential in these darkened streets. A particularly ambitious individual could lift this gray village into a thriving city. Perhaps even an aristocrat with coin to spare could make a persuasive argument as to its direction."
+  "full": "While the prevailing mood in the village was one of morose caution, the young entrepreneurs saw potential in these darkened streets. A particularly ambitious individual could lift this gray village into a thriving city. Perhaps even an aristocrat with coin to spare could make a persuasive argument as to its direction.",
+  "easy": "Most people in the village were sad and careful. But the young family saw a chance here. Someone with big plans could turn this gray village into a rich city. And maybe a wealthy noble with money to spend could decide what kind of city it would become.",
+  "easyReviewed": true,
+  "short": "Where the villagers saw only gloom, the young entrepreneurs saw potential: with ambition and coin, this village could become a thriving city.",
+  "shortReviewed": true
  },
  "Scenario5Start.7": {
-  "full": "As the kindred surveyed the dreary countryside from behind the iron gates of their estate, they watched the billowing mists move slowly across the valley. The townsfolk stirred as a disquieting laugh echoed down from the hillside. They were excited to begin their father's work in earnest!"
+  "full": "As the kindred surveyed the dreary countryside from behind the iron gates of their estate, they watched the billowing mists move slowly across the valley. The townsfolk stirred as a disquieting laugh echoed down from the hillside. They were excited to begin their father's work in earnest!",
+  "easy": "From behind the iron gates of their house, the family watched the fog move slowly across the valley. Down in the village, people looked up as a strange laugh came down from the hill. The family could not wait to begin their father's work!",
+  "easyReviewed": true,
+  "short": "As the mists rolled across the valley, a disquieting laugh echoed from the hillside. They were eager to begin their father's work in earnest!",
+  "shortReviewed": true
  },
  "S5Special1.1": {
   "full": "**The Town Is in Need of Direction**Before resolving this event, all players should complete all start of round actions."

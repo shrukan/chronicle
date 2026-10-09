@@ -4,12 +4,13 @@
  * Usage: node tools/converter/src/cli.ts --upstream <UnityOriginalApp> [--out content]
  *          [--reports build/reports] [--strict] [scenario-id …]
  */
-import { mkdirSync, readFileSync, writeFileSync } from 'node:fs';
+import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { basename, join } from 'node:path';
 import { parseArgs } from 'node:util';
 import { convertScenario, type ConvertReport } from './convert.ts';
 import { extractExtras, type ExtrasReport } from './extras.ts';
 import { SCENARIOS } from './scenarios.ts';
+import { keepVariants } from './variants.ts';
 
 const { values, positionals } = parseArgs({
   allowPositionals: true,
@@ -45,7 +46,9 @@ for (const config of selected) {
   const dir = join(values.out, config.id);
   mkdirSync(dir, { recursive: true });
   writeFileSync(join(dir, 'scenario.json'), json(scenario));
-  writeFileSync(join(dir, 'strings.en.json'), json(strings));
+  const stringsPath = join(dir, 'strings.en.json');
+  const previous = existsSync(stringsPath) ? JSON.parse(readFileSync(stringsPath, 'utf8')) : {};
+  writeFileSync(stringsPath, json(keepVariants(strings, previous)));
   writeFileSync(join(dir, 'extras.json'), json(extras));
   mkdirSync(values.reports, { recursive: true });
   writeFileSync(join(values.reports, `${config.id}.json`), json({ ...report, extras: extrasReport }));

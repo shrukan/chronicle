@@ -22,7 +22,7 @@ describe('parseMarkup', () => {
 
 describe('resolveText', () => {
   const table = {
-    n: { full: 'Long story.', short: 'Short.', shortReviewed: true },
+    n: { full: 'Long story.', short: 'Short.', shortReviewed: true, easy: 'Easy.', easyReviewed: true },
     u: { full: 'Long story.', short: 'Short.' },
     i: { full: 'Gain 5VP.', short: '5VP', shortReviewed: true },
   };
@@ -32,5 +32,11 @@ describe('resolveText', () => {
     assert.equal(resolveText(table, 'u', 'short', 'narrative'), 'Long story.');
     assert.equal(resolveText(table, 'i', 'short', 'instruction'), 'Gain 5VP.');
     assert.equal(resolveText(table, 'n', 'full', 'narrative'), 'Long story.');
+  });
+
+  it('uses reviewed easy text for narrative only', () => {
+    assert.equal(resolveText(table, 'n', 'easy', 'narrative'), 'Easy.');
+    assert.equal(resolveText(table, 'u', 'easy', 'narrative'), 'Long story.');
+    assert.equal(resolveText(table, 'i', 'easy', 'instruction'), 'Gain 5VP.');
   });
 });

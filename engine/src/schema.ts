@@ -188,10 +188,14 @@ export type FnName = 'either' | 'random' | 'num' | 'str' | 'array' | 'shuffled' 
 // Text
 // ---------------------------------------------------------------------------
 
-export type ReadingMode = 'full' | 'short';
+/** `easy`: plain English for non-native speakers; `short`: condensed to about a third. */
+export type ReadingMode = 'full' | 'easy' | 'short';
 
 export interface StringEntry {
   full: string;
+  easy?: string;
+  /** Like `shortReviewed`, for the easy text. */
+  easyReviewed?: boolean;
   short?: string;
   /** Shortened text is only shown once a human reviewed it. */
   shortReviewed?: boolean;
@@ -232,6 +236,16 @@ export interface AssetManifest {
   voiceOver: Record<string, { male?: string; female?: string }>;
   /** Source files that were not available when the assets were extracted. */
   missing: string[];
+}
+
+/**
+ * Generated voice-over (`assets/voices.json`, written by tools/voice): voices beside the
+ * original recordings, and per passage and voice a clip for each reading mode with its own text.
+ */
+export interface GeneratedVoices {
+  /** Voice id → name shown in the settings. */
+  voices: Record<string, string>;
+  clips: Record<string, Record<string, Partial<Record<ReadingMode, string>>>>;
 }
 
 /**
