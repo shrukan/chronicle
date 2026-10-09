@@ -65,7 +65,7 @@ function findStoryLink(out: Out[], id: number): Extract<Out, { t: 'link' }> | un
           <div class="handover">
             <div class="hand" aria-hidden="true"></div>
             <p><cr-rich-text [text]="game.text(notice.key)" [args]="notice.args" /></p>
-            <button crAutofocus type="button" class="btn" (click)="handedOver.set(true)">
+            <button crAutofocus type="button" class="btn" (click)="showPage()">
               Ready – show the page
             </button>
           </div>
@@ -477,9 +477,13 @@ export class Play {
   private readonly titleRef = viewChild<ElementRef<HTMLElement>>('title');
   private readonly passage = computed(() => this.game.view()?.passage);
 
-  /** Set once the page's handover notice has been confirmed; every new page starts unset. */
+  /**
+   * Set once the page's handover notice has been confirmed; every new passage starts unset.
+   * Revealing more of the same page keeps it: the notice is still at its top, but the right
+   * player already holds the storybook.
+   */
   protected readonly handedOver = linkedSignal({
-    source: () => this.game.view(),
+    source: () => `${this.game.view()?.passage}#${this.game.visit()}`,
     computation: () => false,
   });
 
@@ -492,6 +496,27 @@ export class Play {
       .find((o) => o.t === 'text' && o.kind === 'command');
     return first?.t === 'text' ? first : undefined;
   });
+
+  /**
+   * The page's only link when it holds nothing but the handover notice and that link ("click
+   * here to reveal your secret …"): confirming the notice follows it, so it takes one tap.
+   */
+  private readonly handoverLink = computed(() => {
+    const notice = this.handover();
+    const view = this.game.view();
+    if (!notice || !view || view.prompt || view.links.length !== 1) return undefined;
+    const flat = (out: Out[]): Out[] =>
+      out.flatMap((o) => (o.t === 'group' ? flat(o.children) : o.t === 'br' ? [] : [o]));
+    const rest = flat(this.body()).filter((o) => o !== notice);
+    const only = rest.length === 1 ? rest[0] : undefined;
+    return only?.t === 'link' && only.id === view.links[0] && !only.disabled ? only.id : undefined;
+  });
+
+  protected showPage(): void {
+    const link = this.handoverLink();
+    this.handedOver.set(true);
+    if (link !== undefined) this.game.click(link);
+  }
 
   protected undo(): void {
     this.confirmUndo.set(false);

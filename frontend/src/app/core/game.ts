@@ -80,6 +80,11 @@ export class Game {
 
   readonly setup = signal<GameSetup | undefined>(undefined);
   readonly view = signal<StoryView | undefined>(undefined);
+  /**
+   * Passages entered so far: changes when the story moves on, not when a link reveals more
+   * of the same page.
+   */
+  readonly visit = signal(0);
   readonly error = signal<string | undefined>(undefined);
   /** Log book: passages with an entry, in the order reached. */
   readonly log = signal<string[]>([]);
@@ -219,6 +224,7 @@ export class Game {
       this.error.set(undefined);
       // The engine reuses its output tree; hand the UI a copy so signals see a change.
       this.view.set({ ...view, output: structuredClone(view.output) });
+      this.visit.set(this.story!.history.length);
       if (!view.prompt) this.lastSafe = this.story!.snapshot();
       if (entering) this.entered(this.story!.history.slice(before));
       void this.persist();
