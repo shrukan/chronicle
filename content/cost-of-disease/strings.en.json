@@ -5459,13 +5459,25 @@
   "full": "**A Foreword**"
  },
  "Preface-TCOD.2": {
-  "full": "Herein contains a historical account of a peculiar lineage. One that spans multiple generations and by all accounts will continue to fascinate historians for many years to come."
+  "full": "Herein contains a historical account of a peculiar lineage. One that spans multiple generations and by all accounts will continue to fascinate historians for many years to come.",
+  "easy": "This book tells the true history of an unusual family. Their story covers many generations, and historians will find it interesting for many years to come.",
+  "easyReviewed": true,
+  "short": "Herein lies the history of a peculiar lineage, one that will fascinate historians for generations.",
+  "shortReviewed": true
  },
  "Preface-TCOD.3": {
-  "full": "I have endeavored to provide as complete a scholarly history as one could provide given the conflicting accounts and whims of hearsay. While many of the details, haunting to the imagination as they may be, stretch the very limits of our human understanding, it is my hope that this text and the accompanying research materials procured will provide evidence as to their truth. The harrowing and potentially supernatural series of events has the capacity to shake the very foundations of the scientific world as we perceive it."
+  "full": "I have endeavored to provide as complete a scholarly history as one could provide given the conflicting accounts and whims of hearsay. While many of the details, haunting to the imagination as they may be, stretch the very limits of our human understanding, it is my hope that this text and the accompanying research materials procured will provide evidence as to their truth. The harrowing and potentially supernatural series of events has the capacity to shake the very foundations of the scientific world as we perceive it.",
+  "easy": "I have tried to make this history as complete as possible, even though people told different stories, and not all of them were true. Many details are frightening and hard to believe. But I hope that this book and the research that comes with it will show that they are true. These strange and perhaps supernatural events could change what science believes about our world.",
+  "easyReviewed": true,
+  "short": "I have pieced this history together from conflicting accounts and hearsay. Its harrowing, perhaps supernatural events may shake the very foundations of science.",
+  "shortReviewed": true
  },
  "Preface-TCOD.4": {
-  "full": "With deference to the fellowship that commissioned this explicit work, though I have never met with these generous benefactors, I humbly submit this biographical account in its entirety and swear by the veracity of the contents within."
+  "full": "With deference to the fellowship that commissioned this explicit work, though I have never met with these generous benefactors, I humbly submit this biographical account in its entirety and swear by the veracity of the contents within.",
+  "easy": "I have never met the group that asked me to write this book, but I thank them for their generous support. I humbly give them the whole story, and I promise that everything in it is true.",
+  "easyReviewed": true,
+  "short": "To the generous fellowship that commissioned it, I humbly submit this account and swear to its truth.",
+  "shortReviewed": true
  },
  "Preface-TCOD.5": {
   "full": "In good health,"
