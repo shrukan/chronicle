@@ -42,7 +42,7 @@ to know which part of the code changed. The rule is a convention, not checked by
 Pull requests are squashed, so for a pull request only its title ends up on `main` and in the
 changelog: give the title this form; the commits inside the pull request can be worded freely.
 
-Scopes: `engine`, `converter`, `cli`, `tester`, `frontend`, `content`, `docker`, `task`,
+Scopes: `engine`, `converter`, `tester`, `frontend`, `content`, `docker`, `task`,
 `ci`, `deps`, `docs`, `repo`.
 
 Versions are managed by release-please – don't edit version numbers by hand.

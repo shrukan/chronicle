@@ -5,7 +5,7 @@ rules:
   scope-enum:
     - 2
     - always
-    - [engine, converter, cli, tester, frontend, content, docker, task, ci, deps, docs, repo]
+    - [engine, converter, tester, frontend, content, docker, task, ci, deps, docs, repo]
   type-enum:
     - 2
     - always

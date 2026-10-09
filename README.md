@@ -58,8 +58,8 @@ into plain data:
 - **`<scenario>.json`** – passages as a tree of nodes (text, links, conditions, variables, …)
 - **`<scenario>.strings.json`** – all text, per language, with optional shortened versions
 
-A small TypeScript engine (`engine/`) plays that data. The same engine powers the app, the
-story tester and the terminal player.
+A small TypeScript engine (`engine/`) plays that data. The same engine powers the app and the
+story tester.
 
 ## Repository layout
 
