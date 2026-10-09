@@ -8,12 +8,14 @@
  *
  * Usage: node tools/converter/src/ui-text.ts [--upstream upstream/UnityOriginalApp] [--out content/ui.en.json]
  */
-import { readFileSync, writeFileSync } from 'node:fs';
+import { existsSync, readFileSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { parseArgs } from 'node:util';
 import { parse } from 'yaml';
+import type { UiText } from '@chronicle/engine';
 import { toMarkup } from './passage.ts';
 import { guidIndex } from './unity.ts';
+import { keepVariants } from './variants.ts';
 
 interface UnityDoc {
   type: string;
@@ -104,6 +106,18 @@ export function extractUiText(scene: string, assets: string): Record<string, str
   return Object.fromEntries(Object.entries(texts).sort(([a], [b]) => a.localeCompare(b)));
 }
 
+/** Easy and short screen texts written by hand into the output stay (see variants.ts). */
+function keepUiVariants(texts: Record<string, string | string[]>, out: string): UiText {
+  const previous: UiText = existsSync(out) ? JSON.parse(readFileSync(out, 'utf8')) : {};
+  const result: UiText = { ...texts };
+  for (const [key, text] of Object.entries(texts)) {
+    const before = previous[key];
+    if (typeof text !== 'string' || !before || typeof before !== 'object' || Array.isArray(before)) continue;
+    result[key] = keepVariants({ [key]: { full: text } }, { [key]: before })[key]!;
+  }
+  return result;
+}
+
 if (import.meta.main) {
   const { values } = parseArgs({
     options: {
@@ -113,7 +127,7 @@ if (import.meta.main) {
   });
   const assets = join(values.upstream, 'Assets');
   const texts = extractUiText(readFileSync(join(assets, 'Scenes/Main.unity'), 'utf8'), assets);
-  writeFileSync(values.out, JSON.stringify(texts, null, 1) + '\n');
+  writeFileSync(values.out, JSON.stringify(keepUiVariants(texts, values.out), null, 1) + '\n');
   const keys = Object.keys(texts);
   const screens = new Set(keys.filter((k) => !k.startsWith('@')).map((k) => k.split('/').slice(0, 2).join('/')));
   console.log(`ui text: ${keys.filter((k) => !k.startsWith('@')).length} texts on ${screens.size} screens, ${keys.filter((k) => k.startsWith('@')).length} script fields`);

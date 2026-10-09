@@ -383,7 +383,13 @@
  "UI/RankingPage/ViewArea/Title": "Rankings",
  "UI/Scenarios/Viewarea/BG/Description": "Choose a Scenario for 2 players:",
  "UI/Scenarios/Viewarea/BG/Title": "Scenario",
- "UI/Scenarios/Viewarea/costOfDiseaseBtn/costofDiseaseDetails": "The Yellow Fever had struck the village. Any visit to its somber limits forced the young heirs to keep a cloth handkerchief about their mouth and nostrils to protect themselves from the miasma. This seemed the perfect — if macabre — backdrop in which to advance their father's dreadful business.",
+ "UI/Scenarios/Viewarea/costOfDiseaseBtn/costofDiseaseDetails": {
+  "full": "The Yellow Fever had struck the village. Any visit to its somber limits forced the young heirs to keep a cloth handkerchief about their mouth and nostrils to protect themselves from the miasma. This seemed the perfect — if macabre — backdrop in which to advance their father's dreadful business.",
+  "easy": "Yellow Fever had come to the village. Whenever the young family went there, they had to hold a cloth over their mouth and nose against the sick air. It was a dark and deadly place, but perfect for their father's terrible business.",
+  "easyReviewed": true,
+  "short": "Yellow Fever had struck the village: the perfect, if macabre, backdrop for their father's dreadful business.",
+  "shortReviewed": true
+ },
  "UI/Scenarios/Viewarea/costOfDiseaseBtn/costofDiseaseTitle": "The Cost of Disease",
  "UI/Scenarios/Viewarea/FearoftheUnknownBtn/industryForeverDetails": "The region was rife with superstitious traditions... traditions that did not mix well with the Church's rigid moral compass. Accusations of witchcraft and voodooism erupted with increasing fervor, and the paranoia stifled the heirs’ ability to work without interruption.",
  "UI/Scenarios/Viewarea/FearoftheUnknownBtn/industryForeverTitle": "Fear of the Unknown",

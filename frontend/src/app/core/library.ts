@@ -1,5 +1,12 @@
-import { computed, Injectable, signal } from '@angular/core';
-import type { AssetManifest, GeneratedVoices, ReadingMode, UiText } from '@chronicle/engine';
+import { computed, inject, Injectable, signal } from '@angular/core';
+import {
+  resolveEntry,
+  type AssetManifest,
+  type GeneratedVoices,
+  type ReadingMode,
+  type UiText,
+} from '@chronicle/engine';
+import { Settings } from './settings';
 
 const BASE = 'content';
 
@@ -15,6 +22,7 @@ const ORIGINAL_VOICES = [
  */
 @Injectable({ providedIn: 'root' })
 export class Library {
+  private readonly settings = inject(Settings);
   readonly texts = signal<UiText>({});
   readonly assets = signal<AssetManifest | undefined>(undefined);
   private readonly generated = signal<GeneratedVoices>({ voices: {}, clips: {} });
@@ -47,10 +55,14 @@ export class Library {
     return this.loading;
   }
 
-  /** A screen text by key; `fallback` while texts load or if the key is missing. */
+  /**
+   * A screen text by key; `fallback` while texts load or if the key is missing. Texts with
+   * variants follow the reading mode.
+   */
   text(key: string, fallback = ''): string {
     const v = this.texts()[key];
-    return typeof v === 'string' ? v : fallback;
+    if (typeof v === 'string') return v;
+    return v && !Array.isArray(v) ? resolveEntry(v, this.settings.readingMode()) : fallback;
   }
 
   list(key: string): string[] {

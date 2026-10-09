@@ -250,6 +250,7 @@ export interface GeneratedVoices {
 
 /**
  * Screen texts of the original app: object paths (`UI/MainMenu/…`) → text, and
- * `@Script.field` → text or list (texts the original's scripts assemble).
+ * `@Script.field` → text or list (texts the original's scripts assemble). A text with easy or
+ * short variants (e.g. a scenario's description) is an entry like a story string.
  */
-export type UiText = Record<string, string | string[]>;
+export type UiText = Record<string, string | string[] | StringEntry>;
