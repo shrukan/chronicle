@@ -13,6 +13,7 @@ Spoiler-free output: prints passage names and counts, never the text.
 
 Usage: uv run tools/voice/generate.py [--scenario ID] [--voices emma,george] [PASSAGE …]
        Without passages: the introduction and the passages the original app has voice-over for.
+       uv run tools/voice/generate.py --try "Any text"   one clip per voice in build/voice-try/
 """
 
 import argparse
@@ -102,11 +103,20 @@ def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument("--scenario", default="cost-of-disease")
     parser.add_argument("--voices", default=",".join(CONFIG["voices"]))
+    parser.add_argument("--try", dest="text", help="read this text instead, into build/voice-try/")
     parser.add_argument("passages", nargs="*")
     args = parser.parse_args()
     voices = args.voices.split(",")
     if unknown := [v for v in voices if v not in CONFIG["voices"]]:
         sys.exit(f"unknown voice: {', '.join(unknown)}")
+
+    if args.text:
+        kokoro = model()
+        for voice in voices:
+            target = ROOT / "build" / "voice-try" / f"{voice}.mp3"
+            seconds = speak(kokoro, CONFIG["voices"][voice], [p for p in args.text.split("\n\n") if p.strip()], target)
+            print(f"{target.relative_to(ROOT)}: {seconds:.0f} s")
+        return
 
     folder = CONTENT / args.scenario
     scenario = json.loads((folder / "scenario.json").read_text())

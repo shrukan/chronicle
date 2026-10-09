@@ -27,7 +27,8 @@ import { RichText } from '../story/rich-text';
       <h1 class="heading">Voice test</h1>
       <p class="note">
         Development only. Regenerate the clips with <code>task content:voices</code> (settings in
-        <code>tools/voice/voices.json</code>).
+        <code>tools/voice/voices.json</code>), try any text with
+        <code>task content:voices -- --try "…"</code> (clips in <code>build/voice-try/</code>).
       </p>
       @for (s of scenarios(); track s.id) {
         <h2 class="heading">{{ s.title }}</h2>

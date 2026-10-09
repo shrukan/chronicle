@@ -123,7 +123,7 @@ tasks:
     cmd: node tools/converter/src/assets.ts {{if .MEDIA}}--media "{{.MEDIA}}"{{end}} --out content/assets
 
   content:voices:
-    desc: "Generated voice-over with Kokoro (needs uv and ffmpeg; settings in tools/voice/voices.json). CLI_ARGS: passages, --voices emma,george"
+    desc: "Generated voice-over with Kokoro (needs uv and ffmpeg; settings in tools/voice/voices.json). CLI_ARGS: passages, --voices emma,george, --try \"any text\""
     cmd: uv run -q tools/voice/generate.py {{.CLI_ARGS}}
 
   content:test:
