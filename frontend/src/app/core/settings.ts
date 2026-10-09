@@ -11,7 +11,7 @@ export const LANGUAGES: { code: string; name: string; versions: Record<ReadingMo
   {
     code: 'en',
     name: 'English',
-    versions: { full: 'Original', easy: 'Easy', short: 'Short' },
+    versions: { full: 'Original', easy: 'Easy (beta)', short: 'Short (beta)' },
   },
 ];
 

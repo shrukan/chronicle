@@ -70,15 +70,6 @@ import { LANGUAGES, Settings, type Theme } from '../core/settings';
       }
     </fieldset>
 
-    <label class="toggle">
-      <input
-        type="checkbox"
-        [checked]="settings.muted()"
-        (change)="settings.muted.set($any($event.target).checked)"
-      />
-      <span>Mute all sound</span>
-    </label>
-
     @for (s of sliders; track s.fallback) {
       <label class="field slider">
         {{ t(s.key, s.fallback) }}
@@ -128,18 +119,6 @@ import { LANGUAGES, Settings, type Theme } from '../core/settings';
     .hint {
       font-size: 0.85rem;
       color: var(--color-muted);
-    }
-    .toggle {
-      display: flex;
-      gap: 0.6rem;
-      align-items: flex-start;
-      margin: 0 0 1rem;
-      cursor: pointer;
-    }
-    .toggle input {
-      width: 1.2rem;
-      height: 1.2rem;
-      margin-top: 0.2rem;
     }
     .slider {
       margin-bottom: 0.75rem;
