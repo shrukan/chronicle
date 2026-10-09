@@ -25,13 +25,16 @@ export const FAMILY = 'The family';
  */
 export function rankPlayers(players: Player[]): {
   ranking: Player[];
+  /** Each ranked player's place (1-based); equal scores share one, as in 1st, 1st, 3rd. */
+  places: number[];
   familyWins: boolean;
   winners: number;
 } {
   const ranking = [...players].sort((a, b) => b.score - a.score);
+  const places = ranking.map((p) => ranking.findIndex((q) => q.score === p.score) + 1);
   const top = ranking[0]?.score ?? 0;
   const winners = ranking.filter((p) => p.score === top).length;
-  return { ranking, familyWins: winners > 1, winners };
+  return { ranking, places, familyWins: winners > 1, winners };
 }
 
 @Component({
@@ -168,7 +171,7 @@ export function rankPlayers(players: Player[]): {
             <ol class="ranking">
               @for (p of result().ranking; track p.index; let i = $index) {
                 <li>
-                  <span class="place">{{ places[i] }}</span>
+                  <span class="place">{{ ordinals[result().places[i]! - 1] }}</span>
                   <span class="name">{{ p.name }}</span>
                   @if (isWinner(i) && library.ui('ranking/mfw-crown-icon'); as crown) {
                     <img class="crown" [src]="crown" alt="winner" />
@@ -271,7 +274,7 @@ export class Score {
   private readonly router = inject(Router);
 
   protected readonly family = FAMILY;
-  protected readonly places = ['1st', '2nd', '3rd', '4th', '5th'];
+  protected readonly ordinals = ['1st', '2nd', '3rd', '4th', '5th'];
   protected readonly phase = signal<Phase>('entry');
   protected readonly scores = signal<Record<number, number>>({});
   protected readonly completed = signal(new Set<number>());
