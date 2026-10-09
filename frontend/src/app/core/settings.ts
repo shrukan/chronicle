@@ -3,10 +3,23 @@ import type { ReadingMode } from '@chronicle/engine';
 
 /** `female`/`male`: the original recordings; anything else a generated voice (Library.voices). */
 export type Voice = string;
+/**
+ * Languages of the story and the reading modes (versions) each one has; the settings only
+ * offer these.
+ */
+export const LANGUAGES: { code: string; name: string; versions: Record<ReadingMode, string> }[] = [
+  {
+    code: 'en',
+    name: 'English',
+    versions: { full: 'Original', easy: 'Easy English', short: 'Short' },
+  },
+];
+
 /** Light or dark paper; `auto` follows the system. */
 export type Theme = 'auto' | 'light' | 'dark';
 
 interface Stored {
+  language: string;
   voice: Voice;
   music: number;
   effects: number;
@@ -21,6 +34,7 @@ interface Stored {
 
 const KEY = 'chronicle.settings';
 const DEFAULTS: Stored = {
+  language: 'en',
   voice: 'female',
   music: 0.5,
   effects: 0.8,
@@ -43,6 +57,7 @@ function read(): Stored {
 @Injectable({ providedIn: 'root' })
 export class Settings {
   private readonly initial = read();
+  readonly language = signal(this.initial.language);
   readonly voice = signal<Voice>(this.initial.voice);
   readonly music = signal(this.initial.music);
   readonly effects = signal(this.initial.effects);
@@ -55,6 +70,7 @@ export class Settings {
   constructor() {
     effect(() => {
       const value: Stored = {
+        language: this.language(),
         voice: this.voice(),
         music: this.music(),
         effects: this.effects(),

@@ -1,8 +1,8 @@
 import { Autofocus } from './autofocus';
-import { ChangeDetectionStrategy, Component, inject, input, output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, input, output } from '@angular/core';
 import { Library } from '../core/library';
 import type { ReadingMode } from '@chronicle/engine';
-import { Settings, type Theme } from '../core/settings';
+import { LANGUAGES, Settings, type Theme } from '../core/settings';
 
 /** Voice, story text and volumes. Used from the main menu and the pause menu. */
 @Component({
@@ -16,41 +16,42 @@ import { Settings, type Theme } from '../core/settings';
       </h2>
     }
 
-    <fieldset class="voice">
-      <legend>{{ t('UI/VoiceTrack/Viewarea/Prompt/Heading', 'Choose Audio Voice') }}</legend>
-      @for (v of library.voices(); track v.value) {
-        <label>
-          <input
-            type="radio"
-            name="voice"
-            [value]="v.value"
-            [checked]="settings.voice() === v.value"
-            (change)="settings.voice.set(v.value)"
-          />
-          {{ v.label }}
-        </label>
-      }
-    </fieldset>
-
-    <fieldset class="voice">
-      <legend>Story text</legend>
-      @for (m of readingModes; track m.value) {
-        <label>
-          <input
-            type="radio"
-            name="reading"
-            [value]="m.value"
-            [checked]="settings.readingMode() === m.value"
-            (change)="settings.readingMode.set(m.value)"
-          />
-          {{ m.label }}
-        </label>
-      }
-      <small class="hint"
-        >Easy and Short change only the story, never the rules. Pages without them yet show the
-        original.</small
-      >
-    </fieldset>
+    <div class="choices">
+      <label class="field">
+        Language
+        <select (change)="setLanguage($any($event.target).value)">
+          @for (l of languages; track l.code) {
+            <option [value]="l.code" [selected]="settings.language() === l.code">
+              {{ l.name }}
+            </option>
+          }
+        </select>
+      </label>
+      <label class="field">
+        Version
+        <select (change)="settings.readingMode.set($any($event.target).value)">
+          @for (v of versions(); track v.mode) {
+            <option [value]="v.mode" [selected]="settings.readingMode() === v.mode">
+              {{ v.label }}
+            </option>
+          }
+        </select>
+        <small class="hint"
+          >Easy and Short change only the story, never the rules. Pages without them yet show the
+          original.</small
+        >
+      </label>
+      <label class="field">
+        Narrator
+        <select (change)="settings.voice.set($any($event.target).value)">
+          @for (v of library.voices(); track v.value) {
+            <option [value]="v.value" [selected]="settings.voice() === v.value">
+              {{ v.label }}
+            </option>
+          }
+        </select>
+      </label>
+    </div>
 
     <fieldset class="voice">
       <legend>Paper</legend>
@@ -133,8 +134,13 @@ import { Settings, type Theme } from '../core/settings';
       border: 1px solid var(--color-rule);
       border-radius: 0.4rem;
     }
+    .choices {
+      display: grid;
+      gap: 0.75rem;
+      margin: 0 0 1rem;
+    }
     .hint {
-      flex-basis: 100%;
+      font-size: 0.85rem;
       color: var(--color-muted);
     }
     .toggle {
@@ -172,11 +178,20 @@ export class SettingsPanel {
   /** Off when the panel sits in another dialog with its own heading (pause menu). */
   readonly showHeading = input(true);
 
-  protected readonly readingModes: { value: ReadingMode; label: string }[] = [
-    { value: 'full', label: 'Original' },
-    { value: 'easy', label: 'Easy English' },
-    { value: 'short', label: 'Short' },
-  ];
+  protected readonly languages = LANGUAGES;
+  /** The versions the chosen language has. */
+  protected readonly versions = computed(() =>
+    Object.entries(
+      (LANGUAGES.find((l) => l.code === this.settings.language()) ?? LANGUAGES[0]!).versions,
+    ).map(([mode, label]) => ({ mode: mode as ReadingMode, label })),
+  );
+
+  protected setLanguage(code: string): void {
+    this.settings.language.set(code);
+    // A version the new language lacks falls back to the original.
+    if (!this.versions().some((v) => v.mode === this.settings.readingMode()))
+      this.settings.readingMode.set('full');
+  }
   protected readonly themes: { value: Theme; label: string }[] = [
     { value: 'auto', label: 'Automatic' },
     { value: 'light', label: 'Light' },
