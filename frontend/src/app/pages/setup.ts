@@ -66,7 +66,8 @@ const LETTERS = 'ABCDE';
                 [attr.aria-pressed]="players() === n"
                 (click)="players.set(n)"
               >
-                {{ n }} Players
+                <span class="count">{{ n }}</span>
+                {{ playersLabel(n) }}
               </button>
             }
           </div>
@@ -211,6 +212,15 @@ const LETTERS = 'ABCDE';
        the action (Continue). */
     .choice {
       min-width: 7rem;
+      padding-inline: 0.4rem;
+      white-space: nowrap;
+    }
+    /* The plates' face has small old-style figures; the number reads better in the body face. */
+    .choice .count {
+      font-family: var(--font-body);
+      font-variant-numeric: lining-nums;
+      font-size: 1.3em;
+      line-height: 1;
     }
     .letter {
       max-width: 28rem;
@@ -362,6 +372,14 @@ export class Setup {
 
   protected t(key: string, fallback = ''): string {
     return this.library.text(key, fallback);
+  }
+
+  /** "Players" from the original's plate ("2 Players"; it has none for five). */
+  protected playersLabel(n: number): string {
+    return this.t(
+      `UI/GamePlayerCounts/ViewArea/playerCountButtonParent/Player${n}/P${n}Text`,
+      `${n} Players`,
+    ).replace(/^\d+\s*/, '');
   }
 
   protected go(step: Step): void {
