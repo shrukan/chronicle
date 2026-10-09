@@ -29,7 +29,6 @@ import { ScreenCard } from './screen-card';
               } @else {
                 <cr-rich-text [text]="game.text(o.key)" [args]="o.args" />
               }
-              <span aria-hidden="true">›</span>
             </button>
           } @else if (o.disabled) {
             <cr-rich-text class="used-link" [text]="game.text(o.key)" [args]="o.args" />

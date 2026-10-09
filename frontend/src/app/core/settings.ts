@@ -11,7 +11,7 @@ export const LANGUAGES: { code: string; name: string; versions: Record<ReadingMo
   {
     code: 'en',
     name: 'English',
-    versions: { full: 'Original', easy: 'Easy English', short: 'Short' },
+    versions: { full: 'Original', easy: 'Easy', short: 'Short' },
   },
 ];
 
@@ -25,8 +25,6 @@ interface Stored {
   effects: number;
   voiceOver: number;
   readingMode: ReadingMode;
-  /** Open plain "continue" reveals automatically, so a page appears in one piece. */
-  wholePage: boolean;
   /** All sound off, without touching the volumes. */
   muted: boolean;
   theme: Theme;
@@ -40,7 +38,6 @@ const DEFAULTS: Stored = {
   effects: 0.8,
   voiceOver: 1,
   readingMode: 'full',
-  wholePage: true,
   muted: false,
   theme: 'auto',
 };
@@ -63,7 +60,6 @@ export class Settings {
   readonly effects = signal(this.initial.effects);
   readonly voiceOver = signal(this.initial.voiceOver);
   readonly readingMode = signal<ReadingMode>(this.initial.readingMode);
-  readonly wholePage = signal(this.initial.wholePage);
   readonly muted = signal(this.initial.muted);
   readonly theme = signal<Theme>(this.initial.theme);
 
@@ -76,7 +72,6 @@ export class Settings {
         effects: this.effects(),
         voiceOver: this.voiceOver(),
         readingMode: this.readingMode(),
-        wholePage: this.wholePage(),
         muted: this.muted(),
         theme: this.theme(),
       };

@@ -72,21 +72,6 @@ import { LANGUAGES, Settings, type Theme } from '../core/settings';
     <label class="toggle">
       <input
         type="checkbox"
-        [checked]="settings.wholePage()"
-        (change)="settings.wholePage.set($any($event.target).checked)"
-      />
-      <span>
-        Show each page at once
-        <small
-          >Opens plain “Click to continue…” sections automatically. Secrets and decisions still
-          wait.</small
-        >
-      </span>
-    </label>
-
-    <label class="toggle">
-      <input
-        type="checkbox"
         [checked]="settings.muted()"
         (change)="settings.muted.set($any($event.target).checked)"
       />
@@ -154,10 +139,6 @@ import { LANGUAGES, Settings, type Theme } from '../core/settings';
       width: 1.2rem;
       height: 1.2rem;
       margin-top: 0.2rem;
-    }
-    .toggle small {
-      display: block;
-      color: var(--color-muted);
     }
     .slider {
       margin-bottom: 0.75rem;

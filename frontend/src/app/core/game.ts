@@ -244,12 +244,11 @@ export class Game {
   }
 
   /**
-   * "Show page at once": opens reveals whose label only says "continue" and whose content
+   * Shows each page at once: opens reveals whose label only says "continue" and whose content
    * stays on the page – the reader would click them anyway. Reveals with their own label
    * (often hiding something from the other players), jumps and prompts still wait.
    */
   private revealPlainContinues(view: StoryView): StoryView {
-    if (!this.settings.wholePage()) return view;
     const passages = this.content()?.scenario.passages ?? {};
     for (let i = 0; i < 30 && !view.prompt; i++) {
       const next = view.links.find((id) => {
