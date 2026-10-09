@@ -6,7 +6,7 @@ import { AudioPlayer } from '../core/audio';
 import { SCENARIOS } from '../core/content';
 import { Game } from '../core/game';
 import { Library } from '../core/library';
-import { Settings, type Voice } from '../core/settings';
+import { Settings } from '../core/settings';
 import { RichText } from '../story/rich-text';
 
 type Step =
@@ -30,7 +30,7 @@ const LETTERS = 'ABCDE';
             {{ t('UI/VoiceTrack/Viewarea/Prompt/Heading', 'Choose Audio Voice') }}
           </h1>
           <div class="choices">
-            @for (v of voices; track v.value) {
+            @for (v of library.voices(); track v.value) {
               <button
                 type="button"
                 class="btn quiet choice"
@@ -38,7 +38,7 @@ const LETTERS = 'ABCDE';
                 [attr.aria-pressed]="settings.voice() === v.value"
                 (click)="settings.voice.set(v.value)"
               >
-                {{ t(v.key, v.fallback) }}
+                {{ v.label }}
               </button>
             }
           </div>
@@ -324,11 +324,6 @@ export class Setup {
   protected readonly names = signal<string[]>(['', '', '', '', '']);
   protected readonly current = signal(0);
   private readonly village = signal('');
-
-  protected readonly voices: { value: Voice; key: string; fallback: string }[] = [
-    { value: 'female', key: 'UI/VoiceTrack/Viewarea/Prompt/Female/Lable', fallback: 'Feminine' },
-    { value: 'male', key: 'UI/VoiceTrack/Viewarea/Prompt/Male/Lable', fallback: 'Masculine' },
-  ];
 
   protected readonly scenarioCards = SCENARIOS_UI;
 

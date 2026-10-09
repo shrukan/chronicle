@@ -1,0 +1,20 @@
+{
+ "clips": {
+  "Scenario5Start": {
+   "emma": {
+    "easy": "audio/voice/emma/scenario5start-easy.mp3",
+    "full": "audio/voice/emma/scenario5start.mp3",
+    "short": "audio/voice/emma/scenario5start-short.mp3"
+   },
+   "george": {
+    "easy": "audio/voice/george/scenario5start-easy.mp3",
+    "full": "audio/voice/george/scenario5start.mp3",
+    "short": "audio/voice/george/scenario5start-short.mp3"
+   }
+  }
+ },
+ "voices": {
+  "emma": "Emma",
+  "george": "George"
+ }
+}

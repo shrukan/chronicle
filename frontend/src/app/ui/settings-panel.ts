@@ -1,9 +1,10 @@
 import { Autofocus } from './autofocus';
 import { ChangeDetectionStrategy, Component, inject, input, output } from '@angular/core';
 import { Library } from '../core/library';
-import { Settings, type Theme, type Voice } from '../core/settings';
+import type { ReadingMode } from '@chronicle/engine';
+import { Settings, type Theme } from '../core/settings';
 
-/** Voice and volumes. Used from the main menu and the pause menu. */
+/** Voice, story text and volumes. Used from the main menu and the pause menu. */
 @Component({
   selector: 'cr-settings-panel',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -17,7 +18,7 @@ import { Settings, type Theme, type Voice } from '../core/settings';
 
     <fieldset class="voice">
       <legend>{{ t('UI/VoiceTrack/Viewarea/Prompt/Heading', 'Choose Audio Voice') }}</legend>
-      @for (v of voices; track v.value) {
+      @for (v of library.voices(); track v.value) {
         <label>
           <input
             type="radio"
@@ -26,9 +27,29 @@ import { Settings, type Theme, type Voice } from '../core/settings';
             [checked]="settings.voice() === v.value"
             (change)="settings.voice.set(v.value)"
           />
-          {{ t(v.key, v.fallback) }}
+          {{ v.label }}
         </label>
       }
+    </fieldset>
+
+    <fieldset class="voice">
+      <legend>Story text</legend>
+      @for (m of readingModes; track m.value) {
+        <label>
+          <input
+            type="radio"
+            name="reading"
+            [value]="m.value"
+            [checked]="settings.readingMode() === m.value"
+            (change)="settings.readingMode.set(m.value)"
+          />
+          {{ m.label }}
+        </label>
+      }
+      <small class="hint"
+        >Easy and Short change only the story, never the rules. Pages without them yet show the
+        original.</small
+      >
     </fieldset>
 
     <fieldset class="voice">
@@ -112,6 +133,10 @@ import { Settings, type Theme, type Voice } from '../core/settings';
       border: 1px solid var(--color-rule);
       border-radius: 0.4rem;
     }
+    .hint {
+      flex-basis: 100%;
+      color: var(--color-muted);
+    }
     .toggle {
       display: flex;
       gap: 0.6rem;
@@ -142,14 +167,15 @@ import { Settings, type Theme, type Voice } from '../core/settings';
 })
 export class SettingsPanel {
   protected readonly settings = inject(Settings);
-  private readonly library = inject(Library);
+  protected readonly library = inject(Library);
   readonly done = output<void>();
   /** Off when the panel sits in another dialog with its own heading (pause menu). */
   readonly showHeading = input(true);
 
-  protected readonly voices: { value: Voice; key: string; fallback: string }[] = [
-    { value: 'female', key: 'UI/VoiceTrack/Viewarea/Prompt/Female/Lable', fallback: 'Feminine' },
-    { value: 'male', key: 'UI/VoiceTrack/Viewarea/Prompt/Male/Lable', fallback: 'Masculine' },
+  protected readonly readingModes: { value: ReadingMode; label: string }[] = [
+    { value: 'full', label: 'Original' },
+    { value: 'easy', label: 'Easy English' },
+    { value: 'short', label: 'Short' },
   ];
   protected readonly themes: { value: Theme; label: string }[] = [
     { value: 'auto', label: 'Automatic' },

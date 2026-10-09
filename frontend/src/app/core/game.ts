@@ -6,6 +6,7 @@ import {
   type Node,
   type Out,
   type Passage,
+  type ReadingMode,
   type StorySnapshot,
   type StoryView,
   type TextKind,
@@ -272,7 +273,7 @@ export class Game {
       this.log.update((log) => [...log, ...logged.filter((p) => log.at(-1) !== p)]);
 
     const current = passages.at(-1)!;
-    this.audio.playVoice(current);
+    this.audio.playVoice(current, this.voiceMode(current));
     this.newEnding.set(undefined);
     if (this.content()?.scenario.passages[current]?.tags.includes('ending')) {
       this.audio.playEndingMusic();
@@ -280,6 +281,21 @@ export class Game {
         .unlock(this.scenarioId(), current)
         .then((first) => first && this.newEnding.set(current));
     }
+  }
+
+  /** The reading mode whose text a passage shows: the setting, or `full` without own text. */
+  private voiceMode(name: string): ReadingMode {
+    const mode = this.settings.readingMode();
+    const strings = this.content()?.strings;
+    const body = this.content()?.scenario.passages[name]?.body ?? [];
+    const differs = body.some(
+      (n) =>
+        n.t === 'text' &&
+        n.kind === 'narrative' &&
+        strings &&
+        resolveText(strings, n.key, mode) !== strings[n.key]?.full,
+    );
+    return differs ? mode : 'full';
   }
 
   /** Saves the game now (also called when leaving the storybook or hiding the app). */

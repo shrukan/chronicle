@@ -1,7 +1,8 @@
 import { effect, Injectable, signal } from '@angular/core';
 import type { ReadingMode } from '@chronicle/engine';
 
-export type Voice = 'male' | 'female';
+/** `female`/`male`: the original recordings; anything else a generated voice (Library.voices). */
+export type Voice = string;
 /** Light or dark paper; `auto` follows the system. */
 export type Theme = 'auto' | 'light' | 'dark';
 

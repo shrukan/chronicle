@@ -1,4 +1,5 @@
 import { effect, inject, Injectable } from '@angular/core';
+import type { ReadingMode } from '@chronicle/engine';
 import { Library } from './library';
 import { Settings } from './settings';
 
@@ -93,10 +94,13 @@ export class AudioPlayer {
     void a.play().catch(() => this.playing.delete(a));
   }
 
-  /** Voice-over of a passage in the chosen voice; stops any voice-over still playing. */
-  playVoice(passage: string): void {
+  /**
+   * Voice-over of a passage in the chosen voice, reading the text in `mode`; stops any
+   * voice-over still playing.
+   */
+  playVoice(passage: string, mode: ReadingMode): void {
     this.stopVoice();
-    const src = this.library.voiceOver(passage, this.settings.voice());
+    const src = this.library.voiceOver(passage, this.settings.voice(), mode);
     if (!src || this.settings.voiceOver() === 0) return;
     this.voice = new Audio(src);
     this.voice.volume = this.settings.voiceOver();

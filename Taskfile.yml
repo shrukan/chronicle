@@ -122,6 +122,10 @@ tasks:
     deps: [deps:install]
     cmd: node tools/converter/src/assets.ts {{if .MEDIA}}--media "{{.MEDIA}}"{{end}} --out content/assets
 
+  content:voices:
+    desc: "Generated voice-over with Kokoro (needs uv and ffmpeg; settings in tools/voice/voices.json). CLI_ARGS: passages, --voices emma,george"
+    cmd: uv run -q tools/voice/generate.py {{.CLI_ARGS}}
+
   content:test:
     desc: "Story tester: static checks + coverage-guided exploration, spoiler-free summary (vars: ID, SECONDS; CLI_ARGS e.g. -- --spoilers)."
     deps: [deps:install]

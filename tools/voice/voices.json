@@ -1,0 +1,24 @@
+{
+ "model": {
+  "onnx": "https://github.com/thewh1teagle/kokoro-onnx/releases/download/model-files-v1.0/kokoro-v1.0.onnx",
+  "voices": "https://github.com/thewh1teagle/kokoro-onnx/releases/download/model-files-v1.0/voices-v1.0.bin"
+ },
+ "paragraphPause": 0.6,
+ "bitrate": "48k",
+ "voices": {
+  "emma": {
+   "label": "Emma",
+   "kokoro": "bf_emma",
+   "lang": "en-gb",
+   "speed": 0.95,
+   "filter": "deesser=i=1:m=0.8:f=0.4,equalizer=f=7000:t=q:w=1.2:g=-5,highshelf=f=9000:g=-3"
+  },
+  "george": {
+   "label": "George",
+   "kokoro": "bm_george",
+   "lang": "en-gb",
+   "speed": 0.95,
+   "filter": "equalizer=f=7000:t=q:w=1.2:g=-3,highshelf=f=9000:g=-3"
+  }
+ }
+}
