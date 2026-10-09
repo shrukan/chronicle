@@ -33,6 +33,12 @@ to – from `feat` and `fix` commits only. So:
 - The release PR is the last chance to polish the wording: edit its changelog text before
   merging.
 
+Put the other way round, the scope tells the two apart: **no scope – for players, in the
+changelog; a scope – internal work, and which part of the project it touches.** That a
+player-facing fix in the app has no `(frontend)` while a refactoring there does is intended:
+release-please would print the scope in front of the changelog entry, and players don't need
+to know which part of the code changed. The rule is a convention, not checked by commitlint.
+
 Scopes: `engine`, `converter`, `cli`, `tester`, `frontend`, `content`, `docker`, `task`,
 `ci`, `deps`, `docs`, `repo`.
 
