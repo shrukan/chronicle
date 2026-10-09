@@ -48,7 +48,8 @@ const THEME_IMAGES = {
     @if (showFooter()) {
       <footer>
         Unofficial fan project · Story, art and music © Renegade Game Studios ·
-        <a routerLink="/about">Chronicle {{ version }} – about &amp; credits</a> ·
+        <a routerLink="/whats-new">Chronicle {{ version }} – what's new</a> ·
+        <a routerLink="/about">About &amp; credits</a> ·
         <a [href]="bugReport()" target="_blank" rel="noopener">Report a bug ↗</a>
       </footer>
     }
@@ -123,7 +124,7 @@ const THEME_IMAGES = {
 export class App {
   /** Credits and links on the menu pages; the storybook keeps the screen for the story. */
   protected readonly showFooter = computed(() =>
-    ['/', '/about', '/endings', '/help'].includes(this.url().split(/[?#]/)[0]!),
+    ['/', '/about', '/endings', '/help', '/whats-new'].includes(this.url().split(/[?#]/)[0]!),
   );
   protected readonly version = VERSION;
   protected bugReport(): string {

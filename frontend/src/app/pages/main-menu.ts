@@ -4,6 +4,7 @@ import { Router, RouterLink } from '@angular/router';
 import { AudioPlayer } from '../core/audio';
 import { Game } from '../core/game';
 import { Library } from '../core/library';
+import { WhatsNew } from '../core/whats-new';
 import { Modal } from '../ui/modal';
 import { SettingsPanel } from '../ui/settings-panel';
 
@@ -20,6 +21,21 @@ import { SettingsPanel } from '../ui/settings-panel';
         <h1 class="heading">My Father's Work</h1>
       }
       <p class="sub">Chronicle · an unofficial companion app</p>
+
+      @if (whatsNew.unseen()) {
+        <p class="updated" role="status">
+          <span>Chronicle has been updated to {{ whatsNew.version }}.</span>
+          <a routerLink="/whats-new">See what's new</a>
+          <button
+            type="button"
+            class="dismiss"
+            (click)="whatsNew.markSeen()"
+            aria-label="Dismiss the update note"
+          >
+            ×
+          </button>
+        </p>
+      }
 
       <nav class="buttons">
         @if (hasSave.value()) {
@@ -113,6 +129,39 @@ import { SettingsPanel } from '../ui/settings-panel';
       font-style: italic;
       opacity: 0.75;
     }
+    /* After an update, until the notes are read or dismissed. */
+    .updated {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      gap: 0.25rem 0.75rem;
+      margin: -0.5rem 0 0.5rem;
+      padding: 0.35rem 0.5rem 0.35rem 1rem;
+      border: 1px solid rgb(233 223 201 / 0.35);
+      border-radius: 0.5rem;
+      background: rgb(0 0 0 / 0.35);
+    }
+    .updated a {
+      color: inherit;
+      text-decoration: underline;
+      text-underline-offset: 0.2em;
+    }
+    .dismiss {
+      width: 2rem;
+      height: 2rem;
+      border: 0;
+      border-radius: 50%;
+      background: none;
+      color: inherit;
+      font-size: 1.3rem;
+      line-height: 1;
+      cursor: pointer;
+    }
+    .dismiss:hover,
+    .dismiss:focus-visible {
+      background: rgb(255 255 255 / 0.12);
+    }
     .buttons {
       display: grid;
       gap: 0.75rem;
@@ -132,6 +181,7 @@ import { SettingsPanel } from '../ui/settings-panel';
 })
 export class MainMenu {
   protected readonly library = inject(Library);
+  protected readonly whatsNew = inject(WhatsNew);
   private readonly game = inject(Game);
   private readonly router = inject(Router);
   private readonly audio = inject(AudioPlayer);

@@ -34,6 +34,7 @@ RUN --mount=type=cache,target=/root/.npm \
 COPY engine engine
 COPY frontend frontend
 COPY content content
+COPY CHANGELOG.md ./
 RUN task frontend:build CI=true OUTPUT_DIR=/out
 
 # --------------------------------------------------------------------------- #

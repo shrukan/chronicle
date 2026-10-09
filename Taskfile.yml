@@ -59,8 +59,8 @@ tasks:
   # Frontend
   frontend:content:
     internal: true
-    desc: Copy the content the app serves (scenario data, screen texts, assets) into frontend/public/content (git-ignored).
-    sources: ["content/*/scenario.json", "content/*/strings.en.json", "content/*/extras.json", "content/ui.en.json", "content/assets/**/*"]
+    desc: Copy the content the app serves (scenario data, screen texts, assets, changelog) into frontend/public/content (git-ignored).
+    sources: ["content/*/scenario.json", "content/*/strings.en.json", "content/*/extras.json", "content/ui.en.json", "content/assets/**/*", "CHANGELOG.md"]
     generates: ["frontend/public/content/**/*"]
     cmds:
       - rm -rf frontend/public/content
@@ -68,6 +68,8 @@ tasks:
       - for f in content/*/scenario.json content/*/strings.en.json content/*/extras.json; do mkdir -p "frontend/public/$(dirname "$f")" && cp "$f" "frontend/public/$f"; done
       - cp content/ui.en.json frontend/public/content/
       - cp -r content/assets frontend/public/content/
+      # The app's "What's new" page reads it, also offline.
+      - cp CHANGELOG.md frontend/public/content/changelog.md
 
   frontend:serve:dev:
     desc: Serve the app with live reload (ng serve).

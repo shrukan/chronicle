@@ -19,9 +19,7 @@ import { VERSION } from '../version';
         <dt>Version</dt>
         <dd>
           {{ version }} –
-          <a [href]="repository + '/blob/main/CHANGELOG.md'" target="_blank" rel="noopener"
-            >what's new ↗</a
-          >
+          <a routerLink="/whats-new">what's new</a>
         </dd>
         <dt>App</dt>
         <dd>

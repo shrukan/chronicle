@@ -32,6 +32,11 @@ export const routes: Routes = [
     title: 'Chronicle – about',
   },
   {
+    path: 'whats-new',
+    loadComponent: () => import('./pages/whats-new').then((m) => m.WhatsNew),
+    title: "Chronicle – what's new",
+  },
+  {
     path: 'help',
     loadComponent: () => import('./pages/help').then((m) => m.Help),
     title: 'Chronicle – help',
