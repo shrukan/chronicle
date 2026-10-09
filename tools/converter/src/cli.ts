@@ -48,7 +48,17 @@ for (const config of selected) {
   writeFileSync(join(dir, 'scenario.json'), json(scenario));
   const stringsPath = join(dir, 'strings.en.json');
   const previous = existsSync(stringsPath) ? JSON.parse(readFileSync(stringsPath, 'utf8')) : {};
-  writeFileSync(stringsPath, json(keepVariants(strings, previous)));
+  const narrative = new Set<string>();
+  const collect = (node: unknown): void => {
+    if (Array.isArray(node)) node.forEach(collect);
+    else if (node && typeof node === 'object') {
+      const n = node as { t?: string; kind?: string; key?: string };
+      if (n.t === 'text' && n.kind === 'narrative' && n.key) narrative.add(n.key);
+      Object.values(node).forEach(collect);
+    }
+  };
+  collect(scenario.passages);
+  writeFileSync(stringsPath, json(keepVariants(strings, previous, (key) => narrative.has(key))));
   writeFileSync(join(dir, 'extras.json'), json(extras));
   mkdirSync(values.reports, { recursive: true });
   writeFileSync(join(values.reports, `${config.id}.json`), json({ ...report, extras: extrasReport }));

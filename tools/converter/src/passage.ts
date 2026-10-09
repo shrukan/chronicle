@@ -598,6 +598,27 @@ const GAME_TERMS =
 const IMPERATIVE =
   /^(\W*)(gain|lose|place|take|discard|pay|draw|return|move|add|remove|retrieve|give|choose|shuffle|turn to|perform|flip|put|count|reveal|collect|keep|look through|look at|search|find|roll|read|resolve|spend|donate|vote|bid|select|decide|check|score|record|write|tally|each player|all players|the player|any player|if a player|if any player|if there is|players|then,? (place|take|gain|lose|return|give|move|add|remove|each)|note:?|setup|reward:?|cost:?)\b/i;
 
+/**
+ * Rule text that reads like prose: vote explanations, conditions, what to place or visit. Found
+ * while writing the Easy and Short texts; these must never be rewritten.
+ */
+const RULE = [
+  /^\W*(a |an )?\W*(yay|nay)\b[^.]*\bvote\b/i,
+  /^\W*(however,\s*)?if the (value|total)\b/i,
+  /^\W*at the end of the\b[^.]{0,20}\b(round|generation)\b/i,
+  /^\W*if you have joined a faction\b/i,
+  /^\W*(accepting|rejecting) electricity\b/i,
+  /^\W*(encouraging|not encouraging) the frenzy\b/i,
+  /\bwhen a player visits\b/i,
+  /\bplace the\b[^.]*\btile\b/i,
+  /\byou may visit the same building\b/i,
+  /\bexperiment card can be completed\b/i,
+  /\bcan now take actions\b/i,
+  /\bplease click on the name\b/i,
+  /\bsymposium in the field of\b/i,
+  /\bMUST\b/,
+];
+
 /** Instructions about the app rather than the board game: who holds the storybook, what others may see. */
 const APP_COMMAND = [
   /\b(storybook device|see the screen)\b/i,
@@ -621,7 +642,7 @@ export function isNarrative(plain: string, markup: string): boolean {
   // Several numbers: a cost list, a track position, a count – game material.
   if ((plain.replace(/\{\d+\}/g, ' ').match(/\b\d{1,2}\b/g) ?? []).length >= 2) return false;
   const words = plain.trim().split(/\s+/).length;
-  if (words < 8 || IMPERATIVE.test(plain.trim())) return false;
+  if (words < 8 || IMPERATIVE.test(plain.trim()) || RULE.some((r) => r.test(plain))) return false;
   const hits = (plain.match(GAME_TERMS) ?? []).length;
   return hits === 0 || (words >= 20 && hits / words < 0.05);
 }

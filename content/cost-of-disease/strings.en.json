@@ -200,8 +200,7 @@
   "full": "{icon:Storybook}** Board of Trustees**"
  },
  "Hospital1.11": {
-  "full": "Due to the efforts of your family, the Hospital has graciously awarded you with a seat on the Hospital's board of trustees. All players MUST personally visit the Hospital at least one time during this Generation by placing their Self on the Hospital space in town.",
-  "easy": "Because of your family's work, the Hospital has given you a seat on its board of trustees. Every player MUST visit the Hospital at least once during this Generation by placing their Self on the Hospital space in town."
+  "full": "Due to the efforts of your family, the Hospital has graciously awarded you with a seat on the Hospital's board of trustees. All players MUST personally visit the Hospital at least one time during this Generation by placing their Self on the Hospital space in town."
  },
  "Hospital1.12": {
   "full": "The **first time** you visit the Hospital with your Self, "
@@ -246,8 +245,7 @@
   "full": "**University Symposium**"
  },
  "Hospital1.26": {
-  "full": "At the end of the second round, a Symposium in the field of {0} will be held to determine the fate of a **University** in town in the spot where the Traveling Caravan resides. Success will be determined by our combined dedication to completing {1} Experiments.",
-  "easy": "At the end of the second round, there will be a Symposium (a scientific meeting) in the field of {0}. It decides if a **University** will be built in town, on the spot where the Traveling Caravan is. To succeed, we must complete {1} Experiments together."
+  "full": "At the end of the second round, a Symposium in the field of {0} will be held to determine the fate of a **University** in town in the spot where the Traveling Caravan resides. Success will be determined by our combined dedication to completing {1} Experiments."
  },
  "Devastation1.1": {
   "full": "**Devastation - Early Years**"
@@ -289,8 +287,7 @@
   "full": "{icon:Storybook}** Relief from Disease**"
  },
  "Devastation1.14": {
-  "full": "A \"Hereditary Disease\" Experiment card can be completed by taking the Perform Experiment action as normal. Completing this Experiment will allow you to **ignore all ill effects** from Disease between rounds.",
-  "easy": "You can complete a \"Hereditary Disease\" Experiment card with the normal Perform Experiment action. If you complete this Experiment, you can **ignore all ill effects** from Disease between rounds."
+  "full": "A \"Hereditary Disease\" Experiment card can be completed by taking the Perform Experiment action as normal. Completing this Experiment will allow you to **ignore all ill effects** from Disease between rounds."
  },
  "Devastation1.15": {
   "full": "When a player completes their Hereditary Disease Experiment, "
@@ -1002,8 +999,7 @@
   "full": "{icon:Storybook} ** Suspicion**"
  },
  "Devastation3.3": {
-  "full": "When a player visits one of the three Suspicious locations, they may investigate the location by secretly picking it up and looking at its reverse side. Then, click on the appropriate location below to choose whether to reveal or conceal the secrets underneath.",
-  "easy": "When a player visits one of the three Suspicious locations, they may investigate it: they secretly pick it up and look at its back side. Then they click on that location below to choose whether to reveal or conceal the secrets underneath."
+  "full": "When a player visits one of the three Suspicious locations, they may investigate the location by secretly picking it up and looking at its reverse side. Then, click on the appropriate location below to choose whether to reveal or conceal the secrets underneath."
  },
  "Devastation3.4": {
   "full": "{0}"
@@ -1015,15 +1011,13 @@
   "full": "{0}"
  },
  "Devastation3.7": {
-  "full": "*You may visit the same Building multiple times.* At the end of the Generation, if a Building has been revealed more times than concealed, the work will be **Exposed** for the world to see.",
-  "easy": "*You may visit the same Building more than once.* At the end of the Generation, if a Building has been revealed more times than concealed, the work will be **Exposed** for everyone to see."
+  "full": "*You may visit the same Building multiple times.* At the end of the Generation, if a Building has been revealed more times than concealed, the work will be **Exposed** for the world to see."
  },
  "Devastation3.8": {
   "full": "{icon:Storybook} ** Relief from Disease**"
  },
  "Devastation3.9": {
-  "full": "A \"Hereditary Disease\" Experiment card can be completed by taking the Perform Experiment action as normal. Completing this Experiment will allow you to **ignore all ill effects** from Disease between rounds.",
-  "easy": "You can complete a \"Hereditary Disease\" Experiment card with the normal Perform Experiment action. If you complete this Experiment, you can **ignore all ill effects** from Disease between rounds."
+  "full": "A \"Hereditary Disease\" Experiment card can be completed by taking the Perform Experiment action as normal. Completing this Experiment will allow you to **ignore all ill effects** from Disease between rounds."
  },
  "Devastation3.10": {
   "full": "When a player completes their Hereditary Disease Experiment, "
@@ -1068,8 +1062,7 @@
   "full": "{icon:Storybook} ** Suspicion**"
  },
  "Devastation2.9": {
-  "full": "When a player visits one of the three Suspicious locations, they may investigate the location by secretly picking it up and looking at its reverse side. Then, click on the appropriate location below to choose whether to reveal or conceal the secrets underneath.",
-  "easy": "When a player visits one of the three Suspicious locations, they may investigate it: they secretly pick it up and look at its back side. Then they click on that location below to choose whether to reveal or conceal the secrets underneath."
+  "full": "When a player visits one of the three Suspicious locations, they may investigate the location by secretly picking it up and looking at its reverse side. Then, click on the appropriate location below to choose whether to reveal or conceal the secrets underneath."
  },
  "Devastation2.10": {
   "full": "{0}"
@@ -1081,15 +1074,13 @@
   "full": "{0}"
  },
  "Devastation2.13": {
-  "full": "*You may visit the same Building multiple times.* At the end of the Generation, if a Building has been revealed more times than concealed, the work will be **Exposed** for the world to see.",
-  "easy": "*You may visit the same Building more than once.* At the end of the Generation, if a Building has been revealed more times than concealed, the work will be **Exposed** for everyone to see."
+  "full": "*You may visit the same Building multiple times.* At the end of the Generation, if a Building has been revealed more times than concealed, the work will be **Exposed** for the world to see."
  },
  "Devastation2.14": {
   "full": "{icon:Storybook} ** Relief from Disease**"
  },
  "Devastation2.15": {
-  "full": "A \"Hereditary Disease\" Experiment card can be completed by taking the Perform Experiment action as normal. Completing this Experiment will allow you to **ignore all ill effects** from Disease between rounds.",
-  "easy": "You can complete a \"Hereditary Disease\" Experiment card with the normal Perform Experiment action. If you complete this Experiment, you can **ignore all ill effects** from Disease between rounds."
+  "full": "A \"Hereditary Disease\" Experiment card can be completed by taking the Perform Experiment action as normal. Completing this Experiment will allow you to **ignore all ill effects** from Disease between rounds."
  },
  "Devastation2.16": {
   "full": "When a player completes their Hereditary Disease Experiment, "
@@ -1161,8 +1152,7 @@
   "full": "**University Symposium**"
  },
  "Hospital2.18": {
-  "full": "At the end of the second round, a Symposium in the field of {0} will be held to determine the fate of a **University** in town in the spot where the Traveling Caravan resides. Success will be determined by our combined dedication to completing {1} Experiments.",
-  "easy": "At the end of the second round, there will be a Symposium (a scientific meeting) in the field of {0}. It decides if a **University** will be built in town, on the spot where the Traveling Caravan is. To succeed, we must complete {1} Experiments together."
+  "full": "At the end of the second round, a Symposium in the field of {0} will be held to determine the fate of a **University** in town in the spot where the Traveling Caravan resides. Success will be determined by our combined dedication to completing {1} Experiments."
  },
  "Hospital2.19": {
   "full": "{0}"
@@ -2065,8 +2055,7 @@
   "short": "In their twilight years, their investigations bore fruit. The recovering town drew both honest and nefarious interest, and the family's true intent was revealed."
  },
  "BuildingsEnd.3": {
-  "full": "The evil activities of the {0} were **thwarted** by our efforts. Place the {1} tile to the side of the play area within reach.",
-  "easy": "Our work **thwarted** (stopped) the evil activities of the {0}. Place the {1} tile next to the play area, within reach."
+  "full": "The evil activities of the {0} were **thwarted** by our efforts. Place the {1} tile to the side of the play area within reach."
  },
  "BuildingsEnd.4": {
   "full": "{0} gains 3VP for Exposing the threat."
@@ -2084,12 +2073,10 @@
   "full": "{0} gains 3VP for Exposing the threat."
  },
  "BuildingsEnd.9": {
-  "full": "The evil activities of the {0} were **successful** because of our collective efforts to obscure and conceal. Place the {1} tile to the side of the play area within reach.",
-  "easy": "The evil activities of the {0} were **successful**, because together we hid and covered them up. Place the {1} tile next to the play area, within reach."
+  "full": "The evil activities of the {0} were **successful** because of our collective efforts to obscure and conceal. Place the {1} tile to the side of the play area within reach."
  },
  "BuildingsEnd.10": {
-  "full": "The evil activities of the {0} were **thwarted** by our efforts. Place the {1} tile to the side of the play area within reach.",
-  "easy": "Our work **thwarted** (stopped) the evil activities of the {0}. Place the {1} tile next to the play area, within reach."
+  "full": "The evil activities of the {0} were **thwarted** by our efforts. Place the {1} tile to the side of the play area within reach."
  },
  "BuildingsEnd.11": {
   "full": "{0} gains 3VP for Exposing the threat."
@@ -2107,12 +2094,10 @@
   "full": "{0} gains 3VP for Exposing the threat."
  },
  "BuildingsEnd.16": {
-  "full": "The evil activities of the {0} were **successful** because of our collective efforts to obscure and conceal. Place the {1} tile to the side of the play area within reach.",
-  "easy": "The evil activities of the {0} were **successful**, because together we hid and covered them up. Place the {1} tile next to the play area, within reach."
+  "full": "The evil activities of the {0} were **successful** because of our collective efforts to obscure and conceal. Place the {1} tile to the side of the play area within reach."
  },
  "BuildingsEnd.17": {
-  "full": "The evil activities of the {0} were **thwarted** by our efforts. Place the {1} tile to the side of the play area within reach.",
-  "easy": "Our work **thwarted** (stopped) the evil activities of the {0}. Place the {1} tile next to the play area, within reach."
+  "full": "The evil activities of the {0} were **thwarted** by our efforts. Place the {1} tile to the side of the play area within reach."
  },
  "BuildingsEnd.18": {
   "full": "{0} gains 3VP for Exposing the threat."
@@ -2130,8 +2115,7 @@
   "full": "{0} gains 3VP for Exposing the threat."
  },
  "BuildingsEnd.23": {
-  "full": "The evil activities of the {0} were **successful** because of our collective efforts to obscure and conceal. Place the {1} tile to the side of the play area within reach.",
-  "easy": "The evil activities of the {0} were **successful**, because together we hid and covered them up. Place the {1} tile next to the play area, within reach."
+  "full": "The evil activities of the {0} were **successful** because of our collective efforts to obscure and conceal. Place the {1} tile to the side of the play area within reach."
  },
  "S5Special1a.1": {
   "full": "**A Bid for Mayor**"
@@ -2952,8 +2936,7 @@
   "full": "**Acceptance**"
  },
  "Prosperity1.11": {
-  "full": "Caretaker pieces can now take actions in Town as well as in the Estates. *The same Town placement rules for Servants apply to Caretaker pieces.*",
-  "easy": "Caretaker pieces can now take actions in Town as well as in the Estates. *The Town placement rules for Servants also apply to Caretaker pieces.*"
+  "full": "Caretaker pieces can now take actions in Town as well as in the Estates. *The same Town placement rules for Servants apply to Caretaker pieces.*"
  },
  "Prosperity1.12": {
   "full": "**School for Hybridized Individuals**"
@@ -3007,8 +2990,7 @@
   "full": "**Endless Hunt**"
  },
  "Prosperity1.29": {
-  "full": "At the end of the round, two of the scientists will be chosen to participate in the **Night of the Hunt.** This invitation cannot be refused.",
-  "easy": "At the end of the round, two of the scientists will be chosen to take part in the **Night of the Hunt.** They cannot say no to this invitation."
+  "full": "At the end of the round, two of the scientists will be chosen to participate in the **Night of the Hunt.** This invitation cannot be refused."
  },
  "Prosperity2.1": {
   "full": "**Moving Forward - Middle Years**"
@@ -3017,8 +2999,7 @@
   "full": "**Acceptance**"
  },
  "Prosperity2.3": {
-  "full": "Caretaker pieces can now take actions in Town as well as in the Estates. *The same Town placement rules for Servants apply to Caretaker pieces.*",
-  "easy": "Caretaker pieces can now take actions in Town as well as in the Estates. *The Town placement rules for Servants also apply to Caretaker pieces.*"
+  "full": "Caretaker pieces can now take actions in Town as well as in the Estates. *The same Town placement rules for Servants apply to Caretaker pieces.*"
  },
  "Prosperity2.4": {
   "full": "**School for Hybridized Individuals**"
@@ -3060,8 +3041,7 @@
   "full": "**Endless Hunt**"
  },
  "Prosperity2.17": {
-  "full": "At the end of the round, two of the scientists will be chosen to participate in the **Night of the Hunt.** This invitation cannot be refused.",
-  "easy": "At the end of the round, two of the scientists will be chosen to take part in the **Night of the Hunt.** They cannot say no to this invitation."
+  "full": "At the end of the round, two of the scientists will be chosen to participate in the **Night of the Hunt.** This invitation cannot be refused."
  },
  "Prosperity3.1": {
   "full": "**Moving Forward - Late Years**"
@@ -3070,8 +3050,7 @@
   "full": "**Acceptance**"
  },
  "Prosperity3.3": {
-  "full": "Caretaker pieces can now take actions in Town as well as in the Estates. *The same Town placement rules for Servants apply to Caretaker pieces.*",
-  "easy": "Caretaker pieces can now take actions in Town as well as in the Estates. *The Town placement rules for Servants also apply to Caretaker pieces.*"
+  "full": "Caretaker pieces can now take actions in Town as well as in the Estates. *The same Town placement rules for Servants apply to Caretaker pieces.*"
  },
  "Prosperity3.4": {
   "full": "**School for Hybridized Individuals**"
@@ -3155,8 +3134,7 @@
   "full": "**Advancements in {0}**"
  },
  "Trigger3Experiments.2": {
-  "full": "Please click on the name of the scientist that completed a total of **3 B or C {0} Experiments**:",
-  "easy": "Please click on the name of the scientist who completed **3 B or C {0} Experiments** in total:"
+  "full": "Please click on the name of the scientist that completed a total of **3 B or C {0} Experiments**:"
  },
  "Trigger3Experiments.3": {
   "full": "{0}"
@@ -5090,8 +5068,7 @@
   "full": "**MONSTER SPAWN**"
  },
  "GloomyGothic1.17": {
-  "full": "The Town Hall of the village has been transformed into the unofficial headquarters of the Order. When a player visits the Monster Spawn, they may **Perform an Experiment**.",
-  "easy": "The village's Town Hall is now the unofficial headquarters of the Order. When a player visits the Monster Spawn, they may **Perform an Experiment**."
+  "full": "The Town Hall of the village has been transformed into the unofficial headquarters of the Order. When a player visits the Monster Spawn, they may **Perform an Experiment**."
  },
  "GloomyGothic1.18": {
   "full": "**A Gift of Spawning**"
@@ -5141,8 +5118,7 @@
   "full": "**MONSTER SPAWN**"
  },
  "GloomyGothic2.14": {
-  "full": "The Town Hall of the village has been transformed into the unofficial headquarters of the Order. When a player visits the Monster Spawn, they may **Perform an Experiment**.",
-  "easy": "The village's Town Hall is now the unofficial headquarters of the Order. When a player visits the Monster Spawn, they may **Perform an Experiment**."
+  "full": "The Town Hall of the village has been transformed into the unofficial headquarters of the Order. When a player visits the Monster Spawn, they may **Perform an Experiment**."
  },
  "GloomyGothic2.15": {
   "full": "**A Gift of Spawning**"
@@ -5225,8 +5201,7 @@
   "full": "**MONSTER SPAWN**"
  },
  "GloomyGothic3.25": {
-  "full": "The Town Hall of the village has been transformed into the unofficial headquarters of the Order. When a player visits the Monster Spawn, they may **Perform an Experiment**.",
-  "easy": "The village's Town Hall is now the unofficial headquarters of the Order. When a player visits the Monster Spawn, they may **Perform an Experiment**."
+  "full": "The Town Hall of the village has been transformed into the unofficial headquarters of the Order. When a player visits the Monster Spawn, they may **Perform an Experiment**."
  },
  "GloomyGothic3.26": {
   "full": "**A Gift of Spawning**"
@@ -5549,12 +5524,10 @@
   "full": "All players take their Voting token into their hand. Players will secretly choose a side to place face up in their palm. Then, they will close their fist and extend it to the center of the table."
  },
  "EvilHunter1Event.6": {
-  "full": "A **Yay** vote is a vote to **Challenge the Hunters** about their monster hunting claims.",
-  "easy": "A **Yay** vote means you want to **Challenge the Hunters** about their claims that they hunt monsters."
+  "full": "A **Yay** vote is a vote to **Challenge the Hunters** about their monster hunting claims."
  },
  "EvilHunter1Event.7": {
-  "full": "A **Nay** vote is a vote to **Accept their story**.",
-  "easy": "A **Nay** vote means you want to **Accept their story**."
+  "full": "A **Nay** vote is a vote to **Accept their story**."
  },
  "EvilHunter1Event.8": {
   "full": "When all players have chosen, all players reveal their votes. Tally all the votes and the side with the most votes wins. *Ties are broken by the last player in turn order.*"
@@ -5776,8 +5749,7 @@
   "full": "{0} or higher, the unleashed experiments will succeed."
  },
  "HunterConf2.7": {
-  "full": "If the value is less, the hunters will prevail.",
-  "easy": "If the value is lower, the hunters will win."
+  "full": "If the value is less, the hunters will prevail."
  },
  "HunterConf2.8": {
   "full": "Click to start the bid."
@@ -5951,8 +5923,7 @@
   "full": "A **Yay** vote is a vote to discard **1 completed Chemistry or Occult Experiment**."
  },
  "UniEvent2-UltimateDisease.13": {
-  "full": "A **Nay** vote is a vote to NOT contribute an experiment.",
-  "easy": "A **Nay** vote means you do NOT give an experiment."
+  "full": "A **Nay** vote is a vote to NOT contribute an experiment."
  },
  "UniEvent2-UltimateDisease.14": {
   "full": "When all players have chosen, all players reveal their vote. Tally all votes and the side with the most votes wins. ***Ties are considered a win for the \"yay\" vote.***"
@@ -7547,12 +7518,10 @@
   "full": "Retrieve the Voting tokens from the box. Each player takes a Voting token into their fist and chooses a side. When all players have chosen, all players simultaneously reveal their vote."
  },
  "S5SpecialVote.3": {
-  "full": "**Yay** is a vote to facilitate electricity, which will **allow us to complete experiments at a discounted cost** despite the fact that it may enrage the populace into **destruction of property**.",
-  "easy": "**Yay** is a vote for electricity, which will **allow us to complete experiments at a discounted cost**, even though it may make the people so angry that it leads to **destruction of property**."
+  "full": "**Yay** is a vote to facilitate electricity, which will **allow us to complete experiments at a discounted cost** despite the fact that it may enrage the populace into **destruction of property**."
  },
  "S5SpecialVote.4": {
-  "full": "**Nay** is vote to reject electricity and support the obstinate masses.",
-  "easy": "**Nay** is a vote against electricity and for the stubborn people."
+  "full": "**Nay** is vote to reject electricity and support the obstinate masses."
  },
  "S5SpecialVote.5": {
   "full": "*(Ties are broken, by the last player in turn order.)*"
@@ -8217,12 +8186,10 @@
   "full": "Players will now vote on whether to unleash this concoction to tame the demonic beasts of the land."
  },
  "WolvesVote.8": {
-  "full": "A **Yay** vote is a vote to Unleash the Concoction.",
-  "easy": "A **Yay** vote means you want to Unleash (release) the Concoction."
+  "full": "A **Yay** vote is a vote to Unleash the Concoction."
  },
  "WolvesVote.9": {
-  "full": "A **Nay** vote is a vote to refuse.",
-  "easy": "A **Nay** vote means you say no."
+  "full": "A **Nay** vote is a vote to refuse."
  },
  "WolvesVote.10": {
   "full": "All players take their Voting tokens into their hand. Players will secretly choose a side to place face up in their palm. Then, they will close their fist and extend it to the center of the table."
@@ -8416,8 +8383,7 @@
   "full": "**MONSTER SPAWN**"
  },
  "Prosperity3b.8": {
-  "full": "The Town Hall of the village has been transformed into the unofficial headquarters of the Order. When a player visits the Monster Spawn, they may **Perform an Experiment**.",
-  "easy": "The village's Town Hall is now the unofficial headquarters of the Order. When a player visits the Monster Spawn, they may **Perform an Experiment**."
+  "full": "The Town Hall of the village has been transformed into the unofficial headquarters of the Order. When a player visits the Monster Spawn, they may **Perform an Experiment**."
  },
  "Prosperity3b.9": {
   "full": "Place all Suspicious Building tiles nearby, return the {icon:Creepy_Icon} token on the Farmer's Market to the scenario box, then turn to page **18** of the Village Chronicle."
@@ -8438,8 +8404,7 @@
   "full": "**MONSTER SPAWN**"
  },
  "Prosperity3b.15": {
-  "full": "The Town Hall of the village has been transformed into the unofficial headquarters of the Order. When a player visits the Monster Spawn, they may **Perform an Experiment**.",
-  "easy": "The village's Town Hall is now the unofficial headquarters of the Order. When a player visits the Monster Spawn, they may **Perform an Experiment**."
+  "full": "The Town Hall of the village has been transformed into the unofficial headquarters of the Order. When a player visits the Monster Spawn, they may **Perform an Experiment**."
  },
  "HuntSuccessCheck.1": {
   "full": "**A {0} Fate**"
@@ -8601,12 +8566,10 @@
   "full": "Both players on the Hunt take their Voting tokens into their hand. They will secretly choose a side to place face up in their palm. Then they will close their fist and extend it to the center of the table."
  },
  "HuntNight1.4": {
-  "full": "A **Yay** vote is a vote to **contribute** to the Hunt.",
-  "easy": "A **Yay** vote means you **contribute** (give something) to the Hunt."
+  "full": "A **Yay** vote is a vote to **contribute** to the Hunt."
  },
  "HuntNight1.5": {
-  "full": "A **Nay** vote is a vote to **keep your resources**.",
-  "easy": "A **Nay** vote means you **keep your resources**."
+  "full": "A **Nay** vote is a vote to **keep your resources**."
  },
  "HuntNight1.6": {
   "full": "If BOTH players choose to contribute, all Servants will survive and each player will **pay 1 {0}** to the supply."
@@ -8633,12 +8596,10 @@
   "full": "Both players on the Hunt take their Voting tokens into their hands. They will secretly choose a side to place face up in their palm. Then they will close their fist and extend it to the center of the table."
  },
  "HuntNight2.4": {
-  "full": "A **Yay** vote is a vote to **contribute** to the Hunt.",
-  "easy": "A **Yay** vote means you **contribute** (give something) to the Hunt."
+  "full": "A **Yay** vote is a vote to **contribute** to the Hunt."
  },
  "HuntNight2.5": {
-  "full": "A **Nay** vote is a vote to **keep your resources**.",
-  "easy": "A **Nay** vote means you **keep your resources**."
+  "full": "A **Nay** vote is a vote to **keep your resources**."
  },
  "HuntNight2.6": {
   "full": "If BOTH players choose to contribute, all Servants will survive and each player will **pay 1 {0}** to the supply."
@@ -8797,12 +8758,10 @@
   "full": "All players take all of their money into their hands. They then secretly choose any amount to place into their right hand to bid on choosing the outcome."
  },
  "2p-FrenzyALT.6": {
-  "full": "**Encouraging** the Frenzy will guarantee that experimentation will no longer be considered Creepy, but also introduces other problems.",
-  "easy": "**Encouraging** the Frenzy will make sure that experiments are no longer seen as Creepy, but it also brings other problems."
+  "full": "**Encouraging** the Frenzy will guarantee that experimentation will no longer be considered Creepy, but also introduces other problems."
  },
  "2p-FrenzyALT.7": {
-  "full": "**Not encouraging** the Frenzy will maintain the Biology award.",
-  "easy": "**Not encouraging** the Frenzy keeps the Biology award."
+  "full": "**Not encouraging** the Frenzy will maintain the Biology award."
  },
  "2p-FrenzyALT.8": {
   "full": "Once all players are ready, reveal the amount of money bid simultaneously. The player that bid the most wins the vote and also **gains 2VP**. *(If there is a tie, the player who went last in turn order the previous round wins the bid.)*"
@@ -8833,12 +8792,10 @@
   "full": "All players take their Voting tokens into their hands. The players will secretly choose a side to place face up in their palm. Then they will close their fist and extend it to the center of the table."
  },
  "GoodFrenzyEvent2.6": {
-  "full": "A **Yay** vote is a vote to encourage the Frenzy. *This will guarantee that experimentation will no longer be considered Creepy, but creates other problems.*",
-  "easy": "A **Yay** vote means you encourage the Frenzy. *This will make sure that experiments are no longer seen as Creepy, but it creates other problems.*"
+  "full": "A **Yay** vote is a vote to encourage the Frenzy. *This will guarantee that experimentation will no longer be considered Creepy, but creates other problems.*"
  },
  "GoodFrenzyEvent2.7": {
-  "full": "A **Nay** vote is a vote to **not** encourage the Frenzy. *This will maintain the Biology award.*",
-  "easy": "A **Nay** vote means you do **not** encourage the Frenzy. *This keeps the Biology award.*"
+  "full": "A **Nay** vote is a vote to **not** encourage the Frenzy. *This will maintain the Biology award.*"
  },
  "GoodFrenzyEvent2.8": {
   "full": "Once all players have chosen, they all reveal their votes. Tally the votes and the side with the most votes wins. *Ties are broken by the last player in turn order.*"
@@ -8853,12 +8810,10 @@
   "full": "The winning player will **gain 3VP** and have the option to choose if the town gains or rejects electricity. Once all players are ready, reveal the amount of money bid simultaneously. *(If there is a tie, the player who went last in turn order the previous round wins the bid.)*"
  },
  "2p-S5SpecialVoteALT.4": {
-  "full": "Accepting electricity which will **allow us to complete experiments at a discounted cost** despite the fact that it may enrage the populace into **destruction of property**.",
-  "easy": "Accepting electricity will **allow us to complete experiments at a discounted cost**, even though it may make the people so angry that it leads to **destruction of property**."
+  "full": "Accepting electricity which will **allow us to complete experiments at a discounted cost** despite the fact that it may enrage the populace into **destruction of property**."
  },
  "2p-S5SpecialVoteALT.5": {
-  "full": "Rejecting electricity will support the obstinate masses and **quell the Angry Mob**.",
-  "easy": "Rejecting electricity supports the stubborn people and will **quell the Angry Mob**."
+  "full": "Rejecting electricity will support the obstinate masses and **quell the Angry Mob**."
  },
  "2p-S5SpecialVoteALT.6": {
   "full": "Once all players are ready, reveal the amount of money bid simultaneously. The player that bid the most wins the ability to choose."
@@ -9030,8 +8985,7 @@
   "full": "**Count up the total value of the VP on all donated Experiment cards.**"
  },
  "HunterConf3.3": {
-  "full": "If the value is equal to {0} or higher, ",
-  "easy": "If the value is {0} or higher, "
+  "full": "If the value is equal to {0} or higher, "
  },
  "HunterConf3.4": {
   "full": "click here to continue."

@@ -3,6 +3,13 @@ import { describe, it } from 'node:test';
 import { keepVariants } from './variants.ts';
 
 describe('keepVariants', () => {
+  it('drops the rewrites of texts that are no longer flavour text', () => {
+    const previous = { rule: { full: 'Place it.', easy: 'Put it.' } };
+    assert.deepEqual(keepVariants({ rule: { full: 'Place it.' } }, previous, () => false), {
+      rule: { full: 'Place it.' },
+    });
+  });
+
   it('keeps easy and short texts while the original is unchanged', () => {
     const previous = {
       same: {

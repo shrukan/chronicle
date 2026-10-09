@@ -1021,7 +1021,7 @@
       {
        "t": "text",
        "key": "Hospital1.11",
-       "kind": "narrative"
+       "kind": "instruction"
       },
       {
        "t": "br"
@@ -1339,7 +1339,7 @@
       {
        "t": "text",
        "key": "Hospital1.26",
-       "kind": "narrative",
+       "kind": "instruction",
        "args": [
         {
          "var": "sci3"
@@ -1757,7 +1757,7 @@
       {
        "t": "text",
        "key": "Devastation1.14",
-       "kind": "narrative"
+       "kind": "instruction"
       },
       {
        "t": "br"
@@ -6859,7 +6859,7 @@
       {
        "t": "text",
        "key": "Devastation3.3",
-       "kind": "narrative"
+       "kind": "instruction"
       },
       {
        "t": "br"
@@ -6939,7 +6939,7 @@
       {
        "t": "text",
        "key": "Devastation3.7",
-       "kind": "narrative"
+       "kind": "instruction"
       }
      ]
     },
@@ -6970,7 +6970,7 @@
       {
        "t": "text",
        "key": "Devastation3.9",
-       "kind": "narrative"
+       "kind": "instruction"
       },
       {
        "t": "br"
@@ -7031,7 +7031,7 @@
       {
        "t": "text",
        "key": "Devastation3.14",
-       "kind": "narrative"
+       "kind": "instruction"
       }
      ]
     },
@@ -7264,7 +7264,7 @@
       {
        "t": "text",
        "key": "Devastation2.9",
-       "kind": "narrative"
+       "kind": "instruction"
       },
       {
        "t": "br"
@@ -7359,7 +7359,7 @@
       {
        "t": "text",
        "key": "Devastation2.13",
-       "kind": "narrative"
+       "kind": "instruction"
       }
      ]
     },
@@ -7390,7 +7390,7 @@
       {
        "t": "text",
        "key": "Devastation2.15",
-       "kind": "narrative"
+       "kind": "instruction"
       },
       {
        "t": "br"
@@ -7451,7 +7451,7 @@
       {
        "t": "text",
        "key": "Devastation2.20",
-       "kind": "narrative"
+       "kind": "instruction"
       }
      ]
     },
@@ -7885,7 +7885,7 @@
       {
        "t": "text",
        "key": "Hospital2.18",
-       "kind": "narrative",
+       "kind": "instruction",
        "args": [
         {
          "var": "sci3"
@@ -11919,7 +11919,7 @@
     {
      "t": "text",
      "key": "SymposiumEvent3.7",
-     "kind": "narrative",
+     "kind": "instruction",
      "args": [
       {
        "var": "symp"
@@ -11942,7 +11942,7 @@
     {
      "t": "text",
      "key": "SymposiumEvent3.9",
-     "kind": "narrative",
+     "kind": "instruction",
      "args": [
       {
        "cases": [
@@ -17099,7 +17099,7 @@
         {
          "t": "text",
          "key": "BuildingsEnd.3",
-         "kind": "narrative",
+         "kind": "instruction",
          "args": [
           {
            "var": "ba"
@@ -17274,7 +17274,7 @@
         {
          "t": "text",
          "key": "BuildingsEnd.9",
-         "kind": "narrative",
+         "kind": "instruction",
          "args": [
           {
            "var": "ba"
@@ -17324,7 +17324,7 @@
         {
          "t": "text",
          "key": "BuildingsEnd.10",
-         "kind": "narrative",
+         "kind": "instruction",
          "args": [
           {
            "var": "bb"
@@ -17499,7 +17499,7 @@
         {
          "t": "text",
          "key": "BuildingsEnd.16",
-         "kind": "narrative",
+         "kind": "instruction",
          "args": [
           {
            "var": "bb"
@@ -17549,7 +17549,7 @@
         {
          "t": "text",
          "key": "BuildingsEnd.17",
-         "kind": "narrative",
+         "kind": "instruction",
          "args": [
           {
            "var": "bc"
@@ -17724,7 +17724,7 @@
         {
          "t": "text",
          "key": "BuildingsEnd.23",
-         "kind": "narrative",
+         "kind": "instruction",
          "args": [
           {
            "var": "bc"
@@ -26482,7 +26482,7 @@
           {
            "t": "text",
            "key": "Prosperity1.11",
-           "kind": "narrative"
+           "kind": "instruction"
           }
          ]
         },
@@ -26858,7 +26858,7 @@
           {
            "t": "text",
            "key": "Prosperity1.29",
-           "kind": "narrative"
+           "kind": "instruction"
           }
          ]
         },
@@ -26943,7 +26943,7 @@
           {
            "t": "text",
            "key": "Prosperity2.3",
-           "kind": "narrative"
+           "kind": "instruction"
           }
          ]
         },
@@ -27159,7 +27159,7 @@
           {
            "t": "text",
            "key": "Prosperity2.17",
-           "kind": "narrative"
+           "kind": "instruction"
           }
          ]
         },
@@ -27269,7 +27269,7 @@
           {
            "t": "text",
            "key": "Prosperity3.3",
-           "kind": "narrative"
+           "kind": "instruction"
           }
          ]
         },
@@ -27830,7 +27830,7 @@
     {
      "t": "text",
      "key": "Trigger3Experiments.2",
-     "kind": "narrative",
+     "kind": "instruction",
      "args": [
       {
        "var": "sci3"
@@ -44379,7 +44379,7 @@
           {
            "t": "text",
            "key": "GloomyGothic1.17",
-           "kind": "narrative"
+           "kind": "instruction"
           }
          ]
         },
@@ -44726,7 +44726,7 @@
           {
            "t": "text",
            "key": "GloomyGothic2.14",
-           "kind": "narrative"
+           "kind": "instruction"
           }
          ]
         },
@@ -45430,7 +45430,7 @@
               {
                "t": "text",
                "key": "GloomyGothic3.25",
-               "kind": "narrative"
+               "kind": "instruction"
               }
              ]
             },
@@ -47416,7 +47416,7 @@
     {
      "t": "text",
      "key": "EvilHunter1Event.6",
-     "kind": "narrative"
+     "kind": "instruction"
     },
     {
      "t": "br"
@@ -47424,7 +47424,7 @@
     {
      "t": "text",
      "key": "EvilHunter1Event.7",
-     "kind": "narrative"
+     "kind": "instruction"
     },
     {
      "t": "br"
@@ -48580,7 +48580,7 @@
     {
      "t": "text",
      "key": "HunterConf2.7",
-     "kind": "narrative"
+     "kind": "instruction"
     },
     {
      "t": "br"
@@ -49547,7 +49547,7 @@
     {
      "t": "text",
      "key": "UniEvent2-UltimateDisease.13",
-     "kind": "narrative"
+     "kind": "instruction"
     },
     {
      "t": "br"
@@ -62129,7 +62129,7 @@
     {
      "t": "text",
      "key": "S5SpecialVote.3",
-     "kind": "narrative"
+     "kind": "instruction"
     },
     {
      "t": "br"
@@ -62140,7 +62140,7 @@
     {
      "t": "text",
      "key": "S5SpecialVote.4",
-     "kind": "narrative"
+     "kind": "instruction"
     },
     {
      "t": "br"
@@ -68097,7 +68097,7 @@
     {
      "t": "text",
      "key": "WolvesVote.8",
-     "kind": "narrative"
+     "kind": "instruction"
     },
     {
      "t": "br"
@@ -68105,7 +68105,7 @@
     {
      "t": "text",
      "key": "WolvesVote.9",
-     "kind": "narrative"
+     "kind": "instruction"
     },
     {
      "t": "br"
@@ -69194,7 +69194,7 @@
           {
            "t": "text",
            "key": "Prosperity3b.8",
-           "kind": "narrative"
+           "kind": "instruction"
           },
           {
            "t": "br"
@@ -69378,7 +69378,7 @@
           {
            "t": "text",
            "key": "Prosperity3b.15",
-           "kind": "narrative"
+           "kind": "instruction"
           },
           {
            "t": "br"
@@ -70539,7 +70539,7 @@
     {
      "t": "text",
      "key": "HuntNight1.4",
-     "kind": "narrative"
+     "kind": "instruction"
     },
     {
      "t": "br"
@@ -70547,7 +70547,7 @@
     {
      "t": "text",
      "key": "HuntNight1.5",
-     "kind": "narrative"
+     "kind": "instruction"
     },
     {
      "t": "br"
@@ -70698,7 +70698,7 @@
     {
      "t": "text",
      "key": "HuntNight2.4",
-     "kind": "narrative"
+     "kind": "instruction"
     },
     {
      "t": "br"
@@ -70706,7 +70706,7 @@
     {
      "t": "text",
      "key": "HuntNight2.5",
-     "kind": "narrative"
+     "kind": "instruction"
     },
     {
      "t": "br"
@@ -71411,7 +71411,7 @@
     {
      "t": "text",
      "key": "2p-FrenzyALT.6",
-     "kind": "narrative"
+     "kind": "instruction"
     },
     {
      "t": "br"
@@ -71422,7 +71422,7 @@
     {
      "t": "text",
      "key": "2p-FrenzyALT.7",
-     "kind": "narrative"
+     "kind": "instruction"
     },
     {
      "t": "br"
@@ -71546,7 +71546,7 @@
     {
      "t": "text",
      "key": "GoodFrenzyEvent2.6",
-     "kind": "narrative"
+     "kind": "instruction"
     },
     {
      "t": "br"
@@ -71554,7 +71554,7 @@
     {
      "t": "text",
      "key": "GoodFrenzyEvent2.7",
-     "kind": "narrative"
+     "kind": "instruction"
     },
     {
      "t": "br"
@@ -71645,7 +71645,7 @@
     {
      "t": "text",
      "key": "2p-S5SpecialVoteALT.4",
-     "kind": "narrative"
+     "kind": "instruction"
     },
     {
      "t": "br"
@@ -71656,7 +71656,7 @@
     {
      "t": "text",
      "key": "2p-S5SpecialVoteALT.5",
-     "kind": "narrative"
+     "kind": "instruction"
     },
     {
      "t": "br"
@@ -72528,7 +72528,7 @@
     {
      "t": "text",
      "key": "HunterConf3.3",
-     "kind": "narrative",
+     "kind": "instruction",
      "args": [
       {
        "var": "huntnum"
