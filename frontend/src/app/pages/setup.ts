@@ -115,7 +115,7 @@ const LETTERS = 'ABCDE';
 
         @case ('village') {
           <form [formRoot]="villageForm" class="form">
-            <h1 class="heading">The Village</h1>
+            <h1 class="heading">{{ t('UI/VillageEntery/ViewArea/Title', 'The Village') }}</h1>
             <p>{{ t('UI/VillageEntery/ViewArea/DescriptionText') }}</p>
             <label class="field">
               {{
@@ -152,7 +152,7 @@ const LETTERS = 'ABCDE';
         }
 
         @case ('scenario') {
-          <h1 class="heading">Scenario</h1>
+          <h1 class="heading">{{ t('UI/Scenarios/Viewarea/BG/Title', 'Scenario') }}</h1>
           <p>
             {{ t('@ViewScenarios.chooseText', 'Choose a Scenario for') }} {{ players() }}
             {{ t('@ViewScenarios.playerText', 'players:') }}
