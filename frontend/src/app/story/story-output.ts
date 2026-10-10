@@ -1,3 +1,4 @@
+import { NgTemplateOutlet } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject, input } from '@angular/core';
 import { SETUP_CONTINUE_KEY, type Out } from '@chronicle/engine';
 import { Game, PLAIN_CONTINUE } from '../core/game';
@@ -5,22 +6,67 @@ import { Library } from '../core/library';
 import { RichText } from './rich-text';
 import { ScreenCard } from './screen-card';
 
+type Block = Extract<Out, { t: 'block' }>;
+type Link = Extract<Out, { t: 'link' }>;
+interface Panel {
+  t: 'panel';
+  title: Block;
+  details: Block;
+  /** The single, still open link: the whole panel is it. */
+  action: Link | undefined;
+  /** Every link already followed. */
+  done: boolean;
+}
+
+function links(out: Out[]): Link[] {
+  return out.flatMap((o) =>
+    o.t === 'link' ? [o] : o.t === 'group' || o.t === 'block' ? links(o.children) : [],
+  );
+}
+
 /** Renders the engine's output tree. Recursive for blocks and revealed fragments. */
 @Component({
   selector: 'cr-story-output',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [RichText, ScreenCard],
+  imports: [NgTemplateOutlet, RichText, ScreenCard],
   template: `
-    @for (o of tidy(items()); track $index) {
+    @for (o of panels(tidy(items())); track $index) {
       @switch (o.t) {
+        @case ('panel') {
+          <!-- An action of a hub page: with one way in, the whole panel is that link. -->
+          @if (o.action; as link) {
+            <button type="button" class="panel action" (click)="game.click(link.id)">
+              <ng-container
+                [ngTemplateOutlet]="panelBody"
+                [ngTemplateOutletContext]="{ $implicit: o }"
+              />
+              <span class="go" aria-hidden="true">›</span>
+            </button>
+          } @else {
+            <section class="panel" [class.done]="o.done">
+              <ng-container
+                [ngTemplateOutlet]="panelBody"
+                [ngTemplateOutletContext]="{ $implicit: o }"
+              />
+            </section>
+          }
+        }
         @case ('text') {
-          <cr-rich-text [text]="game.text(o.key, o.kind)" [args]="o.args" [class]="o.kind" />
+          <cr-rich-text
+            [text]="
+              trimmed(o.key) ? beforeLink(game.text(o.key, o.kind)) : game.text(o.key, o.kind)
+            "
+            [args]="o.args"
+            [class]="o.kind"
+          />
         }
         @case ('br') {
           <br />
         }
         @case ('link') {
-          @if (o.id === primaryLink()) {
+          @if (o.id === hideLink()) {
+            <!-- The panel around it is the link. -->
+          } @else if (o.id === primaryLink()) {
             <button type="button" class="btn continue-inline" (click)="game.click(o.id)">
               @if (isPlain(o.key)) {
                 Continue
@@ -72,6 +118,17 @@ import { ScreenCard } from './screen-card';
         }
       }
     }
+    <ng-template #panelBody let-p>
+      <div class="panel-title">
+        <cr-story-output [items]="trim(p.title.children)" />
+      </div>
+      <div class="panel-details">
+        <cr-story-output [items]="trim(p.details.children)" [hideLink]="p.action?.id" />
+      </div>
+      @if (p.done) {
+        <span class="mark">✓ Done</span>
+      }
+    </ng-template>
   `,
   styleUrl: './story-output.css',
 })
@@ -81,10 +138,62 @@ export class StoryOutput {
   readonly items = input.required<Out[]>();
   /** The page's only way forward: shown as a button instead of a text link. */
   readonly primaryLink = input<number | undefined>(undefined);
+  /** A link drawn by the panel around it: left out, and the comma before it trimmed. */
+  readonly hideLink = input<number | undefined>(undefined);
   protected readonly setupContinue = SETUP_CONTINUE_KEY;
 
   protected isPlain(key: string): boolean {
     return PLAIN_CONTINUE.test(this.game.text(key).replace(/[*\\]/g, '').trim());
+  }
+
+  /** Text right before the hidden link ("…the Track, click here"). */
+  protected trimmed(key: string): boolean {
+    const id = this.hideLink();
+    if (id === undefined) return false;
+    const items = this.items();
+    const at = items.findIndex((o) => o.t === 'link' && o.id === id);
+    const before = items
+      .slice(0, at)
+      .filter((o) => o.t !== 'br')
+      .at(-1);
+    return at > 0 && before?.t === 'text' && before.key === key;
+  }
+
+  /** "…the Track, click here" → "…the Track." */
+  protected beforeLink(text: string): string {
+    const cut = text.replace(/[\s,;:–-]+$/, '');
+    return /[.!?…]\**$/.test(cut) ? cut : `${cut}.`;
+  }
+
+  /**
+   * Hub pages list their actions as a heading block followed by a details block: each pair
+   * becomes one panel.
+   */
+  protected panels(out: Out[]): (Out | Panel)[] {
+    const result: (Out | Panel)[] = [];
+    for (let k = 0; k < out.length; k++) {
+      const title = out[k]!;
+      let next = k + 1;
+      while (out[next]?.t === 'br') next++;
+      const details = out[next];
+      if (
+        title.t === 'block' &&
+        title.style === 'hubTitle' &&
+        details?.t === 'block' &&
+        details.style === 'hubDetails'
+      ) {
+        const all = links(details.children);
+        result.push({
+          t: 'panel',
+          title,
+          details,
+          action: all.length === 1 && !all[0]!.disabled ? all[0] : undefined,
+          done: all.length > 0 && all.every((l) => l.disabled),
+        });
+        k = next;
+      } else result.push(title);
+    }
+    return result;
   }
 
   /** Line breaks at the start or end of a block only add empty space. */

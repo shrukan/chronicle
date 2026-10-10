@@ -98,7 +98,7 @@ try {
       break;
     }
     // Story links; a page's single way forward is shown as a button.
-    const links = page.locator('button.story-link, button.continue-inline, button.setup-continue');
+    const links = page.locator('button.story-link, button.continue-inline, button.setup-continue, button.panel.action');
     const n = await links.count();
     if (!n) break;
     seen.links++;
