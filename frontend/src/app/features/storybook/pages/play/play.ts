@@ -43,10 +43,11 @@ function findStoryLink(out: Out[], id: number): Extract<Out, { t: 'link' }> | un
 }
 
 /**
- * Setup steps that the original showed as a pop-up on arrival go to the top of the page, as a
- * compact box; their Accept (the way on) moves to the end, after the story.
+ * What the original showed as a pop-up once the story was read (gain, lose, place …) comes
+ * after the story, as a box with its Accept (the way on) right below: read first, then act –
+ * also while the voice-over reads the story.
  */
-function setupFirst(out: Out[]): Out[] {
+function setupAfterStory(out: Out[]): Out[] {
   const setups: Out[] = [];
   const accepts: Out[] = [];
   // Also inside the sections that "continue" opened on the page.
@@ -63,7 +64,7 @@ function setupFirst(out: Out[]): Out[] {
       return [];
     });
   const rest = take(out);
-  return setups.length ? [...setups, ...rest, ...accepts] : out;
+  return setups.length ? [...rest, ...setups, ...accepts] : out;
 }
 
 /** The storybook: current passage, log book, pause menu, prompts and endings. */
@@ -121,7 +122,7 @@ export class Play {
     let i = 0;
     if (this.game.title() && out[0]?.t === 'text' && out[0].kind === 'title') i = 1;
     while (out[i]?.t === 'br') i++;
-    return setupFirst(out.slice(i));
+    return setupAfterStory(out.slice(i));
   });
 
   /**
