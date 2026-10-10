@@ -67,7 +67,8 @@
         <!-- A pop-up with a picture in the original; here a box on the page, with the
              picture beside the text: nothing to click away, and the page stays readable. -->
         <section class="block setupEvent">
-          <header>{{ setupLabel }}</header>
+          <!-- Effects of the story on the game (gain, lose, place …), not the round's setup. -->
+          <header>At the table</header>
           <div class="setup-event">
             @if (o.image && library.setupImage(o.image); as src) {
               <img class="setup-image" [src]="src" alt="" />
