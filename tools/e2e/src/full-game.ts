@@ -122,6 +122,8 @@ try {
     if (!n) break;
     seen.links++;
     await links.nth(random(n)).click({ timeout: 3000 }).catch(() => undefined);
+    // Taps right after a page change count as a double tap and are ignored (Game.tap).
+    await page.waitForTimeout(360);
   }
   console.log(`  ${seen.links} links, ${seen.dialogs} dialogs (${seen.bidding} bids, ${seen.handovers} hand-overs), ${seen.prompts} prompts`);
   check(page.url().includes('/score'), 'the story reaches final scoring');
