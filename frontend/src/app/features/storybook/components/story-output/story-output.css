@@ -276,8 +276,11 @@
 }
 
 /* The way on after a page's actions (e.g. to the next round), centred under them. */
-.panel ~ .story-link {
-  display: block;
+.round-link {
+  display: flex;
   width: fit-content;
+  max-width: 100%;
   margin: 1rem auto 0;
+  text-transform: none;
+  letter-spacing: 0.02em;
 }

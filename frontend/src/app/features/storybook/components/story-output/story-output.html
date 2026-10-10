@@ -1,4 +1,5 @@
-@for (o of panels(tidy(items())); track $index) {
+@let list = panels(tidy(items()));
+@for (o of list; track $index) {
   @switch (o.t) {
     @case ('panel') {
       <!-- An action of a hub page: with one way in, the whole panel is that link. -->
@@ -33,6 +34,11 @@
       @if (o.id === hideLink()) {
         <!-- The panel around it is the link; the label finishes the sentence. -->
         <cr-rich-text class="panel-link" [text]="game.text(o.key)" [args]="o.args" />
+      } @else if (afterPanels(list, $index) && !o.disabled) {
+        <!-- The way on after a location's actions (e.g. to the next round): a plate. -->
+        <button type="button" class="btn round-link" (click)="game.tap(o.id)">
+          <cr-rich-text [text]="game.text(o.key)" [args]="o.args" />
+        </button>
       } @else if (o.id === primaryLink()) {
         <button type="button" class="btn continue-inline" (click)="game.tap(o.id)">
           @if (isPlain(o.key)) {

@@ -77,6 +77,15 @@ export class StoryOutput {
     return result;
   }
 
+  /** Whether the item follows a location's action panels (line breaks aside). */
+  protected afterPanels(list: (Out | Panel)[], i: number): boolean {
+    for (let k = i - 1; k >= 0; k--) {
+      if (list[k]!.t === 'br') continue;
+      return list[k]!.t === 'panel';
+    }
+    return false;
+  }
+
   /** Line breaks at the start or end of a block only add empty space. */
   protected trim(out: Out[]): Out[] {
     let start = 0,
