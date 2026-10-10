@@ -19,6 +19,8 @@ import { Settings } from './settings';
 
 /** Labels that only move the reading on ("Click to continue…") – no decision, no secret. */
 /** How many choices can be undone. */
+/** How long after a page change a tap is taken for the second half of a double tap. */
+const TAP_GUARD_MS = 350;
 const UNDO_LIMIT = 10;
 
 export const PLAIN_CONTINUE = /^(click( here)? to continue|continue)[.…\s]*$/i;
@@ -119,6 +121,8 @@ export class Game {
   });
 
   private story?: Story;
+  /** When the current page was shown (see `tap`). */
+  private shownAt = 0;
   /** Last state without an open prompt – what a reload resumes from. */
   private lastSafe?: StorySnapshot;
   /** States before the last choices, newest last. */
@@ -191,6 +195,15 @@ export class Game {
    * Follows a link. `undoable: false` folds it into the previous choice, for a step the app
    * takes for the players (see Play.showPage): undo then skips the page it leaves.
    */
+  /**
+   * A player's tap on the page. Taps right after the page changed are ignored: a double tap
+   * would otherwise also take the first link of the next page, unseen.
+   */
+  tap(link: number): void {
+    if (performance.now() - this.shownAt < TAP_GUARD_MS) return;
+    this.click(link);
+  }
+
   click(link: number, values?: Record<string, Value>, undoable = true): void {
     if (undoable) this.remember();
     this.step(() => this.story!.click(link, values));
@@ -266,6 +279,7 @@ export class Game {
       this.error.set(undefined);
       // The engine reuses its output tree; hand the UI a copy so signals see a change.
       this.view.set({ ...view, output: structuredClone(view.output) });
+      this.shownAt = performance.now();
       this.visit.set(this.story!.history.length);
       this.countRounds(view.output);
       if (!view.prompt) this.lastSafe = this.story!.snapshot();

@@ -147,7 +147,7 @@ export class Play {
     )
       return;
     event.preventDefault();
-    this.game.click(way.id);
+    this.game.tap(way.id);
   }
 
   protected readonly confirmUndo = signal(false);

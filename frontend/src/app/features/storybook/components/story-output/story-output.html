@@ -3,7 +3,7 @@
     @case ('panel') {
       <!-- An action of a hub page: with one way in, the whole panel is that link. -->
       @if (o.action; as link) {
-        <button type="button" class="panel action" (click)="game.click(link.id)">
+        <button type="button" class="panel action" (click)="game.tap(link.id)">
           <ng-container
             [ngTemplateOutlet]="panelBody"
             [ngTemplateOutletContext]="{ $implicit: o }"
@@ -34,7 +34,7 @@
         <!-- The panel around it is the link; the label finishes the sentence. -->
         <cr-rich-text class="panel-link" [text]="game.text(o.key)" [args]="o.args" />
       } @else if (o.id === primaryLink()) {
-        <button type="button" class="btn continue-inline" (click)="game.click(o.id)">
+        <button type="button" class="btn continue-inline" (click)="game.tap(o.id)">
           @if (isPlain(o.key)) {
             Continue
           } @else {
@@ -44,11 +44,11 @@
       } @else if (o.disabled) {
         <cr-rich-text class="used-link" [text]="game.text(o.key)" [args]="o.args" />
       } @else if (o.key === setupContinue) {
-        <button type="button" class="btn confirm setup-continue" (click)="game.click(o.id)">
+        <button type="button" class="btn confirm setup-continue" (click)="game.tap(o.id)">
           {{ library.text('UI/ItemObtain/ViewArea/Acceptbtn/Text (TMP)', 'Accept') }}
         </button>
       } @else {
-        <button type="button" class="story-link" (click)="game.click(o.id)">
+        <button type="button" class="story-link" (click)="game.tap(o.id)">
           <cr-rich-text [text]="game.text(o.key)" [args]="o.args" />
         </button>
       }
