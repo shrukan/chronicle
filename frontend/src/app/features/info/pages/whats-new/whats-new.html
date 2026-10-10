@@ -10,7 +10,7 @@
         loses nothing.
       </p>
       @if (update.ready() || !update.controlled) {
-        <button type="button" class="btn" (click)="update.reload()">Update now</button>
+        <button type="button" class="btn confirm" (click)="update.reload()">Update now</button>
       } @else {
         <p class="status">Downloading the new version…</p>
       }
@@ -44,7 +44,7 @@
     <a routerLink="/about">About &amp; credits</a>
   </p>
 
-  <a class="btn" routerLink="/">Back</a>
+  <a class="btn cancel" routerLink="/">Back</a>
 </section>
 
 <ng-template #release let-r let-badge="badge">

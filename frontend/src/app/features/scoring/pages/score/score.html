@@ -1,7 +1,7 @@
 <section class="paper sheet">
   @if (!link()) {
     <p>Scoring opens at the end of the game.</p>
-    <a class="btn" routerLink="/play">Back to the story</a>
+    <a class="btn cancel" routerLink="/play">Back to the story</a>
   } @else {
     @switch (phase()) {
       @case ('entry') {

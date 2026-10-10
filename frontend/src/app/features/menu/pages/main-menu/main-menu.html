@@ -36,17 +36,17 @@
   <!-- The original's 2 × 2 grid of brown plates. -->
   <nav class="buttons">
     @if (hasSave.value()) {
-      <button crAutofocus type="button" class="btn quiet" (click)="resume()">
+      <button crAutofocus type="button" class="btn" (click)="resume()">
         {{ t('UI/MainMenu/Viewarea/GridButtons/Continue/Text (TMP)', 'Continue') }}
       </button>
     }
-    <button type="button" class="btn quiet" (click)="newGame()">
+    <button type="button" class="btn" (click)="newGame()">
       {{ t('UI/MainMenu/Viewarea/GridButtons/NewGame/Text (TMP)', 'New game') }}
     </button>
-    <button type="button" class="btn quiet" (click)="settingsOpen.set(true)">
+    <button type="button" class="btn" (click)="settingsOpen.set(true)">
       {{ t('UI/MainMenu/Viewarea/GridButtons/Setting/Text (TMP)', 'Settings') }}
     </button>
-    <a class="btn quiet" routerLink="/endings">{{
+    <a class="btn" routerLink="/endings">{{
       t('UI/MainMenu/Viewarea/GridButtons/Endings/Text (TMP)', 'Endings')
     }}</a>
   </nav>
@@ -67,7 +67,7 @@
     }}
   </p>
   <div class="row">
-    <button type="button" class="btn quiet" (click)="confirmOpen.set(false)">
+    <button type="button" class="btn cancel" (click)="confirmOpen.set(false)">
       {{
         t(
           'UI/MainMenu/Viewarea/RewriteData UI/RewriteData Panel/PanelBG/CancleButton/Text (TMP)',

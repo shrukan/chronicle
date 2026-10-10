@@ -8,7 +8,7 @@
         @for (v of library.voices(); track v.value) {
           <button
             type="button"
-            class="btn quiet choice"
+            class="btn choice"
             [class.selected]="settings.voice() === v.value"
             [attr.aria-pressed]="settings.voice() === v.value"
             (click)="settings.voice.set(v.value)"

@@ -119,9 +119,10 @@ body {
     padding: 1.5rem 1.25rem;
   }
 
-  /* The original's buttons: metal-framed plates (red for the main action, brown otherwise),
-     drawn as a 9-slice border image so they fit any width. Hover lights them up like the
-     original's highlight plate; pressing sinks them in. */
+  /* The original's buttons: metal-framed plates, coloured by what they do – brown moves on
+     (Continue, the main menu), green confirms a dialog (OK, Accept), red backs out (Cancel,
+     Back, Main menu from a game). Drawn as a 9-slice border image so they fit any width.
+     Hover lights them up like the original's highlight plate; pressing sinks them in. */
   .btn {
     position: relative;
     isolation: isolate;
@@ -133,7 +134,7 @@ body {
     border: 0.7em solid transparent;
     border-image: var(--button-image, none) 90 fill / 0.7em stretch;
     /* Without the image: a plain plate in the same colour. */
-    background: var(--color-accent) padding-box;
+    background: #5a4a3a padding-box;
     border-radius: 0.6em;
     color: #f6ead8;
     text-shadow: 0 1px 2px rgb(0 0 0 / 0.8);
@@ -146,20 +147,20 @@ body {
       transform 0.12s ease-out,
       filter 0.18s ease-out;
   }
-  .btn.quiet {
-    border-image-source: var(--button-quiet-image, none);
-    background-color: #5a4a3a;
+  .btn.cancel {
+    border-image-source: var(--button-cancel-image, none);
+    background-color: var(--color-accent);
   }
   /* Accept, Confirm, OK: the original's green plate. */
   .btn.confirm {
-    border-image-source: var(--button-confirm-image, var(--button-image, none));
+    border-image-source: var(--button-confirm-image, none);
     /* The green plate is 422 px wide, the others 1058: the same corners at 2/5 of the size. */
     border-image-slice: 36 fill;
     background-color: #3d5e3a;
   }
   /* A chosen option (e.g. the number of players): the original's lit plate. */
-  .btn.quiet.selected {
-    border-image-source: var(--button-selected-image, var(--button-quiet-image, none));
+  .btn.selected {
+    border-image-source: var(--button-selected-image, var(--button-image, none));
     background-color: #b08a55;
     color: #2b1b10;
     text-shadow: 0 1px 1px rgb(255 240 210 / 0.6);

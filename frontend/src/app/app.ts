@@ -21,9 +21,9 @@ import { Settings } from './core/services/settings';
 const THEME_IMAGES = {
   '--paper-image': 'popup-panels/weathered-paper',
   '--frame-image': 'general/mfw-borders/mfw-border-gold',
-  '--button-image': 'general/buttons/button-red',
+  '--button-image': 'general/buttons/blank-button-brown',
   '--button-selected-image': 'general/blank-button-brown-highlight',
-  '--button-quiet-image': 'general/buttons/blank-button-brown',
+  '--button-cancel-image': 'general/buttons/button-red',
   '--button-confirm-image': 'general/buttons/blank-button-green',
   '--bracket-left-image': 'general/brackets/bracket-left',
   '--bracket-right-image': 'general/brackets/bracket-right',

@@ -7,7 +7,7 @@
         @for (line of notice; track $index) {
           <p><cr-rich-text [text]="game.text(line.key)" [args]="line.args" /></p>
         }
-        <button crAutofocus type="button" class="btn" (click)="showPage()">
+        <button crAutofocus type="button" class="btn confirm" (click)="showPage()">
           Ready – show the page
         </button>
       </div>
@@ -96,8 +96,8 @@
         }
         <p class="played">Played in {{ playTime() }}</p>
         <div class="row">
-          <a class="btn quiet" routerLink="/endings">Endings</a>
-          <button type="button" class="btn" (click)="toTitle()">Main menu</button>
+          <a class="btn" routerLink="/endings">Endings</a>
+          <button type="button" class="btn cancel" (click)="toTitle()">Main menu</button>
         </div>
       </footer>
     }
@@ -125,10 +125,10 @@
       <h2 class="heading">Undo last choice?</h2>
       <p>This shows the previous page again. Make sure it isn't another player's secret.</p>
       <div class="row">
-        <button crAutofocus type="button" class="btn quiet" (click)="confirmUndo.set(false)">
+        <button crAutofocus type="button" class="btn cancel" (click)="confirmUndo.set(false)">
           Cancel
         </button>
-        <button type="button" class="btn" (click)="undo()">Undo</button>
+        <button type="button" class="btn confirm" (click)="undo()">Undo</button>
       </div>
     </div>
   </cr-modal>
@@ -149,7 +149,7 @@
     </h2>
     <p class="paused-time">Play time {{ playTime() }}</p>
     <cr-settings-panel [showHeading]="false" (done)="pauseOpen.set(false)">
-      <button actions type="button" class="btn quiet" (click)="toTitle()">Main menu</button>
+      <button actions type="button" class="btn cancel" (click)="toTitle()">Main menu</button>
     </cr-settings-panel>
     <p class="report">
       Something wrong on this page?
@@ -159,7 +159,7 @@
 } @else if (game.error(); as error) {
   <section class="paper empty">
     <p class="error" role="alert">The storybook could not be opened: {{ error }}</p>
-    <a class="btn" routerLink="/">Main menu</a>
+    <a class="btn cancel" routerLink="/">Main menu</a>
     <a [href]="bugReport(error)" target="_blank" rel="noopener">Report this error ↗</a>
   </section>
 } @else if (resuming()) {
@@ -167,6 +167,6 @@
 } @else {
   <section class="paper empty">
     <p>No game in progress.</p>
-    <a class="btn" routerLink="/">Back to the title</a>
+    <a class="btn cancel" routerLink="/">Back to the title</a>
   </section>
 }
