@@ -209,6 +209,23 @@ export class Game {
       });
     }
     this.remember();
+    // The round count only grows as end-of-round screens appear; a jump skips them, so the
+    // count is taken from the page: one round before the end of round it leads to.
+    const ends: number[] = [];
+    const visit = (node: unknown): void => {
+      if (Array.isArray(node)) return node.forEach(visit);
+      if (!node || typeof node !== 'object') return;
+      const n = node as { t?: string; ui?: string; args?: Record<string, { lit?: unknown }> };
+      const progress = n.args?.['progress']?.lit;
+      const round =
+        n.t === 'ui' && n.ui === 'endOfRound'
+          ? this.content()?.extras.endOfRound[String(progress)]?.round
+          : undefined;
+      if (round) ends.push(round);
+      Object.values(node).forEach(visit);
+    };
+    visit(this.content()?.scenario.passages[passage]);
+    if (ends.length) this.roundsDone.set(Math.min(...ends) - 1);
     this.step(() => this.story!.start(passage));
   }
 
