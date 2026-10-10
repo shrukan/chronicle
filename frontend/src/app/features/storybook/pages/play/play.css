@@ -1,5 +1,8 @@
 :host {
   display: block;
+  /* Lines of about 75 characters on wide screens: easier to read aloud. */
+  max-width: 42rem;
+  margin-inline: auto;
 }
 /* Between the header and the page, where it covers nothing. */
 .rounds {
