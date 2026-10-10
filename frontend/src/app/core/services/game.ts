@@ -1,6 +1,7 @@
 import { computed, inject, Injectable, signal } from '@angular/core';
 import {
   resolveText,
+  SETUP_CONTINUE_KEY,
   Story,
   StoryError,
   type Node,
@@ -17,12 +18,12 @@ import { loadContent, type ScenarioContent, type ScenarioId } from './content';
 import { SaveStore, type GameSetup, type UndoStep } from './save-store';
 import { Settings } from './settings';
 
-/** Labels that only move the reading on ("Click to continue…") – no decision, no secret. */
 /** How many choices can be undone. */
+const UNDO_LIMIT = 10;
 /** How long after a page change a tap is taken for the second half of a double tap. */
 const TAP_GUARD_MS = 350;
-const UNDO_LIMIT = 10;
 
+/** Labels that only move the reading on ("Click to continue…") – no decision, no secret. */
 export const PLAIN_CONTINUE = /^(click( here)? to continue|continue)[.…\s]*$/i;
 
 /** Nodes that must not run without the players: leaving the page, asking a question. */
@@ -44,6 +45,28 @@ function interrupts(
     if (n.t === 'if') return n.branches.some((b) => interrupts(b.body, passages, seen));
     return false;
   });
+}
+
+/** A page that shows nothing but a box of things to do at the table (and sets values). */
+function boxOnly(passage: Passage | undefined): boolean {
+  const body = passage?.body ?? [];
+  return (
+    body.some((n) => n.t === 'block' && n.style === 'setupEvent') &&
+    body.every(
+      (n) => n.t === 'set' || n.t === 'br' || (n.t === 'block' && n.style === 'setupEvent'),
+    )
+  );
+}
+
+/** The output without one link (the Accept of a box taken together with the next one). */
+function withoutLink(out: Out[], id: number): Out[] {
+  return out.flatMap((o): Out[] =>
+    o.t === 'link' && o.id === id
+      ? []
+      : o.t === 'block' || o.t === 'group'
+        ? [{ ...o, children: withoutLink(o.children, id) }]
+        : [o],
+  );
 }
 
 function findLink(out: Out[], id: number): Extract<Out, { t: 'link' }> | undefined {
@@ -121,6 +144,11 @@ export class Game {
   });
 
   private story?: Story;
+  /**
+   * Boxes of the steps taken together with the current page: a box's Accept that only leads to
+   * another box is taken at once, and both show on one page (see `takeBoxesTogether`).
+   */
+  private carried: Out[] = [];
   /** When the current page was shown (see `tap`). */
   private shownAt = 0;
   /** Last state without an open prompt – what a reload resumes from. */
@@ -169,7 +197,7 @@ export class Game {
     this.playTime.set(saved.playTime ?? 0);
     this.undoSteps.set(saved.undo ?? []);
     this.audio.playMusic(this.scenarioId());
-    this.step(() => this.story!.restore(saved.snapshot), false);
+    this.step(() => this.story!.restore(saved.snapshot), false, saved.carried ?? []);
     // The page's voice-over starts again, as when it was first reached.
     const passage = this.view()?.passage;
     if (passage) this.audio.playVoice(passage, this.voiceMode(passage));
@@ -254,7 +282,7 @@ export class Game {
     this.log.set(last.log);
     this.roundsDone.set(last.roundsDone ?? 0);
     this.audio.stopVoice();
-    this.step(() => this.story!.restore(last.snapshot), false);
+    this.step(() => this.story!.restore(last.snapshot), false, last.carried ?? []);
   }
 
   /** Remembers the current page before a choice (not while a prompt waits: see undo). */
@@ -263,7 +291,12 @@ export class Game {
     this.undoSteps.update((steps) =>
       [
         ...steps,
-        { snapshot: this.lastSafe!, log: this.log(), roundsDone: this.roundsDone() },
+        {
+          snapshot: this.lastSafe!,
+          log: this.log(),
+          roundsDone: this.roundsDone(),
+          carried: this.carried,
+        },
       ].slice(-UNDO_LIMIT),
     );
   }
@@ -272,10 +305,12 @@ export class Game {
     this.step(() => this.story!.answer(value));
   }
 
-  private step(action: () => StoryView, entering = true): void {
+  private step(action: () => StoryView, entering = true, carried: Out[] = []): void {
     const before = this.story?.history.length ?? 0;
     try {
-      const view = this.revealPlainContinues(action());
+      const taken = this.takeBoxesTogether(this.revealPlainContinues(action()), carried);
+      this.carried = taken.carried;
+      const view = { ...taken.view, output: [...taken.carried, ...taken.view.output] };
       this.error.set(undefined);
       // The engine reuses its output tree; hand the UI a copy so signals see a change.
       this.view.set({ ...view, output: structuredClone(view.output) });
@@ -290,6 +325,25 @@ export class Game {
         throw e;
       this.error.set(e.message);
     }
+  }
+
+  /**
+   * Boxes in a row (the opening's setup steps, rewards after a story) on one page: when the
+   * page's only way on is a box's Accept and it leads to a page that is just another box, that
+   * step is taken now and its box shown below. One Accept then confirms them all; values
+   * rolled on the way are rolled once, so what is shown is what counts.
+   */
+  private takeBoxesTogether(view: StoryView, carried: Out[]): { view: StoryView; carried: Out[] } {
+    const passages = this.content()?.scenario.passages ?? {};
+    for (let i = 0; i < 10 && !view.prompt && view.links.length === 1; i++) {
+      const id = view.links[0]!;
+      if (findLink(view.output, id)?.key !== SETUP_CONTINUE_KEY) break;
+      const to = this.story!.linkTarget(id)?.to;
+      if (!to || !boxOnly(passages[to])) break;
+      carried = [...carried, ...structuredClone(withoutLink(view.output, id))];
+      view = this.revealPlainContinues(this.story!.click(id));
+    }
+    return { view, carried };
   }
 
   /**
@@ -324,7 +378,10 @@ export class Game {
       this.log.update((log) => [...log, ...logged.filter((p) => log.at(-1) !== p)]);
 
     const current = passages.at(-1)!;
-    this.audio.playVoice(current, this.voiceMode(current));
+    // Boxes taken together with a story page are read on it: its voice-over plays.
+    const all = this.content()?.scenario.passages ?? {};
+    const page = [...passages].reverse().find((p) => !boxOnly(all[p])) ?? current;
+    this.audio.playVoice(page, this.voiceMode(page));
     this.newEnding.set(undefined);
     if (this.content()?.scenario.passages[current]?.tags.includes('ending')) {
       this.audio.playEndingMusic();
@@ -383,6 +440,7 @@ export class Game {
       snapshot: this.lastSafe,
       log: this.log(),
       roundsDone: this.roundsDone(),
+      carried: this.carried,
       playTime: this.playTime(),
       undo: this.undoSteps(),
       savedAt: Date.now(),

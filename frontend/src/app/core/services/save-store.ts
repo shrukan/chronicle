@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import type { StorySnapshot } from '@chronicle/engine';
+import type { Out, StorySnapshot } from '@chronicle/engine';
 import type { ScenarioId } from './content';
 
 export interface GameSetup {
@@ -20,6 +20,8 @@ export interface SavedGame {
   undo?: UndoStep[];
   /** Rounds completed (of 9), for the progress bar; missing in saves before it. */
   roundsDone?: number;
+  /** Boxes from steps taken together with the current page (see Game). */
+  carried?: Out[];
   savedAt: number;
 }
 
@@ -28,6 +30,7 @@ export interface UndoStep {
   snapshot: StorySnapshot;
   log: string[];
   roundsDone?: number;
+  carried?: Out[];
 }
 
 /** Endings reached on this device: passage → first time reached. */
