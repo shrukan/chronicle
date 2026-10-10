@@ -6,18 +6,21 @@
   margin: -0.25rem 0 0.75rem;
 }
 .bar {
+  /* Two buttons a side, both sides as wide: the title stays centred whatever is shown. */
+  --side: calc(2 * 2.75rem + 0.5rem);
   display: grid;
-  /* Symmetric while there is room; on phones the sides shrink to their buttons so long
-     titles get more width. */
-  grid-template-columns: 1fr minmax(0, auto) 1fr;
+  grid-template-columns: var(--side) minmax(0, 1fr) var(--side);
   align-items: center;
   gap: 0.5rem;
   margin-bottom: 0.75rem;
 }
+.start,
 .end {
   display: flex;
-  justify-content: flex-end;
   gap: 0.5rem;
+}
+.end {
+  justify-content: flex-end;
 }
 .speaker {
   width: 1.35rem;
@@ -56,11 +59,17 @@
 .title {
   margin: 0;
   text-align: center;
-  /* Long titles stay on one line on phones where possible. */
   font-family: var(--font-title);
   font-weight: 800;
-  font-size: clamp(1.1rem, 5vw, 1.6rem);
-  letter-spacing: 0.03em;
+  font-size: clamp(0.95rem, 4.2vw, 1.6rem);
+  line-height: 1.2;
+  /* At most three lines (screen readers still get the whole title). */
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
+  overflow: hidden;
+  letter-spacing: 0.01em;
   text-transform: uppercase;
   color: #d9dde0;
   background: linear-gradient(#f4f6f7 20%, #a9b0b5 55%, #e3e6e8 75%, #8a9196);
@@ -81,18 +90,19 @@
   font-size: 1.4rem;
   cursor: pointer;
 }
-/* Narrow phones: each side only as wide as its buttons, so the title keeps its room. */
+/* Narrow phones: smaller buttons, so the title keeps its room. */
 @media (max-width: 26rem) {
   .bar {
-    grid-template-columns: auto minmax(0, 1fr) auto;
-    gap: 0.35rem;
+    --side: calc(2 * 2.4rem + 0.3rem);
+    gap: 0.3rem;
   }
+  .start,
   .end {
-    gap: 0.35rem;
+    gap: 0.3rem;
   }
   .icon-btn {
-    width: 2.5rem;
-    height: 2.5rem;
+    width: 2.4rem;
+    height: 2.4rem;
   }
 }
 .icon-btn img {

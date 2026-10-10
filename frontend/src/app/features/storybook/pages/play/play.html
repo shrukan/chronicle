@@ -14,22 +14,15 @@
     </cr-modal>
   }
   <header class="bar">
-    <button type="button" class="icon-btn" (click)="logOpen.set(true)" aria-label="Log book">
-      @if (library.ui('general/book-icon-1'); as src) {
-        <img [src]="src" alt="" />
-      } @else {
-        📖
-      }
-    </button>
-    <div class="center">
-      <h1 #title class="heading title" [class.hub]="game.isHub()" tabindex="-1">
-        @if (game.title()) {
-          <cr-rich-text [text]="game.title()" />
+    <!-- Two buttons on each side keep the title centred. -->
+    <div class="start">
+      <button type="button" class="icon-btn" (click)="logOpen.set(true)" aria-label="Log book">
+        @if (library.ui('general/book-icon-1'); as src) {
+          <img [src]="src" alt="" />
+        } @else {
+          📖
         }
-      </h1>
-      <p class="clock" [attr.aria-label]="'Play time ' + playTime()">⏱ {{ playTime() }}</p>
-    </div>
-    <div class="end">
+      </button>
       <button
         type="button"
         class="icon-btn"
@@ -40,6 +33,16 @@
       >
         <span class="speaker" [class.off]="settings.muted()" aria-hidden="true"></span>
       </button>
+    </div>
+    <div class="center">
+      <h1 #title class="heading title" [class.hub]="game.isHub()" tabindex="-1">
+        @if (game.title()) {
+          <cr-rich-text [text]="game.title()" />
+        }
+      </h1>
+      <p class="clock" [attr.aria-label]="'Play time ' + playTime()">⏱ {{ playTime() }}</p>
+    </div>
+    <div class="end">
       @if (game.canUndo()) {
         <button
           type="button"
