@@ -129,6 +129,7 @@
             <li>
               <span class="place">{{ ordinals[result().places[i]! - 1] }}</span>
               <span class="name">{{ p.name }}</span>
+              <span class="score">{{ entered(p.index) }}</span>
               @if (isWinner(i) && library.ui('ranking/mfw-crown-icon'); as crown) {
                 <img class="crown" [src]="crown" alt="winner" />
               }
@@ -142,6 +143,9 @@
           {{ continueLabel() }}
         </button>
       }
+    }
+    @if (phase() !== 'entry') {
+      <button type="button" class="back" (click)="back()">‹ Back</button>
     }
   }
 </section>

@@ -52,6 +52,8 @@ export class Score {
   protected readonly family = FAMILY;
   protected readonly ordinals = ['1st', '2nd', '3rd', '4th', '5th'];
   protected readonly phase = signal<Phase>('entry');
+  /** Steps taken, for Back: scores can still be corrected after the tie-breakers. */
+  private readonly steps = signal<Phase[]>([]);
   protected readonly scores = signal<Record<number, number>>({});
   protected readonly completed = signal(new Set<number>());
   protected readonly upgrades = signal<Record<number, number>>({});
@@ -136,19 +138,35 @@ export class Score {
     });
   }
 
+  private go(next: Phase): void {
+    this.steps.update((s) => [...s, this.phase()]);
+    this.phase.set(next);
+  }
+
+  protected back(): void {
+    const s = this.steps();
+    const previous = s.at(-1);
+    if (!previous) return;
+    this.steps.set(s.slice(0, -1));
+    // Tie-breakers are decided again from the scores as they are then.
+    if (previous === 'entry' || previous === 'masterwork') this.bonus.set({});
+    this.phase.set(previous);
+  }
+
   protected afterEntry(): void {
-    this.phase.set(this.tied().length > 1 ? 'masterwork' : 'ranking');
+    this.bonus.set({});
+    this.go(this.tied().length > 1 ? 'masterwork' : 'ranking');
   }
 
   protected afterMasterwork(): void {
     const done = this.contenders();
     if (done.length === 1) {
       this.bonus.set({ [done[0]!.index]: 1 });
-      this.phase.set('ranking');
+      this.go('ranking');
     } else if (done.length > 1) {
-      this.phase.set('upgrades');
+      this.go('upgrades');
     } else {
-      this.phase.set('ranking'); // nobody completed it: the leaders stay tied → the family wins
+      this.go('ranking'); // nobody completed it: the leaders stay tied → the family wins
     }
   }
 
@@ -156,7 +174,12 @@ export class Score {
     this.bonus.set(
       Object.fromEntries(this.contenders().map((p) => [p.index, this.upgrades()[p.index] ?? 0])),
     );
-    this.phase.set('ranking');
+    this.go('ranking');
+  }
+
+  /** The score a player entered (the ranking's order also counts the tie-breakers). */
+  protected entered(i: number): number {
+    return this.scores()[i] ?? 0;
   }
 
   protected isWinner(i: number): boolean {
