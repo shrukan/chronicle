@@ -150,8 +150,8 @@ ending → endings & achievements gallery. Help and settings from the main menu.
 - **M4.5 End-to-end test:** a scripted full playthrough in a real browser, in CI.
 - **Status (7 Oct 2026):** M4.1–M4.5 done. All screens, dialogs, scoring, endings gallery, help,
   settings, music, effects and voice-over work; `task frontend:e2e` plays a whole game in Chrome.
-  The three scenario music tracks are not part of Renegade's community files: the title music
-  plays during the story, the original's ending music at the endings.
+  The three scenario music tracks and some UI art were missing from Renegade's download (only
+  Git LFS pointers); they were later fetched from the fan repository's LFS storage.
   Open: hub passages are shown inline rather than
   on a separate page; shortened texts (reading mode) remain for later.
 - **Exit:** a real board-game session played start to finish with the app, no workarounds.
