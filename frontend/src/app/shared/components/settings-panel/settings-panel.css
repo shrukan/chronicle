@@ -29,5 +29,12 @@ h2 {
   flex-wrap: wrap;
   justify-content: center;
   gap: 0.75rem;
-  margin-top: 1.25rem;
+  /* Always in reach: stuck to the bottom of the dialog (out to its edges), the settings
+     scroll under it. */
+  position: sticky;
+  bottom: -1.5rem;
+  z-index: 1;
+  margin: 1.25rem -1.25rem -1.5rem;
+  padding: 1rem 1.25rem 1.5rem;
+  background: linear-gradient(transparent, var(--color-bg) 1rem);
 }
