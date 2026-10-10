@@ -66,6 +66,12 @@ h1 {
   padding-inline: 0.4rem;
   white-space: nowrap;
 }
+/* A column of choices (the voices): all as wide as the widest. */
+.choices:has(> .choice) {
+  display: grid;
+  grid-template-columns: max-content;
+  justify-content: center;
+}
 .letter {
   max-width: 28rem;
   font-size: 1.15rem;

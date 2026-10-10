@@ -25,6 +25,10 @@
   object-fit: contain;
   filter: drop-shadow(0 0.5rem 1rem rgb(0 0 0 / 0.6));
 }
+/* The update note takes room: a smaller logo keeps the footer in view on small phones. */
+.menu:has(.updated) .logo {
+  height: min(30dvh, min(24rem, 70vw) * 1983 / 2048);
+}
 /* Phones held sideways: tighter, so the footer stays clear. */
 @media (max-height: 30rem) {
   .menu {
