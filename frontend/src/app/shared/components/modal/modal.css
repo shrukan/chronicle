@@ -18,7 +18,12 @@ dialog.fullscreen {
   margin: 0;
   border: 0;
   padding: 0;
-  background: var(--color-backdrop) var(--backdrop-image, none) center / cover;
+  /* Longhands: the image may be several layers, and a colour in front of a layer list makes
+     the shorthand invalid – the page it hides would show through. */
+  background-color: var(--color-backdrop);
+  background-image: var(--backdrop-image, none);
+  background-position: center;
+  background-size: cover;
 }
 .sound {
   position: absolute;
@@ -55,6 +60,11 @@ dialog.fullscreen .sound {
 dialog::backdrop {
   background: rgb(10 8 6 / 0.7);
   backdrop-filter: blur(2px);
+}
+/* A second layer under it, in case its background ever fails again. Older browsers don't pass
+   custom properties to ::backdrop, so the colour has a fallback. */
+dialog.fullscreen::backdrop {
+  background: var(--color-backdrop, #1b1f1d);
 }
 dialog[open] {
   animation: appear 0.25s ease-out;
