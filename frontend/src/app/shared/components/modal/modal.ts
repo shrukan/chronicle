@@ -10,7 +10,7 @@ import {
   viewChild,
 } from '@angular/core';
 import { Settings } from '../../../core/services/settings';
-import { ModalStack } from './modal-stack';
+import { ModalStack, type StackedModal } from './modal-stack';
 
 /**
  * A modal dialog on the native `<dialog>` element (focus trap, Esc and top layer for free).
@@ -23,7 +23,7 @@ import { ModalStack } from './modal-stack';
   templateUrl: './modal.html',
   styleUrl: './modal.css',
 })
-export class Modal {
+export class Modal implements StackedModal {
   readonly open = input(true);
   readonly label = input('');
   readonly dismissable = input(false);
@@ -47,6 +47,13 @@ export class Modal {
       if (show && !d.open) d.showModal();
       if (!show && d.open) d.close();
     });
+  }
+
+  /** The browser's Back while this dialog is in front: closes it like Esc would. */
+  back(): boolean {
+    if (!this.dismissable()) return false;
+    this.closed.emit();
+    return true;
   }
 
   protected onCancel(e: Event): void {
