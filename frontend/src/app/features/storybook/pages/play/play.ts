@@ -156,21 +156,25 @@ export class Play {
   private readonly passage = computed(() => this.game.view()?.passage);
 
   /**
+   * The page being shown; revealing more of it keeps the same key. A computed, so it only
+   * notifies when the key changes – with a plain function, every update of the page would
+   * reset what depends on it.
+   */
+  private readonly page = computed(() => `${this.game.view()?.passage}#${this.game.visit()}`);
+
+  /**
    * Set once the page's handover notice has been confirmed; every new passage starts unset.
    * Revealing more of the same page keeps it: the notice is still at its top, but the right
    * player already holds the storybook.
    */
-  protected readonly handedOver = linkedSignal({
-    source: () => `${this.game.view()?.passage}#${this.game.visit()}`,
-    computation: () => false,
-  });
+  protected readonly handedOver = linkedSignal({ source: this.page, computation: () => false });
 
   /**
    * Set once a player has taken the storybook for a secret; cleared when the story is back on
    * a location page. Meanwhile the secret's own pages ("pick up the storybook", "continue to
    * not let others see") need no new notice: the right player already holds it.
    */
-  private readonly holding = linkedSignal({ source: () => this.game.isHub(), computation: () => false });
+  private readonly holding = linkedSignal({ source: this.game.isHub, computation: () => false });
 
   /**
    * The app commands opening the page ("hand the storybook to …", and a tie rule right after
