@@ -37,7 +37,7 @@ Put the other way round, the scope tells the two apart: **no scope – for playe
 changelog; a scope – internal work, and which part of the project it touches.** That a
 player-facing fix in the app has no `(frontend)` while a refactoring there does is intended:
 release-please would print the scope in front of the changelog entry, and players don't need
-to know which part of the code changed. The rule is a convention, not checked by commitlint.
+to know which part of the code changed. commitlint checks it (`commitlint.config.mjs`).
 
 Pull requests are squashed, so for a pull request only its title ends up on `main` and in the
 changelog: give the title this form; the commits inside the pull request can be worded freely.

@@ -246,7 +246,7 @@ chronicle/
   docker/nginx.conf
   Containerfile  compose.yml  Taskfile.yml
   package.json         npm workspaces (frontend, engine, tools/*)
-  prek.toml  .commitlintrc.yml  .editorconfig  release-please-config.json
+  prek.toml  commitlint.config.mjs  .editorconfig  release-please-config.json
   upstream/            reference clone, git-ignored
 ```
 
