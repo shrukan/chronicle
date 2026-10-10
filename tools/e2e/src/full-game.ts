@@ -117,7 +117,7 @@ try {
     }
     // Story links; a page's single way forward is shown as a button.
     lastNotice = '';
-    const links = page.locator('button.story-link, button.continue-inline, button.setup-continue, button.panel.action');
+    const links = page.locator('button.story-link, button.continue-inline, button.setup-continue, button.panel.action, button.round-link');
     const n = await links.count();
     if (!n) break;
     seen.links++;
