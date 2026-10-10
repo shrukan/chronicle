@@ -68,6 +68,7 @@ try {
   console.log('story');
   const seen = { dialogs: 0, bidding: 0, prompts: 0, links: 0, handovers: 0 };
   const handoverProblems = new Set<string>();
+  let lastNotice = '';
   for (let step = 0; step < 2000; step++) {
     await page.waitForTimeout(15);
     const dialog = page.locator('dialog[open]').last();
@@ -85,6 +86,11 @@ try {
           return c.length < 4 ? 1 : Number(c[3]);
         }, undefined, { timeout: 2000 }).catch(() => 1);
         if (alpha < 1) handoverProblems.add('see-through');
+        // Confirming a notice shows its page; the same notice right after costs a second tap.
+        if (text === lastNotice) handoverProblems.add(`shown twice: ${text.slice(0, 60)}`);
+        lastNotice = text;
+      } else {
+        lastNotice = '';
         if (/hand (this|the) storybook( device)? to (?!the player)/i.test(text) && !/Ada|Bram|Cosima/.test(text)) handoverProblems.add(`no name: ${text.slice(0, 60)}`);
       }
       if (/Secret (Bid|Vote)/.test(text)) {
@@ -110,6 +116,7 @@ try {
       break;
     }
     // Story links; a page's single way forward is shown as a button.
+    lastNotice = '';
     const links = page.locator('button.story-link, button.continue-inline, button.setup-continue, button.panel.action');
     const n = await links.count();
     if (!n) break;
