@@ -86,7 +86,7 @@ import { LANGUAGES, Settings, type Theme } from '../core/settings';
 
     <div class="actions">
       <ng-content select="[actions]" />
-      <button crAutofocus type="button" class="btn" (click)="done.emit()">
+      <button crAutofocus type="button" class="btn confirm" (click)="done.emit()">
         {{
           t(
             'UI/MainMenu/Viewarea/Settings UI/Settings Panel/Panel/confirmbtn/Text (TMP)',

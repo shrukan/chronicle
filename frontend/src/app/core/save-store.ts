@@ -18,6 +18,8 @@ export interface SavedGame {
   playTime?: number;
   /** Earlier states for "undo last choice", oldest first. */
   undo?: UndoStep[];
+  /** Rounds completed (of 9), for the progress bar; missing in saves before it. */
+  roundsDone?: number;
   savedAt: number;
 }
 
@@ -25,6 +27,7 @@ export interface SavedGame {
 export interface UndoStep {
   snapshot: StorySnapshot;
   log: string[];
+  roundsDone?: number;
 }
 
 /** Endings reached on this device: passage → first time reached. */

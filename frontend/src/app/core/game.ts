@@ -102,6 +102,17 @@ export class Game {
   /** Hub passages (tag HUB) list a generation's activities; the original shows them on their own page. */
   readonly isHub = computed(() => this.passage()?.tags.includes('HUB') ?? false);
   readonly isEnding = computed(() => this.passage()?.tags.includes('ending') ?? false);
+
+  /**
+   * Rounds completed (of 9: three generations of three rounds), counted as end-of-round and
+   * end-of-generation screens appear. Saved with the game and with each undo step.
+   */
+  readonly roundsDone = signal(0);
+  /** Generation and round being played (from 1); none once the last generation ended. */
+  readonly progress = computed(() => {
+    const done = this.roundsDone();
+    return done >= 9 ? undefined : { generation: Math.floor(done / 3) + 1, round: (done % 3) + 1 };
+  });
   readonly title = computed(() => {
     const key = titleKey(this.view()?.output ?? []);
     return key ? this.text(key, 'title') : '';
@@ -135,6 +146,7 @@ export class Game {
     void navigator.storage?.persist?.().catch(() => false);
     this.setup.set(setup);
     this.log.set([]);
+    this.roundsDone.set(0);
     this.playTime.set(0);
     this.undoSteps.set([]);
     this.audio.playMusic(this.scenarioId());
@@ -149,6 +161,7 @@ export class Game {
     this.story = new Story(content.scenario);
     this.setup.set(saved.setup);
     this.log.set(saved.log);
+    this.roundsDone.set(saved.roundsDone ?? 0);
     this.playTime.set(saved.playTime ?? 0);
     this.undoSteps.set(saved.undo ?? []);
     this.audio.playMusic(this.scenarioId());
@@ -209,6 +222,7 @@ export class Game {
     if (!last || !this.story) return;
     this.undoSteps.set(steps.slice(0, -1));
     this.log.set(last.log);
+    this.roundsDone.set(last.roundsDone ?? 0);
     this.audio.stopVoice();
     this.step(() => this.story!.restore(last.snapshot), false);
   }
@@ -217,7 +231,10 @@ export class Game {
   private remember(): void {
     if (!this.lastSafe || this.view()?.prompt) return;
     this.undoSteps.update((steps) =>
-      [...steps, { snapshot: this.lastSafe!, log: this.log() }].slice(-UNDO_LIMIT),
+      [
+        ...steps,
+        { snapshot: this.lastSafe!, log: this.log(), roundsDone: this.roundsDone() },
+      ].slice(-UNDO_LIMIT),
     );
   }
 
@@ -233,6 +250,7 @@ export class Game {
       // The engine reuses its output tree; hand the UI a copy so signals see a change.
       this.view.set({ ...view, output: structuredClone(view.output) });
       this.visit.set(this.story!.history.length);
+      this.countRounds(view.output);
       if (!view.prompt) this.lastSafe = this.story!.snapshot();
       if (entering) this.entered(this.story!.history.slice(before));
       void this.persist();
@@ -285,6 +303,30 @@ export class Game {
     }
   }
 
+  /**
+   * Moves the round count on for an end-of-round or end-of-generation screen on the page. Each
+   * says how many rounds are done; 0 means "this generation's third round". A screen counts only
+   * when it is the next step, so showing the same page again changes nothing.
+   */
+  private countRounds(output: Out[]): void {
+    const extras = this.content()?.extras;
+    const done = this.roundsDone();
+    const marks: number[] = [];
+    const visit = (items: Out[]): void => {
+      for (const o of items) {
+        if (o.t === 'ui' && o.ui === 'endOfRound') {
+          const round = extras?.endOfRound[String(o.args['progress'] ?? '')]?.round;
+          if (round !== undefined) marks.push(round === 0 ? (Math.floor(done / 3) + 1) * 3 : round);
+        } else if (o.t === 'ui' && o.ui === 'endOfGeneration') {
+          marks.push(Number(o.args['generation']));
+        } else if (o.t === 'block' || o.t === 'group') visit(o.children);
+      }
+    };
+    visit(output);
+    const next = marks.filter((m) => m > done).sort((a, b) => a - b)[0];
+    if (next !== undefined) this.roundsDone.set(next);
+  }
+
   /** The reading mode whose text a passage shows: the setting, or `full` without own text. */
   private voiceMode(name: string): ReadingMode {
     const mode = this.settings.readingMode();
@@ -309,6 +351,7 @@ export class Game {
       setup,
       snapshot: this.lastSafe,
       log: this.log(),
+      roundsDone: this.roundsDone(),
       playTime: this.playTime(),
       undo: this.undoSteps(),
       savedAt: Date.now(),

@@ -6,6 +6,8 @@
  */
 @theme {
   --font-display: 'IM Fell English SC', 'IM Fell English', Georgia, serif;
+  /* Page titles: close to the original's (licensed, not shippable) metal lettering. */
+  --font-title: 'Cinzel', 'IM Fell English SC', Georgia, serif;
   --font-body: 'EB Garamond', Georgia, 'Times New Roman', serif;
 
   --color-backdrop: #1b1f1d;
@@ -62,7 +64,12 @@
 }
 
 html {
-  background: var(--color-backdrop) var(--backdrop-image, none) center / cover fixed;
+  /* Longhands: the image may be several layers (the storybook darkens its illustration). */
+  background-color: var(--color-backdrop);
+  background-image: var(--backdrop-image, none);
+  background-position: center;
+  background-size: cover;
+  background-attachment: fixed;
   color: var(--color-on-backdrop);
   font-family: var(--font-body);
   font-size: 17px;
@@ -125,6 +132,13 @@ body {
   .btn.quiet {
     border-image-source: var(--button-quiet-image, none);
     background-color: #5a4a3a;
+  }
+  /* Accept, Confirm, OK: the original's green plate. */
+  .btn.confirm {
+    border-image-source: var(--button-confirm-image, var(--button-image, none));
+    /* The green plate is 422 px wide, the others 1058: the same corners at 2/5 of the size. */
+    border-image-slice: 36 fill;
+    background-color: #3d5e3a;
   }
   /* A chosen option (e.g. the number of players): the original's lit plate. */
   .btn.quiet.selected {

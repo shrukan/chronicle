@@ -22,6 +22,7 @@ import { Autofocus } from '../ui/autofocus';
 import { Library } from '../core/library';
 import { Settings } from '../core/settings';
 import { LogBook } from '../story/log-book';
+import { RoundBar } from '../story/round-bar';
 import { RichText } from '../story/rich-text';
 import { StoryOutput } from '../story/story-output';
 import { SETUP_CONTINUE_KEY, type Out } from '@chronicle/engine';
@@ -41,6 +42,30 @@ function findStoryLink(out: Out[], id: number): Extract<Out, { t: 'link' }> | un
   return undefined;
 }
 
+/**
+ * Setup steps that the original showed as a pop-up on arrival go to the top of the page, as a
+ * compact box; their Accept (the way on) moves to the end, after the story.
+ */
+function setupFirst(out: Out[]): Out[] {
+  const setups: Out[] = [];
+  const accepts: Out[] = [];
+  // Also inside the sections that "continue" opened on the page.
+  const take = (items: Out[]): Out[] =>
+    items.flatMap((o): Out[] => {
+      if (o.t === 'group') return [{ ...o, children: take(o.children) }];
+      if (o.t !== 'block' || o.style !== 'setupEvent') return [o];
+      const children = o.children.filter((c) => {
+        const accept = c.t === 'link' && c.key === SETUP_CONTINUE_KEY;
+        if (accept) accepts.push(c);
+        return !accept;
+      });
+      setups.push({ ...o, children });
+      return [];
+    });
+  const rest = take(out);
+  return setups.length ? [...setups, ...rest, ...accepts] : out;
+}
+
 /** The storybook: current passage, log book, pause menu, prompts and endings. */
 @Component({
   selector: 'cr-play',
@@ -55,6 +80,7 @@ function findStoryLink(out: Out[], id: number): Extract<Out, { t: 'link' }> | un
     Modal,
     SettingsPanel,
     LogBook,
+    RoundBar,
     RouterLink,
   ],
   template: `
@@ -115,6 +141,10 @@ function findStoryLink(out: Out[], id: number): Extract<Out, { t: 'link' }> | un
         </div>
       </header>
 
+      @if (game.progress()) {
+        <cr-round-bar class="rounds" [done]="game.roundsDone()" />
+      }
+
       <article class="paper passage" [class.hub]="game.isHub()">
         <cr-story-output
           [items]="body()"
@@ -134,7 +164,9 @@ function findStoryLink(out: Out[], id: number): Extract<Out, { t: 'link' }> | un
                 [formField]="answerForm.value"
                 autocomplete="off"
               />
-              <button type="submit" class="btn" [disabled]="answerForm().invalid()">OK</button>
+              <button type="submit" class="btn confirm" [disabled]="answerForm().invalid()">
+                OK
+              </button>
             </div>
           </form>
         }
@@ -234,6 +266,10 @@ function findStoryLink(out: Out[], id: number): Extract<Out, { t: 'link' }> | un
     :host {
       display: block;
     }
+    /* Between the header and the page, where it covers nothing. */
+    .rounds {
+      margin: -0.25rem 0 0.75rem;
+    }
     .bar {
       display: grid;
       /* Symmetric while there is room; on phones the sides shrink to their buttons so long
@@ -281,13 +317,22 @@ function findStoryLink(out: Out[], id: number): Extract<Out, { t: 'link' }> | un
     .title:focus {
       outline: none;
     }
+    /* The original's metal lettering: heavy capitals, silver gradient, dark outline. */
     .title {
       margin: 0;
       text-align: center;
       /* Long titles stay on one line on phones where possible. */
-      font-size: clamp(1.2rem, 5.5vw, 1.7rem);
-      color: var(--color-on-backdrop);
-      text-shadow: 0 0.15rem 0.5rem rgb(0 0 0 / 0.7);
+      font-family: var(--font-title);
+      font-weight: 800;
+      font-size: clamp(1.1rem, 5vw, 1.6rem);
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+      color: #d9dde0;
+      background: linear-gradient(#f4f6f7 20%, #a9b0b5 55%, #e3e6e8 75%, #8a9196);
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      filter: drop-shadow(0 1px 0 #1b1d20) drop-shadow(0 0 1px #1b1d20)
+        drop-shadow(0 0.15rem 0.4rem rgb(0 0 0 / 0.7));
     }
     .icon-btn {
       width: 2.75rem;
@@ -471,7 +516,7 @@ export class Play {
     let i = 0;
     if (this.game.title() && out[0]?.t === 'text' && out[0].kind === 'title') i = 1;
     while (out[i]?.t === 'br') i++;
-    return out.slice(i);
+    return setupFirst(out.slice(i));
   });
 
   /**

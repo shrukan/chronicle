@@ -26,21 +26,44 @@
   color: var(--color-heading);
 }
 
+/* Choices between the original's metal brackets: easy to spot across the table. */
 .story-link {
   display: inline;
   padding: 0;
   border: 0;
   background: none;
   font: inherit;
+  font-weight: 600;
   color: var(--color-link);
-  text-decoration: underline;
-  text-underline-offset: 0.2em;
+  text-decoration: none;
   cursor: pointer;
+}
+
+.story-link::before,
+.story-link::after {
+  content: '';
+  display: inline-block;
+  /* The bracket pictures are 53 × 92. */
+  width: 0.8em;
+  height: 1.4em;
+  vertical-align: -0.33em;
+  background: var(--bracket-left-image, none) center / contain no-repeat;
+}
+
+.story-link::before {
+  margin-right: 0.1em;
+}
+
+.story-link::after {
+  margin-left: 0.1em;
+  background-image: var(--bracket-right-image, none);
 }
 
 .story-link:hover,
 .story-link:focus-visible {
   color: var(--color-link-hover);
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
 }
 
 .used-link {
@@ -62,10 +85,18 @@
 
 .block.setup,
 .block.setupEvent {
-  padding: 0.75rem 1rem;
+  /* Compact: a checklist for the table, not part of the story. */
+  padding: 0.45rem 0.8rem 0.55rem;
   border: 1px solid var(--color-accent);
   border-radius: 0.5rem;
   background: var(--color-panel);
+  font-size: 0.92em;
+  line-height: 1.45;
+}
+
+.block.setup :is(br + br),
+.block.setupEvent :is(br + br) {
+  display: none;
 }
 
 /* Location pages: each section starts with a heading in the book's face, set off by a rule. */
@@ -106,18 +137,29 @@
   font-size: 1.3rem;
 }
 
-.setup-heading {
-  margin: 0 0 0.75rem;
-  font-size: 1.4rem;
-  text-align: center;
+/* Picture beside the text; on narrow screens above it. */
+.setup-event {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  margin-top: 0.25rem;
+}
+
+.setup-event .setup-body {
+  flex: 1;
 }
 
 .setup-image {
   display: block;
-  max-width: 10rem;
-  max-height: 10rem;
-  margin: 0 auto 0.75rem;
+  flex: none;
+  width: 3rem;
+  max-height: 4.5rem;
   object-fit: contain;
+}
+
+/* The page's first box sits right under its top edge. */
+.block.setupEvent:first-child {
+  margin-top: 0;
 }
 
 .setup-body {
@@ -126,7 +168,7 @@
 
 .setup-continue {
   display: flex;
-  margin: 1rem auto 0;
+  margin: 1.25rem auto 0;
 }
 
 .continue-inline {

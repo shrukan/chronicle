@@ -13,6 +13,7 @@ import { AppUpdate } from './core/app-update';
 import { AudioPlayer } from './core/audio';
 import { bugReportUrl } from './core/bug-report';
 import { VERSION } from './version';
+import { Game } from './core/game';
 import { Library } from './core/library';
 import { Settings } from './core/settings';
 
@@ -23,7 +24,18 @@ const THEME_IMAGES = {
   '--button-image': 'general/buttons/button-red',
   '--button-selected-image': 'general/blank-button-brown-highlight',
   '--button-quiet-image': 'general/buttons/blank-button-brown',
+  '--button-confirm-image': 'general/buttons/blank-button-green',
+  '--bracket-left-image': 'general/brackets/bracket-left',
+  '--bracket-right-image': 'general/brackets/bracket-right',
 };
+
+/** The storybook's backdrop per scenario, as in the original (ViewGenerationEnding). */
+const STORYBOOK_ILLUSTRATIONS: Record<string, string> = {
+  'cost-of-disease': 'generation-ending/bgs/b-illustration1-oj-v004',
+  'fear-of-the-unknown': 'generation-ending/bgs/b-illustration2-oj-v004',
+  'a-time-of-war': 'generation-ending/bgs/b-illustration3-oj-v004',
+};
+const DIM = 'linear-gradient(rgb(0 0 0 / 0.45), rgb(0 0 0 / 0.6))';
 
 @Component({
   selector: 'cr-root',
@@ -149,12 +161,21 @@ export class App {
     ),
     { initialValue: '/' },
   );
-  /** Scoring has its own (purple) background in the original. */
-  private readonly backdrop = computed(() =>
-    this.library.ui(
-      this.url().startsWith('/score') ? 'general/main-bg-scoring' : 'general/main-bg',
-    ),
-  );
+  private readonly game = inject(Game);
+  /**
+   * Scoring has its own (purple) background in the original, and the storybook shows the
+   * scenario's illustration, darkened so it stays behind the page.
+   */
+  private readonly backdrop = computed(() => {
+    const page = this.url().split(/[?#]/)[0];
+    const illustration =
+      page === '/play'
+        ? this.library.ui(STORYBOOK_ILLUSTRATIONS[this.game.scenarioId()])
+        : undefined;
+    if (illustration) return `${DIM}, url("${illustration}")`;
+    const src = this.library.ui(page === '/score' ? 'general/main-bg-scoring' : 'general/main-bg');
+    return src ? `url("${src}")` : 'none';
+  });
   private musicStarted = false;
 
   constructor() {
@@ -170,7 +191,7 @@ export class App {
     });
     const root = document.documentElement.style;
     const url = (src: string | undefined) => (src ? `url("${src}")` : 'none');
-    effect(() => root.setProperty('--backdrop-image', url(this.backdrop())));
+    effect(() => root.setProperty('--backdrop-image', this.backdrop()));
     effect(() => {
       // The original's paper, gold frame and buttons (see styles.css and the modal). Fetched
       // right away: otherwise the first dialog opens plain and its frame appears a moment later.

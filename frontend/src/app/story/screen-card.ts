@@ -45,7 +45,7 @@ const ROMAN = ['i', 'ii', 'iii'];
             <p><cr-rich-text [text]="game.text(r.text)" /></p>
             <p><cr-rich-text [text]="game.text(r.then)" /></p>
             <div class="actions">
-              <button crAutofocus type="button" class="btn" (click)="continue()">
+              <button crAutofocus type="button" class="btn confirm" (click)="continue()">
                 {{ text('UI/EndOfRound/ViewArea/Acceptbtn/Text (TMP)', 'Confirm') }}
               </button>
             </div>
@@ -57,7 +57,7 @@ const ROMAN = ['i', 'ii', 'iii'];
           <h2 class="heading title">{{ generationTitle }}</h2>
           <p><cr-rich-text [text]="game.text(arg('text'))" /></p>
           <div class="actions">
-            <button crAutofocus type="button" class="btn" (click)="dismissed.set(true)">
+            <button crAutofocus type="button" class="btn confirm" (click)="dismissed.set(true)">
               {{ text('UI/EndOfGeneration/ViewArea/Acceptbtn/Text (TMP)', 'Confirm') }}
             </button>
           </div>
@@ -73,7 +73,7 @@ const ROMAN = ['i', 'ii', 'iii'];
             }
           </div>
           <div class="actions">
-            <button crAutofocus type="button" class="btn" (click)="dismissed.set(true)">
+            <button crAutofocus type="button" class="btn confirm" (click)="dismissed.set(true)">
               {{ text('UI/SpecialEvent/ViewArea/Acceptbtn/Text (TMP)', 'Accept') }}
             </button>
           </div>
@@ -116,7 +116,7 @@ const ROMAN = ['i', 'ii', 'iii'];
                 {{ text('UI/BidingSystem/ViewArea/Prompt/BG/Reveal/RevealText', 'Reveal') }}
               </div>
               <div class="actions">
-                <button crAutofocus type="button" class="btn" (click)="continue()">
+                <button crAutofocus type="button" class="btn confirm" (click)="continue()">
                   {{ text('UI/BidingSystem/ViewArea/Acceptbtn/Text (TMP)', 'Accept') }}
                 </button>
               </div>
@@ -272,8 +272,9 @@ export class ScreenCard implements OnInit, OnDestroy {
     }, 1000);
   }
 
+  /** Moves the story on; not a choice of its own, so undo returns to before this screen. */
   protected continue(): void {
     const link = this.screen().link;
-    if (link) this.game.click(link);
+    if (link) this.game.click(link, undefined, false);
   }
 }

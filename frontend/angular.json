@@ -29,6 +29,7 @@
               "@fontsource/eb-garamond/400-italic.css",
               "@fontsource/eb-garamond/600.css",
               "@fontsource/im-fell-english-sc/400.css",
+              "@fontsource/cinzel/800.css",
               "src/styles.css"
             ]
           },
