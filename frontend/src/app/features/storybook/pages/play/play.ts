@@ -116,13 +116,18 @@ export class Play {
     },
   });
 
-  /** The passage without its title (shown in the header) and the line breaks after it. */
+  /**
+   * The passage without its title (shown in the header) and the line breaks around it – the
+   * original often ends a page with empty lines after its last button.
+   */
   protected readonly body = computed(() => {
     const out = this.game.view()?.output ?? [];
     let i = 0;
     if (this.game.title() && out[0]?.t === 'text' && out[0].kind === 'title') i = 1;
     while (out[i]?.t === 'br') i++;
-    return setupAfterStory(out.slice(i));
+    let end = out.length;
+    while (end > i && out[end - 1]!.t === 'br') end--;
+    return setupAfterStory(out.slice(i, end));
   });
 
   /**
