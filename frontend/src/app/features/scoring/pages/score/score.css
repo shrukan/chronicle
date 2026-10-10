@@ -37,10 +37,14 @@ td input[type='number'] {
   font: inherit;
   text-align: center;
 }
+/* The original's dark box and green tick, large enough to tap (44 px). */
 td input[type='checkbox'] {
-  width: 1.4rem;
-  height: 1.4rem;
-  accent-color: var(--color-accent);
+  appearance: none;
+  margin: 0;
+  background: var(--checkbox-image) center / contain no-repeat;
+  cursor: pointer;
+  width: 2.75rem;
+  height: 2.75rem;
 }
 .ranking {
   list-style: none;
@@ -91,4 +95,14 @@ td input[type='checkbox'] {
   color: var(--color-muted);
   font: inherit;
   cursor: pointer;
+}
+td input[type='checkbox']:checked {
+  background-image: var(--checkmark-image), var(--checkbox-image);
+  background-size:
+    85% auto,
+    contain;
+}
+td input[type='checkbox']:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
 }

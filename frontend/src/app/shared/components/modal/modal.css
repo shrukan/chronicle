@@ -31,8 +31,9 @@ dialog.fullscreen {
   right: 0.4rem;
   display: grid;
   place-items: center;
-  width: 2.25rem;
-  height: 2.25rem;
+  /* 44 px: easy to tap. */
+  width: 2.75rem;
+  height: 2.75rem;
   border: 0;
   border-radius: 50%;
   background: none;
