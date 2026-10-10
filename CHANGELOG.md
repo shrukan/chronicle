@@ -1,5 +1,40 @@
 # Changelog
 
+## [0.6.0](https://github.com/shrukan/chronicle/compare/v0.5.0...v0.6.0) (2026-10-10)
+
+
+### Features
+
+* go back in scoring to correct a score, and see everyone's score in the rankings ([78b16da](https://github.com/shrukan/chronicle/commit/78b16da12aca537483d3b4fc2981b1fb3a701bca))
+* help is in the pause menu, with a page on using Chronicle itself ([5d4a068](https://github.com/shrukan/chronicle/commit/5d4a068e0cc07977413f02401685a435835ea11a))
+
+
+### Bug Fixes
+
+* a double tap moves on one page, not two ([0dd7983](https://github.com/shrukan/chronicle/commit/0dd7983adcd630a6c6699e1606f5dea06882a3dd))
+* a hand-over and its tie rule share one notice on the page ([2d31ff9](https://github.com/shrukan/chronicle/commit/2d31ff97bb135ee21d4a4b20142641c3047dc275))
+* a secret takes one hand-over, not a new one on each of its pages ([a1da7ff](https://github.com/shrukan/chronicle/commit/a1da7ffd333a55d96361642b8d13ba6efad19aa4))
+* boxes with what to do at the table are labelled "at the table", not "setup" ([80053e6](https://github.com/shrukan/chronicle/commit/80053e65ec3e3cae1617cece3c0a6da18a46845c))
+* button colours follow the original – brown moves on, green confirms, red backs out ([9d6747f](https://github.com/shrukan/chronicle/commit/9d6747f2c3d289b093d0ae582b6046c31cb48931))
+* every action on a location page says in full what tapping it does ([2560060](https://github.com/shrukan/chronicle/commit/256006062cebb8b6803d00228dfc841b253f44ba))
+* hints and other grey text are easier to read on light paper ([e81214d](https://github.com/shrukan/chronicle/commit/e81214dc299d82d21f2bb5611ba14c6a61521f49))
+* opening a dialog puts the focus on its main button, so Enter takes it ([276d9e0](https://github.com/shrukan/chronicle/commit/276d9e013f67dd6c7a1e572683463e396d87ffa5))
+* revealing a secret takes one tap, without the hand-over notice coming back ([38542b5](https://github.com/shrukan/chronicle/commit/38542b5c6dab02a901625ca5292ac2a2fdd4c311))
+* small buttons are easier to tap, and the tie-breaker uses the original's tick boxes ([b419835](https://github.com/shrukan/chronicle/commit/b4198352c99bf9ee0d9fbb1ca1dca7633357d077))
+* starting a new game over a saved one says the save is replaced, and fits small phones ([d2cc61d](https://github.com/shrukan/chronicle/commit/d2cc61d1cc7b9edddc3fc22f73d09178ee3cbac7))
+* story lines stay at a comfortable length on wide screens ([a3a616d](https://github.com/shrukan/chronicle/commit/a3a616d880b66985eba4a6237b4f7e12f5e52792))
+* the back button closes the open dialog instead of leaving the game ([1492a20](https://github.com/shrukan/chronicle/commit/1492a206d6fd9e665160b5981e42e3ae417da755))
+* the boxes with what a story event means for the game are labelled "outcome" ([bf01265](https://github.com/shrukan/chronicle/commit/bf01265df5792f3e5dc1e96912bff06fd8f5f164))
+* the hand-over screen fully hides the page behind it until the next player confirms ([ef984a3](https://github.com/shrukan/chronicle/commit/ef984a3f9ede3336a6769034a33c86e56c4ae8d4))
+* the hand-over screen names the player to pass the storybook to, and page titles are whole ([8312f36](https://github.com/shrukan/chronicle/commit/8312f36fcb98c7a842a0434b6b0c5e8cff06ff14))
+* the main menu's footer stays readable and in view on small phones, and the voice plates line up ([e1e8fda](https://github.com/shrukan/chronicle/commit/e1e8fdab134692aacbce6613b406d00ace609f07))
+* the pause menu has resume as its main button, with help and main menu below ([8445220](https://github.com/shrukan/chronicle/commit/8445220892a65f2475cbbfb46996d0782c81824c))
+* the pause menu's and settings' buttons stay in view while the settings scroll ([1685b44](https://github.com/shrukan/chronicle/commit/1685b4432a09bef7f57c6dcb83300f9a34c08a15))
+* the secret bid and vote keep their size through the countdown, with a clear clock ([bf62072](https://github.com/shrukan/chronicle/commit/bf62072fa8f229ac09143e2340333d480db0ee1a))
+* the storybook's page title is centred, with two buttons on each side ([ae8292a](https://github.com/shrukan/chronicle/commit/ae8292a6d576ea1e9678b17add54311ba0b08490))
+* the way to the next round is a plate under a location's actions, easy to find ([e01baff](https://github.com/shrukan/chronicle/commit/e01baffcf095d1e9a07e20d590b5a8f62c175266))
+* what to do at the table comes after the story text, so you read (or listen) first ([20f1d58](https://github.com/shrukan/chronicle/commit/20f1d583545e7d8e2de4c3be051bd86c4552803a))
+
 ## [0.5.0](https://github.com/shrukan/chronicle/compare/v0.4.0...v0.5.0) (2026-10-10)
 
 
