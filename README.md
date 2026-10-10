@@ -7,8 +7,13 @@ installable web app that also works offline.
 [![CI](https://github.com/shrukan/chronicle/actions/workflows/ci.yml/badge.svg)](https://github.com/shrukan/chronicle/actions/workflows/ci.yml)
 [![Release](https://img.shields.io/github/v/release/shrukan/chronicle)](https://github.com/shrukan/chronicle/releases)
 
-> **Status:** early, but playable. _The Cost of Disease_ works from setup to the endings; the
-> other two scenarios follow. See [PLAN.md](PLAN.md) and the [changelog](CHANGELOG.md).
+> [!WARNING]
+> **Unstable – expect breaking changes.** Chronicle is early and changes quickly. There is no
+> guarantee that an update keeps working the way it did: a saved game, an unlocked ending or a
+> setting may be lost or reset after an update. Finish a game before updating if it matters.
+>
+> **Status:** playable. _The Cost of Disease_ works from setup to the endings; the other two
+> scenarios follow. See [PLAN.md](PLAN.md) and the [changelog](CHANGELOG.md).
 
 ## Features
 
@@ -19,6 +24,13 @@ installable web app that also works offline.
   when the storybook is passed on, so secrets stay secret; undo the last choice; the screen
   stays on during a game; works with the keyboard (Enter / Space).
 - **Easy to read:** story text, game rules and instructions for the app look different.
+- **Easy and Short versions (beta):** besides the original text, the story can be read in plain
+  English (_Easy_) or condensed (_Short_), switchable mid-game. Only the story is rewritten,
+  never the rules – but these versions were written with AI help, are not fully reviewed yet
+  and **can contain mistakes**. When in doubt, switch back to _Original_.
+- **Generated voices:** every page that has voice-over in the original can also be read by two
+  generated voices (Emma and George, made with [Kokoro](https://github.com/hexgrad/kokoro)),
+  in all three versions. The original recordings only read the original text.
 - **Never loses a game:** saves on every step and resumes after a reload; log book, play time
   and an endings gallery.
 - **Installable and offline:** a web app (PWA) for phones, tablets and computers – once
@@ -41,7 +53,7 @@ play on, and nothing is sent anywhere.
 | --------------------------------------------------- | -------------------------------------- |
 | Game in progress (state, log book, play time, undo) | IndexedDB `chronicle`, store `saves`   |
 | Unlocked endings                                    | IndexedDB `chronicle`, store `unlocks` |
-| Settings (voice, volumes, page display)             | localStorage `chronicle.settings`      |
+| Settings (voice, text version, volumes, paper)      | localStorage `chronicle.settings`      |
 | App, story, images and audio for offline use        | the service worker's Cache Storage     |
 
 So a game belongs to one device, one browser and one address (the GitHub Pages version and a
