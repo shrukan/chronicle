@@ -265,6 +265,16 @@
   line-height: 1.55;
 }
 
+/* The label of the link the panel stands for ("click here to …"): the action, in its colour. */
+.panel-link {
+  font-weight: 600;
+  color: var(--color-accent-text);
+}
+/* Some originals run the label into the word before it ("Panaceaclick here"). */
+.panel-link::before {
+  content: ' ';
+}
+
 /* The way on after a page's actions (e.g. to the next round), centred under them. */
 .panel ~ .story-link {
   display: block;

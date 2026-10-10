@@ -38,31 +38,12 @@ export class StoryOutput {
   readonly items = input.required<Out[]>();
   /** The page's only way forward: shown as a button instead of a text link. */
   readonly primaryLink = input<number | undefined>(undefined);
-  /** A link drawn by the panel around it: left out, and the comma before it trimmed. */
+  /** A link drawn by the panel around it: its label stays in the sentence, as plain text. */
   readonly hideLink = input<number | undefined>(undefined);
   protected readonly setupContinue = SETUP_CONTINUE_KEY;
 
   protected isPlain(key: string): boolean {
     return PLAIN_CONTINUE.test(this.game.text(key).replace(/[*\\]/g, '').trim());
-  }
-
-  /** Text right before the hidden link ("…the Track, click here"). */
-  protected trimmed(key: string): boolean {
-    const id = this.hideLink();
-    if (id === undefined) return false;
-    const items = this.items();
-    const at = items.findIndex((o) => o.t === 'link' && o.id === id);
-    const before = items
-      .slice(0, at)
-      .filter((o) => o.t !== 'br')
-      .at(-1);
-    return at > 0 && before?.t === 'text' && before.key === key;
-  }
-
-  /** "…the Track, click here" → "…the Track." */
-  protected beforeLink(text: string): string {
-    const cut = text.replace(/[\s,;:–-]+$/, '');
-    return /[.!?…]\**$/.test(cut) ? cut : `${cut}.`;
   }
 
   /**

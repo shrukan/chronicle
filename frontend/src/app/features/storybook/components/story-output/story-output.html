@@ -21,7 +21,7 @@
     }
     @case ('text') {
       <cr-rich-text
-        [text]="trimmed(o.key) ? beforeLink(game.text(o.key, o.kind)) : game.text(o.key, o.kind)"
+        [text]="game.text(o.key, o.kind)"
         [args]="o.args"
         [class]="o.kind"
       />
@@ -31,7 +31,8 @@
     }
     @case ('link') {
       @if (o.id === hideLink()) {
-        <!-- The panel around it is the link. -->
+        <!-- The panel around it is the link; the label finishes the sentence. -->
+        <cr-rich-text class="panel-link" [text]="game.text(o.key)" [args]="o.args" />
       } @else if (o.id === primaryLink()) {
         <button type="button" class="btn continue-inline" (click)="game.click(o.id)">
           @if (isPlain(o.key)) {
