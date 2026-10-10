@@ -162,19 +162,45 @@ ending → endings & achievements gallery. Help and settings from the main menu.
 - Open: a beta announcement on BoardGameGeek after the first table session (no Discord post);
   `v1.0.0` once the feedback from it is in.
 
-**M6 – Reading modes: Easy and Short** (after v1)
+**M6 – Reading modes: Easy and Short** – in beta for *The Cost of Disease* (Oct 2026)
 - *Easy*: the flavour text in plain English (B1 level) for non-native speakers – shorter
   sentences, common words, nothing left out. Game instructions stay untouched: they are already
   plain, and leaving them alone means no rule can change by accident.
-- *Short*: narrative condensed (about a third), instructions unchanged.
-- Data: `StringEntry` gets an `easy` variant next to `short`; both only show once reviewed,
-  otherwise the full text appears. Setting in the pause menu, switchable mid-game.
-- Workflow: draft with an LLM per passage (with the passage's context), review in a small
-  side-by-side tool, mark reviewed; the story tester checks every key has its variant.
-- Order: Easy first (it helps more people and needs no decisions about what to cut).
+- *Short*: narrative condensed, instructions unchanged.
+- Done: `easy` and `short` per string (also for screen texts like the scenario description),
+  Language / Version / Narrator drop-downs in the settings, switchable mid-game. While in beta,
+  unreviewed texts show too; the `…Reviewed` flags track what a person has checked. The converter
+  keeps the rewrites, drops those whose original changed, and those of texts that turned out to
+  be rules (its classifier knows the rule phrasings found while rewriting).
+- Open: review at the table; the other two scenarios once converted; drop "(beta)" when reviewed.
+
+**M7 – Voice-over** (in progress)
+- Done: the 9 original recordings (original English text only); generated voices Emma and George
+  (Kokoro, `tools/voice/`, settings in `tools/voice/voices.json`: speed, pauses, sibilance filter,
+  loudness at the originals' -14 LUFS) for those 9 pages in every version; `task content:voices`
+  regenerates, `-- --try "…"` tries any text; dev-only `/voices` compares voices on each
+  scenario's introduction. After a reload, voice-over and music restart with the first tap.
+- **Every page voiced** (if wanted): about 7.5 h of audio per voice and scenario (Original, Easy,
+  Short), ~160 MB per voice at 48 kbps – too big for git (every regeneration stays in the history),
+  and three scenarios reach GitHub Pages' ~1 GB limit. Plan:
+  - Keep the audio out of git as a *voice pack* per scenario and voice (e.g. a release asset);
+    the release workflow downloads it into the Pages site and the image, so players and
+    self-hosters notice nothing. One task generates and uploads it. If Pages' limit is reached,
+    serve the packs from a second address (home server or static hosting).
+  - Smaller files: Opus at ~24 kbps would halve the size – test on iOS Safari first.
+  - A "Download voices for offline use" button per scenario and voice (audio is cached lazily,
+    so offline only clips already heard play).
+  - Until then the 9 voiced pages stay in git (~30 MB).
+- **Names generated on the fly**: 27% of the flavour texts contain names typed in at the table
+  (players, village), which cannot be pre-recorded. Run the same Kokoro voices in the browser
+  (kokoro-js, ONNX in WebAssembly/WebGPU; the quantized model is ~90 MB, downloaded once and
+  cached) and generate those passages – or just the names, spliced between pre-recorded parts –
+  when a game starts, behind a short loading screen. The sibilance filter and loudness need a
+  Web Audio equivalent (filters + gain) so the clips match. Fallback when the model can't load:
+  the browser's own voice (Web Speech API) for those passages.
 
 **After v1** (order flexible): Fear of the Unknown → A Time of War → reading modes
-(Short) → voice-over → other UI languages → Capacitor.
+(review) → voice-over (M7) → other UI languages → Capacitor.
 
 Short mode is placed after the scenarios on purpose: the content model supports it from M1,
 but writing short texts is a content job and works best once the logic is stable.
@@ -270,7 +296,6 @@ CHANGELOG; CI runs lint, unit tests and `content:test` on every PR.
 - ~~Custom runtime vs Ink~~ → decided in M0: own runtime.
 - Public hosting in addition to the home server: GitHub Pages, deployed with each release (done early, before M5).
 - Whether to commit generated `content/` JSON or regenerate in CI → recommend commit (reviewable diffs).
-- Voice-over → decide in M4. Recommendation: keep the 9 original recordings (intros), offer
-  optional read-aloud via the browser's Web Speech API for all other text; pre-generate neural
-  voices (self-hosted, e.g. Piper) only if device voices are not good enough.
+- ~~Voice-over~~ → decided: original recordings plus generated Kokoro voices (Piper sounded too
+  flat); the browser's own voice only as a fallback. Details and next steps in M7.
 - Tailwind vs plain SCSS tokens → recommend Tailwind; revisit if it gets in the way of the custom look.
