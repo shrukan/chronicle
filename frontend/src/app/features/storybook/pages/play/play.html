@@ -152,6 +152,7 @@
     </h2>
     <p class="paused-time">Play time {{ playTime() }}</p>
     <cr-settings-panel [showHeading]="false" (done)="pauseOpen.set(false)">
+      <button actions type="button" class="btn" (click)="toHelp()">Help</button>
       <button actions type="button" class="btn cancel" (click)="toTitle()">Main menu</button>
     </cr-settings-panel>
     <p class="report">

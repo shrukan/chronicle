@@ -1,10 +1,17 @@
 <section class="paper sheet">
   <cr-tabs #tabBar [tabs]="tabs()" [(selected)]="active" panelId="help" />
   <div id="help" class="panel" role="tabpanel" [attr.aria-labelledby]="tabBar.tabId(active())">
-    <h1 class="heading">{{ t('UI/Help/Viewarea/' + active() + '/DetailsPanel/title') }}</h1>
-    <div class="details">
-      <cr-rich-text [text]="t('UI/Help/Viewarea/' + active() + '/DetailsPanel/details')" />
-    </div>
+    @if (active() === chronicle.id) {
+      <h1 class="heading">{{ chronicle.title }}</h1>
+      <div class="details">
+        <cr-rich-text [text]="chronicle.text" />
+      </div>
+    } @else {
+      <h1 class="heading">{{ t('UI/Help/Viewarea/' + active() + '/DetailsPanel/title') }}</h1>
+      <div class="details">
+        <cr-rich-text [text]="t('UI/Help/Viewarea/' + active() + '/DetailsPanel/details')" />
+      </div>
+    }
   </div>
-  <a class="btn cancel" routerLink="/">Back</a>
+  <button type="button" class="btn cancel" (click)="back()">Back</button>
 </section>

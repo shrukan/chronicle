@@ -291,6 +291,13 @@ export class Play {
     return this.endingTitles()[passage] ?? '';
   }
 
+  /** Help, mid-game; its Back returns here. */
+  protected async toHelp(): Promise<void> {
+    this.pauseOpen.set(false);
+    this.audio.stopVoice();
+    await this.router.navigate(['/help']);
+  }
+
   protected async toTitle(): Promise<void> {
     this.pauseOpen.set(false);
     this.audio.stopVoice();
