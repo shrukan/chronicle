@@ -66,7 +66,8 @@ try {
   check(true, 'setup flow leads into the story');
 
   console.log('story');
-  const seen = { dialogs: 0, bidding: 0, prompts: 0, links: 0 };
+  const seen = { dialogs: 0, bidding: 0, prompts: 0, links: 0, handovers: 0 };
+  const handoverProblems = new Set<string>();
   for (let step = 0; step < 2000; step++) {
     await page.waitForTimeout(15);
     const dialog = page.locator('dialog[open]').last();
@@ -75,6 +76,17 @@ try {
       const text = await dialog.innerText({ timeout: 2000 }).catch(() => undefined);
       if (text === undefined) continue;
       seen.dialogs++;
+      const fullscreen = await dialog.evaluate((d) => d.classList.contains('fullscreen'), undefined, { timeout: 2000 }).catch(() => false);
+      if (fullscreen) {
+        // The hand-over hides the next player's page: nothing of it may show through.
+        seen.handovers++;
+        const alpha = await dialog.evaluate((d) => {
+          const c = getComputedStyle(d).backgroundColor.match(/[\d.]+/g) ?? [];
+          return c.length < 4 ? 1 : Number(c[3]);
+        }, undefined, { timeout: 2000 }).catch(() => 1);
+        if (alpha < 1) handoverProblems.add('see-through');
+        if (/hand (this|the) storybook( device)? to (?!the player)/i.test(text) && !/Ada|Bram|Cosima/.test(text)) handoverProblems.add(`no name: ${text.slice(0, 60)}`);
+      }
       if (/Secret (Bid|Vote)/.test(text)) {
         seen.bidding++;
         await dialog.getByRole('button', { name: /start/i }).click();
@@ -104,8 +116,9 @@ try {
     seen.links++;
     await links.nth(random(n)).click({ timeout: 3000 }).catch(() => undefined);
   }
-  console.log(`  ${seen.links} links, ${seen.dialogs} dialogs (${seen.bidding} bids), ${seen.prompts} prompts`);
+  console.log(`  ${seen.links} links, ${seen.dialogs} dialogs (${seen.bidding} bids, ${seen.handovers} hand-overs), ${seen.prompts} prompts`);
   check(page.url().includes('/score'), 'the story reaches final scoring');
+  check(seen.handovers > 0 && !handoverProblems.size, `hand-overs are opaque and name the player (${[...handoverProblems].join('; ') || `${seen.handovers} checked`})`);
 
   console.log('scoring');
   const scores = page.locator('input[type=number]');
