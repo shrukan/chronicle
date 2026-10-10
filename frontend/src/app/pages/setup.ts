@@ -57,17 +57,20 @@ const LETTERS = 'ABCDE';
               )
             }}
           </p>
+          <!-- The original's tiles; the game has material for four players. -->
           <div class="choices players">
-            @for (n of [2, 3, 4, 5]; track n) {
+            @for (n of [2, 3, 4]; track n) {
               <button
                 type="button"
-                class="btn quiet choice"
+                class="tile"
                 [class.selected]="players() === n"
                 [attr.aria-pressed]="players() === n"
                 (click)="players.set(n)"
               >
-                <span class="count">{{ n }}</span>
-                {{ playersLabel(n) }}
+                @if (library.ui('game-player-count/' + n + 'players'); as src) {
+                  <img [src]="src" alt="" />
+                }
+                <span>{{ playersLabel(n) }}</span>
               </button>
             }
           </div>
@@ -206,7 +209,43 @@ const LETTERS = 'ABCDE';
     }
     .choices.players {
       display: grid;
-      grid-template-columns: repeat(2, minmax(7rem, 1fr));
+      grid-template-columns: repeat(3, minmax(0, 8.5rem));
+      gap: 0.75rem;
+    }
+    /* The original's player tiles; the chosen one glows. */
+    .tile {
+      display: grid;
+      justify-items: center;
+      gap: 0.35rem;
+      padding: 0;
+      border: 0;
+      background: none;
+      color: inherit;
+      font: inherit;
+      cursor: pointer;
+    }
+    .tile img {
+      width: 100%;
+      aspect-ratio: 1;
+      border-radius: 0.6rem;
+      transition:
+        transform 0.12s ease-out,
+        box-shadow 0.18s ease-out;
+    }
+    .tile:is(:hover, :focus-visible) img {
+      transform: translateY(-2px);
+    }
+    .tile.selected img {
+      box-shadow:
+        0 0 0 3px var(--color-accent-text),
+        0 0 1.2rem rgb(255 190 80 / 0.6);
+    }
+    .tile span {
+      font-family: var(--font-display);
+      letter-spacing: 0.04em;
+    }
+    .tile.selected span {
+      color: var(--color-accent-text);
     }
     /* Brown plates; the chosen one lit like the original's highlight plate. Red stays for
        the action (Continue). */
@@ -214,13 +253,6 @@ const LETTERS = 'ABCDE';
       min-width: 7rem;
       padding-inline: 0.4rem;
       white-space: nowrap;
-    }
-    /* The plates' face has small old-style figures; the number reads better in the body face. */
-    .choice .count {
-      font-family: var(--font-body);
-      font-variant-numeric: lining-nums;
-      font-size: 1.3em;
-      line-height: 1;
     }
     .letter {
       max-width: 28rem;
@@ -385,7 +417,7 @@ export class Setup {
     return this.t(
       `UI/GamePlayerCounts/ViewArea/playerCountButtonParent/Player${n}/P${n}Text`,
       `${n} Players`,
-    ).replace(/^\d+\s*/, '');
+    );
   }
 
   protected go(step: Step): void {

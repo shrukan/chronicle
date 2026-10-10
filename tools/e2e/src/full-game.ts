@@ -81,7 +81,8 @@ try {
         await dialog.getByRole('button', { name: /accept/i }).click({ timeout: 6000 });
       } else {
         if (seen.dialogs === 1) await shot(page, '2-dialog');
-        await dialog.locator('button:not(.sound)').last().click({ timeout: 5000 }).catch(() => undefined);
+        // The main button (Accept, Confirm, Continue …); undo sits below it as a plain link.
+        await dialog.locator('button.btn').last().click({ timeout: 5000 }).catch(() => undefined);
       }
       continue;
     }
@@ -97,7 +98,7 @@ try {
       break;
     }
     // Story links; a page's single way forward is shown as a button.
-    const links = page.locator('button.story-link, button.continue-inline');
+    const links = page.locator('button.story-link, button.continue-inline, button.setup-continue');
     const n = await links.count();
     if (!n) break;
     seen.links++;
