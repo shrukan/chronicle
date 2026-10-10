@@ -16,9 +16,14 @@ export function keepVariants(
   previous: StringTable,
   narrative: (key: string) => boolean = () => true,
 ): StringTable {
+  // A rewrite belongs to its text: when converting again shifts the keys, it is found by the text.
+  const byText = new Map<string, StringEntry>();
+  for (const entry of Object.values(previous))
+    if (entry.easy !== undefined || entry.short !== undefined) byText.set(entry.full, entry);
   const out: StringTable = {};
   for (const [key, entry] of Object.entries(converted)) {
-    const before = previous[key];
+    const same = previous[key]?.full === entry.full ? previous[key] : undefined;
+    const before = same ?? byText.get(entry.full);
     const merged: StringEntry = { ...entry };
     for (const [text, reviewed] of VARIANTS) {
       if (before?.[text] === undefined || before.full !== entry.full || !narrative(key)) continue;

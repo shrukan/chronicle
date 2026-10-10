@@ -107,6 +107,11 @@
   }
  },
  "logBook": {
+  "S5Special1": {
+   "title": "log.S5Special1.title",
+   "location": "log.S5Special1.location",
+   "summary": "log.S5Special1.summary"
+  },
   "S5SpecialSetup1": {
    "title": "log.S5SpecialSetup1.title",
    "location": "log.S5SpecialSetup1.location",

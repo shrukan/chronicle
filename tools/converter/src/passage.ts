@@ -476,7 +476,16 @@ export class PassageConverter {
     let run: (TextItem | ExprItem)[] = [];
     const flush = () => {
       if (!run.length) return;
-      const node = this.textNode(run, isMain && !nodes.some((n) => n.t === 'text'), inBlock);
+      const first = isMain && !nodes.some((n) => n.t === 'text');
+      // A page that opens with a bold heading running straight into its text (no line break in
+      // the original): the heading becomes the page's title, the text starts on its own line.
+      const lead = first ? run.findIndex((p) => !(p.k === 'text' && (p.bold || !p.text.trim()))) : -1;
+      if (lead > 0 && run.slice(0, lead).some((p) => p.k === 'text' && p.text.trim())) {
+        const title = this.textNode(run.slice(0, lead), true, inBlock);
+        if (title) nodes.push(title, { t: 'br' });
+        run = run.slice(lead);
+      }
+      const node = this.textNode(run, first && !nodes.some((n) => n.t === 'text'), inBlock);
       if (node) nodes.push(node);
       run = [];
     };

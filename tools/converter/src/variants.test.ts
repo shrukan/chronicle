@@ -3,6 +3,13 @@ import { describe, it } from 'node:test';
 import { keepVariants } from './variants.ts';
 
 describe('keepVariants', () => {
+  it('finds a rewrite by its text when the key moved', () => {
+    const previous = { 'P.1': { full: 'Story.', easy: 'Easy story.' } };
+    assert.deepEqual(keepVariants({ 'P.2': { full: 'Story.' } }, previous), {
+      'P.2': { full: 'Story.', easy: 'Easy story.' },
+    });
+  });
+
   it('drops the rewrites of texts that are no longer flavour text', () => {
     const previous = { rule: { full: 'Place it.', easy: 'Put it.' } };
     assert.deepEqual(keepVariants({ rule: { full: 'Place it.' } }, previous, () => false), {
