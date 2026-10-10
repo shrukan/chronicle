@@ -165,14 +165,19 @@ export class Play {
     computation: () => false,
   });
 
-  /** An app command opening the page ("hand the storybook to …"): shown full screen first. */
+  /**
+   * The app commands opening the page ("hand the storybook to …", and a tie rule right after
+   * it): shown full screen first.
+   */
   protected readonly handover = computed(() => {
     if (this.handedOver()) return undefined;
-    const first = this.body()
-      .filter((o) => o.t !== 'br')
-      .slice(0, 2)
-      .find((o) => o.t === 'text' && o.kind === 'command');
-    return first?.t === 'text' ? first : undefined;
+    const out = this.body().filter((o) => o.t !== 'br');
+    const isCommand = (o: Out | undefined) => o?.t === 'text' && o.kind === 'command';
+    const start = out.slice(0, 2).findIndex(isCommand);
+    if (start < 0) return undefined;
+    let end = start;
+    while (isCommand(out[end])) end++;
+    return out.slice(start, end) as Extract<Out, { t: 'text' }>[];
   });
 
   /**
@@ -185,7 +190,7 @@ export class Play {
     if (!notice || !view || view.prompt || view.links.length !== 1) return undefined;
     const flat = (out: Out[]): Out[] =>
       out.flatMap((o) => (o.t === 'group' ? flat(o.children) : o.t === 'br' ? [] : [o]));
-    const rest = flat(this.body()).filter((o) => o !== notice);
+    const rest = flat(this.body()).filter((o) => !(notice as Out[]).includes(o));
     const only = rest.length === 1 ? rest[0] : undefined;
     return only?.t === 'link' && only.id === view.links[0] && !only.disabled ? only.id : undefined;
   });

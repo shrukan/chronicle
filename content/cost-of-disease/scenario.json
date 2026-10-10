@@ -6205,16 +6205,6 @@
      "t": "br"
     },
     {
-     "t": "block",
-     "style": "hubTitle",
-     "body": []
-    },
-    {
-     "t": "block",
-     "style": "hubDetails",
-     "body": []
-    },
-    {
      "t": "link",
      "key": "Fever3.18",
      "reveal": "0",
@@ -8641,27 +8631,8 @@
      "t": "br"
     },
     {
-     "t": "block",
-     "style": "hubTitle",
-     "body": [
-      {
-       "t": "text",
-       "key": "NoUni2.12",
-       "kind": "instruction"
-      }
-     ]
-    },
-    {
-     "t": "br"
-    },
-    {
-     "t": "block",
-     "style": "hubDetails",
-     "body": []
-    },
-    {
      "t": "link",
-     "key": "NoUni2.13",
+     "key": "NoUni2.12",
      "reveal": "0",
      "replace": true
     },
@@ -10033,15 +10004,7 @@
     {
      "t": "text",
      "key": "bar1.1",
-     "kind": "title"
-    },
-    {
-     "t": "br"
-    },
-    {
-     "t": "text",
-     "key": "bar1.2",
-     "kind": "instruction",
+     "kind": "title",
      "args": [
       {
        "fn": "random",
@@ -10104,7 +10067,7 @@
        "body": [
         {
          "t": "text",
-         "key": "bar1.3",
+         "key": "bar1.2",
          "kind": "narrative"
         },
         {
@@ -10115,7 +10078,7 @@
         },
         {
          "t": "text",
-         "key": "bar1.4",
+         "key": "bar1.3",
          "kind": "narrative"
         }
        ]
@@ -10124,7 +10087,7 @@
        "body": [
         {
          "t": "text",
-         "key": "bar1.5",
+         "key": "bar1.4",
          "kind": "narrative"
         },
         {
@@ -10135,7 +10098,7 @@
         },
         {
          "t": "text",
-         "key": "bar1.6",
+         "key": "bar1.5",
          "kind": "narrative"
         }
        ]
@@ -10164,7 +10127,7 @@
       },
       {
        "t": "text",
-       "key": "bar1.7",
+       "key": "bar1.6",
        "kind": "instruction"
       }
      ]
@@ -10186,15 +10149,7 @@
     {
      "t": "text",
      "key": "bar2.1",
-     "kind": "title"
-    },
-    {
-     "t": "br"
-    },
-    {
-     "t": "text",
-     "key": "bar2.2",
-     "kind": "instruction",
+     "kind": "title",
      "args": [
       {
        "fn": "random",
@@ -10257,6 +10212,17 @@
        "body": [
         {
          "t": "text",
+         "key": "bar2.2",
+         "kind": "narrative"
+        },
+        {
+         "t": "br"
+        },
+        {
+         "t": "br"
+        },
+        {
+         "t": "text",
          "key": "bar2.3",
          "kind": "narrative"
         },
@@ -10270,22 +10236,22 @@
          "t": "text",
          "key": "bar2.4",
          "kind": "narrative"
-        },
-        {
-         "t": "br"
-        },
-        {
-         "t": "br"
-        },
-        {
-         "t": "text",
-         "key": "bar2.5",
-         "kind": "narrative"
         }
        ]
       },
       {
        "body": [
+        {
+         "t": "text",
+         "key": "bar2.5",
+         "kind": "narrative"
+        },
+        {
+         "t": "br"
+        },
+        {
+         "t": "br"
+        },
         {
          "t": "text",
          "key": "bar2.6",
@@ -10300,17 +10266,6 @@
         {
          "t": "text",
          "key": "bar2.7",
-         "kind": "narrative"
-        },
-        {
-         "t": "br"
-        },
-        {
-         "t": "br"
-        },
-        {
-         "t": "text",
-         "key": "bar2.8",
          "kind": "narrative"
         }
        ]
@@ -10339,7 +10294,7 @@
       },
       {
        "t": "text",
-       "key": "bar2.9",
+       "key": "bar2.8",
        "kind": "instruction"
       }
      ]
@@ -10358,15 +10313,7 @@
     {
      "t": "text",
      "key": "bar3.1",
-     "kind": "title"
-    },
-    {
-     "t": "br"
-    },
-    {
-     "t": "text",
-     "key": "bar3.2",
-     "kind": "instruction",
+     "kind": "title",
      "args": [
       {
        "fn": "random",
@@ -10429,7 +10376,7 @@
        "body": [
         {
          "t": "text",
-         "key": "bar3.3",
+         "key": "bar3.2",
          "kind": "narrative"
         },
         {
@@ -10440,7 +10387,7 @@
         },
         {
          "t": "text",
-         "key": "bar3.4",
+         "key": "bar3.3",
          "kind": "narrative"
         }
        ]
@@ -10449,7 +10396,7 @@
        "body": [
         {
          "t": "text",
-         "key": "bar3.5",
+         "key": "bar3.4",
          "kind": "narrative"
         },
         {
@@ -10460,7 +10407,7 @@
         },
         {
          "t": "text",
-         "key": "bar3.6",
+         "key": "bar3.5",
          "kind": "narrative"
         }
        ]
@@ -10489,7 +10436,7 @@
       },
       {
        "t": "text",
-       "key": "bar3.7",
+       "key": "bar3.6",
        "kind": "instruction"
       }
      ]
@@ -10511,15 +10458,7 @@
     {
      "t": "text",
      "key": "bar4.1",
-     "kind": "title"
-    },
-    {
-     "t": "br"
-    },
-    {
-     "t": "text",
-     "key": "bar4.2",
-     "kind": "instruction",
+     "kind": "title",
      "args": [
       {
        "fn": "random",
@@ -10582,7 +10521,7 @@
        "body": [
         {
          "t": "text",
-         "key": "bar4.3",
+         "key": "bar4.2",
          "kind": "narrative"
         },
         {
@@ -10593,7 +10532,7 @@
         },
         {
          "t": "text",
-         "key": "bar4.4",
+         "key": "bar4.3",
          "kind": "narrative"
         }
        ]
@@ -10616,6 +10555,17 @@
        "body": [
         {
          "t": "text",
+         "key": "bar4.4",
+         "kind": "narrative"
+        },
+        {
+         "t": "br"
+        },
+        {
+         "t": "br"
+        },
+        {
+         "t": "text",
          "key": "bar4.5",
          "kind": "narrative"
         },
@@ -10628,17 +10578,6 @@
         {
          "t": "text",
          "key": "bar4.6",
-         "kind": "narrative"
-        },
-        {
-         "t": "br"
-        },
-        {
-         "t": "br"
-        },
-        {
-         "t": "text",
-         "key": "bar4.7",
          "kind": "narrative"
         }
        ]
@@ -10667,7 +10606,7 @@
       },
       {
        "t": "text",
-       "key": "bar4.8",
+       "key": "bar4.7",
        "kind": "instruction"
       }
      ]
@@ -10689,15 +10628,7 @@
     {
      "t": "text",
      "key": "bar5.1",
-     "kind": "title"
-    },
-    {
-     "t": "br"
-    },
-    {
-     "t": "text",
-     "key": "bar5.2",
-     "kind": "instruction",
+     "kind": "title",
      "args": [
       {
        "fn": "random",
@@ -10760,7 +10691,7 @@
        "body": [
         {
          "t": "text",
-         "key": "bar5.3",
+         "key": "bar5.2",
          "kind": "narrative"
         },
         {
@@ -10771,7 +10702,7 @@
         },
         {
          "t": "text",
-         "key": "bar5.4",
+         "key": "bar5.3",
          "kind": "narrative"
         }
        ]
@@ -10794,7 +10725,7 @@
        "body": [
         {
          "t": "text",
-         "key": "bar5.5",
+         "key": "bar5.4",
          "kind": "narrative"
         },
         {
@@ -10805,7 +10736,7 @@
         },
         {
          "t": "text",
-         "key": "bar5.6",
+         "key": "bar5.5",
          "kind": "narrative"
         }
        ]
@@ -10834,7 +10765,7 @@
       },
       {
        "t": "text",
-       "key": "bar5.7",
+       "key": "bar5.6",
        "kind": "instruction"
       }
      ]
@@ -10856,15 +10787,7 @@
     {
      "t": "text",
      "key": "bar6.1",
-     "kind": "title"
-    },
-    {
-     "t": "br"
-    },
-    {
-     "t": "text",
-     "key": "bar6.2",
-     "kind": "instruction",
+     "kind": "title",
      "args": [
       {
        "fn": "random",
@@ -10898,7 +10821,7 @@
     },
     {
      "t": "text",
-     "key": "bar6.3",
+     "key": "bar6.2",
      "kind": "narrative"
     },
     {
@@ -10909,7 +10832,7 @@
     },
     {
      "t": "text",
-     "key": "bar6.4",
+     "key": "bar6.3",
      "kind": "narrative"
     },
     {
@@ -10934,7 +10857,7 @@
       },
       {
        "t": "text",
-       "key": "bar6.5",
+       "key": "bar6.4",
        "kind": "instruction"
       }
      ]
@@ -10956,15 +10879,7 @@
     {
      "t": "text",
      "key": "bar7.1",
-     "kind": "title"
-    },
-    {
-     "t": "br"
-    },
-    {
-     "t": "text",
-     "key": "bar7.2",
-     "kind": "instruction",
+     "kind": "title",
      "args": [
       {
        "fn": "random",
@@ -10998,7 +10913,7 @@
     },
     {
      "t": "text",
-     "key": "bar7.3",
+     "key": "bar7.2",
      "kind": "narrative"
     },
     {
@@ -11009,7 +10924,7 @@
     },
     {
      "t": "text",
-     "key": "bar7.4",
+     "key": "bar7.3",
      "kind": "narrative"
     },
     {
@@ -11034,7 +10949,7 @@
       },
       {
        "t": "text",
-       "key": "bar7.5",
+       "key": "bar7.4",
        "kind": "instruction"
       }
      ]
@@ -11059,15 +10974,7 @@
     {
      "t": "text",
      "key": "Unicure.1",
-     "kind": "command"
-    },
-    {
-     "t": "br"
-    },
-    {
-     "t": "text",
-     "key": "Unicure.2",
-     "kind": "instruction",
+     "kind": "command",
      "args": [
       {
        "var": "fevercure"
@@ -11082,7 +10989,7 @@
     },
     {
      "t": "text",
-     "key": "Unicure.3",
+     "key": "Unicure.2",
      "kind": "instruction"
     },
     {
@@ -11090,7 +10997,7 @@
     },
     {
      "t": "text",
-     "key": "Unicure.4",
+     "key": "Unicure.3",
      "kind": "narrative"
     },
     {
@@ -11101,7 +11008,7 @@
     },
     {
      "t": "text",
-     "key": "Unicure.5",
+     "key": "Unicure.4",
      "kind": "instruction"
     },
     {
@@ -11120,7 +11027,7 @@
        "body": [
         {
          "t": "text",
-         "key": "Unicure.6",
+         "key": "Unicure.5",
          "kind": "instruction"
         }
        ]
@@ -11129,7 +11036,7 @@
     },
     {
      "t": "text",
-     "key": "Unicure.7",
+     "key": "Unicure.6",
      "kind": "narrative",
      "args": [
       {
@@ -11145,7 +11052,7 @@
     },
     {
      "t": "text",
-     "key": "Unicure.8",
+     "key": "Unicure.7",
      "kind": "instruction"
     },
     {
@@ -11156,7 +11063,7 @@
     },
     {
      "t": "text",
-     "key": "Unicure.9",
+     "key": "Unicure.8",
      "kind": "instruction",
      "args": [
       {
@@ -11166,7 +11073,7 @@
     },
     {
      "t": "link",
-     "key": "Unicure.10",
+     "key": "Unicure.9",
      "to": {
       "lit": "Unicure1"
      }
@@ -11179,7 +11086,7 @@
     },
     {
      "t": "text",
-     "key": "Unicure.11",
+     "key": "Unicure.10",
      "kind": "instruction",
      "args": [
       {
@@ -11189,7 +11096,7 @@
     },
     {
      "t": "link",
-     "key": "Unicure.12",
+     "key": "Unicure.11",
      "to": {
       "lit": "Unicure2"
      }
@@ -19162,15 +19069,7 @@
     {
      "t": "text",
      "key": "InfinityClick2.1",
-     "kind": "title"
-    },
-    {
-     "t": "br"
-    },
-    {
-     "t": "text",
-     "key": "InfinityClick2.2",
-     "kind": "instruction",
+     "kind": "title",
      "args": [
       {
        "fn": "either",
@@ -19202,7 +19101,7 @@
     },
     {
      "t": "text",
-     "key": "InfinityClick2.3",
+     "key": "InfinityClick2.2",
      "kind": "narrative",
      "args": [
       {
@@ -19288,7 +19187,7 @@
           "body": [
            {
             "t": "text",
-            "key": "InfinityClick2.4",
+            "key": "InfinityClick2.3",
             "kind": "instruction"
            }
           ]
@@ -19303,7 +19202,7 @@
        },
        {
         "t": "text",
-        "key": "InfinityClick2.5",
+        "key": "InfinityClick2.4",
         "kind": "instruction"
        }
       ],
@@ -27897,7 +27796,15 @@
     {
      "t": "text",
      "key": "Trigger3Experiments.1",
-     "kind": "title"
+     "kind": "title",
+     "args": [
+      {
+       "var": "sci3"
+      }
+     ]
+    },
+    {
+     "t": "br"
     },
     {
      "t": "br"
@@ -27919,24 +27826,8 @@
      "t": "br"
     },
     {
-     "t": "text",
-     "key": "Trigger3Experiments.3",
-     "kind": "instruction",
-     "args": [
-      {
-       "var": "sci3"
-      }
-     ]
-    },
-    {
-     "t": "br"
-    },
-    {
-     "t": "br"
-    },
-    {
      "t": "link",
-     "key": "Trigger3Experiments.4",
+     "key": "Trigger3Experiments.3",
      "args": [
       {
        "op": "+",
@@ -27965,7 +27856,7 @@
     },
     {
      "t": "link",
-     "key": "Trigger3Experiments.5",
+     "key": "Trigger3Experiments.4",
      "args": [
       {
        "op": "+",
@@ -28008,7 +27899,7 @@
        "body": [
         {
          "t": "link",
-         "key": "Trigger3Experiments.6",
+         "key": "Trigger3Experiments.5",
          "args": [
           {
            "op": "+",
@@ -28055,7 +27946,7 @@
        "body": [
         {
          "t": "link",
-         "key": "Trigger3Experiments.7",
+         "key": "Trigger3Experiments.6",
          "args": [
           {
            "op": "+",
@@ -28102,7 +27993,7 @@
        "body": [
         {
          "t": "link",
-         "key": "Trigger3Experiments.8",
+         "key": "Trigger3Experiments.7",
          "args": [
           {
            "op": "+",
@@ -28226,7 +28117,15 @@
     {
      "t": "text",
      "key": "ChooseScience.1",
-     "kind": "command"
+     "kind": "command",
+     "args": [
+      {
+       "var": "charity"
+      }
+     ]
+    },
+    {
+     "t": "br"
     },
     {
      "t": "br"
@@ -28234,7 +28133,7 @@
     {
      "t": "text",
      "key": "ChooseScience.2",
-     "kind": "instruction",
+     "kind": "narrative",
      "args": [
       {
        "var": "charity"
@@ -28250,22 +28149,6 @@
     {
      "t": "text",
      "key": "ChooseScience.3",
-     "kind": "narrative",
-     "args": [
-      {
-       "var": "charity"
-      }
-     ]
-    },
-    {
-     "t": "br"
-    },
-    {
-     "t": "br"
-    },
-    {
-     "t": "text",
-     "key": "ChooseScience.4",
      "kind": "narrative"
     },
     {
@@ -28276,7 +28159,7 @@
     },
     {
      "t": "text",
-     "key": "ChooseScience.5",
+     "key": "ChooseScience.4",
      "kind": "narrative",
      "args": [
       {
@@ -28292,7 +28175,7 @@
     },
     {
      "t": "text",
-     "key": "ChooseScience.6",
+     "key": "ChooseScience.5",
      "kind": "narrative"
     },
     {
@@ -28303,7 +28186,7 @@
     },
     {
      "t": "text",
-     "key": "ChooseScience.7",
+     "key": "ChooseScience.6",
      "kind": "instruction"
     },
     {
@@ -28314,7 +28197,7 @@
     },
     {
      "t": "link",
-     "key": "ChooseScience.8",
+     "key": "ChooseScience.7",
      "reveal": "0",
      "replace": true
     },
@@ -28326,7 +28209,7 @@
     },
     {
      "t": "link",
-     "key": "ChooseScience.9",
+     "key": "ChooseScience.8",
      "reveal": "1",
      "replace": true
     },
@@ -28338,7 +28221,7 @@
     },
     {
      "t": "link",
-     "key": "ChooseScience.10",
+     "key": "ChooseScience.9",
      "reveal": "2",
      "replace": true
     },
@@ -28484,7 +28367,15 @@
     {
      "t": "text",
      "key": "SanityChoice.1",
-     "kind": "command"
+     "kind": "command",
+     "args": [
+      {
+       "var": "saneplayer"
+      }
+     ]
+    },
+    {
+     "t": "br"
     },
     {
      "t": "br"
@@ -28503,17 +28394,12 @@
      "t": "br"
     },
     {
-     "t": "br"
-    },
-    {
      "t": "text",
      "key": "SanityChoice.3",
-     "kind": "instruction",
-     "args": [
-      {
-       "var": "saneplayer"
-      }
-     ]
+     "kind": "narrative"
+    },
+    {
+     "t": "br"
     },
     {
      "t": "br"
@@ -28543,17 +28429,6 @@
     {
      "t": "text",
      "key": "SanityChoice.6",
-     "kind": "narrative"
-    },
-    {
-     "t": "br"
-    },
-    {
-     "t": "br"
-    },
-    {
-     "t": "text",
-     "key": "SanityChoice.7",
      "kind": "instruction"
     },
     {
@@ -28561,7 +28436,7 @@
     },
     {
      "t": "text",
-     "key": "SanityChoice.8",
+     "key": "SanityChoice.7",
      "kind": "instruction",
      "args": [
       {
@@ -28577,7 +28452,7 @@
     },
     {
      "t": "text",
-     "key": "SanityChoice.9",
+     "key": "SanityChoice.8",
      "kind": "instruction"
     },
     {
@@ -28588,7 +28463,7 @@
     },
     {
      "t": "link",
-     "key": "SanityChoice.10",
+     "key": "SanityChoice.9",
      "reveal": "0",
      "replace": true
     },
@@ -28600,7 +28475,7 @@
     },
     {
      "t": "link",
-     "key": "SanityChoice.11",
+     "key": "SanityChoice.10",
      "reveal": "1",
      "replace": true
     },
@@ -28612,7 +28487,7 @@
     },
     {
      "t": "link",
-     "key": "SanityChoice.12",
+     "key": "SanityChoice.11",
      "reveal": "2",
      "replace": true
     },
@@ -28624,7 +28499,7 @@
     },
     {
      "t": "link",
-     "key": "SanityChoice.13",
+     "key": "SanityChoice.12",
      "reveal": "3",
      "replace": true
     },
@@ -28636,7 +28511,7 @@
     },
     {
      "t": "link",
-     "key": "SanityChoice.14",
+     "key": "SanityChoice.13",
      "reveal": "4",
      "replace": true
     },
@@ -31841,14 +31716,6 @@
     {
      "t": "text",
      "key": "NewMaster1A.1",
-     "kind": "command"
-    },
-    {
-     "t": "br"
-    },
-    {
-     "t": "text",
-     "key": "NewMaster1A.2",
      "kind": "command",
      "args": [
       {
@@ -31943,7 +31810,7 @@
     "4": [
      {
       "t": "text",
-      "key": "NewMaster1A.3",
+      "key": "NewMaster1A.2",
       "kind": "instruction",
       "args": [
        {
@@ -31956,7 +31823,7 @@
      },
      {
       "t": "text",
-      "key": "NewMaster1A.4",
+      "key": "NewMaster1A.3",
       "kind": "narrative"
      },
      {
@@ -31967,7 +31834,7 @@
      },
      {
       "t": "text",
-      "key": "NewMaster1A.5",
+      "key": "NewMaster1A.4",
       "kind": "instruction"
      },
      {
@@ -32484,15 +32351,7 @@
     {
      "t": "text",
      "key": "NewMaster3A.2",
-     "kind": "title"
-    },
-    {
-     "t": "br"
-    },
-    {
-     "t": "text",
-     "key": "NewMaster3A.3",
-     "kind": "instruction",
+     "kind": "title",
      "args": [
       {
        "fn": "either",
@@ -32557,7 +32416,7 @@
     },
     {
      "t": "text",
-     "key": "NewMaster3A.4",
+     "key": "NewMaster3A.3",
      "kind": "narrative"
     },
     {
@@ -32568,7 +32427,7 @@
     },
     {
      "t": "text",
-     "key": "NewMaster3A.5",
+     "key": "NewMaster3A.4",
      "kind": "instruction"
     },
     {
@@ -33539,14 +33398,6 @@
     {
      "t": "text",
      "key": "NewMaster1B.1",
-     "kind": "command"
-    },
-    {
-     "t": "br"
-    },
-    {
-     "t": "text",
-     "key": "NewMaster1B.2",
      "kind": "command",
      "args": [
       {
@@ -33644,7 +33495,7 @@
     "4": [
      {
       "t": "text",
-      "key": "NewMaster1B.3",
+      "key": "NewMaster1B.2",
       "kind": "instruction",
       "args": [
        {
@@ -33657,7 +33508,7 @@
      },
      {
       "t": "text",
-      "key": "NewMaster1B.4",
+      "key": "NewMaster1B.3",
       "kind": "narrative"
      },
      {
@@ -33668,7 +33519,7 @@
      },
      {
       "t": "text",
-      "key": "NewMaster1B.5",
+      "key": "NewMaster1B.4",
       "kind": "instruction"
      },
      {
@@ -34122,7 +33973,7 @@
     {
      "t": "text",
      "key": "MWTemp.1",
-     "kind": "title"
+     "kind": "instruction"
     },
     {
      "t": "set",
@@ -34399,7 +34250,7 @@
     {
      "t": "text",
      "key": "MWCompleteName.1",
-     "kind": "title"
+     "kind": "instruction"
     },
     {
      "t": "set",
@@ -36718,15 +36569,7 @@
     {
      "t": "text",
      "key": "NewMaster3B.2",
-     "kind": "title"
-    },
-    {
-     "t": "br"
-    },
-    {
-     "t": "text",
-     "key": "NewMaster3B.3",
-     "kind": "instruction",
+     "kind": "title",
      "args": [
       {
        "fn": "either",
@@ -36791,7 +36634,7 @@
     },
     {
      "t": "text",
-     "key": "NewMaster3B.4",
+     "key": "NewMaster3B.3",
      "kind": "narrative"
     },
     {
@@ -36802,7 +36645,7 @@
     },
     {
      "t": "text",
-     "key": "NewMaster3B.5",
+     "key": "NewMaster3B.4",
      "kind": "instruction"
     },
     {
@@ -37825,14 +37668,6 @@
     {
      "t": "text",
      "key": "NewMaster1C.1",
-     "kind": "command"
-    },
-    {
-     "t": "br"
-    },
-    {
-     "t": "text",
-     "key": "NewMaster1C.2",
      "kind": "command",
      "args": [
       {
@@ -37930,7 +37765,7 @@
     "4": [
      {
       "t": "text",
-      "key": "NewMaster1C.3",
+      "key": "NewMaster1C.2",
       "kind": "instruction",
       "args": [
        {
@@ -37943,7 +37778,7 @@
      },
      {
       "t": "text",
-      "key": "NewMaster1C.4",
+      "key": "NewMaster1C.3",
       "kind": "narrative"
      },
      {
@@ -37954,7 +37789,7 @@
      },
      {
       "t": "text",
-      "key": "NewMaster1C.5",
+      "key": "NewMaster1C.4",
       "kind": "instruction"
      },
      {
@@ -38471,15 +38306,7 @@
     {
      "t": "text",
      "key": "NewMaster3C.2",
-     "kind": "title"
-    },
-    {
-     "t": "br"
-    },
-    {
-     "t": "text",
-     "key": "NewMaster3C.3",
-     "kind": "instruction",
+     "kind": "title",
      "args": [
       {
        "fn": "either",
@@ -38544,7 +38371,7 @@
     },
     {
      "t": "text",
-     "key": "NewMaster3C.4",
+     "key": "NewMaster3C.3",
      "kind": "narrative"
     },
     {
@@ -38555,7 +38382,7 @@
     },
     {
      "t": "text",
-     "key": "NewMaster3C.5",
+     "key": "NewMaster3C.4",
      "kind": "instruction"
     },
     {
@@ -38588,14 +38415,6 @@
     {
      "t": "text",
      "key": "NewMaster1D.1",
-     "kind": "command"
-    },
-    {
-     "t": "br"
-    },
-    {
-     "t": "text",
-     "key": "NewMaster1D.2",
      "kind": "command",
      "args": [
       {
@@ -38693,7 +38512,7 @@
     "4": [
      {
       "t": "text",
-      "key": "NewMaster1D.3",
+      "key": "NewMaster1D.2",
       "kind": "instruction",
       "args": [
        {
@@ -38706,7 +38525,7 @@
      },
      {
       "t": "text",
-      "key": "NewMaster1D.4",
+      "key": "NewMaster1D.3",
       "kind": "narrative"
      },
      {
@@ -38717,7 +38536,7 @@
      },
      {
       "t": "text",
-      "key": "NewMaster1D.5",
+      "key": "NewMaster1D.4",
       "kind": "instruction"
      },
      {
@@ -40103,15 +39922,7 @@
     {
      "t": "text",
      "key": "NewMaster3D.2",
-     "kind": "title"
-    },
-    {
-     "t": "br"
-    },
-    {
-     "t": "text",
-     "key": "NewMaster3D.3",
-     "kind": "instruction",
+     "kind": "title",
      "args": [
       {
        "fn": "either",
@@ -40176,7 +39987,7 @@
     },
     {
      "t": "text",
-     "key": "NewMaster3D.4",
+     "key": "NewMaster3D.3",
      "kind": "narrative"
     },
     {
@@ -40187,7 +39998,7 @@
     },
     {
      "t": "text",
-     "key": "NewMaster3D.5",
+     "key": "NewMaster3D.4",
      "kind": "instruction"
     },
     {
@@ -40220,14 +40031,6 @@
     {
      "t": "text",
      "key": "NewMaster1E.1",
-     "kind": "command"
-    },
-    {
-     "t": "br"
-    },
-    {
-     "t": "text",
-     "key": "NewMaster1E.2",
      "kind": "command",
      "args": [
       {
@@ -40325,7 +40128,7 @@
     "4": [
      {
       "t": "text",
-      "key": "NewMaster1E.3",
+      "key": "NewMaster1E.2",
       "kind": "instruction",
       "args": [
        {
@@ -40341,7 +40144,7 @@
      },
      {
       "t": "text",
-      "key": "NewMaster1E.4",
+      "key": "NewMaster1E.3",
       "kind": "narrative"
      },
      {
@@ -40352,7 +40155,7 @@
      },
      {
       "t": "text",
-      "key": "NewMaster1E.5",
+      "key": "NewMaster1E.4",
       "kind": "instruction"
      },
      {
@@ -50067,15 +49870,7 @@
     {
      "t": "text",
      "key": "CharityAwardGood.1",
-     "kind": "command"
-    },
-    {
-     "t": "br"
-    },
-    {
-     "t": "text",
-     "key": "CharityAwardGood.2",
-     "kind": "instruction",
+     "kind": "command",
      "args": [
       {
        "var": "charity"
@@ -50090,7 +49885,7 @@
     },
     {
      "t": "text",
-     "key": "CharityAwardGood.3",
+     "key": "CharityAwardGood.2",
      "kind": "instruction"
     },
     {
@@ -50098,7 +49893,7 @@
     },
     {
      "t": "text",
-     "key": "CharityAwardGood.4",
+     "key": "CharityAwardGood.3",
      "kind": "narrative"
     },
     {
@@ -50109,7 +49904,7 @@
     },
     {
      "t": "text",
-     "key": "CharityAwardGood.5",
+     "key": "CharityAwardGood.4",
      "kind": "narrative",
      "args": [
       {
@@ -50148,7 +49943,7 @@
        },
        {
         "t": "text",
-        "key": "CharityAwardGood.6",
+        "key": "CharityAwardGood.5",
         "kind": "instruction"
        }
       ],
@@ -55677,15 +55472,7 @@
     {
      "t": "text",
      "key": "NewMaster3E.2",
-     "kind": "title"
-    },
-    {
-     "t": "br"
-    },
-    {
-     "t": "text",
-     "key": "NewMaster3E.3",
-     "kind": "instruction",
+     "kind": "title",
      "args": [
       {
        "fn": "either",
@@ -55750,7 +55537,7 @@
     },
     {
      "t": "text",
-     "key": "NewMaster3E.4",
+     "key": "NewMaster3E.3",
      "kind": "narrative"
     },
     {
@@ -55761,7 +55548,7 @@
     },
     {
      "t": "text",
-     "key": "NewMaster3E.5",
+     "key": "NewMaster3E.4",
      "kind": "instruction"
     },
     {
@@ -57110,15 +56897,7 @@
     {
      "t": "text",
      "key": "3ExperimentsRes.1",
-     "kind": "title"
-    },
-    {
-     "t": "br"
-    },
-    {
-     "t": "text",
-     "key": "3ExperimentsRes.2",
-     "kind": "instruction",
+     "kind": "title",
      "args": [
       {
        "var": "sci3"
@@ -57130,7 +56909,7 @@
     },
     {
      "t": "text",
-     "key": "3ExperimentsRes.3",
+     "key": "3ExperimentsRes.2",
      "kind": "narrative"
     },
     {
@@ -57141,7 +56920,7 @@
     },
     {
      "t": "text",
-     "key": "3ExperimentsRes.4",
+     "key": "3ExperimentsRes.3",
      "kind": "narrative",
      "args": [
       {
@@ -57165,7 +56944,7 @@
        "body": [
         {
          "t": "text",
-         "key": "3ExperimentsRes.5",
+         "key": "3ExperimentsRes.4",
          "kind": "narrative"
         }
        ]
@@ -57188,7 +56967,7 @@
        "body": [
         {
          "t": "text",
-         "key": "3ExperimentsRes.6",
+         "key": "3ExperimentsRes.5",
          "kind": "narrative"
         }
        ]
@@ -57211,7 +56990,7 @@
        "body": [
         {
          "t": "text",
-         "key": "3ExperimentsRes.7",
+         "key": "3ExperimentsRes.6",
          "kind": "narrative"
         }
        ]
@@ -57220,7 +56999,7 @@
     },
     {
      "t": "text",
-     "key": "3ExperimentsRes.8",
+     "key": "3ExperimentsRes.7",
      "kind": "narrative",
      "args": [
       {
@@ -57236,7 +57015,7 @@
     },
     {
      "t": "text",
-     "key": "3ExperimentsRes.9",
+     "key": "3ExperimentsRes.8",
      "kind": "narrative"
     },
     {
@@ -57283,7 +57062,7 @@
        },
        {
         "t": "text",
-        "key": "3ExperimentsRes.10",
+        "key": "3ExperimentsRes.9",
         "kind": "instruction",
         "args": [
          {
@@ -58048,15 +57827,7 @@
     {
      "t": "text",
      "key": "SymposiumEvent2.1",
-     "kind": "title"
-    },
-    {
-     "t": "br"
-    },
-    {
-     "t": "text",
-     "key": "SymposiumEvent2.2",
-     "kind": "instruction",
+     "kind": "title",
      "args": [
       {
        "var": "sci3"
@@ -58068,7 +57839,7 @@
     },
     {
      "t": "text",
-     "key": "SymposiumEvent2.3",
+     "key": "SymposiumEvent2.2",
      "kind": "narrative"
     },
     {
@@ -58087,7 +57858,7 @@
        "body": [
         {
          "t": "text",
-         "key": "SymposiumEvent2.4",
+         "key": "SymposiumEvent2.3",
          "kind": "instruction"
         }
        ]
@@ -58105,7 +57876,7 @@
        "body": [
         {
          "t": "text",
-         "key": "SymposiumEvent2.5",
+         "key": "SymposiumEvent2.4",
          "kind": "instruction"
         }
        ]
@@ -58114,12 +57885,23 @@
        "body": [
         {
          "t": "text",
-         "key": "SymposiumEvent2.6",
+         "key": "SymposiumEvent2.5",
          "kind": "instruction"
         }
        ]
       }
      ]
+    },
+    {
+     "t": "text",
+     "key": "SymposiumEvent2.6",
+     "kind": "narrative"
+    },
+    {
+     "t": "br"
+    },
+    {
+     "t": "br"
     },
     {
      "t": "text",
@@ -58135,17 +57917,6 @@
     {
      "t": "text",
      "key": "SymposiumEvent2.8",
-     "kind": "narrative"
-    },
-    {
-     "t": "br"
-    },
-    {
-     "t": "br"
-    },
-    {
-     "t": "text",
-     "key": "SymposiumEvent2.9",
      "kind": "narrative"
     },
     {
@@ -62598,7 +62369,7 @@
     {
      "t": "text",
      "key": "MWCheckComplete.1",
-     "kind": "title"
+     "kind": "instruction"
     },
     {
      "t": "br"
@@ -63121,14 +62892,6 @@
     {
      "t": "text",
      "key": "VialCharity.1",
-     "kind": "command"
-    },
-    {
-     "t": "br"
-    },
-    {
-     "t": "text",
-     "key": "VialCharity.2",
      "kind": "command",
      "args": [
       {
@@ -63167,7 +62930,7 @@
        },
        {
         "t": "text",
-        "key": "VialCharity.3",
+        "key": "VialCharity.2",
         "kind": "instruction"
        },
        {
@@ -63178,7 +62941,7 @@
        },
        {
         "t": "text",
-        "key": "VialCharity.4",
+        "key": "VialCharity.3",
         "kind": "instruction"
        }
       ],
@@ -63190,7 +62953,7 @@
     "2": [
      {
       "t": "text",
-      "key": "VialCharity.5",
+      "key": "VialCharity.4",
       "kind": "instruction"
      },
      {
@@ -63198,7 +62961,7 @@
      },
      {
       "t": "text",
-      "key": "VialCharity.6",
+      "key": "VialCharity.5",
       "kind": "narrative",
       "args": [
        {
@@ -63214,7 +62977,7 @@
      },
      {
       "t": "text",
-      "key": "VialCharity.7",
+      "key": "VialCharity.6",
       "kind": "narrative",
       "args": [
        {
@@ -63588,14 +63351,6 @@
     {
      "t": "text",
      "key": "Gen1Creepy-ConcealExpose.1",
-     "kind": "command"
-    },
-    {
-     "t": "br"
-    },
-    {
-     "t": "text",
-     "key": "Gen1Creepy-ConcealExpose.2",
      "kind": "command",
      "args": [
       {
@@ -63620,7 +63375,7 @@
     "0": [
      {
       "t": "text",
-      "key": "Gen1Creepy-ConcealExpose.3",
+      "key": "Gen1Creepy-ConcealExpose.2",
       "kind": "instruction"
      },
      {
@@ -63628,7 +63383,7 @@
      },
      {
       "t": "text",
-      "key": "Gen1Creepy-ConcealExpose.4",
+      "key": "Gen1Creepy-ConcealExpose.3",
       "kind": "narrative"
      },
      {
@@ -63647,7 +63402,7 @@
         "body": [
          {
           "t": "text",
-          "key": "Gen1Creepy-ConcealExpose.5",
+          "key": "Gen1Creepy-ConcealExpose.4",
           "kind": "instruction"
          }
         ]
@@ -63670,7 +63425,7 @@
         "body": [
          {
           "t": "text",
-          "key": "Gen1Creepy-ConcealExpose.6",
+          "key": "Gen1Creepy-ConcealExpose.5",
           "kind": "instruction"
          }
         ]
@@ -63679,7 +63434,7 @@
      },
      {
       "t": "text",
-      "key": "Gen1Creepy-ConcealExpose.7",
+      "key": "Gen1Creepy-ConcealExpose.6",
       "kind": "narrative",
       "args": [
        {
@@ -63771,7 +63526,7 @@
                 "body": [
                  {
                   "t": "text",
-                  "key": "Gen1Creepy-ConcealExpose.8",
+                  "key": "Gen1Creepy-ConcealExpose.7",
                   "kind": "narrative"
                  },
                  {
@@ -63782,7 +63537,7 @@
                  },
                  {
                   "t": "text",
-                  "key": "Gen1Creepy-ConcealExpose.9",
+                  "key": "Gen1Creepy-ConcealExpose.8",
                   "kind": "narrative",
                   "args": [
                    {
@@ -63862,7 +63617,7 @@
                 "body": [
                  {
                   "t": "text",
-                  "key": "Gen1Creepy-ConcealExpose.10",
+                  "key": "Gen1Creepy-ConcealExpose.9",
                   "kind": "narrative"
                  },
                  {
@@ -63873,7 +63628,7 @@
                  },
                  {
                   "t": "text",
-                  "key": "Gen1Creepy-ConcealExpose.11",
+                  "key": "Gen1Creepy-ConcealExpose.10",
                   "kind": "narrative",
                   "args": [
                    {
@@ -63953,7 +63708,7 @@
                 "body": [
                  {
                   "t": "text",
-                  "key": "Gen1Creepy-ConcealExpose.12",
+                  "key": "Gen1Creepy-ConcealExpose.11",
                   "kind": "narrative"
                  },
                  {
@@ -63964,7 +63719,7 @@
                  },
                  {
                   "t": "text",
-                  "key": "Gen1Creepy-ConcealExpose.13",
+                  "key": "Gen1Creepy-ConcealExpose.12",
                   "kind": "narrative",
                   "args": [
                    {
@@ -64044,7 +63799,7 @@
                 "body": [
                  {
                   "t": "text",
-                  "key": "Gen1Creepy-ConcealExpose.14",
+                  "key": "Gen1Creepy-ConcealExpose.13",
                   "kind": "narrative"
                  },
                  {
@@ -64055,7 +63810,7 @@
                  },
                  {
                   "t": "text",
-                  "key": "Gen1Creepy-ConcealExpose.15",
+                  "key": "Gen1Creepy-ConcealExpose.14",
                   "kind": "narrative",
                   "args": [
                    {
@@ -64135,7 +63890,7 @@
                 "body": [
                  {
                   "t": "text",
-                  "key": "Gen1Creepy-ConcealExpose.16",
+                  "key": "Gen1Creepy-ConcealExpose.15",
                   "kind": "narrative"
                  },
                  {
@@ -64146,7 +63901,7 @@
                  },
                  {
                   "t": "text",
-                  "key": "Gen1Creepy-ConcealExpose.17",
+                  "key": "Gen1Creepy-ConcealExpose.16",
                   "kind": "narrative",
                   "args": [
                    {
@@ -64244,7 +63999,7 @@
                 "body": [
                  {
                   "t": "text",
-                  "key": "Gen1Creepy-ConcealExpose.18",
+                  "key": "Gen1Creepy-ConcealExpose.17",
                   "kind": "narrative"
                  },
                  {
@@ -64255,7 +64010,7 @@
                  },
                  {
                   "t": "text",
-                  "key": "Gen1Creepy-ConcealExpose.19",
+                  "key": "Gen1Creepy-ConcealExpose.18",
                   "kind": "narrative",
                   "args": [
                    {
@@ -64335,7 +64090,7 @@
                 "body": [
                  {
                   "t": "text",
-                  "key": "Gen1Creepy-ConcealExpose.20",
+                  "key": "Gen1Creepy-ConcealExpose.19",
                   "kind": "narrative"
                  },
                  {
@@ -64346,7 +64101,7 @@
                  },
                  {
                   "t": "text",
-                  "key": "Gen1Creepy-ConcealExpose.21",
+                  "key": "Gen1Creepy-ConcealExpose.20",
                   "kind": "narrative",
                   "args": [
                    {
@@ -64426,7 +64181,7 @@
                 "body": [
                  {
                   "t": "text",
-                  "key": "Gen1Creepy-ConcealExpose.22",
+                  "key": "Gen1Creepy-ConcealExpose.21",
                   "kind": "narrative"
                  },
                  {
@@ -64437,7 +64192,7 @@
                  },
                  {
                   "t": "text",
-                  "key": "Gen1Creepy-ConcealExpose.23",
+                  "key": "Gen1Creepy-ConcealExpose.22",
                   "kind": "narrative",
                   "args": [
                    {
@@ -64517,7 +64272,7 @@
                 "body": [
                  {
                   "t": "text",
-                  "key": "Gen1Creepy-ConcealExpose.24",
+                  "key": "Gen1Creepy-ConcealExpose.23",
                   "kind": "narrative"
                  },
                  {
@@ -64528,7 +64283,7 @@
                  },
                  {
                   "t": "text",
-                  "key": "Gen1Creepy-ConcealExpose.25",
+                  "key": "Gen1Creepy-ConcealExpose.24",
                   "kind": "narrative",
                   "args": [
                    {
@@ -64608,7 +64363,7 @@
                 "body": [
                  {
                   "t": "text",
-                  "key": "Gen1Creepy-ConcealExpose.26",
+                  "key": "Gen1Creepy-ConcealExpose.25",
                   "kind": "narrative"
                  },
                  {
@@ -64619,7 +64374,7 @@
                  },
                  {
                   "t": "text",
-                  "key": "Gen1Creepy-ConcealExpose.27",
+                  "key": "Gen1Creepy-ConcealExpose.26",
                   "kind": "narrative",
                   "args": [
                    {
@@ -65414,7 +65169,7 @@
            },
            {
             "t": "text",
-            "key": "Gen1Creepy-ConcealExpose.28",
+            "key": "Gen1Creepy-ConcealExpose.27",
             "kind": "instruction"
            },
            {
@@ -65425,7 +65180,7 @@
            },
            {
             "t": "text",
-            "key": "Gen1Creepy-ConcealExpose.29",
+            "key": "Gen1Creepy-ConcealExpose.28",
             "kind": "instruction"
            }
           ]
@@ -65433,36 +65188,30 @@
          {
           "body": [
            {
-            "t": "block",
-            "style": "setupEvent",
-            "body": [
-             {
-              "t": "set",
-              "var": "_SetupImage",
-              "value": {
-               "lit": "DiscardEstateUpgrade_Icon"
-              }
-             },
-             {
-              "t": "br"
-             },
-             {
-              "t": "text",
-              "key": "Gen1Creepy-ConcealExpose.30",
-              "kind": "instruction"
-             },
-             {
-              "t": "br"
-             },
-             {
-              "t": "br"
-             },
-             {
-              "t": "text",
-              "key": "Gen1Creepy-ConcealExpose.31",
-              "kind": "instruction"
-             }
-            ]
+            "t": "set",
+            "var": "_SetupImage",
+            "value": {
+             "lit": "DiscardEstateUpgrade_Icon"
+            }
+           },
+           {
+            "t": "br"
+           },
+           {
+            "t": "text",
+            "key": "Gen1Creepy-ConcealExpose.29",
+            "kind": "instruction"
+           },
+           {
+            "t": "br"
+           },
+           {
+            "t": "br"
+           },
+           {
+            "t": "text",
+            "key": "Gen1Creepy-ConcealExpose.30",
+            "kind": "instruction"
            }
           ]
          }
@@ -65493,14 +65242,6 @@
     {
      "t": "text",
      "key": "Gen1Creepy-RefusalBuild.1",
-     "kind": "command"
-    },
-    {
-     "t": "br"
-    },
-    {
-     "t": "text",
-     "key": "Gen1Creepy-RefusalBuild.2",
      "kind": "command",
      "args": [
       {
@@ -65542,7 +65283,7 @@
        },
        {
         "t": "text",
-        "key": "Gen1Creepy-RefusalBuild.3",
+        "key": "Gen1Creepy-RefusalBuild.2",
         "kind": "instruction"
        },
        {
@@ -65553,7 +65294,7 @@
        },
        {
         "t": "text",
-        "key": "Gen1Creepy-RefusalBuild.4",
+        "key": "Gen1Creepy-RefusalBuild.3",
         "kind": "instruction"
        }
       ],
@@ -65582,7 +65323,7 @@
        },
        {
         "t": "text",
-        "key": "Gen1Creepy-RefusalBuild.5",
+        "key": "Gen1Creepy-RefusalBuild.4",
         "kind": "instruction"
        },
        {
@@ -65593,7 +65334,7 @@
        },
        {
         "t": "text",
-        "key": "Gen1Creepy-RefusalBuild.6",
+        "key": "Gen1Creepy-RefusalBuild.5",
         "kind": "instruction"
        }
       ],
@@ -65622,7 +65363,7 @@
         "body": [
          {
           "t": "text",
-          "key": "Gen1Creepy-RefusalBuild.7",
+          "key": "Gen1Creepy-RefusalBuild.6",
           "kind": "instruction"
          },
          {
@@ -65630,7 +65371,7 @@
          },
          {
           "t": "text",
-          "key": "Gen1Creepy-RefusalBuild.8",
+          "key": "Gen1Creepy-RefusalBuild.7",
           "kind": "narrative",
           "args": [
            {
@@ -65646,7 +65387,7 @@
          },
          {
           "t": "text",
-          "key": "Gen1Creepy-RefusalBuild.9",
+          "key": "Gen1Creepy-RefusalBuild.8",
           "kind": "narrative",
           "args": [
            {
@@ -65672,7 +65413,7 @@
         "body": [
          {
           "t": "text",
-          "key": "Gen1Creepy-RefusalBuild.10",
+          "key": "Gen1Creepy-RefusalBuild.9",
           "kind": "instruction"
          },
          {
@@ -65680,7 +65421,7 @@
          },
          {
           "t": "text",
-          "key": "Gen1Creepy-RefusalBuild.11",
+          "key": "Gen1Creepy-RefusalBuild.10",
           "kind": "narrative",
           "args": [
            {
@@ -65696,7 +65437,7 @@
          },
          {
           "t": "text",
-          "key": "Gen1Creepy-RefusalBuild.12",
+          "key": "Gen1Creepy-RefusalBuild.11",
           "kind": "narrative",
           "args": [
            {
@@ -66720,14 +66461,6 @@
     {
      "t": "text",
      "key": "Gen1Creepy-RefuseBonus.1",
-     "kind": "command"
-    },
-    {
-     "t": "br"
-    },
-    {
-     "t": "text",
-     "key": "Gen1Creepy-RefuseBonus.2",
      "kind": "command",
      "args": [
       {
@@ -66769,7 +66502,7 @@
        },
        {
         "t": "text",
-        "key": "Gen1Creepy-RefuseBonus.3",
+        "key": "Gen1Creepy-RefuseBonus.2",
         "kind": "instruction"
        },
        {
@@ -66780,7 +66513,7 @@
        },
        {
         "t": "text",
-        "key": "Gen1Creepy-RefuseBonus.4",
+        "key": "Gen1Creepy-RefuseBonus.3",
         "kind": "instruction"
        }
       ],
@@ -66826,7 +66559,7 @@
        },
        {
         "t": "text",
-        "key": "Gen1Creepy-RefuseBonus.5",
+        "key": "Gen1Creepy-RefuseBonus.4",
         "kind": "instruction"
        },
        {
@@ -66837,7 +66570,7 @@
        },
        {
         "t": "text",
-        "key": "Gen1Creepy-RefuseBonus.6",
+        "key": "Gen1Creepy-RefuseBonus.5",
         "kind": "instruction"
        }
       ],
@@ -66883,7 +66616,7 @@
         "body": [
          {
           "t": "text",
-          "key": "Gen1Creepy-RefuseBonus.7",
+          "key": "Gen1Creepy-RefuseBonus.6",
           "kind": "instruction"
          },
          {
@@ -66891,7 +66624,7 @@
          },
          {
           "t": "text",
-          "key": "Gen1Creepy-RefuseBonus.8",
+          "key": "Gen1Creepy-RefuseBonus.7",
           "kind": "narrative",
           "args": [
            {
@@ -66907,7 +66640,7 @@
          },
          {
           "t": "text",
-          "key": "Gen1Creepy-RefuseBonus.9",
+          "key": "Gen1Creepy-RefuseBonus.8",
           "kind": "narrative",
           "args": [
            {
@@ -66933,7 +66666,7 @@
         "body": [
          {
           "t": "text",
-          "key": "Gen1Creepy-RefuseBonus.10",
+          "key": "Gen1Creepy-RefuseBonus.9",
           "kind": "instruction"
          },
          {
@@ -66941,7 +66674,7 @@
          },
          {
           "t": "text",
-          "key": "Gen1Creepy-RefuseBonus.11",
+          "key": "Gen1Creepy-RefuseBonus.10",
           "kind": "narrative",
           "args": [
            {
@@ -66957,7 +66690,7 @@
          },
          {
           "t": "text",
-          "key": "Gen1Creepy-RefuseBonus.12",
+          "key": "Gen1Creepy-RefuseBonus.11",
           "kind": "narrative",
           "args": [
            {
@@ -66998,14 +66731,6 @@
     {
      "t": "text",
      "key": "Gen1Creepy-AgreedReturn.1",
-     "kind": "command"
-    },
-    {
-     "t": "br"
-    },
-    {
-     "t": "text",
-     "key": "Gen1Creepy-AgreedReturn.2",
      "kind": "command",
      "args": [
       {
@@ -67035,7 +66760,7 @@
        "body": [
         {
          "t": "text",
-         "key": "Gen1Creepy-AgreedReturn.3",
+         "key": "Gen1Creepy-AgreedReturn.2",
          "kind": "instruction"
         },
         {
@@ -67043,7 +66768,7 @@
         },
         {
          "t": "text",
-         "key": "Gen1Creepy-AgreedReturn.4",
+         "key": "Gen1Creepy-AgreedReturn.3",
          "kind": "narrative",
          "args": [
           {
@@ -67059,7 +66784,7 @@
         },
         {
          "t": "text",
-         "key": "Gen1Creepy-AgreedReturn.5",
+         "key": "Gen1Creepy-AgreedReturn.4",
          "kind": "narrative"
         },
         {
@@ -67076,7 +66801,7 @@
         },
         {
          "t": "text",
-         "key": "Gen1Creepy-AgreedReturn.6",
+         "key": "Gen1Creepy-AgreedReturn.5",
          "kind": "narrative",
          "args": [
           {
@@ -67108,7 +66833,7 @@
        "body": [
         {
          "t": "text",
-         "key": "Gen1Creepy-AgreedReturn.7",
+         "key": "Gen1Creepy-AgreedReturn.6",
          "kind": "instruction"
         },
         {
@@ -67116,7 +66841,7 @@
         },
         {
          "t": "text",
-         "key": "Gen1Creepy-AgreedReturn.8",
+         "key": "Gen1Creepy-AgreedReturn.7",
          "kind": "narrative",
          "args": [
           {
@@ -67132,7 +66857,7 @@
         },
         {
          "t": "text",
-         "key": "Gen1Creepy-AgreedReturn.9",
+         "key": "Gen1Creepy-AgreedReturn.8",
          "kind": "narrative"
         },
         {
@@ -67149,7 +66874,7 @@
         },
         {
          "t": "text",
-         "key": "Gen1Creepy-AgreedReturn.10",
+         "key": "Gen1Creepy-AgreedReturn.9",
          "kind": "narrative",
          "args": [
           {
@@ -67204,7 +66929,7 @@
        },
        {
         "t": "text",
-        "key": "Gen1Creepy-AgreedReturn.11",
+        "key": "Gen1Creepy-AgreedReturn.10",
         "kind": "instruction"
        }
       ],
@@ -67236,7 +66961,7 @@
        },
        {
         "t": "text",
-        "key": "Gen1Creepy-AgreedReturn.12",
+        "key": "Gen1Creepy-AgreedReturn.11",
         "kind": "instruction"
        }
       ],
@@ -70763,7 +70488,7 @@
     {
      "t": "text",
      "key": "HuntNight1.1",
-     "kind": "title",
+     "kind": "instruction",
      "args": [
       {
        "var": "huntreward1"
@@ -70922,7 +70647,7 @@
     {
      "t": "text",
      "key": "HuntNight2.1",
-     "kind": "title",
+     "kind": "instruction",
      "args": [
       {
        "var": "huntreward2"

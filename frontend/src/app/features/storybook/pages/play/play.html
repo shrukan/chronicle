@@ -4,7 +4,9 @@
     <cr-modal [fullscreen]="true" label="Pass the storybook">
       <div class="handover">
         <div class="hand" aria-hidden="true"></div>
-        <p><cr-rich-text [text]="game.text(notice.key)" [args]="notice.args" /></p>
+        @for (line of notice; track $index) {
+          <p><cr-rich-text [text]="game.text(line.key)" [args]="line.args" /></p>
+        }
         <button crAutofocus type="button" class="btn" (click)="showPage()">
           Ready – show the page
         </button>

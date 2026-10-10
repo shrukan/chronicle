@@ -135,12 +135,13 @@ const PROGRESSION_LINK = /^click( here)? (at the end of the (second )?(round|gen
 
 /**
  * The original puts the "end of the round" links inside the boxed action of a location
- * (hubDetails). They aren't part of the action, so they move below the box. Returns how many moved.
+ * (hubDetails). They aren't part of the action, so they move below the box; a section left
+ * without content (and its heading) goes. Returns how many links moved.
  */
 export function hoistProgressionLinks(passages: Passages, strings: StringTable): number {
   let moved = 0;
   const visit = (nodes: Node[]): Node[] =>
-    nodes.flatMap((n): Node[] => {
+    dropEmptySections(nodes.flatMap((n): Node[] => {
       if (n.t === 'if') n.branches.forEach((b) => (b.body = visit(b.body)));
       if (n.t !== 'block') return [n];
       n.body = visit(n.body);
@@ -155,12 +156,32 @@ export function hoistProgressionLinks(passages: Passages, strings: StringTable):
       n.body = n.body.slice(0, start);
       moved++;
       return [n, last];
-    });
+    }));
   for (const p of Object.values(passages)) {
     p.body = visit(p.body);
     for (const f of Object.keys(p.fragments)) p.fragments[f] = visit(p.fragments[f]!);
   }
   return moved;
+}
+
+/** Removes hub sections (heading + details) whose details show nothing. */
+function dropEmptySections(nodes: Node[]): Node[] {
+  const shows = (body: Node[]): boolean =>
+    body.some((n) => (n.t === 'block' ? shows(n.body) : n.t === 'if' ? n.branches.some((b) => shows(b.body)) : !['br', 'set', 'goto'].includes(n.t)));
+  const out: Node[] = [];
+  for (const n of nodes) {
+    if (n.t === 'block' && n.style === 'hubDetails' && !shows(n.body)) {
+      // Its heading, and the line breaks after it, go too.
+      let k = out.length;
+      while (k > 0 && out[k - 1]!.t === 'br') k--;
+      const head = out[k - 1];
+      if (head?.t === 'block' && head.style === 'hubTitle') out.length = k - 1;
+      out.push(...n.body);
+      continue;
+    }
+    out.push(n);
+  }
+  return out;
 }
 
 /**

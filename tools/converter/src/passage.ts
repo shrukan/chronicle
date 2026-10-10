@@ -375,6 +375,9 @@ export class PassageConverter {
     }
     const style = BLOCK_STYLES[kind!];
     if (!style) return [this.manual(s, `unknown style ${kind}=${val}`)];
+    // A setup box inside a setup box (hand edits) would draw a frame in a frame.
+    const setupish = (b?: BlockStyle) => b === 'setup' || b === 'setupEvent';
+    if (setupish(style) && setupish(st.block)) return this.stmt(body, st);
     const block: Item = { k: 'block', style, items: this.stmt(body, { ...st, block: st.block ?? style }) };
     // The pop-up's continue target belongs to the outermost setup block (some are nested).
     if (style === 'setupEvent' && this.setupNext && !st.block) {
@@ -479,7 +482,8 @@ export class PassageConverter {
       const first = isMain && !nodes.some((n) => n.t === 'text');
       // A page that opens with a bold heading running straight into its text (no line break in
       // the original): the heading becomes the page's title, the text starts on its own line.
-      const lead = first ? run.findIndex((p) => !(p.k === 'text' && (p.bold || !p.text.trim()))) : -1;
+      // Bold values belong to the heading ("Carefully hand the Storybook to {name}.").
+      const lead = first ? run.findIndex((p) => !(p.bold || (p.k === 'text' && !p.text.trim()))) : -1;
       if (lead > 0 && run.slice(0, lead).some((p) => p.k === 'text' && p.text.trim())) {
         const title = this.textNode(run.slice(0, lead), true, inBlock);
         if (title) nodes.push(title, { t: 'br' });
@@ -541,7 +545,7 @@ export class PassageConverter {
     // App commands first: they often open a passage in bold, which would look like a title.
     const kind: TextKind =
       isAppCommand(plain) ? 'command'
-      : first && allBold ? 'title'
+      : first && allBold && isHeading(plain) ? 'title'
       : inBlock === 'setup' || inBlock === 'setupEvent' || inBlock === 'hubTitle' ? 'instruction'
       : isNarrative(plain, out) ? 'narrative'
       : 'instruction';
@@ -605,7 +609,7 @@ const GAME_TERMS =
 
 /** Rule text usually starts with an action or addresses the players. */
 const IMPERATIVE =
-  /^(\W*)(gain|lose|place|take|discard|pay|draw|return|move|add|remove|retrieve|give|choose|shuffle|turn to|perform|flip|put|count|reveal|collect|keep|look through|look at|search|find|roll|read|resolve|spend|donate|vote|bid|select|decide|check|score|record|write|tally|each player|all players|the player|any player|if a player|if any player|if there is|players|then,? (place|take|gain|lose|return|give|move|add|remove|each)|note:?|setup|reward:?|cost:?)\b/i;
+  /^(\W*)(click|tap|gain|lose|place|take|discard|pay|draw|return|move|add|remove|retrieve|give|choose|shuffle|turn to|perform|flip|put|count|reveal|collect|keep|look through|look at|search|find|roll|read|resolve|spend|donate|vote|bid|select|decide|check|score|record|write|tally|each player|all players|the player|any player|if a player|if any player|if there is|players|then,? (place|take|gain|lose|return|give|move|add|remove|each)|note:?|setup|reward:?|cost:?)\b/i;
 
 /**
  * Rule text that reads like prose: vote explanations, conditions, what to place or visit. Found
@@ -627,6 +631,15 @@ const RULE = [
   /\bsymposium in the field of\b/i,
   /\bMUST\b/,
 ];
+
+/**
+ * A bold opening that can stand as the page's title: it has words of its own (not just a
+ * value, "{0}.") and isn't an instruction ("Click on your name below …:").
+ */
+function isHeading(plain: string): boolean {
+  const words = plain.replace(/\{\d+\}/g, ' ').trim();
+  return /\p{L}/u.test(words) && plain.length <= 60 && !/^\W*(click|tap|reveal|please|choose|select)\b/i.test(plain);
+}
 
 /** Instructions about the app rather than the board game: who holds the storybook, what others may see. */
 const APP_COMMAND = [

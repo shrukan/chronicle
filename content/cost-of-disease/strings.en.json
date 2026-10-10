@@ -1251,9 +1251,6 @@
   "full": "At the end of each round, each player will **move one space forward on the {icon:Creepy_Icon} Track for each Knowledge cube in their Estate**."
  },
  "NoUni2.12": {
-  "full": "{icon:Storybook} **Second round Event**"
- },
- "NoUni2.13": {
   "full": "Click here at the end of the second round for a special event."
  },
  "NoUni3.1": {
@@ -1440,241 +1437,217 @@
   "full": "All players with a **Disease Experiment** in their Stored Experiments **draw a Compulsion and gain a Body.**"
  },
  "bar1.1": {
-  "full": "**SWORN STATEMENT - Case **"
+  "full": "**SWORN STATEMENT - Case {0} -HDG- {1}**"
  },
  "bar1.2": {
-  "full": "**{0} -HDG- {1}**"
- },
- "bar1.3": {
   "full": "After a brief excursion to the local pub, I happened to engage in a spirited conversation with the **Blacksmith’s** son. Being slightly out of my wits, his slightly improper offer to accompany him home to his chateau for further libations appealed. We engaged in a delightful conversation, so intriguing in fact, that I accepted his generous offer of temporary lodging for the evening. I will spare the details of our respectable and entirely benign conversation.",
   "easy": "After a short visit to the local pub, I had a lively conversation with the **Blacksmith’s** son. I was a little drunk, so I liked his slightly improper offer to come to his home for more drinks. Our conversation was so interesting that I accepted his kind offer to stay the night. I will not describe our respectable and completely harmless conversation.",
   "short": "After the pub, a lively talk with the **Blacksmith’s** son led to his offer of more drinks and lodging for the night. I will spare the details of our entirely respectable conversation."
  },
- "bar1.4": {
+ "bar1.3": {
   "full": "We both decided to disrobe as any person would when making nightly preparations for sleep. Regrettably, though I cannot recollect how it occurred, the Blacksmith was unpleased to discover us similarly nude and entwined in this state the next morning, surrounded by several defiled tools from the forge. Our family’s reputation was certainly sullied at the Blacksmith and I resolved to avoid it in the future.",
   "easy": "We both took off our clothes, as anyone would before going to sleep. Sadly, and I cannot remember how it happened, the next morning the Blacksmith was not happy to find us both naked and wrapped around each other, surrounded by several dirty tools from the forge. Our family's name was certainly damaged at the Blacksmith, and I decided to stay away from it in the future.",
   "short": "The Blacksmith was displeased to find us nude and entwined the next morning among his defiled tools. Our family's reputation was sullied at the Blacksmith and I resolved to avoid it."
  },
- "bar1.5": {
+ "bar1.4": {
   "full": "After a brief excursion to the local pub, I happened to engage in a spirited conversation with the **Blacksmith’s** daughter. While I am unable to discern the reasoning behind my actions, I have since apologized for my repeated comments besmirching her virtuous nature; comments which apparently resulted in a minor altercation with a gentlemen or two at the fine establishment.",
   "easy": "After a short visit to the local pub, I had a lively conversation with the **Blacksmith’s** daughter. I cannot understand why I did it, but I have since said sorry for my many comments that insulted her good name. These comments seem to have led to a small fight with a gentleman or two at that fine pub.",
   "short": "At the pub I talked with the **Blacksmith’s** daughter. I have since apologized for repeatedly insulting her virtue, which apparently led to a brawl or two."
  },
- "bar1.6": {
+ "bar1.5": {
   "full": "It was around midnight that I decided to make a quiet exit, in order to properly avoid any further antagonism. My clothes, soiled and bloodied by the ensuing brawl, were found discarded along the muddy trek to the Blacksmith's forge. While I have no recollection of the ensuing events, multiple witnesses attest that I then proceeded to brand the blacksmith's dog and passed out naked in the slack tub. Our family’s reputation was certainly sullied at the Blacksmith and I resolved to avoid it in the future.",
   "easy": "Around midnight I decided to leave quietly, so that there would be no more trouble. My clothes, dirty and bloody from the fight, were found on the muddy path to the Blacksmith's forge. I remember nothing of what happened next, but several people say that I branded the blacksmith's dog and then fell asleep naked in the water tub. Our family's name was certainly damaged at the Blacksmith, and I decided to stay away from it in the future.",
   "short": "My bloodied clothes were found on the path to the forge. Witnesses say I branded the blacksmith's dog and passed out naked in the slack tub. Our family's reputation was sullied at the Blacksmith and I resolved to avoid it."
  },
- "bar1.7": {
+ "bar1.6": {
   "full": "Place a {icon:Creepy_Icon} token on the **Blacksmith**. When a player takes an action at this location, they **gain 1 {icon:Creepy_Icon}** for every {icon:Creepy_Icon} token on that location."
  },
  "bar2.1": {
-  "full": "**SWORN STATEMENT - Case **"
+  "full": "**SWORN STATEMENT - Case {0}-HDG-{1}**"
  },
  "bar2.2": {
-  "full": "**{0}-HDG-{1}**"
- },
- "bar2.3": {
   "full": "While many first-hand accounts from the townsfolk may not corroborate my story, I cannot conceal my disgust with the insinuation. The stable hand and I were simply enjoying a midnight ride in the nearby beet fields in the spirit of the season. Due to my enhanced state of inebriation, I may have chosen the incorrect steed for our excursion.",
   "easy": "Many townspeople tell a different story, but I must say how disgusted I am by what they suggest. The stable boy and I were only enjoying a midnight ride in the beet fields nearby, in the spirit of the season. Because I was very drunk, I may have chosen the wrong animal for our ride.",
   "short": "Whatever the townsfolk say, the stable hand and I merely took a midnight ride through the beet fields. Being very drunk, I may have chosen the wrong steed."
  },
- "bar2.4": {
+ "bar2.3": {
   "full": "I awoke in the stables beside my porcine companion, who had been outfitted with a leather riding saddle. The gate to their pen had been left open and the entire pig population of the town was scattered throughout the streets.",
   "easy": "I woke up in the stables next to my pig friend, who was wearing a leather riding saddle. The gate of the pig pen had been left open, and all the pigs of the town were running around in the streets.",
   "short": "I awoke beside a saddled pig. The pen stood open and the town's pigs roamed the streets."
  },
- "bar2.5": {
+ "bar2.4": {
   "full": "I would also like to note that the charges of public nudity against me are warrantless, as upon discovery of my predicament that morning, I hastily endeavored to hide my shame and purchase new clothing from a local tailor as would be customary in such a situation. Our family’s reputation was certainly sullied at the **Farmer’s Market** and I resolved to avoid it in the future.",
   "easy": "I would also like to say that the charges of being naked in public are unfair. When I found myself in this situation that morning, I quickly tried to cover myself and buy new clothes from a local tailor, as anyone would do. Our family's name was certainly damaged at the **Farmer’s Market**, and I decided to stay away from it in the future.",
   "short": "The public nudity charge is unfounded: I hurried to a tailor at once. Our family's reputation was sullied at the **Farmer’s Market** and I resolved to avoid it."
  },
- "bar2.6": {
+ "bar2.5": {
   "full": "I find the accusations toward my conduct and character most disturbing. To insinuate that I was openly consorting with individuals of ill-repute and offered compensation for illicit activities, why it is as absurd as the other charges against me from that evening.",
   "easy": "I find the accusations about my behavior and character very upsetting. To suggest that I openly spent time with people of bad reputation and offered them money for forbidden activities is as ridiculous as the other charges against me from that evening.",
   "short": "That I consorted with disreputable people and paid for illicit favors is as absurd as the other charges."
  },
- "bar2.7": {
+ "bar2.6": {
   "full": "While I admit to having a few additional libations, it is most presumptuous to believe that just because I was found near the open door of my carriage in the buff, covered in tomato paste, with lipstick impressions across the entirety of my form, that I would be held responsible for the debasing of a bushel of cherry tomatoes and several other vegetable stocks.",
   "easy": "I admit that I had a few more drinks. But it is wrong to think that I am responsible for ruining a basket of cherry tomatoes and several other vegetables, just because I was found naked near the open door of my carriage, covered in tomato paste, with lipstick marks all over my body.",
   "short": "Being found naked by my carriage, covered in tomato paste and lipstick, hardly proves I defiled a bushel of cherry tomatoes."
  },
- "bar2.8": {
+ "bar2.7": {
   "full": "Despite my personal objections, I have summarily reimbursed the stall owner for their produce and discretion in the matter. Our family’s reputation was certainly sullied at the **Farmer’s Market** and I resolved to avoid it in the future.",
   "easy": "Although I do not agree, I have paid the stall owner for their vegetables and for keeping quiet about it. Our family's name was certainly damaged at the **Farmer’s Market**, and I decided to stay away from it in the future.",
   "short": "I have nonetheless paid the stall owner for produce and discretion. Our family's reputation was sullied at the **Farmer’s Market** and I resolved to avoid it."
  },
- "bar2.9": {
+ "bar2.8": {
   "full": "Place a {icon:Creepy_Icon} token on the **Farmer's Market**. When a player takes an action at this location, they **gain 1 {icon:Creepy_Icon}** for every {icon:Creepy_Icon} token on that location."
  },
  "bar3.1": {
-  "full": "**SWORN STATEMENT - Case **"
+  "full": "**SWORN STATEMENT - Case {0}-HDG-{1}**"
  },
  "bar3.2": {
-  "full": "**{0}-HDG-{1}**"
- },
- "bar3.3": {
   "full": "It was very much in poor taste for a **fortune teller** to summarily dismiss my romantic advances given my current social status and level of wealth. However, I admit that my inebriated reaction to steal and destroy her Tarot deck was highly juvenile. And the public defiling of said Tarot cards afterwards was certainly not in keeping with the standards of my aristocratic upbringing.",
   "easy": "It was very rude of a **fortune teller** to say no to my romantic advances, because I am rich and important. But I admit that stealing and destroying her Tarot cards while I was drunk was very childish. And what I did to those Tarot cards in public afterwards was certainly not how an aristocrat should behave.",
   "short": "The **fortune teller** rudely rejected my advances. Drunkenly stealing and publicly defiling her Tarot deck was, I admit, juvenile."
  },
- "bar3.4": {
+ "bar3.3": {
   "full": "I have since reimbursed the Fortune Teller for her ruined Tarot cards, and apologized to the Sheriff for my display of public nudity. Our family’s reputation was certainly sullied at the Fortune Teller and I resolved to avoid it in the future.",
   "easy": "I have paid the Fortune Teller for her ruined Tarot cards, and I have said sorry to the Sheriff for being naked in public. Our family's name was certainly damaged at the Fortune Teller, and I decided to stay away from it in the future.",
   "short": "I have repaid the Fortune Teller and apologized to the Sheriff for my nudity. Our family's reputation was sullied at the Fortune Teller and I resolved to avoid it."
  },
- "bar3.5": {
+ "bar3.4": {
   "full": "During a spirited conversation at the local pub, I was informed of a fine establishment with premium snuff and tobacco on the outskirts of town. While I cannot recall if I partook, I was made aware that this establishment promoted opium use, which is a vile indulgence indeed. Sadly, I admit poor judgement in not exiting the premises immediately upon this discovery and my subsequent refusal to leave after four hours had elapsed.",
   "easy": "During a lively conversation at the local pub, someone told me about a fine shop at the edge of town with excellent snuff and tobacco. I cannot remember if I tried any, but I learned that this place offered opium, which is a terrible habit. Sadly, I made a bad choice: I did not leave at once when I found this out, and I still refused to leave after four hours.",
   "short": "I visited an establishment outside town that turned out to offer opium. I did not leave at once, and still refused after four hours."
  },
- "bar3.6": {
+ "bar3.5": {
   "full": "An exchange of bitter words may have occurred, which resulted in myself yelling expletives and unfortunate ethnic slurs which I would dare not repeat. At some point my clothes had vanished, so I was at a distinct physical disadvantage when I was swiftly removed from the area, not without sustaining several bruises from the scuffle (which, to note, I have not pressed charges for). Our family’s reputation was certainly sullied at the **Fortune Teller** and I resolved to avoid it in the future.",
   "easy": "There may have been an angry argument, and I shouted rude words and ugly insults that I will not repeat. At some point my clothes had disappeared, so I could not defend myself well when I was quickly thrown out, and I got several bruises in the fight (for which, I should say, I have not gone to court). Our family's name was certainly damaged at the **Fortune Teller**, and I decided to stay away from it in the future.",
   "short": "Insults were exchanged, my clothes vanished, and I was removed, bruised. Our family's reputation was sullied at the **Fortune Teller** and I resolved to avoid it."
  },
- "bar3.7": {
+ "bar3.6": {
   "full": "Place a {icon:Creepy_Icon} token on the **Fortune Teller**. When a player takes an action at this location, they **gain 1 {icon:Creepy_Icon}** for every {icon:Creepy_Icon} token on that location."
  },
  "bar4.1": {
-  "full": "**SWORN STATEMENT - Case **"
+  "full": "**SWORN STATEMENT - Case {0}-HDG-{1}**"
  },
  "bar4.2": {
-  "full": "**{0}-HDG-{1}**"
- },
- "bar4.3": {
   "full": "The celebration had been exceedingly rowdy. I could not recall whose birthday or anniversary was being celebrated, but I could remember my celebratory stilted walk to the **General Store** near midnight. In my admittedly intoxicated state, I required sustenance.",
   "easy": "The party had been very loud and wild. I could not remember whose birthday or anniversary it was, but I remember my happy, stiff walk to the **General Store** around midnight. I was drunk, I admit, and I needed food.",
   "short": "After a rowdy celebration, I staggered drunk and hungry to the **General Store** near midnight."
  },
- "bar4.4": {
+ "bar4.3": {
   "full": "Unfortunately, my hunger pangs may have overtaken my sensibilities. A rock may have been plunged through the front window, and I may have been discovered the next morning by the constabulary, passed out naked on the wooden floor, surrounded by several empty cartons of canned sardines, the contents of which may have been returned to the same general area in a more semi-digested form. Our family’s reputation was certainly sullied at the General Store and I resolved to avoid it in the future.",
   "easy": "Sadly, my hunger may have been stronger than my good sense. A rock may have gone through the front window. And the next morning the police may have found me asleep and naked on the wooden floor, among several empty boxes of sardines, whose contents may have come back out again, half-digested, in the same place. Our family's name was certainly damaged at the General Store, and I decided to stay away from it in the future.",
   "short": "A rock may have breached the window, and the constabulary may have found me naked among empty sardine tins, some contents returned semi-digested. Our family's reputation was sullied at the General Store and I resolved to avoid it."
  },
- "bar4.5": {
+ "bar4.4": {
   "full": "The proprietors of the General Store, Hagen and Mabel Varga, are respectable, upstanding citizens of whom I have a deep respect. Their fine emporium of quality products is a grand example of successful private business ownership that positively serves the community.",
   "easy": "The owners of the General Store, Hagen and Mabel Varga, are respectable, honest citizens, and I respect them very much. Their fine shop of quality products is a great example of a successful private business that helps the community.",
   "short": "Hagen and Mabel Varga, owners of the General Store, are upstanding citizens whose fine emporium serves the community well."
  },
- "bar4.6": {
+ "bar4.5": {
   "full": "My unfortunate public statements to the contrary in a loud and admittedly inebriated state were categorically untrue and misinformed. My subsequent scrawling of expletives upon their business' front window - with a crude writing medium that I will not elaborate upon - was brash and reckless.",
   "easy": "What I said in public about them, loudly and while drunk, was completely untrue and wrong. Afterwards I wrote rude words on their shop window, with a writing material that I will not describe, and this was rash and careless.",
   "short": "My loud, drunken claims otherwise were untrue, and scrawling expletives on their window, in a medium I will not name, was reckless."
  },
- "bar4.7": {
+ "bar4.6": {
   "full": "I regret that my nude form was discovered curled up at their doorstep by the constabulary. Our family’s reputation was certainly sullied at the General Store and I resolved to avoid it in the future.",
   "easy": "I am sorry that the police found me naked and curled up on their doorstep. Our family's name was certainly damaged at the General Store, and I decided to stay away from it in the future.",
   "short": "I regret being found naked on their doorstep. Our family's reputation was sullied at the General Store and I resolved to avoid it."
  },
- "bar4.8": {
+ "bar4.7": {
   "full": "Place a {icon:Creepy_Icon} token on the **General Store**. When a player takes an action at this location, they **gain 1 {icon:Creepy_Icon}** for every {icon:Creepy_Icon} token on that location."
  },
  "bar5.1": {
-  "full": "**SWORN STATEMENT - Case **"
+  "full": "**SWORN STATEMENT - Case {0}-HDG-{1}**"
  },
  "bar5.2": {
-  "full": "**{0}-HDG-{1}**"
- },
- "bar5.3": {
   "full": "I vaguely remember the phrase that began the argument, but the stitches above my left eye from a shattered glass mug jogged my recollection of the ensuing brawl. A quick nightcap turned into an extended stay of tumbled barstools, belligerence, and wild accusations. My injuries must have been extensive as my memory ceased soon after.",
   "easy": "I only partly remember the words that started the argument, but the stitches above my left eye, from a broken glass mug, helped me remember the fight that followed. One quick drink before bed turned into a long night of falling barstools, aggression and wild accusations. I must have been badly hurt, because I remember nothing after that.",
   "short": "I barely recall what started it, but the stitches from a shattered mug recall the brawl. A nightcap became a night of tumbled barstools and accusations, and then nothing."
  },
- "bar5.4": {
+ "bar5.3": {
   "full": "My displeased spouse informed me that I was currently the height of gossip within the town. First-hand accounts - of which I cannot confirm given my state of awareness - described how I spat blood in a nurse’s face, tore off my leggings (and undergarments), tried to punch the vicar thrice, and defiled myself in the lobby. Our family’s reputation was certainly sullied at the **Hospital** and I resolved to avoid it in the future.",
   "easy": "My unhappy spouse told me that the whole town was talking about me. People who were there say (I cannot confirm it, as I was not fully awake) that I spat blood in a nurse's face, tore off my trousers (and my underwear), tried to punch the priest three times and soiled myself in the waiting room. Our family's name was certainly damaged at the **Hospital**, and I decided to stay away from it in the future.",
   "short": "I was the town's gossip: I reportedly spat blood at a nurse, stripped, swung at the vicar thrice and soiled myself in the lobby. Our family's reputation was sullied at the **Hospital** and I resolved to avoid it."
  },
- "bar5.5": {
+ "bar5.4": {
   "full": "I should not have attempted to perform a surgical procedure in my state. Nor should I have locked myself in the surgical arena with a patient, barred the door, and undressed, dousing myself in a carbolic acid solution for the purposes of sterilization. However, my honor had been questioned at the pub and I deemed it only necessary to demonstrate my surgical prowess.",
   "easy": "I should not have tried to do an operation in my condition. And I should not have locked myself in the operating room with a patient, blocked the door, taken off my clothes and poured an acid cleaning liquid over myself to make myself clean. But someone at the pub had questioned my honor, and I thought I had to show my skill as a surgeon.",
   "short": "I should not have operated in my state, nor locked myself in with a patient, undressed and doused myself in carbolic acid. But my honor had been questioned at the pub."
  },
- "bar5.6": {
+ "bar5.5": {
   "full": "The demonstration of my experimentation capabilities - which are normally formidable, I might add - turned into a series of unfortunate mishaps and misunderstandings. The unfortunate patient has since made a full recovery and has already received a generous stipend in recompense and the hospital a donation with which to cleanse the arena of the admittedly large quantity of blood on the walls, seating, instruments, and ceiling. Our family’s reputation was certainly sullied at the **Hospital** and I resolved to avoid it in the future.",
   "easy": "My demonstration of my skills, which are usually excellent, I might add, turned into a series of unlucky accidents and misunderstandings. The poor patient is completely healthy again and has been paid a generous sum. The hospital also received a donation to clean the operating room, because there was, I admit, a lot of blood on the walls, the seats, the instruments and the ceiling. Our family's name was certainly damaged at the **Hospital**, and I decided to stay away from it in the future.",
   "short": "The demonstration went awry. The patient has recovered and been compensated, and the hospital paid to clean the blood from walls, seats, instruments and ceiling. Our family's reputation was sullied at the **Hospital** and I resolved to avoid it."
  },
- "bar5.7": {
+ "bar5.6": {
   "full": "Place a {icon:Creepy_Icon} token on the **Hospital**. When a player takes an action at this location, they **gain 1 {icon:Creepy_Icon}** for every {icon:Creepy_Icon} token on that location."
  },
  "bar6.1": {
-  "full": "**SWORN STATEMENT - Case **"
+  "full": "**SWORN STATEMENT - Case {0}-HDG-{1}**"
  },
  "bar6.2": {
-  "full": "**{0}-HDG-{1}**"
- },
- "bar6.3": {
   "full": "Although witnesses claim that I had carried a makeshift torch several blocks to the destination, my ignition of nearby gasoline reserves was entirely accidental. My intent, of course, was a comical reenactment of the wiles of recent angry mobs; clearly satirical in nature. A vaudevillian parody. However, the French performance art overtones due to my regrettable nudity were not considered with high regard. The resulting blaze that consumed over half of the Laborer’s Union building that night was also not met with the warmest of receptions.",
   "easy": "People say that I carried a homemade torch for several streets, but setting fire to the petrol stored nearby was a complete accident. Of course, I only wanted to make a funny copy of the angry crowds we had seen lately, clearly as a joke. A comic show. But people did not like the artistic French touch of my, sadly, naked body. And they also did not like the fire that burned down more than half of the Laborer’s Union building that night.",
   "short": "I did carry a torch there, but igniting the gasoline was an accident; I meant only a naked parody of the angry mobs. The blaze that took half the Laborer’s Union building was poorly received."
  },
- "bar6.4": {
+ "bar6.3": {
   "full": "Honestly, the Laborer’s Union building had not been updated for years. It was overdue for renovations. However, our family’s reputation was certainly sullied at the **Laborer’s Union** and I resolved to avoid it in the future.",
   "easy": "To be honest, the Laborer’s Union building had not been modernized for years. It needed repairs anyway. But our family's name was certainly damaged at the **Laborer’s Union**, and I decided to stay away from it in the future.",
   "short": "The building was overdue for renovation anyway. But our family's reputation was sullied at the **Laborer’s Union** and I resolved to avoid it."
  },
- "bar6.5": {
+ "bar6.4": {
   "full": "Place a {icon:Creepy_Icon} token on the **Laborer's Union**. When a player takes an action at this location, they **gain 1 {icon:Creepy_Icon}** for every {icon:Creepy_Icon} token on that location."
  },
  "bar7.1": {
-  "full": "**SWORN STATEMENT - Case **"
+  "full": "**SWORN STATEMENT - Case {0}-HDG-{1}**"
  },
  "bar7.2": {
-  "full": "**{0}-HDG-{1}**"
- },
- "bar7.3": {
   "full": "While the cemetery has certainly been a crucial source of ingredients for my experiments - acquired by pruning local flora and herbs - calling attention to this fact very loudly while inside the local pub was probably a mistake. Openly inviting all patrons to join me in the cemetery to kick over headstones and then running directly to said location to do so was a clear error of judgement. My alleged indecent exposure whilst doing so, also unfortunate.",
   "easy": "The cemetery is certainly an important source of ingredients for my experiments, which I get by picking local plants and herbs. But saying this very loudly in the local pub was probably a mistake. It was clearly wrong to invite all the guests to come to the cemetery with me to kick over gravestones, and then to run straight there to do it. It was also unlucky that I was, people say, naked while I did it.",
   "short": "Loudly announcing at the pub that the cemetery supplies my ingredients, then leading everyone there to kick over headstones, was an error, as was my alleged nudity."
  },
- "bar7.4": {
+ "bar7.3": {
   "full": "After being treated for a sprained ankle, I spent a night half-remembered in the local police station. Our family’s reputation was certainly sullied at the **Cemetery** and I resolved to avoid it in the future.",
   "easy": "After a doctor treated my twisted ankle, I spent a night that I only half remember at the local police station. Our family's name was certainly damaged at the **Cemetery**, and I decided to stay away from it in the future.",
   "short": "A sprained ankle and a night in the police station followed. Our family's reputation was sullied at the **Cemetery** and I resolved to avoid it."
  },
- "bar7.5": {
+ "bar7.4": {
   "full": "Place a {icon:Creepy_Icon} token on the **Cemetery**. When a player takes an action at this location, they **gain 1 {icon:Creepy_Icon}** for every {icon:Creepy_Icon} token on that location."
  },
  "Unicure.1": {
-  "full": "**Carefully hand the Storybook to **"
+  "full": "**Carefully hand the Storybook to {0}. This choice is read and made within view all players.**"
  },
  "Unicure.2": {
-  "full": "**{0}. This choice is read and made within view all players.**"
- },
- "Unicure.3": {
   "full": "**Local Scientist Discovers Inoculation for Yellow Fever**"
  },
- "Unicure.4": {
+ "Unicure.3": {
   "full": "The local headlines were inevitable. While history may ascribe a later date to this monumental event due to the volatile nature of simply injecting oneself with the viscous black and yellow vomit of an infected individual, it was an unsettling leap forward in our understanding of antibodies and herd immunity.",
   "easy": "Of course, it was in all the local newspapers. History may give this great event a later date, because the method was so dangerous: you simply injected yourself with the thick black and yellow vomit of a sick person. But it was a disturbing step forward in our understanding of antibodies and herd immunity.",
   "short": "It made the headlines. Injecting oneself with an infected person's black and yellow vomit was risky, but it was an unsettling leap forward for immunology."
  },
- "Unicure.5": {
+ "Unicure.4": {
   "full": "The scientific establishment"
  },
- "Unicure.6": {
+ "Unicure.5": {
   "full": ", although pensive about my recent lecture, "
  },
- "Unicure.7": {
+ "Unicure.6": {
   "full": "was thrilled by the discovery of a cure for the pervasive disease. Dr. {0} Jr. was urged to release their curious methodology in a series of published journal entries to offer peer review and additional critique. However, they were reticent to immediately share findings before obtaining a patent. This knowledge could provide a lucrative financial outlet.",
   "easy": "was very happy that a cure for the widespread disease had been found. People asked Dr. {0} Jr. to publish their strange method in a series of journal articles, so that other scientists could check and discuss it. But they did not want to share their results before they had a patent. This knowledge could make a lot of money.",
   "short": "was thrilled by the cure. Dr. {0} Jr. was urged to publish for peer review, but wanted a patent first; the knowledge could be lucrative."
  },
- "Unicure.8": {
+ "Unicure.7": {
   "full": "**Make a Choice to Publish or Patent**"
  },
- "Unicure.9": {
+ "Unicure.8": {
   "full": "To **publish** the cure in a medical journal and **gain {0}VP**, "
  },
- "Unicure.10": {
+ "Unicure.9": {
   "full": "Click here"
  },
- "Unicure.11": {
+ "Unicure.10": {
   "full": "To **patent** the cure and sell the process to world governments and **gain ${0}**, "
  },
- "Unicure.12": {
+ "Unicure.11": {
   "full": "Click here."
  },
  "Panacea.1": {
@@ -2344,20 +2317,17 @@
   "full": "At least, for now."
  },
  "InfinityClick2.1": {
-  "full": "**The **"
+  "full": "**The {0} Infinity Journal Entry {1}**"
  },
  "InfinityClick2.2": {
-  "full": "**{0} Infinity Journal Entry {1}**"
- },
- "InfinityClick2.3": {
   "full": "There is no doubt in my {0}. With this research completed, {1} The ravages of time will no longer have an effect on my work and I will be free to face the {2} unimpeded by this mortal coil!",
   "easy": "There is no doubt in my {0}. Now that this research is finished, {1} Time will no longer harm my work, and I will be free to face the {2} without the limits of a mortal body!",
   "short": "There is no doubt in my {0}. With this research complete, {1} Time will no longer hinder me, and I will face the {2} unimpeded by this mortal coil!"
  },
- "InfinityClick2.4": {
+ "InfinityClick2.3": {
   "full": "Retrieve the **Immortality cards** from the scenario box. Shuffle them face down and place them nearby."
  },
- "InfinityClick2.5": {
+ "InfinityClick2.4": {
   "full": "**Draw 2 Immortality cards. Look at both of them and choose one as your secret to Eternal Life. Discard the other.** Then, discard the {icon:Storybook} token to the supply."
  },
  "InfinityClick1.1": {
@@ -3161,13 +3131,13 @@
   "full": "Immediately **lose 4VP** and **discard an Estate Upgrade of your choice**."
  },
  "Trigger3Experiments.1": {
-  "full": "**Advancements in **"
+  "full": "**Advancements in {0}**"
  },
  "Trigger3Experiments.2": {
-  "full": "**{0}**"
+  "full": "Please click on the name of the scientist that completed a total of **3 B or C {0} Experiments**:"
  },
  "Trigger3Experiments.3": {
-  "full": "Please click on the name of the scientist that completed a total of **3 B or C {0} Experiments**:"
+  "full": "{0}"
  },
  "Trigger3Experiments.4": {
   "full": "{0}"
@@ -3181,43 +3151,37 @@
  "Trigger3Experiments.7": {
   "full": "{0}"
  },
- "Trigger3Experiments.8": {
-  "full": "{0}"
- },
  "ChooseScience.1": {
-  "full": "**Carefully hand the Storybook to **"
+  "full": "**Carefully hand the Storybook to {0}. This choice is read and made within view of all players.**"
  },
  "ChooseScience.2": {
-  "full": "**{0}. This choice is read and made within view of all players.**"
- },
- "ChooseScience.3": {
   "full": "**\"Universal Interest\" - Journal Entry - November, 1859 - {0}**"
  },
- "ChooseScience.4": {
+ "ChooseScience.3": {
   "full": "It has been three days since I received a letter from the Hungarian government and two days since my cousins deigned it necessary to make me the target of their ridicule. My parents cared deeply for this horrid community - a sentiment that those miscreants know nothing about!",
   "easy": "Three days ago I got a letter from the Hungarian government, and two days ago my cousins decided to make fun of me. My parents cared very much about this terrible town, a feeling those troublemakers know nothing about!",
   "short": "Three days since the government's letter, two since my cousins began mocking me. My parents cared for this horrid town, which those miscreants cannot understand!"
  },
- "ChooseScience.5": {
+ "ChooseScience.4": {
   "full": "I am not some groveler who needs confirmation from the stuffed shirts and upturned noses of European academies. But, getting to choose the **subject of the upcoming Symposium** that could very well determine if a **University** is built in {0}?",
   "easy": "I am not someone who begs for approval from the stiff, arrogant people at European academies. But to choose the **subject of the upcoming Symposium**, which could decide whether a **University** is built in {0}?",
   "short": "I need no approval from Europe's academies. But choosing the **subject of the upcoming Symposium**, which may decide whether a **University** is built in {0}?"
  },
- "ChooseScience.6": {
+ "ChooseScience.5": {
   "full": "My parents instilled into me a scientific vigor that far surpasses even the members of my own, somewhat beloved, family. As I returned from studies abroad, it was my own aptitudes that spearheaded my cousins into action. Damn them and their jibes! I will show them. In fact, I have already made my choice and penned my response. It will be I who will be doing the laughing in the end.",
   "easy": "My parents gave me a passion for science that is much stronger than that of the rest of my (somewhat loved) family. When I came back from studying abroad, it was my talent that got my cousins moving. Damn them and their jokes! I will show them. In fact, I have already made my choice and written my answer. In the end, I will be the one laughing.",
   "short": "My scientific vigor surpasses my family's; it was I who spurred my cousins into action. Damn their jibes! I have made my choice, and I will laugh last."
  },
- "ChooseScience.7": {
+ "ChooseScience.6": {
   "full": "**Choose which of the Sciences our family will focus upon this Generation:**"
  },
- "ChooseScience.8": {
+ "ChooseScience.7": {
   "full": "Chemistry"
  },
- "ChooseScience.9": {
+ "ChooseScience.8": {
   "full": "Engineering"
  },
- "ChooseScience.10": {
+ "ChooseScience.9": {
   "full": "Biology"
  },
  "SymposiumEvent1.1": {
@@ -3234,51 +3198,48 @@
   "short": "The University buzzed as they made their rounds."
  },
  "SanityChoice.1": {
-  "full": "**Carefully hand the Storybook to **"
+  "full": "**Carefully hand the Storybook to {0}. This choice is read and made within view of all players.**"
  },
  "SanityChoice.2": {
-  "full": "**{0}. This choice is read and made within view of all players.**"
- },
- "SanityChoice.3": {
   "full": "**Journal Entry, {0} - September, 1892**"
  },
- "SanityChoice.4": {
+ "SanityChoice.3": {
   "full": "The fools! The utter fools! In their haste to return to their amateurish attempts at science, my dear, witless cousins have been overlooked by our colleagues at the university. And so it fell to me to advise them on this most important psychological matter!",
   "easy": "Fools! Complete fools! My dear, stupid cousins were in such a hurry to get back to their amateur science that our colleagues at the university have ignored them. So it is my job to advise them on this very important question of the mind!",
   "short": "Fools! Rushing back to their amateur science, my witless cousins were passed over by the university. So it falls to me to decide this psychological matter!"
  },
- "SanityChoice.5": {
+ "SanityChoice.4": {
   "full": "My in-depth studies of phrenology and first-hand observation of brain function have allowed me to calculate with flawless accuracy the appropriate level of mental intensity needed to excel in science; the most proper balance of passion and ethical ambiguity.",
   "easy": "My deep studies of phrenology (the shape of the skull) and my own observations of how the brain works have let me calculate, without any mistake, how much mental intensity you need to be great at science: the best balance of passion and flexible morals.",
   "short": "Phrenology and observation let me calculate exactly the mental intensity science requires: the proper balance of passion and ethical ambiguity."
  },
- "SanityChoice.6": {
+ "SanityChoice.5": {
   "full": "While, yes, we may ALL benefit from this assessment and yes, they did only consult me out of a sense of pity, it is I alone that will now control the fate of us all!",
   "easy": "Yes, we may ALL profit from this assessment, and yes, they only asked me because they felt sorry for me. But now I alone will control what happens to all of us!",
   "short": "Yes, we ALL benefit, and yes, they asked me out of pity. But I alone now control our fate!"
  },
- "SanityChoice.7": {
+ "SanityChoice.6": {
   "full": "**CHOOSE**"
  },
- "SanityChoice.8": {
+ "SanityChoice.7": {
   "full": "{0} must now choose a numbered spot below on the {icon:Insanity_Icon} Track."
  },
- "SanityChoice.9": {
+ "SanityChoice.8": {
   "full": "At the end of the Generation, any player whose piece is on this space will **gain 5VP**."
  },
- "SanityChoice.10": {
+ "SanityChoice.9": {
   "full": "3"
  },
- "SanityChoice.11": {
+ "SanityChoice.10": {
   "full": "4"
  },
- "SanityChoice.12": {
+ "SanityChoice.11": {
   "full": "5"
  },
- "SanityChoice.13": {
+ "SanityChoice.12": {
   "full": "6"
  },
- "SanityChoice.14": {
+ "SanityChoice.13": {
   "full": "7"
  },
  "LycanthropicMessage.1": {
@@ -3438,20 +3399,17 @@
   "full": "Dr. {0} Jr. must immediately lose 6VP and discard an Estate Upgrade of their choice."
  },
  "NewMaster1A.1": {
-  "full": "**Carefully hand this Storybook device to **"
+  "full": "**Carefully hand this Storybook device to {0} and do not allow any other players to see the screen.**"
  },
  "NewMaster1A.2": {
-  "full": "**{0} and do not allow any other players to see the screen.**"
- },
- "NewMaster1A.3": {
   "full": "**A Masterwork of My Own - {0} III**"
  },
- "NewMaster1A.4": {
+ "NewMaster1A.3": {
   "full": "I was no longer constrained by the fickle whims of my ancestors. I could allow my imagination to run wild with possibilities! Within moments, I set to creating something new and magnificent - something that would cause the scientific world to quiver in awestruck wonder.",
   "easy": "I was no longer limited by the changing wishes of my ancestors. I could let my imagination run free! Within moments, I started to create something new and wonderful, something that would make the scientific world shake with amazement.",
   "short": "Free of my ancestors' whims, I let my imagination run wild, and began something magnificent that would make the scientific world quiver."
  },
- "NewMaster1A.5": {
+ "NewMaster1A.4": {
   "full": "My creation is from which scientific discipline?"
  },
  "NewMaster2A.1": {
@@ -3470,17 +3428,14 @@
   "full": "Give your creation a new, majestic name:"
  },
  "NewMaster3A.2": {
-  "full": "**The **"
+  "full": "**The {0} {1}**"
  },
  "NewMaster3A.3": {
-  "full": "**{0} {1}**"
- },
- "NewMaster3A.4": {
   "full": "With my own destiny determined, I resolved to forge a new path into the future and create my Masterwork.",
   "easy": "Now that my own future was decided, I chose to take a new path and create my Masterwork.",
   "short": "My destiny decided, I would forge a new path and create my Masterwork."
  },
- "NewMaster3A.5": {
+ "NewMaster3A.4": {
   "full": "**You may check the cost of completing your new Masterwork at any time by clicking on your name on the main Storybook screen.**"
  },
  "NewMaster.1": {
@@ -3690,20 +3645,17 @@
   "short": "The ritual was tedious, but its wave of spiritual energy left me in awe. The {0} was a brilliant success, and its powers unthinkable!"
  },
  "NewMaster1B.1": {
-  "full": "**Carefully hand this Storybook device to **"
+  "full": "**Carefully hand this Storybook device to {0} and do not allow any other players to see the screen.**"
  },
  "NewMaster1B.2": {
-  "full": "**{0} and do not allow any other players to see the screen.**"
- },
- "NewMaster1B.3": {
   "full": "**A Masterwork of My Own - {0} III**"
  },
- "NewMaster1B.4": {
+ "NewMaster1B.3": {
   "full": "I was no longer constrained by the fickle whims of my ancestors. I could allow my imagination to run wild with possibilities! Within moments, I set to creating something new and magnificent - something that would cause the scientific world to quiver in awestruck wonder.",
   "easy": "I was no longer limited by the changing wishes of my ancestors. I could let my imagination run free! Within moments, I started to create something new and wonderful, something that would make the scientific world shake with amazement.",
   "short": "Free of my ancestors' whims, I let my imagination run wild, and began something magnificent that would make the scientific world quiver."
  },
- "NewMaster1B.5": {
+ "NewMaster1B.4": {
   "full": "My creation is from which scientific discipline?"
  },
  "MWComplete.1": {
@@ -4121,17 +4073,14 @@
   "full": "Give your creation a new, majestic name:"
  },
  "NewMaster3B.2": {
-  "full": "**The **"
+  "full": "**The {0} {1}**"
  },
  "NewMaster3B.3": {
-  "full": "**{0} {1}**"
- },
- "NewMaster3B.4": {
   "full": "With my own destiny determined, I resolved to forge a new path into the future and create my Masterwork.",
   "easy": "Now that my own future was decided, I chose to take a new path and create my Masterwork.",
   "short": "My destiny decided, I would forge a new path and create my Masterwork."
  },
- "NewMaster3B.5": {
+ "NewMaster3B.4": {
   "full": "**You may check the cost of completing your new Masterwork at any time by clicking on your name on the main Storybook screen.**"
  },
  "MWCreationHubB.1": {
@@ -4325,20 +4274,17 @@
   "short": "The ritual was tedious, but its wave of spiritual energy left me in awe. The {0} was a brilliant success, and its powers unthinkable!"
  },
  "NewMaster1C.1": {
-  "full": "**Carefully hand this Storybook device to **"
+  "full": "**Carefully hand this Storybook device to {0} and do not allow any other players to see the screen.**"
  },
  "NewMaster1C.2": {
-  "full": "**{0} and do not allow any other players to see the screen.**"
- },
- "NewMaster1C.3": {
   "full": "**A Masterwork of My Own - {0} III**"
  },
- "NewMaster1C.4": {
+ "NewMaster1C.3": {
   "full": "I was no longer constrained by the fickle whims of my ancestors. I could allow my imagination to run wild with possibilities! Within moments, I set to creating something new and magnificent - something that would cause the scientific world to quiver in awestruck wonder.",
   "easy": "I was no longer limited by the changing wishes of my ancestors. I could let my imagination run free! Within moments, I started to create something new and wonderful, something that would make the scientific world shake with amazement.",
   "short": "Free of my ancestors' whims, I let my imagination run wild, and began something magnificent that would make the scientific world quiver."
  },
- "NewMaster1C.5": {
+ "NewMaster1C.4": {
   "full": "My creation is from which scientific discipline?"
  },
  "NewMaster2C.1": {
@@ -4357,34 +4303,28 @@
   "full": "Give your creation a new, majestic name:"
  },
  "NewMaster3C.2": {
-  "full": "**The **"
+  "full": "**The {0} {1}**"
  },
  "NewMaster3C.3": {
-  "full": "**{0} {1}**"
- },
- "NewMaster3C.4": {
   "full": "With my own destiny determined, I resolved to forge a new path into the future and create my Masterwork.",
   "easy": "Now that my own future was decided, I chose to take a new path and create my Masterwork.",
   "short": "My destiny decided, I would forge a new path and create my Masterwork."
  },
- "NewMaster3C.5": {
+ "NewMaster3C.4": {
   "full": "**You may check the cost of completing your new Masterwork at any time by clicking on your name on the main Storybook screen.**"
  },
  "NewMaster1D.1": {
-  "full": "**Carefully hand this Storybook device to **"
+  "full": "**Carefully hand this Storybook device to {0} and do not allow any other players to see the screen.**"
  },
  "NewMaster1D.2": {
-  "full": "**{0} and do not allow any other players to see the screen.**"
- },
- "NewMaster1D.3": {
   "full": "**A Masterwork of My Own - {0} III**"
  },
- "NewMaster1D.4": {
+ "NewMaster1D.3": {
   "full": "I was no longer constrained by the fickle whims of my ancestors. I could allow my imagination to run wild with possibilities! Within moments, I set to creating something new and magnificent - something that would cause the scientific world to quiver in awestruck wonder.",
   "easy": "I was no longer limited by the changing wishes of my ancestors. I could let my imagination run free! Within moments, I started to create something new and wonderful, something that would make the scientific world shake with amazement.",
   "short": "Free of my ancestors' whims, I let my imagination run wild, and began something magnificent that would make the scientific world quiver."
  },
- "NewMaster1D.5": {
+ "NewMaster1D.4": {
   "full": "My creation is from which scientific discipline?"
  },
  "MWCreationHubC.1": {
@@ -4593,34 +4533,28 @@
   "full": "Give your creation a new, majestic name:"
  },
  "NewMaster3D.2": {
-  "full": "**The **"
+  "full": "**The {0} {1}**"
  },
  "NewMaster3D.3": {
-  "full": "**{0} {1}**"
- },
- "NewMaster3D.4": {
   "full": "With my own destiny determined, I resolved to forge a new path into the future and create my Masterwork.",
   "easy": "Now that my own future was decided, I chose to take a new path and create my Masterwork.",
   "short": "My destiny decided, I would forge a new path and create my Masterwork."
  },
- "NewMaster3D.5": {
+ "NewMaster3D.4": {
   "full": "**You may check the cost of completing your new Masterwork at any time by clicking on your name on the main Storybook screen.**"
  },
  "NewMaster1E.1": {
-  "full": "**Carefully hand this Storybook device to **"
+  "full": "**Carefully hand this Storybook device to {0} and do not allow any other players to see the screen.**"
  },
  "NewMaster1E.2": {
-  "full": "**{0} and do not allow any other players to see the screen.**"
- },
- "NewMaster1E.3": {
   "full": "**A Masterwork of My Own - {0} III**"
  },
- "NewMaster1E.4": {
+ "NewMaster1E.3": {
   "full": "I was no longer constrained by the fickle whims of my ancestors. I could allow my imagination to run wild with possibilities! Within moments, I set to creating something new and magnificent - something that would cause the scientific world to quiver in awestruck wonder.",
   "easy": "I was no longer limited by the changing wishes of my ancestors. I could let my imagination run free! Within moments, I started to create something new and wonderful, something that would make the scientific world shake with amazement.",
   "short": "Free of my ancestors' whims, I let my imagination run wild, and began something magnificent that would make the scientific world quiver."
  },
- "NewMaster1E.5": {
+ "NewMaster1E.4": {
   "full": "**My creation is from which scientific discipline?**"
  },
  "NewMaster2E.1": {
@@ -6060,25 +5994,22 @@
   "full": "Any player that voted \"yay\" to contribute does not discard an Experiment. But, they **lose 1 {icon:Creepy_Icon}**."
  },
  "CharityAwardGood.1": {
-  "full": "**Carefully hand the Storybook to **"
+  "full": "**Carefully hand the Storybook to {0}. This passage is read out loud in view of all players.**"
  },
  "CharityAwardGood.2": {
-  "full": "**{0}. This passage is read out loud in view of all players.**"
- },
- "CharityAwardGood.3": {
   "full": "**Consideration of Righteousness**"
  },
- "CharityAwardGood.4": {
+ "CharityAwardGood.3": {
   "full": "The Fraternity was correct to be cautious in their dealings with the eccentric family whose ominous visitings within the city carried a sinister air about them. However, their fears could not completely overshadow their righteous convictions.",
   "easy": "The Fraternity was right to be careful with the strange family, whose dark visits to the city felt evil. But their fears could not completely hide their strong sense of what was right.",
   "short": "The Fraternity rightly mistrusted the sinister family, but their righteous convictions won out."
  },
- "CharityAwardGood.5": {
+ "CharityAwardGood.4": {
   "full": "{0} III's familial legacy of **charity** was instrumental in sharing the gift of knowledge. Modern weaponry had transformed the Hunter's ability to fight against the evil forces threatening to overtake the city. And it was this malignant sentiment that forced their hand to offer a token of their appreciation.",
   "easy": "{0} III's family legacy of **charity** was very important in sharing the gift of knowledge. Modern weapons had changed how the Hunters could fight the evil forces that threatened to take over the city. And it was this evil threat that made them offer a gift to show their thanks.",
   "short": "{0} III's family legacy of **charity** had shared knowledge, and modern weapons, that transformed the Hunters' fight against evil. In gratitude, they offered a token of thanks."
  },
- "CharityAwardGood.6": {
+ "CharityAwardGood.5": {
   "full": "Retrieve the **Personal Library** Estate Upgrade from the scenario box. You may immediately build it in the next empty plot on your Estate board at no additional cost. Then, return the Heart {icon:S1_HeartToken} token to the scenario box."
  },
  "MayoralAward.1": {
@@ -6733,17 +6664,14 @@
   "full": "Give your creation a new, majestic name:"
  },
  "NewMaster3E.2": {
-  "full": "**The **"
+  "full": "**The {0} {1}**"
  },
  "NewMaster3E.3": {
-  "full": "**{0} {1}**"
- },
- "NewMaster3E.4": {
   "full": "With my own destiny determined, I resolved to forge a new path into the future and create my Masterwork.",
   "easy": "Now that my own future was decided, I chose to take a new path and create my Masterwork.",
   "short": "My destiny decided, I would forge a new path and create my Masterwork."
  },
- "NewMaster3E.5": {
+ "NewMaster3E.4": {
   "full": "**You may check the cost of completing your new Masterwork at any time by clicking on your name on the main Storybook screen.**"
  },
  "MWCreationHubE.1": {
@@ -6982,43 +6910,40 @@
   "full": "{0}"
  },
  "3ExperimentsRes.1": {
-  "full": "**Advancements in **"
+  "full": "**Advancements in {0}**"
  },
  "3ExperimentsRes.2": {
-  "full": "**{0}**"
- },
- "3ExperimentsRes.3": {
   "full": "As the years ambled onward and the peculiarities of their experimentations became more complex, it was not unheard of for the family to submit discoveries to scientific and medical journals. While most were summarily rejected, this constant stream of inquiries sometimes resulted in visits from interested parties.",
   "easy": "As the years went by and their experiments became stranger and more complex, the family sometimes sent their discoveries to scientific and medical journals. Most were rejected straight away, but because they sent so many, interested people sometimes came to visit.",
   "short": "Over the years the family sent many discoveries to journals. Most were rejected, but some drew visitors."
  },
- "3ExperimentsRes.4": {
+ "3ExperimentsRes.3": {
   "full": "One such visitation occurred at the laboratory of {0}. While frightening to behold at first, they were intrigued by the exceedingly complex ",
   "easy": "One of these visits was to the laboratory of {0}. At first it was frightening to look at, but the visitors were fascinated by the very complicated ",
   "short": "One such visit came to {0}'s laboratory. Frightening at first, the visitors were intrigued by the complex "
  },
- "3ExperimentsRes.5": {
+ "3ExperimentsRes.4": {
   "full": "display of colorful Chemicals and unique specimens collected (and created) over time.",
   "easy": "display of colorful Chemicals and special samples that had been collected (and created) over time."
  },
- "3ExperimentsRes.6": {
+ "3ExperimentsRes.5": {
   "full": "labyrinthine weaving of rubber tubing, chemicals, and simmering beakers of various shapes and sizes along the walls.",
   "easy": "maze of rubber tubes, chemicals and bubbling glass containers of all shapes and sizes along the walls."
  },
- "3ExperimentsRes.7": {
+ "3ExperimentsRes.6": {
   "full": "vestibule filled with electrical coils, switches, dials, and several large metal cabinets with blinking red lights (a dazzling rarity in that age).",
   "easy": "entrance hall full of electrical coils, switches, dials and several large metal cabinets with blinking red lights (something very rare and amazing at that time)."
  },
- "3ExperimentsRes.8": {
+ "3ExperimentsRes.7": {
   "full": " Certainly immense strides forward had been made in {0}.",
   "easy": " Clearly, {0} had made great progress."
  },
- "3ExperimentsRes.9": {
+ "3ExperimentsRes.8": {
   "full": "It was only natural that they provided encouragement and financial resources to help preserve this unique arrangement. Especially after being informed that it was the only way they would leave the premises unaltered.",
   "easy": "Of course they offered encouragement and money to help keep this special place. Especially after they were told that this was the only way they would leave the building unchanged.",
   "short": "Naturally they offered encouragement and funding, especially once told it was the only way to leave unaltered."
  },
- "3ExperimentsRes.10": {
+ "3ExperimentsRes.9": {
   "full": "**Retrieve the {0} Master's Study Vanity Estate Upgrade from the scenario box and add it to your Estate.** *You must still pay any required costs if you place it a new plot.*"
  },
  "PanaceaMessage.1": {
@@ -7086,34 +7011,31 @@
   "full": "*When a player's piece reaches one of these tokens, they will click on the appropriate link and receive a special message for reaching this achievement.*"
  },
  "SymposiumEvent2.1": {
-  "full": "**For the Advancement of **"
+  "full": "**For the Advancement of {0}**"
  },
  "SymposiumEvent2.2": {
-  "full": "**{0}**"
- },
- "SymposiumEvent2.3": {
   "full": "The symposium began with a series of lectures from various noted "
  },
- "SymposiumEvent2.4": {
+ "SymposiumEvent2.3": {
   "full": "biologists"
  },
- "SymposiumEvent2.5": {
+ "SymposiumEvent2.4": {
   "full": "chemists"
  },
- "SymposiumEvent2.6": {
+ "SymposiumEvent2.5": {
   "full": "engineers"
  },
- "SymposiumEvent2.7": {
+ "SymposiumEvent2.6": {
   "full": " from Eastern Europe. When it was their time to present, each cousin in turn rolled in a large cart covered with a velvet blanket to conceal their work until the appropriate moment during the lecture.",
   "easy": " from Eastern Europe. When it was their turn, each cousin rolled in a big cart covered with a velvet blanket, which hid their work until the right moment in the lecture.",
   "short": " from Eastern Europe. Each cousin rolled in a velvet-covered cart, hiding their work until the right moment."
  },
- "SymposiumEvent2.8": {
+ "SymposiumEvent2.7": {
   "full": "As noted by several critics, each family member went well over their allotted time, providing eye-opening live demonstrations during the peak of their lectures that required many in the first rows of the operating theater to change into a clean outfit after the end of the exhibition.",
   "easy": "Several critics wrote that each family member talked much longer than allowed. At the high point of their lectures, they gave shocking live demonstrations, and afterwards many people in the first rows of the operating theater had to change into clean clothes.",
   "short": "Each overran their time with live demonstrations that left the front rows needing clean clothes."
  },
- "SymposiumEvent2.9": {
+ "SymposiumEvent2.8": {
   "full": "The spirited presentations stunned the community to abject silence.",
   "easy": "The lively presentations shocked everyone into complete silence.",
   "short": "The audience was stunned into silence."
@@ -7719,26 +7641,23 @@
   "full": " the vial for selfish reasons (for $3)."
  },
  "VialCharity.1": {
-  "full": "**Carefully hand this storybook device to **"
+  "full": "**Carefully hand this storybook device to {0} and do not allow any other players to see the screen.**"
  },
  "VialCharity.2": {
-  "full": "**{0} and do not allow any other players to see the screen.**"
- },
- "VialCharity.3": {
   "full": "Retrieve the **Vial** token from the scenario box and place it near your Estate."
  },
- "VialCharity.4": {
+ "VialCharity.3": {
   "full": "Return the **Heart {icon:S1_HeartToken} token** to the scenario box."
  },
- "VialCharity.5": {
+ "VialCharity.4": {
   "full": "**A Legacy of Charity**"
  },
- "VialCharity.6": {
+ "VialCharity.5": {
   "full": "While inspecting a wooden shelf in the pantry, the unexpected clatter of crystal on stone shook the young {0} III. Luckily, it appeared the vial of liquid remained undamaged, although the paper tag attached to the cork stopper at its top was of considerable age.",
   "easy": "While the young {0} III was looking at a wooden shelf in the pantry, the unexpected sound of crystal falling on stone gave them a shock. Luckily, the small bottle of liquid seemed to be undamaged, but the paper label on its cork was very old.",
   "short": "A clatter of crystal on stone startled {0} III in the pantry. The vial was unharmed, though its tag was very old."
  },
- "VialCharity.7": {
+ "VialCharity.6": {
   "full": "The note stated, \"A gift of Holy Water from a thankful church of God,\" and was aptly addressed to {0} the 1st. Interestingly, it had remained stored away since the charitable events of the long past.",
   "easy": "The note said: \"A gift of Holy Water from a thankful church of God,\" and it was addressed, fittingly, to {0} the 1st. Interestingly, it had been stored away ever since the charity work long ago.",
   "short": "It read, \"A gift of Holy Water from a thankful church of God,\" addressed to {0} the 1st, stored away since that long-ago charity."
@@ -7797,182 +7716,176 @@
   "full": "Any player that chose not to donate **returns a Servant to Lost** and **gains 1 {icon:Creepy_Icon}**."
  },
  "Gen1Creepy-ConcealExpose.1": {
-  "full": "**Carefully hand this storybook device to **"
+  "full": "**Carefully hand this storybook device to {0} and do not allow any other players to see the screen.**"
  },
  "Gen1Creepy-ConcealExpose.2": {
-  "full": "**{0} and do not allow any other players to see the screen.**"
- },
- "Gen1Creepy-ConcealExpose.3": {
   "full": "**Under Cover of Darkness**"
  },
- "Gen1Creepy-ConcealExpose.4": {
+ "Gen1Creepy-ConcealExpose.3": {
   "full": "On an unseasonably warm evening with a thick fog obscuring their arrival, an operative from the ",
   "easy": "On an evening that was unusually warm for the season, with thick fog hiding their arrival, an agent of the ",
   "short": "One warm, foggy evening, an operative from the "
  },
- "Gen1Creepy-ConcealExpose.5": {
+ "Gen1Creepy-ConcealExpose.4": {
   "full": "Order of St. Hubertus"
  },
- "Gen1Creepy-ConcealExpose.6": {
+ "Gen1Creepy-ConcealExpose.5": {
   "full": "Fraternity of Hunters"
  },
- "Gen1Creepy-ConcealExpose.7": {
+ "Gen1Creepy-ConcealExpose.6": {
   "full": " knocked upon the estate door. There, at the entranceway with no intent to venture further, the man addressed {0} II in an authoritative tone.",
   "easy": " knocked on the door of the estate. He stood at the entrance, with no plan to come further in, and spoke to {0} II in a commanding voice.",
   "short": " knocked at the estate door and, staying on the threshold, addressed {0} II with authority."
  },
- "Gen1Creepy-ConcealExpose.8": {
+ "Gen1Creepy-ConcealExpose.7": {
   "full": "\"We have decided to forgive your family's debt to us due to your recent pledge of loyalty. I was sent to offer this word of salutation and reminder that we are pleased. Consider this canceled debt as our gift to you.\" The man, with a ceremonial air, then lifted a piece of parchment before him and, with a quick slice, let the cleaved paper fall to the stone steps.",
   "easy": "\"Because you recently promised us your loyalty, we have decided to forgive your family's debt to us. I was sent to greet you and to remind you that we are happy with you. This canceled debt is our gift to you.\" Then, as if in a ceremony, the man held up a piece of paper and, with one quick cut, let the two halves fall to the stone steps.",
   "short": "\"For your pledge of loyalty, we forgive your family's debt. Consider it our gift.\" Ceremonially, the man sliced a parchment in two and let it fall to the steps."
  },
- "Gen1Creepy-ConcealExpose.9": {
+ "Gen1Creepy-ConcealExpose.8": {
   "full": "After {0} and the man exchanged their secret handshake, the meeting was over and the carriage was once again swallowed by the mists.",
   "easy": "{0} and the man shook hands in their secret way, the meeting was over, and the carriage disappeared into the fog again.",
   "short": "After a secret handshake with {0}, the carriage vanished into the mists."
  },
- "Gen1Creepy-ConcealExpose.10": {
+ "Gen1Creepy-ConcealExpose.9": {
   "full": "We have decided to forgive your family's debt to us due to your recent pledge of loyalty. I was sent to offer this word of salutation and reminder that we are pleased. Consider this canceled debt as our gift to you. The man, with a ceremonial air, then lifted a piece of parchment before him and, with a quick slice, let the cleaved paper fall to the stone steps.",
   "easy": "Because you recently promised us your loyalty, we have decided to forgive your family's debt to us. I was sent to greet you and to remind you that we are happy with you. This canceled debt is our gift to you. Then, as if in a ceremony, the man held up a piece of paper and, with one quick cut, let the two halves fall to the stone steps.",
   "short": "For your pledge of loyalty, we forgive your family's debt. Consider it our gift. Ceremonially, the man sliced a parchment in two and let it fall to the steps."
  },
- "Gen1Creepy-ConcealExpose.11": {
+ "Gen1Creepy-ConcealExpose.10": {
   "full": "After {0} and the man exchanged their secret handshake, the meeting was over and the carriage was once again swallowed by the mists.",
   "easy": "{0} and the man shook hands in their secret way, the meeting was over, and the carriage disappeared into the fog again.",
   "short": "After a secret handshake with {0}, the carriage vanished into the mists."
+ },
+ "Gen1Creepy-ConcealExpose.11": {
+  "full": "\"We have decided to forgive your family's debt to us due to your recent pledge of loyalty. I was sent to offer this word of salutation and reminder that we are pleased. Consider this canceled debt as our gift to you.\" The man, with a ceremonial air, then lifted a piece of parchment before him and, with a quick slice, let the cleaved paper fall to the stone steps.",
+  "easy": "\"Because you recently promised us your loyalty, we have decided to forgive your family's debt to us. I was sent to greet you and to remind you that we are happy with you. This canceled debt is our gift to you.\" Then, as if in a ceremony, the man held up a piece of paper and, with one quick cut, let the two halves fall to the stone steps.",
+  "short": "\"For your pledge of loyalty, we forgive your family's debt. Consider it our gift.\" Ceremonially, the man sliced a parchment in two and let it fall to the steps."
  },
  "Gen1Creepy-ConcealExpose.12": {
-  "full": "\"We have decided to forgive your family's debt to us due to your recent pledge of loyalty. I was sent to offer this word of salutation and reminder that we are pleased. Consider this canceled debt as our gift to you.\" The man, with a ceremonial air, then lifted a piece of parchment before him and, with a quick slice, let the cleaved paper fall to the stone steps.",
-  "easy": "\"Because you recently promised us your loyalty, we have decided to forgive your family's debt to us. I was sent to greet you and to remind you that we are happy with you. This canceled debt is our gift to you.\" Then, as if in a ceremony, the man held up a piece of paper and, with one quick cut, let the two halves fall to the stone steps.",
-  "short": "\"For your pledge of loyalty, we forgive your family's debt. Consider it our gift.\" Ceremonially, the man sliced a parchment in two and let it fall to the steps."
+  "full": "After {0} and the man exchanged their secret handshake, the meeting was over and the carriage was once again swallowed by the mists.",
+  "easy": "{0} and the man shook hands in their secret way, the meeting was over, and the carriage disappeared into the fog again.",
+  "short": "After a secret handshake with {0}, the carriage vanished into the mists."
  },
  "Gen1Creepy-ConcealExpose.13": {
-  "full": "After {0} and the man exchanged their secret handshake, the meeting was over and the carriage was once again swallowed by the mists.",
-  "easy": "{0} and the man shook hands in their secret way, the meeting was over, and the carriage disappeared into the fog again.",
-  "short": "After a secret handshake with {0}, the carriage vanished into the mists."
+  "full": "\"We have decided to forgive your family's debt to us due to your recent pledge of loyalty. I was sent to offer this word of salutation and reminder that we are pleased. Consider this canceled debt as our gift to you.\" The man, with a ceremonial air, then lifted a piece of parchment before him and, with a quick slice, let the cleaved paper fall to the stone steps.",
+  "easy": "\"Because you recently promised us your loyalty, we have decided to forgive your family's debt to us. I was sent to greet you and to remind you that we are happy with you. This canceled debt is our gift to you.\" Then, as if in a ceremony, the man held up a piece of paper and, with one quick cut, let the two halves fall to the stone steps.",
+  "short": "\"For your pledge of loyalty, we forgive your family's debt. Consider it our gift.\" Ceremonially, the man sliced a parchment in two and let it fall to the steps."
  },
  "Gen1Creepy-ConcealExpose.14": {
-  "full": "\"We have decided to forgive your family's debt to us due to your recent pledge of loyalty. I was sent to offer this word of salutation and reminder that we are pleased. Consider this canceled debt as our gift to you.\" The man, with a ceremonial air, then lifted a piece of parchment before him and, with a quick slice, let the cleaved paper fall to the stone steps.",
-  "easy": "\"Because you recently promised us your loyalty, we have decided to forgive your family's debt to us. I was sent to greet you and to remind you that we are happy with you. This canceled debt is our gift to you.\" Then, as if in a ceremony, the man held up a piece of paper and, with one quick cut, let the two halves fall to the stone steps.",
-  "short": "\"For your pledge of loyalty, we forgive your family's debt. Consider it our gift.\" Ceremonially, the man sliced a parchment in two and let it fall to the steps."
+  "full": "After {0} and the man exchanged their secret handshake, the meeting was over and the carriage was once again swallowed by the mists.",
+  "easy": "{0} and the man shook hands in their secret way, the meeting was over, and the carriage disappeared into the fog again.",
+  "short": "After a secret handshake with {0}, the carriage vanished into the mists."
  },
  "Gen1Creepy-ConcealExpose.15": {
-  "full": "After {0} and the man exchanged their secret handshake, the meeting was over and the carriage was once again swallowed by the mists.",
-  "easy": "{0} and the man shook hands in their secret way, the meeting was over, and the carriage disappeared into the fog again.",
-  "short": "After a secret handshake with {0}, the carriage vanished into the mists."
+  "full": "\"We have decided to forgive your family's debt to us due to your recent pledge of loyalty. I was sent to offer this word of salutation and reminder that we are pleased. Consider this canceled debt as our gift to you.\" The man, with a ceremonial air, then lifted a piece of parchment before him and, with a quick slice, let the cleaved paper fall to the stone steps.",
+  "easy": "\"Because you recently promised us your loyalty, we have decided to forgive your family's debt to us. I was sent to greet you and to remind you that we are happy with you. This canceled debt is our gift to you.\" Then, as if in a ceremony, the man held up a piece of paper and, with one quick cut, let the two halves fall to the stone steps.",
+  "short": "\"For your pledge of loyalty, we forgive your family's debt. Consider it our gift.\" Ceremonially, the man sliced a parchment in two and let it fall to the steps."
  },
  "Gen1Creepy-ConcealExpose.16": {
-  "full": "\"We have decided to forgive your family's debt to us due to your recent pledge of loyalty. I was sent to offer this word of salutation and reminder that we are pleased. Consider this canceled debt as our gift to you.\" The man, with a ceremonial air, then lifted a piece of parchment before him and, with a quick slice, let the cleaved paper fall to the stone steps.",
-  "easy": "\"Because you recently promised us your loyalty, we have decided to forgive your family's debt to us. I was sent to greet you and to remind you that we are happy with you. This canceled debt is our gift to you.\" Then, as if in a ceremony, the man held up a piece of paper and, with one quick cut, let the two halves fall to the stone steps.",
-  "short": "\"For your pledge of loyalty, we forgive your family's debt. Consider it our gift.\" Ceremonially, the man sliced a parchment in two and let it fall to the steps."
+  "full": "After {0} and the man exchanged their secret handshake, the meeting was over and the carriage was once again swallowed by the mists.",
+  "easy": "{0} and the man shook hands in their secret way, the meeting was over, and the carriage disappeared into the fog again.",
+  "short": "After a secret handshake with {0}, the carriage vanished into the mists."
  },
  "Gen1Creepy-ConcealExpose.17": {
-  "full": "After {0} and the man exchanged their secret handshake, the meeting was over and the carriage was once again swallowed by the mists.",
-  "easy": "{0} and the man shook hands in their secret way, the meeting was over, and the carriage disappeared into the fog again.",
-  "short": "After a secret handshake with {0}, the carriage vanished into the mists."
+  "full": "\"We have decided to forgive your family's debt to us due to your recent pledge of loyalty. I was sent to offer this word of salutation and reminder that we are pleased. Consider this canceled debt as our gift to you.\" The man, with a ceremonial air, then lifted a piece of parchment before him and, with a quick slice, let the cleaved paper fall to the stone steps.",
+  "easy": "\"Because you recently promised us your loyalty, we have decided to forgive your family's debt to us. I was sent to greet you and to remind you that we are happy with you. This canceled debt is our gift to you.\" Then, as if in a ceremony, the man held up a piece of paper and, with one quick cut, let the two halves fall to the stone steps.",
+  "short": "\"For your pledge of loyalty, we forgive your family's debt. Consider it our gift.\" Ceremonially, the man sliced a parchment in two and let it fall to the steps."
  },
  "Gen1Creepy-ConcealExpose.18": {
-  "full": "\"We have decided to forgive your family's debt to us due to your recent pledge of loyalty. I was sent to offer this word of salutation and reminder that we are pleased. Consider this canceled debt as our gift to you.\" The man, with a ceremonial air, then lifted a piece of parchment before him and, with a quick slice, let the cleaved paper fall to the stone steps.",
-  "easy": "\"Because you recently promised us your loyalty, we have decided to forgive your family's debt to us. I was sent to greet you and to remind you that we are happy with you. This canceled debt is our gift to you.\" Then, as if in a ceremony, the man held up a piece of paper and, with one quick cut, let the two halves fall to the stone steps.",
-  "short": "\"For your pledge of loyalty, we forgive your family's debt. Consider it our gift.\" Ceremonially, the man sliced a parchment in two and let it fall to the steps."
+  "full": "After {0} and the man exchanged their secret handshake, the meeting was over and the carriage was once again swallowed by the mists.",
+  "easy": "{0} and the man shook hands in their secret way, the meeting was over, and the carriage disappeared into the fog again.",
+  "short": "After a secret handshake with {0}, the carriage vanished into the mists."
  },
  "Gen1Creepy-ConcealExpose.19": {
-  "full": "After {0} and the man exchanged their secret handshake, the meeting was over and the carriage was once again swallowed by the mists.",
-  "easy": "{0} and the man shook hands in their secret way, the meeting was over, and the carriage disappeared into the fog again.",
-  "short": "After a secret handshake with {0}, the carriage vanished into the mists."
+  "full": "\"We have decided to forgive your family's debt to us due to your recent pledge of loyalty. I was sent to offer this word of salutation and reminder that we are pleased. Consider this canceled debt as our gift to you.\" The man, with a ceremonial air, then lifted a piece of parchment before him and, with a quick slice, let the cleaved paper fall to the stone steps.",
+  "easy": "\"Because you recently promised us your loyalty, we have decided to forgive your family's debt to us. I was sent to greet you and to remind you that we are happy with you. This canceled debt is our gift to you.\" Then, as if in a ceremony, the man held up a piece of paper and, with one quick cut, let the two halves fall to the stone steps.",
+  "short": "\"For your pledge of loyalty, we forgive your family's debt. Consider it our gift.\" Ceremonially, the man sliced a parchment in two and let it fall to the steps."
  },
  "Gen1Creepy-ConcealExpose.20": {
-  "full": "\"We have decided to forgive your family's debt to us due to your recent pledge of loyalty. I was sent to offer this word of salutation and reminder that we are pleased. Consider this canceled debt as our gift to you.\" The man, with a ceremonial air, then lifted a piece of parchment before him and, with a quick slice, let the cleaved paper fall to the stone steps.",
-  "easy": "\"Because you recently promised us your loyalty, we have decided to forgive your family's debt to us. I was sent to greet you and to remind you that we are happy with you. This canceled debt is our gift to you.\" Then, as if in a ceremony, the man held up a piece of paper and, with one quick cut, let the two halves fall to the stone steps.",
-  "short": "\"For your pledge of loyalty, we forgive your family's debt. Consider it our gift.\" Ceremonially, the man sliced a parchment in two and let it fall to the steps."
+  "full": "After {0} and the man exchanged their secret handshake, the meeting was over and the carriage was once again swallowed by the mists.",
+  "easy": "{0} and the man shook hands in their secret way, the meeting was over, and the carriage disappeared into the fog again.",
+  "short": "After a secret handshake with {0}, the carriage vanished into the mists."
  },
  "Gen1Creepy-ConcealExpose.21": {
-  "full": "After {0} and the man exchanged their secret handshake, the meeting was over and the carriage was once again swallowed by the mists.",
-  "easy": "{0} and the man shook hands in their secret way, the meeting was over, and the carriage disappeared into the fog again.",
-  "short": "After a secret handshake with {0}, the carriage vanished into the mists."
+  "full": "\"We have decided to forgive your family's debt to us due to your recent pledge of loyalty. I was sent to offer this word of salutation and reminder that we are pleased. Consider this canceled debt as our gift to you.\" The man, with a ceremonial air, then lifted a piece of parchment before him and, with a quick slice, let the cleaved paper fall to the stone steps.",
+  "easy": "\"Because you recently promised us your loyalty, we have decided to forgive your family's debt to us. I was sent to greet you and to remind you that we are happy with you. This canceled debt is our gift to you.\" Then, as if in a ceremony, the man held up a piece of paper and, with one quick cut, let the two halves fall to the stone steps.",
+  "short": "\"For your pledge of loyalty, we forgive your family's debt. Consider it our gift.\" Ceremonially, the man sliced a parchment in two and let it fall to the steps."
  },
  "Gen1Creepy-ConcealExpose.22": {
-  "full": "\"We have decided to forgive your family's debt to us due to your recent pledge of loyalty. I was sent to offer this word of salutation and reminder that we are pleased. Consider this canceled debt as our gift to you.\" The man, with a ceremonial air, then lifted a piece of parchment before him and, with a quick slice, let the cleaved paper fall to the stone steps.",
-  "easy": "\"Because you recently promised us your loyalty, we have decided to forgive your family's debt to us. I was sent to greet you and to remind you that we are happy with you. This canceled debt is our gift to you.\" Then, as if in a ceremony, the man held up a piece of paper and, with one quick cut, let the two halves fall to the stone steps.",
-  "short": "\"For your pledge of loyalty, we forgive your family's debt. Consider it our gift.\" Ceremonially, the man sliced a parchment in two and let it fall to the steps."
+  "full": "After {0} and the man exchanged their secret handshake, the meeting was over and the carriage was once again swallowed by the mists.",
+  "easy": "{0} and the man shook hands in their secret way, the meeting was over, and the carriage disappeared into the fog again.",
+  "short": "After a secret handshake with {0}, the carriage vanished into the mists."
  },
  "Gen1Creepy-ConcealExpose.23": {
-  "full": "After {0} and the man exchanged their secret handshake, the meeting was over and the carriage was once again swallowed by the mists.",
-  "easy": "{0} and the man shook hands in their secret way, the meeting was over, and the carriage disappeared into the fog again.",
-  "short": "After a secret handshake with {0}, the carriage vanished into the mists."
+  "full": "\"We have decided to forgive your family's debt to us due to your recent pledge of loyalty. I was sent to offer this word of salutation and reminder that we are pleased. Consider this canceled debt as our gift to you.\" The man, with a ceremonial air, then lifted a piece of parchment before him and, with a quick slice, let the cleaved paper fall to the stone steps.",
+  "easy": "\"Because you recently promised us your loyalty, we have decided to forgive your family's debt to us. I was sent to greet you and to remind you that we are happy with you. This canceled debt is our gift to you.\" Then, as if in a ceremony, the man held up a piece of paper and, with one quick cut, let the two halves fall to the stone steps.",
+  "short": "\"For your pledge of loyalty, we forgive your family's debt. Consider it our gift.\" Ceremonially, the man sliced a parchment in two and let it fall to the steps."
  },
  "Gen1Creepy-ConcealExpose.24": {
-  "full": "\"We have decided to forgive your family's debt to us due to your recent pledge of loyalty. I was sent to offer this word of salutation and reminder that we are pleased. Consider this canceled debt as our gift to you.\" The man, with a ceremonial air, then lifted a piece of parchment before him and, with a quick slice, let the cleaved paper fall to the stone steps.",
-  "easy": "\"Because you recently promised us your loyalty, we have decided to forgive your family's debt to us. I was sent to greet you and to remind you that we are happy with you. This canceled debt is our gift to you.\" Then, as if in a ceremony, the man held up a piece of paper and, with one quick cut, let the two halves fall to the stone steps.",
-  "short": "\"For your pledge of loyalty, we forgive your family's debt. Consider it our gift.\" Ceremonially, the man sliced a parchment in two and let it fall to the steps."
+  "full": "After {0} and the man exchanged their secret handshake, the meeting was over and the carriage was once again swallowed by the mists.",
+  "easy": "{0} and the man shook hands in their secret way, the meeting was over, and the carriage disappeared into the fog again.",
+  "short": "After a secret handshake with {0}, the carriage vanished into the mists."
  },
  "Gen1Creepy-ConcealExpose.25": {
-  "full": "After {0} and the man exchanged their secret handshake, the meeting was over and the carriage was once again swallowed by the mists.",
-  "easy": "{0} and the man shook hands in their secret way, the meeting was over, and the carriage disappeared into the fog again.",
-  "short": "After a secret handshake with {0}, the carriage vanished into the mists."
- },
- "Gen1Creepy-ConcealExpose.26": {
   "full": "\"We have decided to forgive your family's debt to us due to your recent pledge of loyalty. I was sent to offer this word of salutation and reminder that we are pleased. Consider this canceled debt as our gift to you.\" The man, with a ceremonial air, then lifted a piece of parchment before him and, with a quick slice, let the cleaved paper fall to the stone steps.",
   "easy": "\"Because you recently promised us your loyalty, we have decided to forgive your family's debt to us. I was sent to greet you and to remind you that we are happy with you. This canceled debt is our gift to you.\" Then, as if in a ceremony, the man held up a piece of paper and, with one quick cut, let the two halves fall to the stone steps.",
   "short": "\"For your pledge of loyalty, we forgive your family's debt. Consider it our gift.\" Ceremonially, the man sliced a parchment in two and let it fall to the steps."
  },
- "Gen1Creepy-ConcealExpose.27": {
+ "Gen1Creepy-ConcealExpose.26": {
   "full": "After {0} and the man exchanged their secret handshake, the meeting was over and the carriage was once again swallowed by the mists.",
   "easy": "{0} and the man shook hands in their secret way, the meeting was over, and the carriage disappeared into the fog again.",
   "short": "After a secret handshake with {0}, the carriage vanished into the mists."
  },
- "Gen1Creepy-ConcealExpose.28": {
+ "Gen1Creepy-ConcealExpose.27": {
   "full": "Discard a **completed Experiment (of B-Level or higher)** OR **discard an Estate Upgrade Tile** (not a Storage Shed)."
  },
- "Gen1Creepy-ConcealExpose.29": {
+ "Gen1Creepy-ConcealExpose.28": {
   "full": "Also, **Lose 1VP.**"
  },
- "Gen1Creepy-ConcealExpose.30": {
+ "Gen1Creepy-ConcealExpose.29": {
   "full": "Pay $2 to the supply OR **discard an Estate Upgrade Tile** (not a Storage Shed)."
  },
- "Gen1Creepy-ConcealExpose.31": {
+ "Gen1Creepy-ConcealExpose.30": {
   "full": "Also, **Gain 1 {icon:Insanity_Icon}**."
  },
  "Gen1Creepy-RefusalBuild.1": {
-  "full": "**Carefully hand this storybook device to **"
+  "full": "**Carefully hand this storybook device to {0} and do not allow any other players to see the screen.**"
  },
  "Gen1Creepy-RefusalBuild.2": {
-  "full": "**{0} and do not allow any other players to see the screen.**"
- },
- "Gen1Creepy-RefusalBuild.3": {
   "full": "You may choose to immediately retrieve and build the **Reading Room** Estate Upgrade at no cost. *However, you must still pay any costs related to expanding into a new Estate plot.*"
  },
- "Gen1Creepy-RefusalBuild.4": {
+ "Gen1Creepy-RefusalBuild.3": {
   "full": "The **Reading Room** acts the same as any other action space in your Estate: On your turn, you may place a Servant or Spouse on this tile to **lose 2 {icon:Insanity_Icon}**."
  },
- "Gen1Creepy-RefusalBuild.5": {
+ "Gen1Creepy-RefusalBuild.4": {
   "full": "You may choose to immediately retrieve and build the **Shrine** Estate Upgrade at no cost. *However, you must still pay any costs related to expanding into a new Estate plot.*"
  },
- "Gen1Creepy-RefusalBuild.6": {
+ "Gen1Creepy-RefusalBuild.5": {
   "full": "The **Shrine** acts the same as any other action space in your Estate: On your turn, you may place a Servant or Spouse on this tile to **lose 2 {icon:Creepy_Icon}**."
  },
- "Gen1Creepy-RefusalBuild.7": {
+ "Gen1Creepy-RefusalBuild.6": {
   "full": "**Order of St. Hubertus**"
  },
- "Gen1Creepy-RefusalBuild.8": {
+ "Gen1Creepy-RefusalBuild.7": {
   "full": "Consumed by the immense scientific enterprise they have undertaken, the cousins rarely allowed moments to indulge visitation. However, after they had ignored several missives from the Order, a group of individuals arrived at {0}'s estate with an un-sprung cart full of building materials.",
   "easy": "The cousins were so busy with their huge scientific project that they rarely had time for visitors. But after they had ignored several letters from the Order, a group of people arrived at {0}'s estate with a simple cart full of building materials.",
   "short": "Absorbed in their work, the cousins rarely received visitors. But after they ignored several missives from the Order, a group arrived at {0}'s estate with a cart of building materials."
  },
- "Gen1Creepy-RefusalBuild.9": {
+ "Gen1Creepy-RefusalBuild.8": {
   "full": "It appeared that they were aware of their **parent's refusal** to accept a gift from the Fraternity of Hunters. So, regardless of {0}'s current allegiances, they had procured the necessary materials to construct a gift and were set upon the task immediately. ",
   "easy": "It seemed they knew about the **parent's refusal** to accept a gift from the Fraternity of Hunters. So, whatever side {0} was on now, they had brought the materials to build a gift and started work at once. ",
   "short": "They knew of the **parent's refusal** of the Fraternity of Hunters' gift. Whatever {0}'s allegiances, they began building a gift at once. "
  },
- "Gen1Creepy-RefusalBuild.10": {
+ "Gen1Creepy-RefusalBuild.9": {
   "full": "**Fraternity of Hunters**"
  },
- "Gen1Creepy-RefusalBuild.11": {
+ "Gen1Creepy-RefusalBuild.10": {
   "full": "Consumed by the immense scientific enterprise they have undertaken, the cousins rarely allowed moments to indulge visitation. However, after they had ignored several missives from the Fraternity, a group of individuals arrived at {0}'s estate with an un-sprung cart full of building materials.",
   "easy": "The cousins were so busy with their huge scientific project that they rarely had time for visitors. But after they had ignored several letters from the Fraternity, a group of people arrived at {0}'s estate with a simple cart full of building materials.",
   "short": "Absorbed in their work, the cousins rarely received visitors. But after they ignored several missives from the Fraternity, a group arrived at {0}'s estate with a cart of building materials."
  },
- "Gen1Creepy-RefusalBuild.12": {
+ "Gen1Creepy-RefusalBuild.11": {
   "full": "It appeared that they were aware of their **parent's refusal** to assist the evil schemes of the Order of St. Hubertus. So, regardless of {0}'s current allegiances, they had procured the necessary materials to construct a gift and were set upon the task immediately. ",
   "easy": "It seemed they knew about the **parent's refusal** to help the evil plans of the Order of St. Hubertus. So, whatever side {0} was on now, they had brought the materials to build a gift and started work at once. ",
   "short": "They knew of the **parent's refusal** to aid the Order of St. Hubertus. Whatever {0}'s allegiances, they began building a gift at once. "
@@ -8059,95 +7972,89 @@
   "full": "Gain **$1**. Gain **1 **{icon:Creepy_Icon}. Then, return the {icon:Storybook} token to the supply."
  },
  "Gen1Creepy-RefuseBonus.1": {
-  "full": "**Carefully hand this storybook device to **"
+  "full": "**Carefully hand this storybook device to {0} and do not allow any other players to see the screen.**"
  },
  "Gen1Creepy-RefuseBonus.2": {
-  "full": "**{0} and do not allow any other players to see the screen.**"
- },
- "Gen1Creepy-RefuseBonus.3": {
   "full": "You may choose to immediately retrieve and build the **Reading Room** Estate Upgrade at no cost. *However, you must still pay any costs related to expanding into a new estate plot.*"
  },
- "Gen1Creepy-RefuseBonus.4": {
+ "Gen1Creepy-RefuseBonus.3": {
   "full": "The **Reading Room** acts the same as any other action space in your Estate: On your turn, you may place a Servant or Spouse onto this tile to **lose 2 {icon:Insanity_Icon}**."
  },
- "Gen1Creepy-RefuseBonus.5": {
+ "Gen1Creepy-RefuseBonus.4": {
   "full": "You may choose to immediately retrieve and build the **Shrine** Estate Upgrade at no cost. *However, you must still pay any costs related to expanding into a new estate plot.*"
  },
- "Gen1Creepy-RefuseBonus.6": {
+ "Gen1Creepy-RefuseBonus.5": {
   "full": "The **Shrine** acts the same as any other action space in your Estate: On your turn, you may place a Servant or Spouse onto this tile to **lose 2 {icon:Creepy_Icon}**."
  },
- "Gen1Creepy-RefuseBonus.7": {
+ "Gen1Creepy-RefuseBonus.6": {
   "full": "**A Strange Visit**"
  },
- "Gen1Creepy-RefuseBonus.8": {
+ "Gen1Creepy-RefuseBonus.7": {
   "full": "Consumed by the immense scientific enterprise they have undertaken, the cousins rarely allowed moments to indulge visitation. However, after they had ignored several missives from a strange organization, a group of individuals arrived at {0}'s estate with an un-sprung cart full of building materials.",
   "easy": "The cousins were so busy with their huge scientific project that they rarely had time for visitors. But after they had ignored several letters from a strange organization, a group of people arrived at {0}'s estate with a simple cart full of building materials.",
   "short": "Absorbed in their work, the cousins rarely received visitors. But after they ignored several missives from a strange organization, a group arrived at {0}'s estate with a cart of building materials."
  },
- "Gen1Creepy-RefuseBonus.9": {
+ "Gen1Creepy-RefuseBonus.8": {
   "full": "It appeared that they were aware of {0}'s **parent's refusal** to accept a suspicious gift, a refusal that avoided catastrophic consequences too horrible to describe. Without further explanation though, they had procured the necessary materials to construct a gift and were set upon the task immediately. ",
   "easy": "It seemed they knew about {0}'s **parent's refusal** to accept a suspicious gift, which had prevented terrible consequences too horrible to describe. Without explaining any more, they had brought the materials to build a gift and started work at once. ",
   "short": "They knew of {0}'s **parent's refusal** of a suspicious gift, which averted catastrophe. Without explanation, they began building a gift at once. "
  },
- "Gen1Creepy-RefuseBonus.10": {
+ "Gen1Creepy-RefuseBonus.9": {
   "full": "**A Strange Visit**"
  },
- "Gen1Creepy-RefuseBonus.11": {
+ "Gen1Creepy-RefuseBonus.10": {
   "full": "Consumed by the immense scientific enterprise they have undertaken, the cousins rarely allowed moments to indulge visitation. However, after they had ignored several missives from a strange organization, a group of individuals arrived at {0}'s estate with an un-sprung cart full of building materials.",
   "easy": "The cousins were so busy with their huge scientific project that they rarely had time for visitors. But after they had ignored several letters from a strange organization, a group of people arrived at {0}'s estate with a simple cart full of building materials.",
   "short": "Absorbed in their work, the cousins rarely received visitors. But after they ignored several missives from a strange organization, a group arrived at {0}'s estate with a cart of building materials."
  },
- "Gen1Creepy-RefuseBonus.12": {
+ "Gen1Creepy-RefuseBonus.11": {
   "full": "It appeared that they were aware of {0}'s **parent's refusal** to accept a suspicious gift, a refusal that avoided catastrophic consequences too horrible to describe. Without further explanation, they had procured the necessary materials to construct a gift and were set upon the task immediately. ",
   "easy": "It seemed they knew about {0}'s **parent's refusal** to accept a suspicious gift, which had prevented terrible consequences too horrible to describe. Without explaining any more, they had brought the materials to build a gift and started work at once. ",
   "short": "They knew of {0}'s **parent's refusal** of a suspicious gift, which averted catastrophe. Without explanation, they began building a gift at once. "
  },
  "Gen1Creepy-AgreedReturn.1": {
-  "full": "**Carefully hand this storybook device to **"
+  "full": "**Carefully hand this storybook device to {0} and do not allow any other players to see the screen.**"
  },
  "Gen1Creepy-AgreedReturn.2": {
-  "full": "**{0} and do not allow any other players to see the screen.**"
- },
- "Gen1Creepy-AgreedReturn.3": {
   "full": "**Order of St. Hubertus**"
  },
- "Gen1Creepy-AgreedReturn.4": {
+ "Gen1Creepy-AgreedReturn.3": {
   "full": "On an unseasonably warm evening with a thick fog obscuring their arrival, an operative from the Order of St. Hubertus knocked upon the estate door. There, at the entranceway with no intent to venture further, the man addressed {0} II in an authoritative tone.",
   "easy": "On an evening that was unusually warm for the season, with thick fog hiding their arrival, an agent of the Order of St. Hubertus knocked on the door of the estate. He stood at the entrance, with no plan to come further in, and spoke to {0} II in a commanding voice.",
   "short": "One warm, foggy evening, an operative from the Order of St. Hubertus knocked at the estate door and, staying on the threshold, addressed {0} II with authority."
  },
- "Gen1Creepy-AgreedReturn.5": {
+ "Gen1Creepy-AgreedReturn.4": {
   "full": "The man peered out from under his cloth hood, his eyes glowing with unnatural light. \"Though we no longer have claims to this region, our assistance is not given without cost. And your family's debt has come due,\" the man stated while several other cloaked individuals emerged from their carriage, small blades visibly clutched between their fingers.",
   "easy": "The man looked out from under his cloth hood, and his eyes glowed with an unnatural light. \"We no longer have any claims on this region, but our help is not free. And now your family must pay its debt,\" the man said, while several other people in cloaks came out of their carriage, clearly holding small knives between their fingers.",
   "short": "Under his hood, the man's eyes glowed unnaturally. \"Our help is not free, and your family's debt has come due,\" he said, as cloaked figures with small blades stepped from the carriage."
  },
- "Gen1Creepy-AgreedReturn.6": {
+ "Gen1Creepy-AgreedReturn.5": {
   "full": "It seemed that decision of their parent had finally come to fruition. The gentlemen were kind enough to offer {0} II a choice of debt repayment.",
   "easy": "It seemed that their parent's decision now had its consequences. The gentlemen were kind enough to let {0} II choose how to pay back the debt.",
   "short": "Their parent's decision had come home to roost. The gentlemen kindly let {0} II choose how to repay."
  },
- "Gen1Creepy-AgreedReturn.7": {
+ "Gen1Creepy-AgreedReturn.6": {
   "full": "**Fraternity of Hunters**"
  },
- "Gen1Creepy-AgreedReturn.8": {
+ "Gen1Creepy-AgreedReturn.7": {
   "full": "On an unseasonably warm evening with a thick fog obscuring their arrival, an operative from the Fraternity of Hunters knocked upon the estate door. There, at the entranceway with no intent to venture further, the man addressed {0} II in an authoritative tone.",
   "easy": "On an evening that was unusually warm for the season, with thick fog hiding their arrival, an agent of the Fraternity of Hunters knocked on the door of the estate. He stood at the entrance, with no plan to come further in, and spoke to {0} II in a commanding voice.",
   "short": "One warm, foggy evening, an operative from the Fraternity of Hunters knocked at the estate door and, staying on the threshold, addressed {0} II with authority."
  },
- "Gen1Creepy-AgreedReturn.9": {
+ "Gen1Creepy-AgreedReturn.8": {
   "full": "\"Though we no longer have claims to this region, our assistance is not given without cost. And your family's debt has come due. We kindly ask for immediate remuneration,\" the man stated while several other burly individuals emerged from their carriage, tapping various gleaming bludgeoning instruments against their palms.",
   "easy": "\"We no longer have any claims on this region, but our help is not free. And now your family must pay its debt. We kindly ask you to pay at once,\" the man said, while several other strong men came out of their carriage and tapped shiny clubs against their hands.",
   "short": "\"Our help is not free, and your family's debt has come due. We ask for immediate payment,\" he said, as burly men stepped from the carriage, tapping gleaming clubs against their palms."
  },
- "Gen1Creepy-AgreedReturn.10": {
+ "Gen1Creepy-AgreedReturn.9": {
   "full": "The gentlemen were kind enough to offer {0} II a choice of debt repayment.",
   "easy": "The gentlemen were kind enough to let {0} II choose how to pay back the debt.",
   "short": "The gentlemen kindly let {0} II choose how to repay."
  },
- "Gen1Creepy-AgreedReturn.11": {
+ "Gen1Creepy-AgreedReturn.10": {
   "full": "Discard a **completed Experiment (of B-Level or higher)** OR **discard an Estate Upgrade Tile** (not a Storage Shed)."
  },
- "Gen1Creepy-AgreedReturn.12": {
+ "Gen1Creepy-AgreedReturn.11": {
   "full": "Pay **$2 to the supply** OR **discard an Estate Upgrade Tile** (not a Storage Shed)."
  },
  "Gen1Insanity-Yes.1": {
