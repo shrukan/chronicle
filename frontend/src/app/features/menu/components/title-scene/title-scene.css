@@ -1,0 +1,91 @@
+:host {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  background: #0b1418;
+  /* The original's scale: 1 at 1920 × 1082. */
+  --s: min(100vw / 1920, 100dvh / 1082);
+}
+/* Covers the window like the original's canvas. */
+.stage {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  height: max(100dvh, 100vw * 1082 / 1920);
+  aspect-ratio: 1920 / 1082;
+  transform: translate(-50%, -50%);
+}
+/* Portrait: the scene in the lower part, plain sky above for the logo. */
+@media (max-aspect-ratio: 1/1) {
+  .stage {
+    top: auto;
+    bottom: 0;
+    height: 72dvh;
+    transform: translateX(-50%);
+  }
+  .sky {
+    mask: linear-gradient(transparent, #000 25%);
+  }
+}
+.stage > * {
+  position: absolute;
+}
+img {
+  object-fit: fill;
+}
+/* Stretched over the whole screen, like the original. */
+.sky {
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+.mountain {
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 28.8%;
+}
+.village {
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 16.1%;
+}
+.light {
+  width: 5.63%;
+  aspect-ratio: 1;
+  translate: -50% -50%;
+  border-radius: 50%;
+  background: radial-gradient(rgb(255 184 40 / 0.55), transparent 65%);
+  animation: flicker 4s ease-in-out infinite alternate;
+}
+.light:nth-of-type(2n) {
+  animation-duration: 5.3s;
+}
+.vignette {
+  position: absolute;
+  inset: auto 0 0;
+  width: 100%;
+  height: 90.7%;
+  opacity: 0.57;
+  pointer-events: none;
+}
+.frame {
+  position: absolute;
+  inset: 0;
+  border-style: solid;
+  border-width: calc(166 * var(--s)) calc(160 * var(--s)) calc(177 * var(--s)) calc(160 * var(--s));
+  border-image-slice: 166 160 177 160;
+  border-image-repeat: stretch;
+}
+@keyframes flicker {
+  to {
+    opacity: 0.6;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .light {
+    animation: none;
+  }
+}

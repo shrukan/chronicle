@@ -1,0 +1,65 @@
+:host {
+  display: block;
+}
+.title {
+  margin: 0 0 1rem;
+  font-size: 1.5rem;
+  text-align: center;
+}
+.actions {
+  display: flex;
+  justify-content: center;
+  margin-top: 1.25rem;
+}
+.actions.inline {
+  margin: 1rem 0;
+}
+.marker {
+  display: block;
+  height: 3rem;
+  margin: -0.5rem auto 1rem;
+  object-fit: contain;
+}
+.special {
+  display: flex;
+  justify-content: center;
+  padding: 1rem 0;
+}
+.special-title {
+  max-width: 100%;
+  animation: emerge 1.2s ease-out;
+}
+@keyframes emerge {
+  from {
+    opacity: 0;
+    letter-spacing: 0.5em;
+    filter: blur(4px);
+  }
+}
+.countdown {
+  position: relative;
+  display: grid;
+  place-items: center;
+  height: 9rem;
+}
+.countdown img {
+  position: absolute;
+  height: 8rem;
+  opacity: 0.5;
+}
+.countdown span {
+  position: relative;
+  font-family: var(--font-display);
+  font-size: 4rem;
+  color: var(--color-heading);
+}
+.reveal {
+  padding: 2rem 0;
+  text-align: center;
+  font-family: var(--font-display);
+  font-size: 3rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--color-accent-text);
+  animation: emerge 0.6s ease-out;
+}

@@ -1,0 +1,20 @@
+<div class="stage">
+  @if (library.ui('main-menu/sky-dome'); as src) {
+    <img class="sky" [src]="src" alt="" />
+  }
+  @if (library.ui('main-menu/mountain'); as src) {
+    <img class="mountain" [src]="src" alt="" />
+  }
+  @if (library.ui('main-menu/village'); as src) {
+    <img class="village" [src]="src" alt="" />
+  }
+  @for (l of lights; track $index) {
+    <span class="light" [style.left.%]="l.left" [style.top.%]="l.top"></span>
+  }
+</div>
+@if (library.ui('general/vignette'); as src) {
+  <img class="vignette" [src]="src" alt="" />
+}
+@if (library.ui('general/main-border'); as src) {
+  <div class="frame" [style.border-image-source]="'url(' + src + ')'"></div>
+}

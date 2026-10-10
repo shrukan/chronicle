@@ -1,0 +1,37 @@
+<section class="paper sheet">
+  <cr-tabs #tabBar [tabs]="tabs()" [(selected)]="tab" panelId="unlocks" />
+
+  <div id="unlocks" class="panel" role="tabpanel" [attr.aria-labelledby]="tabBar.tabId(tab())">
+    <h1 class="heading">{{ scenarioName }}</h1>
+
+    @if (tab() === 'endings') {
+      <p class="count">
+        {{ unlockedCount() }}
+        {{ t('@ViewShareEnding.endingScenarioText', 'out of 8 endings for this scenario.') }}
+      </p>
+      <ol class="slots">
+        @for (e of endings(); track e.passage) {
+          <li [class.locked]="!e.unlocked">
+            @if (e.unlocked) {
+              <strong>{{ e.title }}</strong>
+              <small>{{ e.date }}</small>
+            } @else {
+              <strong>???</strong>
+            }
+          </li>
+        }
+      </ol>
+    } @else {
+      <ul class="slots">
+        @for (a of achievements(); track a.text) {
+          <li [class.locked]="!a.done">
+            <strong>{{ a.text }}</strong>
+            <small>{{ a.done ? 'Unlocked' : 'Locked' }}</small>
+          </li>
+        }
+      </ul>
+    }
+  </div>
+
+  <a class="btn" routerLink="/">Back</a>
+</section>

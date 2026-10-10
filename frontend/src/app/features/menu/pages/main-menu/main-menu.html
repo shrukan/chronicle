@@ -1,0 +1,96 @@
+<cr-title-scene />
+<a class="help" routerLink="/help" aria-label="How to use" title="How to use">
+  @if (library.ui('help/mfwhelp-button'); as src) {
+    <img [src]="src" alt="" />
+  } @else {
+    ?
+  }
+</a>
+
+<section class="menu">
+  <!-- A fixed box, so the menu stays put whether the logo or its fallback renders first. -->
+  <div class="logo">
+    @if (library.ui('main-menu/myfathersworklogofinal'); as logo) {
+      <img [src]="logo" alt="My Father's Work" />
+    } @else {
+      <h1 class="heading">My Father's Work</h1>
+    }
+  </div>
+  <p class="sub">Chronicle · an unofficial companion app</p>
+
+  @if (whatsNew.unseen()) {
+    <p class="updated" role="status">
+      <span>Chronicle has been updated to {{ whatsNew.version }}.</span>
+      <a routerLink="/whats-new">See what's new</a>
+      <button
+        type="button"
+        class="dismiss"
+        (click)="whatsNew.markSeen()"
+        aria-label="Dismiss the update note"
+      >
+        ×
+      </button>
+    </p>
+  }
+
+  <!-- The original's 2 × 2 grid of brown plates. -->
+  <nav class="buttons">
+    @if (hasSave.value()) {
+      <button crAutofocus type="button" class="btn quiet" (click)="resume()">
+        {{ t('UI/MainMenu/Viewarea/GridButtons/Continue/Text (TMP)', 'Continue') }}
+      </button>
+    }
+    <button type="button" class="btn quiet" (click)="newGame()">
+      {{ t('UI/MainMenu/Viewarea/GridButtons/NewGame/Text (TMP)', 'New game') }}
+    </button>
+    <button type="button" class="btn quiet" (click)="settingsOpen.set(true)">
+      {{ t('UI/MainMenu/Viewarea/GridButtons/Setting/Text (TMP)', 'Settings') }}
+    </button>
+    <a class="btn quiet" routerLink="/endings">{{
+      t('UI/MainMenu/Viewarea/GridButtons/Endings/Text (TMP)', 'Endings')
+    }}</a>
+  </nav>
+</section>
+
+<cr-modal
+  [open]="confirmOpen()"
+  [dismissable]="true"
+  (closed)="confirmOpen.set(false)"
+  label="Start a new game"
+>
+  <p class="question">
+    {{
+      t(
+        'UI/MainMenu/Viewarea/RewriteData UI/RewriteData Panel/PanelBG/RewriteText',
+        'Rewrite existing data?'
+      )
+    }}
+  </p>
+  <div class="row">
+    <button type="button" class="btn quiet" (click)="confirmOpen.set(false)">
+      {{
+        t(
+          'UI/MainMenu/Viewarea/RewriteData UI/RewriteData Panel/PanelBG/CancleButton/Text (TMP)',
+          'Cancel'
+        )
+      }}
+    </button>
+    <button type="button" class="btn confirm" (click)="startOver()">
+      {{
+        t(
+          'UI/MainMenu/Viewarea/RewriteData UI/RewriteData Panel/PanelBG/OkButton/Text (TMP)',
+          'Confirm'
+        )
+      }}
+    </button>
+  </div>
+</cr-modal>
+
+<cr-modal
+  [open]="settingsOpen()"
+  [dismissable]="true"
+  (closed)="settingsOpen.set(false)"
+  label="Settings"
+>
+  <cr-settings-panel (done)="settingsOpen.set(false)" />
+</cr-modal>

@@ -1,0 +1,13 @@
+@for (tab of tabs(); track tab.id) {
+  <button
+    type="button"
+    role="tab"
+    [id]="tabId(tab.id)"
+    [attr.aria-selected]="selected() === tab.id"
+    [attr.aria-controls]="panelId()"
+    [tabindex]="selected() === tab.id ? 0 : -1"
+    (click)="selected.set(tab.id)"
+  >
+    {{ tab.label }}
+  </button>
+}

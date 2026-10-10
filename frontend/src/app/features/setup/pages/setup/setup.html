@@ -1,0 +1,159 @@
+<section class="paper sheet">
+  @switch (step()) {
+    @case ('voice') {
+      <h1 class="heading">
+        {{ t('UI/VoiceTrack/Viewarea/Prompt/Heading', 'Choose Audio Voice') }}
+      </h1>
+      <div class="choices">
+        @for (v of library.voices(); track v.value) {
+          <button
+            type="button"
+            class="btn quiet choice"
+            [class.selected]="settings.voice() === v.value"
+            [attr.aria-pressed]="settings.voice() === v.value"
+            (click)="settings.voice.set(v.value)"
+          >
+            {{ v.label }}
+          </button>
+        }
+      </div>
+      <button crAutofocus type="button" class="btn" (click)="go('players')">
+        {{ continueLabel() }}
+      </button>
+    }
+
+    @case ('players') {
+      <h1 class="heading">Players</h1>
+      <p>
+        {{
+          t(
+            'UI/GamePlayerCounts/ViewArea/Description',
+            'How many individuals will be sharing this experience today?'
+          )
+        }}
+      </p>
+      <!-- The original's tiles; the game has material for four players. -->
+      <div class="choices players">
+        @for (n of [2, 3, 4]; track n) {
+          <button
+            type="button"
+            class="tile"
+            [class.selected]="players() === n"
+            [attr.aria-pressed]="players() === n"
+            (click)="players.set(n)"
+          >
+            @if (library.ui('game-player-count/' + n + 'players'); as src) {
+              <img [src]="src" alt="" />
+            }
+            <span>{{ playersLabel(n) }}</span>
+          </button>
+        }
+      </div>
+      <button crAutofocus type="button" class="btn" (click)="go('intro')">
+        {{ continueLabel() }}
+      </button>
+    }
+
+    @case ('intro') {
+      <p class="letter">
+        <cr-rich-text [text]="introPanel()" />
+      </p>
+      <button crAutofocus type="button" class="btn" (click)="startNames()">
+        {{ continueLabel() }}
+      </button>
+    }
+
+    @case ('name') {
+      <form [formRoot]="nameForm" class="form">
+        <p class="tooltip">{{ passTo() }}</p>
+        <label class="field">
+          {{ namePrompt() }}
+          <input crAutofocus type="text" [formField]="nameForm.name" autocomplete="off" />
+        </label>
+        <button type="submit" class="btn" [disabled]="nameForm().invalid()">
+          {{ continueLabel() }}
+        </button>
+      </form>
+    }
+
+    @case ('welcome') {
+      <div class="letter">
+        <p>
+          {{ t('UI/PlayerIntro/ViewArea/PLayerNamePaper/Text', "Welcome to My Father's Work,") }}
+        </p>
+        <p class="name">{{ names()[current()] }}</p>
+        <p>{{ t('@ViewPlayerIntro.introText' + (current() + 1), 'Our warmest regards.') }}</p>
+      </div>
+      <button crAutofocus type="button" class="btn" (click)="nextName()">
+        {{ continueLabel() }}
+      </button>
+    }
+
+    @case ('village') {
+      <form [formRoot]="villageForm" class="form">
+        <h1 class="heading">{{ t('UI/VillageEntery/ViewArea/Title', 'The Village') }}</h1>
+        <p>{{ t('UI/VillageEntery/ViewArea/DescriptionText') }}</p>
+        <label class="field">
+          {{
+            t(
+              'UI/VillageEntery/ViewArea/DescriptionText1',
+              'Please collectively enter the name of the town in which your inheritance resides.'
+            )
+          }}
+          <input crAutofocus type="text" [formField]="villageForm.village" autocomplete="off" />
+        </label>
+        <button type="submit" class="btn" [disabled]="villageForm().invalid()">
+          {{ continueLabel() }}
+        </button>
+      </form>
+    }
+
+    @case ('villageIntro') {
+      <div class="letter">
+        <p>
+          <cr-rich-text [text]="villageIntro()" />
+        </p>
+        <p>
+          {{
+            t(
+              'UI/VillageIntro/ViewArea/Paper/DescriptionText1',
+              'Thank you and please do excuse our forgetfulness.'
+            )
+          }}
+        </p>
+      </div>
+      <button crAutofocus type="button" class="btn" (click)="go('scenario')">
+        {{ continueLabel() }}
+      </button>
+    }
+
+    @case ('scenario') {
+      <h1 class="heading">{{ t('UI/Scenarios/Viewarea/BG/Title', 'Scenario') }}</h1>
+      <p>
+        {{ t('@ViewScenarios.chooseText', 'Choose a Scenario for') }} {{ players() }}
+        {{ t('@ViewScenarios.playerText', 'players:') }}
+      </p>
+      <div class="scenarios">
+        @for (s of scenarioCards; track s.id) {
+          <button
+            [crAutofocus]="s.available"
+            type="button"
+            class="scenario"
+            [disabled]="!s.available"
+            (click)="start(s.id)"
+          >
+            @if (library.ui(s.image); as src) {
+              <img [src]="src" alt="" />
+            }
+            <strong>{{ t(s.titleKey, s.title) }}</strong>
+            <span>{{ s.available ? t(s.detailsKey) : 'Coming later' }}</span>
+          </button>
+        }
+      </div>
+    }
+  }
+
+  @if (step() !== 'voice') {
+    <button type="button" class="back" (click)="back()">‹ Back</button>
+  }
+</section>

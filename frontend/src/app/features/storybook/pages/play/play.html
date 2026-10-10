@@ -1,0 +1,170 @@
+@if (game.view(); as view) {
+  @if (handover(); as notice) {
+    <!-- A dialog, so it queues ahead of the page's own pop-ups instead of under them. -->
+    <cr-modal [fullscreen]="true" label="Pass the storybook">
+      <div class="handover">
+        <div class="hand" aria-hidden="true"></div>
+        <p><cr-rich-text [text]="game.text(notice.key)" [args]="notice.args" /></p>
+        <button crAutofocus type="button" class="btn" (click)="showPage()">
+          Ready – show the page
+        </button>
+      </div>
+    </cr-modal>
+  }
+  <header class="bar">
+    <button type="button" class="icon-btn" (click)="logOpen.set(true)" aria-label="Log book">
+      @if (library.ui('general/book-icon-1'); as src) {
+        <img [src]="src" alt="" />
+      } @else {
+        📖
+      }
+    </button>
+    <div class="center">
+      <h1 #title class="heading title" [class.hub]="game.isHub()" tabindex="-1">
+        @if (game.title()) {
+          <cr-rich-text [text]="game.title()" />
+        }
+      </h1>
+      <p class="clock" [attr.aria-label]="'Play time ' + playTime()">⏱ {{ playTime() }}</p>
+    </div>
+    <div class="end">
+      <button
+        type="button"
+        class="icon-btn"
+        (click)="settings.muted.set(!settings.muted())"
+        [attr.aria-label]="settings.muted() ? 'Turn sound on' : 'Mute all sound'"
+        [attr.aria-pressed]="settings.muted()"
+        [title]="settings.muted() ? 'Turn sound on' : 'Mute all sound'"
+      >
+        <span class="speaker" [class.off]="settings.muted()" aria-hidden="true"></span>
+      </button>
+      @if (game.canUndo()) {
+        <button
+          type="button"
+          class="icon-btn"
+          (click)="confirmUndo.set(true)"
+          aria-label="Undo last choice"
+          title="Undo last choice"
+        >
+          ↶
+        </button>
+      }
+      <button type="button" class="icon-btn" (click)="pauseOpen.set(true)" aria-label="Menu">
+        ☰
+      </button>
+    </div>
+  </header>
+
+  @if (game.progress()) {
+    <cr-round-bar class="rounds" [done]="game.roundsDone()" />
+  }
+
+  <article class="paper passage" [class.hub]="game.isHub()">
+    <cr-story-output
+      [items]="body()"
+      [primaryLink]="onlyWay()?.plain ? onlyWay()?.id : undefined"
+    />
+
+    @if (view.prompt; as prompt) {
+      <form class="prompt" [formRoot]="answerForm">
+        <label for="answer"
+          ><cr-rich-text [text]="game.text(prompt.key)" [args]="prompt.args"
+        /></label>
+        <div class="row">
+          <input
+            id="answer"
+            [type]="prompt.input === 'number' ? 'number' : 'text'"
+            [class.number]="prompt.input === 'number'"
+            [formField]="answerForm.value"
+            autocomplete="off"
+          />
+          <button type="submit" class="btn confirm" [disabled]="answerForm().invalid()">OK</button>
+        </div>
+      </form>
+    }
+
+    @if (game.isEnding()) {
+      <footer class="ending">
+        @if (game.newEnding(); as passage) {
+          <p class="unlocked">
+            {{ library.text('@ViewShareEnding.unlockedText', 'You have unlocked') }}
+            <strong>{{ endingTitle(passage) }}</strong>
+            {{ library.text('@ViewShareEnding.EndingText', 'ending.') }}
+          </p>
+        }
+        <p class="played">Played in {{ playTime() }}</p>
+        <div class="row">
+          <a class="btn quiet" routerLink="/endings">Endings</a>
+          <button type="button" class="btn" (click)="toTitle()">Main menu</button>
+        </div>
+      </footer>
+    }
+
+    @if (game.error(); as error) {
+      <p class="error" role="alert">
+        {{ error }}
+        <a [href]="bugReport(error)" target="_blank" rel="noopener">Report this error ↗</a>
+      </p>
+    }
+  </article>
+
+  <cr-modal [open]="logOpen()" [dismissable]="true" (closed)="logOpen.set(false)" label="Log book">
+    <cr-log-book (done)="logOpen.set(false)" />
+  </cr-modal>
+
+  <!-- Asks first: the page before may be another player's secret. -->
+  <cr-modal
+    [open]="confirmUndo()"
+    [dismissable]="true"
+    (closed)="confirmUndo.set(false)"
+    label="Undo last choice"
+  >
+    <div class="undo">
+      <h2 class="heading">Undo last choice?</h2>
+      <p>This shows the previous page again. Make sure it isn't another player's secret.</p>
+      <div class="row">
+        <button crAutofocus type="button" class="btn quiet" (click)="confirmUndo.set(false)">
+          Cancel
+        </button>
+        <button type="button" class="btn" (click)="undo()">Undo</button>
+      </div>
+    </div>
+  </cr-modal>
+
+  <cr-modal
+    [open]="pauseOpen()"
+    [dismissable]="true"
+    (closed)="pauseOpen.set(false)"
+    label="Paused"
+  >
+    <h2 class="heading paused">
+      {{
+        library.text(
+          'UI/GanrationEnding/Viewarea/PausePopup/Settings Panel/Panel/PausedHeader',
+          'Paused'
+        )
+      }}
+    </h2>
+    <p class="paused-time">Play time {{ playTime() }}</p>
+    <cr-settings-panel [showHeading]="false" (done)="pauseOpen.set(false)">
+      <button actions type="button" class="btn quiet" (click)="toTitle()">Main menu</button>
+    </cr-settings-panel>
+    <p class="report">
+      Something wrong on this page?
+      <a [href]="bugReport()" target="_blank" rel="noopener">Report a bug ↗</a>
+    </p>
+  </cr-modal>
+} @else if (game.error(); as error) {
+  <section class="paper empty">
+    <p class="error" role="alert">The storybook could not be opened: {{ error }}</p>
+    <a class="btn" routerLink="/">Main menu</a>
+    <a [href]="bugReport(error)" target="_blank" rel="noopener">Report this error ↗</a>
+  </section>
+} @else if (resuming()) {
+  <p class="loading">Opening the storybook…</p>
+} @else {
+  <section class="paper empty">
+    <p>No game in progress.</p>
+    <a class="btn" routerLink="/">Back to the title</a>
+  </section>
+}

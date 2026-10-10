@@ -1,0 +1,21 @@
+.glue {
+  white-space: nowrap;
+}
+.icon {
+  filter: var(--icon-halo, none);
+  display: inline-block;
+  width: 1.6em;
+  height: 1.6em;
+  margin: -0.3em 0.1em;
+  object-fit: contain;
+  vertical-align: middle;
+}
+.icon-label {
+  display: inline-block;
+  padding: 0 0.35em;
+  border: 1px solid var(--color-accent);
+  border-radius: 0.3em;
+  font-size: 0.8em;
+  font-variant: small-caps;
+  color: var(--color-accent-text);
+}

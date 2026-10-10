@@ -1,0 +1,52 @@
+:host {
+  display: block;
+}
+.sheet {
+  display: grid;
+  justify-items: center;
+  gap: 1rem;
+  max-width: 30rem;
+  margin: 0 auto;
+  text-align: center;
+}
+.panel {
+  display: grid;
+  justify-items: center;
+  gap: 1rem;
+  width: 100%;
+}
+h1 {
+  margin: 0;
+  font-size: 1.8rem;
+}
+.count {
+  margin: 0;
+  font-style: italic;
+}
+.slots {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 0.5rem;
+}
+.slots li {
+  display: grid;
+  padding: 0.6rem 0.75rem;
+  border: 1px solid var(--color-rule);
+  border-radius: 0.4rem;
+  background: var(--color-field);
+}
+.slots li.locked {
+  opacity: 0.55;
+}
+.slots strong {
+  font-family: var(--font-display);
+  font-weight: normal;
+  font-size: 1.15rem;
+  color: var(--color-heading);
+}
+.slots small {
+  color: var(--color-muted);
+}

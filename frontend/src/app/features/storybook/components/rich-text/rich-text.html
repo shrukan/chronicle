@@ -1,0 +1,28 @@
+@for (span of spans(); track $index) {
+  @switch (span.t) {
+    @case ('text') {
+      <span [class.font-semibold]="span.bold" [class.italic]="span.italic">{{ span.text }}</span>
+    }
+    @case ('icon') {
+      <!-- An icon keeps the punctuation after it on its line (no whitespace in between). -->
+      @if (library.icon(span.name); as src) {
+        <span class="glue"
+          ><img
+            class="icon"
+            [src]="src"
+            [alt]="iconLabel(span.name)"
+            [title]="iconLabel(span.name)"
+          />{{ span.tail }}</span
+        >
+      } @else {
+        <span class="glue"
+          ><span class="icon-label" [title]="span.name">{{ iconLabel(span.name) }}</span
+          >{{ span.tail }}</span
+        >
+      }
+    }
+    @case ('newline') {
+      <br />
+    }
+  }
+}

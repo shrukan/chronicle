@@ -1,0 +1,67 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  min-height: 100dvh;
+}
+main {
+  flex: 1;
+  width: 100%;
+  max-width: 50rem;
+  margin: 0 auto;
+  padding: 1.25rem 1rem 0.75rem;
+  box-sizing: border-box;
+}
+/* Over every page, dialogs excepted: reloading is safe, the game is saved after every step. */
+.update {
+  position: fixed;
+  left: 50%;
+  bottom: calc(1rem + env(safe-area-inset-bottom));
+  z-index: 5;
+  transform: translateX(-50%);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem 1rem;
+  width: max-content;
+  max-width: calc(100vw - 2rem);
+  box-sizing: border-box;
+  padding: 0.6rem 1rem;
+  border: 1px solid var(--color-rule);
+  border-radius: 0.5rem;
+  background: var(--color-bg) var(--paper-image, none) center / cover;
+  background-blend-mode: var(--paper-blend);
+  color: var(--color-ink);
+  box-shadow: 0 0.5rem 1.5rem rgb(0 0 0 / 0.5);
+}
+.update .btn {
+  padding: 0.3rem 0.9rem;
+}
+.update a {
+  color: var(--color-accent-text);
+}
+.later {
+  border: 0;
+  background: none;
+  font: inherit;
+  color: var(--color-muted);
+  text-decoration: underline;
+  cursor: pointer;
+}
+footer {
+  padding: 0.25rem 1rem calc(1.75rem + env(safe-area-inset-bottom));
+  font-size: 0.8rem;
+  text-align: center;
+  opacity: 0.85;
+}
+footer a {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+  white-space: nowrap;
+}
+footer a:hover,
+footer a:focus-visible {
+  opacity: 1;
+  color: var(--color-on-backdrop);
+}

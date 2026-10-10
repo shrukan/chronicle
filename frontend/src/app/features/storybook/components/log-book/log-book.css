@@ -1,0 +1,59 @@
+h2 {
+  margin: 0 0 1rem;
+  text-align: center;
+  font-size: 1.6rem;
+}
+.entries {
+  margin: 0;
+  padding-left: 1.5rem;
+  display: grid;
+  gap: 0.9rem;
+}
+.entries strong {
+  display: block;
+  font-family: var(--font-display);
+  font-weight: normal;
+  font-size: 1.15rem;
+  color: var(--color-heading);
+}
+.entries em {
+  display: block;
+  color: var(--color-muted);
+}
+.entries p {
+  margin: 0.2rem 0 0;
+}
+.pager {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+.arrow {
+  width: 2.5rem;
+  height: 2.5rem;
+  border: 0;
+  background: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: inherit;
+}
+.arrow img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+.arrow:disabled {
+  opacity: 0.3;
+  cursor: default;
+}
+.empty {
+  text-align: center;
+  font-style: italic;
+}
+.actions {
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem;
+}

@@ -1,0 +1,103 @@
+@switch (screen().ui) {
+  @case ('endOfRound') {
+    @if (round(); as r) {
+      <cr-modal [label]="text('UI/Help/Viewarea/EndOfRound/DetailsPanel/title', 'End of Round')">
+        <h2 class="heading title">
+          {{ text('UI/Help/Viewarea/EndOfRound/DetailsPanel/title', 'End of Round') }}
+        </h2>
+        @if (marker(); as src) {
+          <img class="marker" [src]="src" [alt]="'Round ' + r.round + ' of 9'" />
+        }
+        <p><cr-rich-text [text]="game.text(r.text)" /></p>
+        <p><cr-rich-text [text]="game.text(r.then)" /></p>
+        <div class="actions">
+          <button crAutofocus type="button" class="btn confirm" (click)="continue()">
+            {{ text('UI/EndOfRound/ViewArea/Acceptbtn/Text (TMP)', 'Confirm') }}
+          </button>
+        </div>
+      </cr-modal>
+    }
+  }
+  @case ('endOfGeneration') {
+    <cr-modal [open]="!dismissed()" [label]="generationTitle">
+      <h2 class="heading title">{{ generationTitle }}</h2>
+      <p><cr-rich-text [text]="game.text(arg('text'))" /></p>
+      <div class="actions">
+        <button crAutofocus type="button" class="btn confirm" (click)="dismissed.set(true)">
+          {{ text('UI/EndOfGeneration/ViewArea/Acceptbtn/Text (TMP)', 'Confirm') }}
+        </button>
+      </div>
+    </cr-modal>
+  }
+  @case ('specialEvent') {
+    <cr-modal [open]="!dismissed()" label="Special event">
+      <div class="special">
+        @if (library.ui('popup-panels/special-event-assets/special-event-text'); as src) {
+          <img class="special-title" [src]="src" alt="Special event" />
+        } @else {
+          <h2 class="heading title">Special Event</h2>
+        }
+      </div>
+      <div class="actions">
+        <button crAutofocus type="button" class="btn confirm" (click)="dismissed.set(true)">
+          {{ text('UI/SpecialEvent/ViewArea/Acceptbtn/Text (TMP)', 'Accept') }}
+        </button>
+      </div>
+    </cr-modal>
+  }
+  @case ('bidding') {
+    <cr-modal [label]="voting() ? 'Secret vote' : 'Secret bid'">
+      <h2 class="heading title">{{ voting() ? 'Secret Vote' : 'Secret Bid' }}</h2>
+      @switch (phase()) {
+        @case ('ready') {
+          @if (voting()) {
+            <p>
+              Everyone secretly decides how to vote. Start the countdown when you are all ready.
+            </p>
+            <p>When you see the word 'REVEAL', simultaneously show everyone your vote.</p>
+          } @else {
+            <p>{{ text('UI/BidingSystem/ViewArea/Prompt/details1') }}</p>
+            <p>{{ text('UI/BidingSystem/ViewArea/Prompt/details2') }}</p>
+          }
+          <div class="actions">
+            <button crAutofocus type="button" class="btn" (click)="startCountdown()">
+              {{
+                voting()
+                  ? 'Start Voting'
+                  : text('UI/BidingSystem/ViewArea/Prompt/start/Text (TMP)', 'Start Bidding')
+              }}
+            </button>
+          </div>
+        }
+        @case ('countdown') {
+          <div class="countdown" aria-live="assertive">
+            @if (library.ui('popup-panels/clock-graphic'); as src) {
+              <img [src]="src" alt="" />
+            }
+            <span>{{ count() }}</span>
+          </div>
+        }
+        @case ('reveal') {
+          <div class="reveal" aria-live="assertive">
+            {{ text('UI/BidingSystem/ViewArea/Prompt/BG/Reveal/RevealText', 'Reveal') }}
+          </div>
+          <div class="actions">
+            <button crAutofocus type="button" class="btn confirm" (click)="continue()">
+              {{ text('UI/BidingSystem/ViewArea/Acceptbtn/Text (TMP)', 'Accept') }}
+            </button>
+          </div>
+        }
+      }
+    </cr-modal>
+  }
+  @case ('scoreEntry') {
+    <div class="actions inline">
+      <button crAutofocus type="button" class="btn" (click)="router.navigate(['/score'])">
+        {{ text('UI/Scoring/ViewArea/Title', 'Score Entry') }}
+      </button>
+    </div>
+  }
+  @case ('generationEndingContinue') {
+    <!-- In the original this enables the ending screen's continue button; nothing to show. -->
+  }
+}

@@ -1,0 +1,97 @@
+@for (o of panels(tidy(items())); track $index) {
+  @switch (o.t) {
+    @case ('panel') {
+      <!-- An action of a hub page: with one way in, the whole panel is that link. -->
+      @if (o.action; as link) {
+        <button type="button" class="panel action" (click)="game.click(link.id)">
+          <ng-container
+            [ngTemplateOutlet]="panelBody"
+            [ngTemplateOutletContext]="{ $implicit: o }"
+          />
+          <span class="go" aria-hidden="true">›</span>
+        </button>
+      } @else {
+        <section class="panel" [class.done]="o.done">
+          <ng-container
+            [ngTemplateOutlet]="panelBody"
+            [ngTemplateOutletContext]="{ $implicit: o }"
+          />
+        </section>
+      }
+    }
+    @case ('text') {
+      <cr-rich-text
+        [text]="trimmed(o.key) ? beforeLink(game.text(o.key, o.kind)) : game.text(o.key, o.kind)"
+        [args]="o.args"
+        [class]="o.kind"
+      />
+    }
+    @case ('br') {
+      <br />
+    }
+    @case ('link') {
+      @if (o.id === hideLink()) {
+        <!-- The panel around it is the link. -->
+      } @else if (o.id === primaryLink()) {
+        <button type="button" class="btn continue-inline" (click)="game.click(o.id)">
+          @if (isPlain(o.key)) {
+            Continue
+          } @else {
+            <cr-rich-text [text]="game.text(o.key)" [args]="o.args" />
+          }
+        </button>
+      } @else if (o.disabled) {
+        <cr-rich-text class="used-link" [text]="game.text(o.key)" [args]="o.args" />
+      } @else if (o.key === setupContinue) {
+        <button type="button" class="btn confirm setup-continue" (click)="game.click(o.id)">
+          {{ library.text('UI/ItemObtain/ViewArea/Acceptbtn/Text (TMP)', 'Accept') }}
+        </button>
+      } @else {
+        <button type="button" class="story-link" (click)="game.click(o.id)">
+          <cr-rich-text [text]="game.text(o.key)" [args]="o.args" />
+        </button>
+      }
+    }
+    @case ('group') {
+      <cr-story-output [items]="o.children" [primaryLink]="primaryLink()" />
+    }
+    @case ('block') {
+      @if (o.style === 'setupEvent') {
+        <!-- A pop-up with a picture in the original; here a box on the page, with the
+             picture beside the text: nothing to click away, and the page stays readable. -->
+        <section class="block setupEvent">
+          <header>{{ setupLabel }}</header>
+          <div class="setup-event">
+            @if (o.image && library.setupImage(o.image); as src) {
+              <img class="setup-image" [src]="src" alt="" />
+            }
+            <div class="setup-body">
+              <cr-story-output [items]="trim(o.children)" [primaryLink]="primaryLink()" />
+            </div>
+          </div>
+        </section>
+      } @else {
+        <section class="block" [class]="o.style">
+          @if (o.style === 'setup') {
+            <header>{{ setupLabel }}</header>
+          }
+          <cr-story-output [items]="trim(o.children)" [primaryLink]="primaryLink()" />
+        </section>
+      }
+    }
+    @case ('ui') {
+      <cr-screen-card [screen]="o" />
+    }
+  }
+}
+<ng-template #panelBody let-p>
+  <div class="panel-title">
+    <cr-story-output [items]="trim(p.title.children)" />
+  </div>
+  <div class="panel-details">
+    <cr-story-output [items]="trim(p.details.children)" [hideLink]="p.action?.id" />
+  </div>
+  @if (p.done) {
+    <span class="mark">✓ Done</span>
+  }
+</ng-template>

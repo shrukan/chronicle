@@ -9,7 +9,7 @@ import {
 import { provideRouter, withComponentInputBinding } from '@angular/router';
 import { provideServiceWorker } from '@angular/service-worker';
 import { routes } from './app.routes';
-import { WhatsNew } from './core/whats-new';
+import { WhatsNew } from './core/services/whats-new';
 
 export const appConfig: ApplicationConfig = {
   providers: [

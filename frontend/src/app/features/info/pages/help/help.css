@@ -1,0 +1,25 @@
+:host {
+  display: block;
+}
+.sheet {
+  display: grid;
+  justify-items: center;
+  gap: 1rem;
+  max-width: 36rem;
+  margin: 0 auto;
+}
+.panel {
+  display: grid;
+  gap: 1rem;
+  width: 100%;
+}
+h1 {
+  margin: 0;
+  font-size: 1.8rem;
+  text-align: center;
+}
+.details {
+  line-height: 1.6;
+  font-size: 1.1rem;
+  white-space: pre-line;
+}

@@ -1,0 +1,21 @@
+<main>
+  <router-outlet />
+</main>
+@if (update.ready()) {
+  <aside class="update" role="status">
+    <span>
+      A new version of Chronicle is ready –
+      <a routerLink="/whats-new">see what's new</a>.
+    </span>
+    <button type="button" class="btn" (click)="update.reload()">Reload</button>
+    <button type="button" class="later" (click)="update.ready.set(false)">Later</button>
+  </aside>
+}
+@if (showFooter()) {
+  <footer>
+    Unofficial fan project · Story, art and music © Renegade Game Studios ·
+    <a routerLink="/whats-new">Chronicle {{ version }} – what's new</a> ·
+    <a routerLink="/about">About &amp; credits</a> ·
+    <a [href]="bugReport()" target="_blank" rel="noopener">Report a bug ↗</a>
+  </footer>
+}

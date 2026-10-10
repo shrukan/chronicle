@@ -1,0 +1,131 @@
+:host {
+  display: grid;
+  /* The page without the footer, so the menu fits without scrolling. */
+  min-height: calc(100dvh - 11rem);
+}
+/* Logo and buttons centred over the scene, in every orientation. */
+.menu {
+  display: grid;
+  align-content: center;
+  justify-items: center;
+  gap: 0.75rem;
+  text-align: center;
+}
+/* The logo's proportions (2048 × 1983), shrinking on short windows so the menu and footer
+   fit without scrolling. */
+.logo {
+  display: grid;
+  place-items: center;
+  height: min(38dvh, min(24rem, 70vw) * 1983 / 2048);
+  aspect-ratio: 2048 / 1983;
+}
+.logo img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: drop-shadow(0 0.5rem 1rem rgb(0 0 0 / 0.6));
+}
+/* Phones held sideways: tighter, so the footer stays clear. */
+@media (max-height: 30rem) {
+  .menu {
+    gap: 0.4rem;
+  }
+  .logo {
+    height: 28dvh;
+  }
+  .sub {
+    margin: 0;
+    font-size: 0.85rem;
+  }
+  .buttons {
+    gap: 0.4rem;
+  }
+}
+.help {
+  position: fixed;
+  top: max(1.25rem, 6vh);
+  left: max(1.25rem, 6vw);
+  z-index: 1;
+  width: 3.5rem;
+  height: 3.5rem;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  color: var(--color-on-backdrop);
+  font-size: 1.6rem;
+  text-decoration: none;
+}
+.help img {
+  width: 100%;
+  filter: drop-shadow(0 0.25rem 0.5rem rgb(0 0 0 / 0.6));
+}
+.help:is(:hover, :focus-visible) img {
+  filter: drop-shadow(0 0 0.6rem rgb(255 200 120 / 0.7));
+}
+h1 {
+  font-size: 3rem;
+  color: var(--color-on-backdrop);
+}
+.sub {
+  margin: -0.5rem 0 0.5rem;
+  font-style: italic;
+  opacity: 0.85;
+  text-shadow: 0 0.1rem 0.4rem #000;
+}
+/* After an update, until the notes are read or dismissed. */
+.updated {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0.25rem 0.75rem;
+  margin: -0.5rem 0 0.5rem;
+  padding: 0.35rem 0.5rem 0.35rem 1rem;
+  border: 1px solid rgb(233 223 201 / 0.35);
+  border-radius: 0.5rem;
+  background: rgb(0 0 0 / 0.35);
+}
+.updated a {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+.dismiss {
+  width: 2rem;
+  height: 2rem;
+  border: 0;
+  border-radius: 50%;
+  background: none;
+  color: inherit;
+  font-size: 1.3rem;
+  line-height: 1;
+  cursor: pointer;
+}
+.dismiss:hover,
+.dismiss:focus-visible {
+  background: rgb(255 255 255 / 0.12);
+}
+.buttons {
+  /* Two rows reserved: Continue appears once the saved game is found. */
+  min-height: 7.4em;
+  align-content: start;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.75rem;
+  width: min(26rem, 92vw);
+}
+.buttons .btn {
+  flex: 0 0 calc(50% - 0.375rem);
+  box-sizing: border-box;
+}
+.question {
+  margin: 0 0 1.25rem;
+  font-size: 1.2rem;
+  text-align: center;
+}
+.row {
+  display: flex;
+  justify-content: center;
+  gap: 0.75rem;
+}

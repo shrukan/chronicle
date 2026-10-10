@@ -1,0 +1,12 @@
+<div class="tube"></div>
+<ol>
+  @for (slot of slots; track $index) {
+    <li
+      [class.current]="$index === done()"
+      [class.past]="$index < done()"
+      [attr.data-generation]="slot.generation"
+    >
+      {{ slot.label }}
+    </li>
+  }
+</ol>

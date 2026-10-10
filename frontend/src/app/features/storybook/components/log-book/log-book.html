@@ -1,0 +1,46 @@
+<h2 class="heading">Log Book</h2>
+@if (entries().length) {
+  <ol class="entries" [start]="page() * perPage + 1">
+    @for (e of visible(); track e.passage + $index) {
+      <li>
+        <strong><cr-rich-text [text]="game.text(e.title)" /></strong>
+        <em><cr-rich-text [text]="game.text(e.location)" /></em>
+        <p><cr-rich-text [text]="game.text(e.summary)" /></p>
+      </li>
+    }
+  </ol>
+  <nav class="pager">
+    <button
+      type="button"
+      class="arrow"
+      [disabled]="page() === 0"
+      (click)="page.set(page() - 1)"
+      aria-label="Previous page"
+    >
+      @if (library.ui('log-book/previous-page-arrow'); as src) {
+        <img [src]="src" alt="" />
+      } @else {
+        ‹
+      }
+    </button>
+    <span>{{ page() + 1 }} / {{ pages() }}</span>
+    <button
+      type="button"
+      class="arrow"
+      [disabled]="page() + 1 >= pages()"
+      (click)="page.set(page() + 1)"
+      aria-label="Next page"
+    >
+      @if (library.ui('log-book/next-page-arrow'); as src) {
+        <img [src]="src" alt="" />
+      } @else {
+        ›
+      }
+    </button>
+  </nav>
+} @else {
+  <p class="empty">Nothing recorded yet.</p>
+}
+<div class="actions">
+  <button crAutofocus type="button" class="btn" (click)="done.emit()">Close</button>
+</div>

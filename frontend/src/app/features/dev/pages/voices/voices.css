@@ -1,0 +1,50 @@
+:host {
+  display: block;
+}
+.sheet {
+  display: grid;
+  gap: 1rem;
+  max-width: 44rem;
+  margin: 0 auto;
+}
+h1,
+h2 {
+  margin: 0;
+  text-align: center;
+}
+.note {
+  margin: 0;
+  font-size: 0.9rem;
+  color: var(--color-muted);
+}
+.version {
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--color-rule);
+  border-radius: 0.4rem;
+}
+h3 {
+  margin: 0 0 0.5rem;
+  font-size: 1.2rem;
+}
+.players {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(16rem, 1fr));
+  gap: 0.5rem 1rem;
+  margin-bottom: 0.75rem;
+}
+.player {
+  display: grid;
+  gap: 0.2rem;
+}
+.player small {
+  color: var(--color-muted);
+}
+audio {
+  width: 100%;
+}
+.version p {
+  line-height: 1.6;
+}
+.btn {
+  justify-self: center;
+}

@@ -1,0 +1,21 @@
+<dialog
+  #dialog
+  [class.paper]="!fullscreen()"
+  [class.fullscreen]="fullscreen()"
+  (cancel)="onCancel($event)"
+  [attr.aria-label]="label()"
+>
+  <ng-content />
+  <!-- Dialogs block the rest of the page, the header's mute button included. Last in the
+       DOM so the dialog's own first button gets the focus (Enter). -->
+  <button
+    type="button"
+    class="sound"
+    (click)="settings.muted.set(!settings.muted())"
+    [attr.aria-label]="settings.muted() ? 'Turn sound on' : 'Mute all sound'"
+    [attr.aria-pressed]="settings.muted()"
+    [title]="settings.muted() ? 'Turn sound on' : 'Mute all sound'"
+  >
+    <span class="speaker" [class.off]="settings.muted()" aria-hidden="true"></span>
+  </button>
+</dialog>

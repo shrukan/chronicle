@@ -1,6 +1,6 @@
 import { inject, isDevMode } from '@angular/core';
 import { Router, type Routes } from '@angular/router';
-import { Game } from './core/game';
+import { Game } from './core/services/game';
 
 /**
  * A new game replaces the saved one, so it starts from the main menu, which asks first: opening
@@ -14,43 +14,45 @@ const noSavedGame = async () => {
 export const routes: Routes = [
   {
     path: '',
-    loadComponent: () => import('./pages/main-menu').then((m) => m.MainMenu),
+    loadComponent: () =>
+      import('./features/menu/pages/main-menu/main-menu').then((m) => m.MainMenu),
     title: "Chronicle – My Father's Work",
   },
   {
     path: 'setup',
-    loadComponent: () => import('./pages/setup').then((m) => m.Setup),
+    loadComponent: () => import('./features/setup/pages/setup/setup').then((m) => m.Setup),
     canActivate: [noSavedGame],
     title: 'Chronicle – new game',
   },
   {
     path: 'play',
-    loadComponent: () => import('./pages/play').then((m) => m.Play),
+    loadComponent: () => import('./features/storybook/pages/play/play').then((m) => m.Play),
     title: 'Chronicle – storybook',
   },
   {
     path: 'score',
-    loadComponent: () => import('./pages/score').then((m) => m.Score),
+    loadComponent: () => import('./features/scoring/pages/score/score').then((m) => m.Score),
     title: 'Chronicle – scoring',
   },
   {
     path: 'endings',
-    loadComponent: () => import('./pages/endings').then((m) => m.Endings),
+    loadComponent: () => import('./features/endings/pages/endings/endings').then((m) => m.Endings),
     title: 'Chronicle – endings',
   },
   {
     path: 'about',
-    loadComponent: () => import('./pages/about').then((m) => m.About),
+    loadComponent: () => import('./features/info/pages/about/about').then((m) => m.About),
     title: 'Chronicle – about',
   },
   {
     path: 'whats-new',
-    loadComponent: () => import('./pages/whats-new').then((m) => m.WhatsNew),
+    loadComponent: () =>
+      import('./features/info/pages/whats-new/whats-new').then((m) => m.WhatsNew),
     title: "Chronicle – what's new",
   },
   {
     path: 'help',
-    loadComponent: () => import('./pages/help').then((m) => m.Help),
+    loadComponent: () => import('./features/info/pages/help/help').then((m) => m.Help),
     title: 'Chronicle – help',
   },
   // Development only: compare voices and versions on each scenario's introduction.
@@ -58,7 +60,7 @@ export const routes: Routes = [
     ? [
         {
           path: 'voices',
-          loadComponent: () => import('./pages/voices').then((m) => m.Voices),
+          loadComponent: () => import('./features/dev/pages/voices/voices').then((m) => m.Voices),
           title: 'Chronicle – voice test',
         },
       ]

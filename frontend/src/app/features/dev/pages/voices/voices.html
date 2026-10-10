@@ -1,0 +1,36 @@
+<section class="paper sheet">
+  <h1 class="heading">Voice test</h1>
+  <p class="note">
+    Development only. Regenerate the clips with <code>task content:voices</code> (settings in
+    <code>tools/voice/voices.json</code>), try any text with
+    <code>task content:voices -- --try "…"</code> (clips in <code>build/voice-try/</code>).
+  </p>
+  @for (s of scenarios(); track s.id) {
+    <h2 class="heading">{{ s.title }}</h2>
+    @for (v of s.versions; track v.mode) {
+      <article class="version">
+        <h3>{{ v.label }}</h3>
+        <div class="players">
+          @for (n of v.narrators; track n.value) {
+            <div class="player">
+              <span>{{ n.label }}</span>
+              @if (n.src) {
+                <audio controls preload="none" [src]="n.src" (play)="onlyOne($event)"></audio>
+              } @else {
+                <small>No clip yet</small>
+              }
+            </div>
+          }
+        </div>
+        @for (p of v.paragraphs; track $index) {
+          <p><cr-rich-text [text]="p" /></p>
+        }
+      </article>
+    }
+  } @empty {
+    <p>
+      {{ content.isLoading() ? 'Loading…' : 'No introductions with generated voices yet.' }}
+    </p>
+  }
+  <a class="btn" routerLink="/">Back</a>
+</section>

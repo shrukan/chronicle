@@ -9,13 +9,13 @@ import {
 import { NavigationEnd, Router, RouterLink, RouterOutlet } from '@angular/router';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { filter, map } from 'rxjs';
-import { AppUpdate } from './core/app-update';
-import { AudioPlayer } from './core/audio';
-import { bugReportUrl } from './core/bug-report';
+import { AppUpdate } from './core/services/app-update';
+import { AudioPlayer } from './core/services/audio';
+import { bugReportUrl } from './core/utils/bug-report';
 import { VERSION } from './version';
-import { Game } from './core/game';
-import { Library } from './core/library';
-import { Settings } from './core/settings';
+import { Game } from './core/services/game';
+import { Library } from './core/services/library';
+import { Settings } from './core/services/settings';
 
 /** Images the styles use everywhere, by CSS variable. */
 const THEME_IMAGES = {
@@ -56,98 +56,8 @@ const DIM = 'linear-gradient(rgb(0 0 0 / 0.45), rgb(0 0 0 / 0.6))';
     '(document:keydown)': 'startMusic()',
     '(document:click)': 'clickSound($event)',
   },
-  template: `
-    <main>
-      <router-outlet />
-    </main>
-    @if (update.ready()) {
-      <aside class="update" role="status">
-        <span>
-          A new version of Chronicle is ready –
-          <a routerLink="/whats-new">see what's new</a>.
-        </span>
-        <button type="button" class="btn" (click)="update.reload()">Reload</button>
-        <button type="button" class="later" (click)="update.ready.set(false)">Later</button>
-      </aside>
-    }
-    @if (showFooter()) {
-      <footer>
-        Unofficial fan project · Story, art and music © Renegade Game Studios ·
-        <a routerLink="/whats-new">Chronicle {{ version }} – what's new</a> ·
-        <a routerLink="/about">About &amp; credits</a> ·
-        <a [href]="bugReport()" target="_blank" rel="noopener">Report a bug ↗</a>
-      </footer>
-    }
-  `,
-  styles: `
-    :host {
-      display: flex;
-      flex-direction: column;
-      min-height: 100dvh;
-    }
-    main {
-      flex: 1;
-      width: 100%;
-      max-width: 50rem;
-      margin: 0 auto;
-      padding: 1.25rem 1rem 0.75rem;
-      box-sizing: border-box;
-    }
-    /* Over every page, dialogs excepted: reloading is safe, the game is saved after every step. */
-    .update {
-      position: fixed;
-      left: 50%;
-      bottom: calc(1rem + env(safe-area-inset-bottom));
-      z-index: 5;
-      transform: translateX(-50%);
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      justify-content: center;
-      gap: 0.5rem 1rem;
-      width: max-content;
-      max-width: calc(100vw - 2rem);
-      box-sizing: border-box;
-      padding: 0.6rem 1rem;
-      border: 1px solid var(--color-rule);
-      border-radius: 0.5rem;
-      background: var(--color-bg) var(--paper-image, none) center / cover;
-      background-blend-mode: var(--paper-blend);
-      color: var(--color-ink);
-      box-shadow: 0 0.5rem 1.5rem rgb(0 0 0 / 0.5);
-    }
-    .update .btn {
-      padding: 0.3rem 0.9rem;
-    }
-    .update a {
-      color: var(--color-accent-text);
-    }
-    .later {
-      border: 0;
-      background: none;
-      font: inherit;
-      color: var(--color-muted);
-      text-decoration: underline;
-      cursor: pointer;
-    }
-    footer {
-      padding: 0.25rem 1rem calc(1.75rem + env(safe-area-inset-bottom));
-      font-size: 0.8rem;
-      text-align: center;
-      opacity: 0.85;
-    }
-    footer a {
-      color: inherit;
-      text-decoration: underline;
-      text-underline-offset: 0.2em;
-      white-space: nowrap;
-    }
-    footer a:hover,
-    footer a:focus-visible {
-      opacity: 1;
-      color: var(--color-on-backdrop);
-    }
-  `,
+  templateUrl: './app.html',
+  styleUrl: './app.css',
 })
 export class App {
   /** Credits and links on the menu pages; the storybook keeps the screen for the story. */

@@ -1,0 +1,71 @@
+dialog {
+  /* Tailwind's reset removes the browser's margin: auto, which centres a modal dialog. */
+  margin: auto;
+  width: min(36rem, calc(100vw - 2rem));
+  max-height: calc(100dvh - 2rem);
+  overflow: auto;
+  /* The original's gold frame around dialogs. */
+  border: 1.1rem solid transparent;
+  border-image: var(--frame-image) 70 / 1.1rem stretch;
+  background-clip: padding-box;
+}
+/* Covers the whole screen, e.g. to hide a page until the right player holds the device. */
+dialog.fullscreen {
+  width: 100vw;
+  height: 100dvh;
+  max-width: none;
+  max-height: none;
+  margin: 0;
+  border: 0;
+  padding: 0;
+  background: var(--color-backdrop) var(--backdrop-image, none) center / cover;
+}
+.sound {
+  position: absolute;
+  top: 0.4rem;
+  right: 0.4rem;
+  display: grid;
+  place-items: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  border: 0;
+  border-radius: 50%;
+  background: none;
+  color: var(--color-muted);
+  cursor: pointer;
+}
+dialog.fullscreen .sound {
+  top: max(0.75rem, env(safe-area-inset-top));
+  right: 0.75rem;
+  color: var(--color-on-backdrop);
+}
+.sound:hover,
+.sound:focus-visible {
+  color: var(--color-accent-text);
+}
+.speaker {
+  width: 1.2rem;
+  height: 1.2rem;
+  background: currentColor;
+  mask: var(--icon-sound) center / contain no-repeat;
+}
+.speaker.off {
+  mask-image: var(--icon-muted);
+}
+dialog::backdrop {
+  background: rgb(10 8 6 / 0.7);
+  backdrop-filter: blur(2px);
+}
+dialog[open] {
+  animation: appear 0.25s ease-out;
+}
+/* Opaque from the first frame: a fade-in would show the page it hides. */
+dialog.fullscreen[open] {
+  animation: none;
+}
+@keyframes appear {
+  from {
+    opacity: 0;
+    transform: translateY(0.75rem) scale(0.98);
+  }
+}
