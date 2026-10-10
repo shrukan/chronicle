@@ -139,10 +139,20 @@ function opaqueInterior(input: string): Box | undefined {
   return undefined;
 }
 
+/** UI art: PNGs, and the scenarios' storybook illustrations (TIFF). */
+const UI_PICTURE = /\.(png|tif)$/;
+
+/** Longest side of an extracted picture; screens never need more (the final logo is 4720 px). */
+const MAX_SIDE = 2048;
+
 const image = (input: string, output: string, fill = false) => {
   if (existsSync(output) && existsSync(input) && statSync(output).mtimeMs >= statSync(input).mtimeMs) return;
   const crop = existsSync(input) ? (fill ? opaqueInterior : opaqueBounds)(input) : undefined;
-  convert(input, output, [...(crop ? ['-vf', `crop=${crop.w}:${crop.h}:${crop.x}:${crop.y}`] : []), '-c:v', 'libwebp', '-quality', '85', '-compression_level', '6']);
+  const filters = [
+    ...(crop ? [`crop=${crop.w}:${crop.h}:${crop.x}:${crop.y}`] : []),
+    `scale='min(${MAX_SIDE},iw)':'min(${MAX_SIDE},ih)':force_original_aspect_ratio=decrease`,
+  ];
+  convert(input, output, ['-vf', filters.join(','), '-c:v', 'libwebp', '-quality', '85', '-compression_level', '6']);
 };
 /** Music and effects: VBR stereo. Speech: 48 kbit/s mono is plenty and a third of the size. */
 const audio = (input: string, output: string, speech = false) =>
@@ -185,7 +195,7 @@ export function extractAssets(assets: string, out: string, voiceOver: ScenarioEx
   // UI art.
   const uiDir = join(assets, 'New_UI_Assets');
   const walk = (dir: string, prefix = ''): string[] =>
-    readdirSync(dir, { withFileTypes: true }).flatMap((e) => (e.isDirectory() ? walk(join(dir, e.name), `${prefix}${e.name}/`) : extname(e.name) === '.png' ? [`${prefix}${e.name}`] : []));
+    readdirSync(dir, { withFileTypes: true }).flatMap((e) => (e.isDirectory() ? walk(join(dir, e.name), `${prefix}${e.name}/`) : UI_PICTURE.test(e.name) ? [`${prefix}${e.name}`] : []));
   for (const f of walk(uiDir).filter((f) => !SKIP_UI.test(f))) {
     const key = slug(f);
     if (m.ui[key]) continue; // duplicates like "bracket-left (1).png"

@@ -175,6 +175,9 @@
   "general/textbox-512x128": "ui/general/textbox-512x128.webp",
   "general/vignette": "ui/general/vignette.webp",
   "general/myfatherswork-logo": "ui/general/myfatherswork-logo.webp",
+  "generation-ending/bgs/b-illustration1-oj-v004": "ui/generation-ending/bgs/b-illustration1-oj-v004.webp",
+  "generation-ending/bgs/b-illustration2-oj-v004": "ui/generation-ending/bgs/b-illustration2-oj-v004.webp",
+  "generation-ending/bgs/b-illustration3-oj-v004": "ui/generation-ending/bgs/b-illustration3-oj-v004.webp",
   "generation-ending/scroll-bar": "ui/generation-ending/scroll-bar.webp",
   "generation-ending/scroll-handle": "ui/generation-ending/scroll-handle.webp",
   "generation-ending/wide-textbox": "ui/generation-ending/wide-textbox.webp",
@@ -191,15 +194,22 @@
   "log-book/mfw-bg-2048x2048": "ui/log-book/mfw-bg-2048x2048.webp",
   "log-book/next-page-arrow": "ui/log-book/next-page-arrow.webp",
   "log-book/previous-page-arrow": "ui/log-book/previous-page-arrow.webp",
+  "main-menu/mountain": "ui/main-menu/mountain.webp",
   "main-menu/my-fathers-work-manor": "ui/main-menu/my-fathers-work-manor.webp",
   "main-menu/my-fathers-work-tree-3": "ui/main-menu/my-fathers-work-tree-3.webp",
   "main-menu/my-fathers-work-tree-4": "ui/main-menu/my-fathers-work-tree-4.webp",
+  "main-menu/my-fathers-work-trees-1": "ui/main-menu/my-fathers-work-trees-1.webp",
   "main-menu/my-fathers-work-trees-2": "ui/main-menu/my-fathers-work-trees-2.webp",
+  "main-menu/sky-dome": "ui/main-menu/sky-dome.webp",
   "main-menu/village": "ui/main-menu/village.webp",
+  "main-menu/myfathersworklogofinal": "ui/main-menu/myfathersworklogofinal.webp",
   "player-intro/mfwpaper": "ui/player-intro/mfwpaper.webp",
+  "popup-panels/bidding-system/mfw-bidding-panel": "ui/popup-panels/bidding-system/mfw-bidding-panel.webp",
   "popup-panels/bidding-system/mfw-reveal-bg": "ui/popup-panels/bidding-system/mfw-reveal-bg.webp",
+  "popup-panels/brass-stud": "ui/popup-panels/brass-stud.webp",
   "popup-panels/clock-graphic": "ui/popup-panels/clock-graphic.webp",
   "popup-panels/close-button": "ui/popup-panels/close-button.webp",
+  "popup-panels/end-of-round-blank-prompt": "ui/popup-panels/end-of-round-blank-prompt.webp",
   "popup-panels/my-fathers-work-01": "ui/popup-panels/my-fathers-work-01.webp",
   "popup-panels/my-fathers-work-01-dirty": "ui/popup-panels/my-fathers-work-01-dirty.webp",
   "popup-panels/my-fathers-work-02": "ui/popup-panels/my-fathers-work-02.webp",
@@ -209,6 +219,7 @@
   "popup-panels/paperclip": "ui/popup-panels/paperclip.webp",
   "popup-panels/photo-clip": "ui/popup-panels/photo-clip.webp",
   "popup-panels/pop-up-window": "ui/popup-panels/pop-up-window.webp",
+  "popup-panels/prompt-panel": "ui/popup-panels/prompt-panel.webp",
   "popup-panels/special-event-assets/special-event-line-left": "ui/popup-panels/special-event-assets/special-event-line-left.webp",
   "popup-panels/special-event-assets/special-event-line-right": "ui/popup-panels/special-event-assets/special-event-line-right.webp",
   "popup-panels/special-event-assets/special-event-text": "ui/popup-panels/special-event-assets/special-event-text.webp",
@@ -252,7 +263,11 @@
  },
  "music": {
   "title": "audio/music/title.mp3",
-  "scenario": {},
+  "scenario": {
+   "cost-of-disease": "audio/music/cost-of-disease.mp3",
+   "fear-of-the-unknown": "audio/music/fear-of-the-unknown.mp3",
+   "a-time-of-war": "audio/music/a-time-of-war.mp3"
+  },
   "ending": "audio/music/ending.mp3"
  },
  "effects": {
@@ -306,9 +321,5 @@
    "female": "audio/voice/female/hospitalintro.mp3"
   }
  },
- "missing": [
-  "SFX/New_8_April/My Fathers Work-OST/Chronicle Part one_1-2.ogg",
-  "SFX/New_8_April/My Fathers Work-OST/Chronicle Part Two_2-2.ogg",
-  "SFX/New_8_April/My Fathers Work-OST/Cost of disease theme loop-louder.ogg"
- ]
+ "missing": []
 }
