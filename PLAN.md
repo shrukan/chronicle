@@ -180,9 +180,14 @@ ending → endings & achievements gallery. Help and settings from the main menu.
   loudness at the originals' -14 LUFS) for those 9 pages in every version; `task content:voices`
   regenerates, `-- --try "…"` tries any text; dev-only `/voices` compares voices on each
   scenario's introduction. After a reload, voice-over and music restart with the first tap.
-- **Every page voiced** (if wanted): about 7.5 h of audio per voice and scenario (Original, Easy,
-  Short), ~160 MB per voice at 48 kbps – too big for git (every regeneration stays in the history),
-  and three scenarios reach GitHub Pages' ~1 GB limit. Plan:
+- **Every new story text voiced**: when story text appears (a page, or a section opened by
+  "continue"), its flavour text is read – only the new part, never rules, and nothing on pages
+  behind the hand-over screen (secrets for one player; the app already detects those pages).
+  Measured for *The Cost of Disease*: 221 clips (37 secret sections skipped), ~25,000 words in
+  Original and Easy, ~12,000 in Short → about 6 h of audio per voice, ~125 MB per voice at 48 kbps
+  (~65 MB as Opus). 80 of the clips contain a placeholder (names typed in at the table, or values
+  decided during play). Too big for git (every regeneration stays in the history), and three
+  scenarios approach GitHub Pages' ~1 GB limit. Plan:
   - Keep the audio out of git as a *voice pack* per scenario and voice (e.g. a release asset);
     the release workflow downloads it into the Pages site and the image, so players and
     self-hosters notice nothing. One task generates and uploads it. If Pages' limit is reached,
