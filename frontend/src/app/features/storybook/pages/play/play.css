@@ -227,3 +227,8 @@
   gap: 1rem;
   text-align: center;
 }
+/* The pause menu's ways out, smaller than Resume. */
+.minor {
+  font-size: 0.85rem;
+  padding: 0.1rem 0.5rem;
+}

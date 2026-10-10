@@ -73,10 +73,20 @@
 }
 
 <div class="actions">
-  <ng-content select="[actions]" />
-  <button crAutofocus type="button" class="btn confirm" (click)="done.emit()">
+  <button
+    crAutofocus
+    type="button"
+    class="btn"
+    [class.confirm]="!doneLabel()"
+    [class.main]="doneLabel()"
+    (click)="done.emit()"
+  >
     {{
-      t('UI/MainMenu/Viewarea/Settings UI/Settings Panel/Panel/confirmbtn/Text (TMP)', 'Confirm')
+      doneLabel() ??
+        t('UI/MainMenu/Viewarea/Settings UI/Settings Panel/Panel/confirmbtn/Text (TMP)', 'Confirm')
     }}
   </button>
+  <div class="more">
+    <ng-content select="[actions]" />
+  </div>
 </div>

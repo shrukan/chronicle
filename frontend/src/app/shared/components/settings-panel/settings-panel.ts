@@ -18,6 +18,11 @@ export class SettingsPanel {
   readonly done = output<void>();
   /** Off when the panel sits in another dialog with its own heading (pause menu). */
   readonly showHeading = input(true);
+  /**
+   * The closing button's label when it means more than "confirm" (the pause menu: "Resume").
+   * Settings apply at once, so closing only goes back.
+   */
+  readonly doneLabel = input<string>();
 
   protected readonly languages = LANGUAGES;
   /** The versions the chosen language has. */

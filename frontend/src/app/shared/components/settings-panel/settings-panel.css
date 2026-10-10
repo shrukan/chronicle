@@ -25,10 +25,9 @@ h2 {
   margin-bottom: 0.75rem;
 }
 .actions {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 0.75rem;
+  display: grid;
+  justify-items: center;
+  gap: 0.6rem;
   /* Always in reach: stuck to the bottom of the dialog (out to its edges), the settings
      scroll under it. */
   position: sticky;
@@ -50,4 +49,17 @@ h2 {
   width: 1.25rem;
   height: 1.25rem;
   margin: 0;
+}
+/* The way back into the game, then the ways out (help, main menu) side by side. */
+.main {
+  min-width: 11rem;
+}
+.more {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.6rem;
+}
+.more:empty {
+  display: none;
 }
