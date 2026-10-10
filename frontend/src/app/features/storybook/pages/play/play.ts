@@ -166,6 +166,13 @@ export class Play {
   });
 
   /**
+   * Set once a player has taken the storybook for a secret; cleared when the story is back on
+   * a location page. Meanwhile the secret's own pages ("pick up the storybook", "continue to
+   * not let others see") need no new notice: the right player already holds it.
+   */
+  private readonly holding = linkedSignal({ source: () => this.game.isHub(), computation: () => false });
+
+  /**
    * The app commands opening the page ("hand the storybook to …", and a tie rule right after
    * it): shown full screen first.
    */
@@ -177,7 +184,9 @@ export class Play {
     if (start < 0) return undefined;
     let end = start;
     while (isCommand(out[end])) end++;
-    return out.slice(start, end) as Extract<Out, { t: 'text' }>[];
+    const notice = out.slice(start, end) as Extract<Out, { t: 'text' }>[];
+    const passes = notice.some((o) => /\b(hand|pass|give|bring)\b/i.test(this.game.text(o.key)));
+    return this.holding() && !passes ? undefined : notice;
   });
 
   /**
@@ -198,6 +207,7 @@ export class Play {
   protected showPage(): void {
     const link = this.handoverLink();
     this.handedOver.set(true);
+    this.holding.set(true);
     // Not a choice of its own: undoing it would land on this notice again, whose only way on
     // is the same link.
     if (link !== undefined) this.game.click(link, undefined, false);
