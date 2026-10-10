@@ -12,8 +12,8 @@
 
   --color-backdrop: #1b1f1d;
   --color-on-backdrop: #e9dfc9;
-  --color-bg: #f3ead8;
-  --color-panel: #ebdfc6;
+  --color-bg: #ecdcb9;
+  --color-panel: #e3cfa6;
   --color-ink: #2a2118;
   --color-heading: #4a1f17;
   --color-muted: #7a6a55;
@@ -41,11 +41,23 @@
  * the dark values live. Buttons keep the original's plates in both.
  */
 :root {
-  --paper-blend: normal;
+  --paper-blend: multiply;
   --icon-halo: none;
+  /* Age on the paper: soft foxing stains and a sun-faded middle, over the paper texture. */
+  --paper-age:
+    radial-gradient(14rem 9rem at 12% 8%, rgb(140 90 30 / 0.16), transparent 70%),
+    radial-gradient(10rem 12rem at 92% 30%, rgb(120 75 25 / 0.12), transparent 70%),
+    radial-gradient(18rem 10rem at 30% 96%, rgb(130 80 30 / 0.14), transparent 70%),
+    radial-gradient(5rem 4rem at 70% 72%, rgb(150 95 35 / 0.1), transparent 70%),
+    radial-gradient(120% 90% at 50% 45%, rgb(255 248 230 / 0.35), transparent 75%);
+  /* Darkened, slightly burnt edges. */
+  --paper-edge:
+    inset 0 0 2.5rem rgb(110 65 20 / 0.35), inset 0 0 0.4rem rgb(70 40 10 / 0.45);
 }
 :root[data-theme='dark'] {
   color-scheme: dark;
+  --paper-age: linear-gradient(transparent, transparent);
+  --paper-edge: 0 0 transparent;
   --color-bg: #3a3027;
   --color-panel: #2e261f;
   --color-field: rgb(0 0 0 / 0.3);
@@ -94,11 +106,16 @@ body {
 @layer components {
   /* Weathered paper: where story text and forms live. */
   .paper {
-    background: var(--color-bg) var(--paper-image, none) center / cover;
-    background-blend-mode: var(--paper-blend);
+    background-color: var(--color-bg);
+    background-image: var(--paper-age, linear-gradient(transparent, transparent)),
+      var(--paper-image, none);
+    background-position: center;
+    background-size: auto, cover;
+    background-repeat: no-repeat;
+    background-blend-mode: normal, var(--paper-blend);
     color: var(--color-ink);
     border-radius: 0.4rem;
-    box-shadow: 0 0.5rem 1.5rem rgb(0 0 0 / 0.45);
+    box-shadow: var(--paper-edge, 0 0 transparent), 0 0.5rem 1.5rem rgb(0 0 0 / 0.45);
     padding: 1.5rem 1.25rem;
   }
 
