@@ -48,46 +48,49 @@
   @case ('bidding') {
     <cr-modal [label]="voting() ? 'Secret vote' : 'Secret bid'">
       <h2 class="heading title">{{ voting() ? 'Secret Vote' : 'Secret Bid' }}</h2>
-      @switch (phase()) {
-        @case ('ready') {
-          @if (voting()) {
-            <p>
-              Everyone secretly decides how to vote. Start the countdown when you are all ready.
-            </p>
-            <p>When you see the word 'REVEAL', simultaneously show everyone your vote.</p>
-          } @else {
-            <p>{{ text('UI/BidingSystem/ViewArea/Prompt/details1') }}</p>
-            <p>{{ text('UI/BidingSystem/ViewArea/Prompt/details2') }}</p>
-          }
-          <div class="actions">
-            <button crAutofocus type="button" class="btn confirm" (click)="startCountdown()">
-              {{
-                voting()
-                  ? 'Start Voting'
-                  : text('UI/BidingSystem/ViewArea/Prompt/start/Text (TMP)', 'Start Bidding')
-              }}
-            </button>
-          </div>
-        }
-        @case ('countdown') {
-          <div class="countdown" aria-live="assertive">
-            @if (library.ui('popup-panels/clock-graphic'); as src) {
-              <img [src]="src" alt="" />
+      <!-- One height for all phases: the frame doesn't jump as the countdown runs. -->
+      <div class="phases">
+        @switch (phase()) {
+          @case ('ready') {
+            @if (voting()) {
+              <p>
+                Everyone secretly decides how to vote. Start the countdown when you are all ready.
+              </p>
+              <p>When you see the word 'REVEAL', simultaneously show everyone your vote.</p>
+            } @else {
+              <p>{{ text('UI/BidingSystem/ViewArea/Prompt/details1') }}</p>
+              <p>{{ text('UI/BidingSystem/ViewArea/Prompt/details2') }}</p>
             }
-            <span>{{ count() }}</span>
-          </div>
+            <div class="actions">
+              <button crAutofocus type="button" class="btn confirm" (click)="startCountdown()">
+                {{
+                  voting()
+                    ? 'Start Voting'
+                    : text('UI/BidingSystem/ViewArea/Prompt/start/Text (TMP)', 'Start Bidding')
+                }}
+              </button>
+            </div>
+          }
+          @case ('countdown') {
+            <div class="countdown" aria-live="assertive">
+              @if (library.ui('popup-panels/clock-graphic'); as src) {
+                <img [src]="src" alt="" />
+              }
+              <span>{{ count() }}</span>
+            </div>
+          }
+          @case ('reveal') {
+            <div class="reveal" aria-live="assertive">
+              {{ text('UI/BidingSystem/ViewArea/Prompt/BG/Reveal/RevealText', 'Reveal') }}
+            </div>
+            <div class="actions">
+              <button crAutofocus type="button" class="btn confirm" (click)="continue()">
+                {{ text('UI/BidingSystem/ViewArea/Acceptbtn/Text (TMP)', 'Accept') }}
+              </button>
+            </div>
+          }
         }
-        @case ('reveal') {
-          <div class="reveal" aria-live="assertive">
-            {{ text('UI/BidingSystem/ViewArea/Prompt/BG/Reveal/RevealText', 'Reveal') }}
-          </div>
-          <div class="actions">
-            <button crAutofocus type="button" class="btn confirm" (click)="continue()">
-              {{ text('UI/BidingSystem/ViewArea/Acceptbtn/Text (TMP)', 'Accept') }}
-            </button>
-          </div>
-        }
-      }
+      </div>
     </cr-modal>
   }
   @case ('scoreEntry') {
