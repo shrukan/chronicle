@@ -16,6 +16,20 @@
   font-weight: 600;
   color: var(--color-accent-text);
 }
+/* Commands in a row (a hand-over and its tie rule) share one notice. */
+.command:has(+ .command) {
+  margin-bottom: 0;
+  padding-bottom: 0.2rem;
+  border-bottom: 0;
+  border-radius: 0.4rem 0.4rem 0 0;
+}
+.command + .command {
+  margin-top: 0;
+  padding-top: 0.2rem;
+  border-top: 0;
+  border-radius: 0 0 0.4rem 0.4rem;
+  background-image: none;
+}
 
 .title {
   display: block;
