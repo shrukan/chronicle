@@ -29,6 +29,16 @@ const THEME_IMAGES = {
   '--bracket-right-image': 'general/brackets/bracket-right',
 };
 
+const TITLE_PICTURES = [
+  'main-menu/sky-dome',
+  'main-menu/mountain',
+  'main-menu/village',
+  'main-menu/myfathersworklogofinal',
+  'general/main-border',
+  'general/vignette',
+  'help/mfwhelp-button',
+];
+
 /** The storybook's backdrop per scenario, as in the original (ViewGenerationEnding). */
 const STORYBOOK_ILLUSTRATIONS: Record<string, string> = {
   'cost-of-disease': 'generation-ending/bgs/b-illustration1-oj-v004',
@@ -177,9 +187,23 @@ export class App {
     return src ? `url("${src}")` : 'none';
   });
   private musicStarted = false;
+  /** Decoded title-screen pictures, kept so the browser does not drop them. */
+  private readonly keep: HTMLImageElement[] = [];
 
   constructor() {
-    void this.library.load().then(() => this.audio.preload('click'));
+    void this.library.load().then(() => {
+      this.audio.preload('click');
+      // The title screen's pictures, loaded and decoded once: returning to the menu then
+      // shows it at once instead of building it up piece by piece.
+      for (const key of TITLE_PICTURES) {
+        const src = this.library.ui(key);
+        if (!src) continue;
+        const img = new Image();
+        img.src = src;
+        void img.decode().catch(() => undefined);
+        this.keep.push(img);
+      }
+    });
     // Light or dark paper; "Automatic" follows the system, also when it changes (styles.css).
     const systemDark = matchMedia('(prefers-color-scheme: dark)');
     const prefersDark = signal(systemDark.matches);

@@ -7,19 +7,32 @@ import { Library } from '../core/library';
 import { WhatsNew } from '../core/whats-new';
 import { Modal } from '../ui/modal';
 import { SettingsPanel } from '../ui/settings-panel';
+import { TitleScene } from '../ui/title-scene';
 
-/** Title screen: continue, new game, endings, settings, help. */
+/** Title screen, laid out like the original's: continue, new game, settings, endings, help. */
 @Component({
   selector: 'cr-main-menu',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [Autofocus, RouterLink, Modal, SettingsPanel],
+  imports: [Autofocus, RouterLink, Modal, SettingsPanel, TitleScene],
   template: `
-    <section class="menu">
-      @if (library.ui('general/myfatherswork-logo'); as logo) {
-        <img class="logo" [src]="logo" alt="My Father's Work" />
+    <cr-title-scene />
+    <a class="help" routerLink="/help" aria-label="How to use" title="How to use">
+      @if (library.ui('help/mfwhelp-button'); as src) {
+        <img [src]="src" alt="" />
       } @else {
-        <h1 class="heading">My Father's Work</h1>
+        ?
       }
+    </a>
+
+    <section class="menu">
+      <!-- A fixed box, so the menu stays put whether the logo or its fallback renders first. -->
+      <div class="logo">
+        @if (library.ui('main-menu/myfathersworklogofinal'); as logo) {
+          <img [src]="logo" alt="My Father's Work" />
+        } @else {
+          <h1 class="heading">My Father's Work</h1>
+        }
+      </div>
       <p class="sub">Chronicle · an unofficial companion app</p>
 
       @if (whatsNew.unseen()) {
@@ -37,23 +50,21 @@ import { SettingsPanel } from '../ui/settings-panel';
         </p>
       }
 
+      <!-- The original's 2 × 2 grid of brown plates. -->
       <nav class="buttons">
         @if (hasSave.value()) {
-          <button crAutofocus type="button" class="btn" (click)="resume()">
+          <button crAutofocus type="button" class="btn quiet" (click)="resume()">
             {{ t('UI/MainMenu/Viewarea/GridButtons/Continue/Text (TMP)', 'Continue') }}
           </button>
         }
-        <button type="button" class="btn" (click)="newGame()">
+        <button type="button" class="btn quiet" (click)="newGame()">
           {{ t('UI/MainMenu/Viewarea/GridButtons/NewGame/Text (TMP)', 'New game') }}
         </button>
-        <a class="btn quiet" routerLink="/endings">{{
-          t('UI/MainMenu/Viewarea/GridButtons/Endings/Text (TMP)', 'Endings')
-        }}</a>
         <button type="button" class="btn quiet" (click)="settingsOpen.set(true)">
           {{ t('UI/MainMenu/Viewarea/GridButtons/Setting/Text (TMP)', 'Settings') }}
         </button>
-        <a class="btn quiet" routerLink="/help">{{
-          t('UI/Help/Viewarea/HowToUSe/HowToUSebtn/howtouseText', 'How to use')
+        <a class="btn quiet" routerLink="/endings">{{
+          t('UI/MainMenu/Viewarea/GridButtons/Endings/Text (TMP)', 'Endings')
         }}</a>
       </nav>
     </section>
@@ -81,7 +92,7 @@ import { SettingsPanel } from '../ui/settings-panel';
             )
           }}
         </button>
-        <button type="button" class="btn" (click)="startOver()">
+        <button type="button" class="btn confirm" (click)="startOver()">
           {{
             t(
               'UI/MainMenu/Viewarea/RewriteData UI/RewriteData Panel/PanelBG/OkButton/Text (TMP)',
@@ -104,30 +115,77 @@ import { SettingsPanel } from '../ui/settings-panel';
   styles: `
     :host {
       display: grid;
-      place-items: center;
-      min-height: 70dvh;
+      /* The page without the footer, so the menu fits without scrolling. */
+      min-height: calc(100dvh - 11rem);
     }
+    /* Logo and buttons centred over the scene, in every orientation. */
     .menu {
       display: grid;
+      align-content: center;
       justify-items: center;
-      gap: 1rem;
+      gap: 0.75rem;
       text-align: center;
     }
+    /* The logo's proportions (2048 × 1983), shrinking on short windows so the menu and footer
+       fit without scrolling. */
     .logo {
-      width: min(22rem, 80vw);
-      /* Shrinks on short windows so the menu and footer fit without scrolling. */
-      max-height: 30dvh;
+      display: grid;
+      place-items: center;
+      height: min(38dvh, min(24rem, 70vw) * 1983 / 2048);
+      aspect-ratio: 2048 / 1983;
+    }
+    .logo img {
+      width: 100%;
+      height: 100%;
       object-fit: contain;
       filter: drop-shadow(0 0.5rem 1rem rgb(0 0 0 / 0.6));
+    }
+    /* Phones held sideways: tighter, so the footer stays clear. */
+    @media (max-height: 30rem) {
+      .menu {
+        gap: 0.4rem;
+      }
+      .logo {
+        height: 28dvh;
+      }
+      .sub {
+        margin: 0;
+        font-size: 0.85rem;
+      }
+      .buttons {
+        gap: 0.4rem;
+      }
+    }
+    .help {
+      position: fixed;
+      top: max(1.25rem, 6vh);
+      left: max(1.25rem, 6vw);
+      z-index: 1;
+      width: 3.5rem;
+      height: 3.5rem;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      color: var(--color-on-backdrop);
+      font-size: 1.6rem;
+      text-decoration: none;
+    }
+    .help img {
+      width: 100%;
+      filter: drop-shadow(0 0.25rem 0.5rem rgb(0 0 0 / 0.6));
+    }
+    .help:is(:hover, :focus-visible) img {
+      filter: drop-shadow(0 0 0.6rem rgb(255 200 120 / 0.7));
     }
     h1 {
       font-size: 3rem;
       color: var(--color-on-backdrop);
     }
     .sub {
-      margin: -0.5rem 0 1rem;
+      margin: -0.5rem 0 0.5rem;
       font-style: italic;
-      opacity: 0.75;
+      opacity: 0.85;
+      text-shadow: 0 0.1rem 0.4rem #000;
     }
     /* After an update, until the notes are read or dismissed. */
     .updated {
@@ -163,9 +221,18 @@ import { SettingsPanel } from '../ui/settings-panel';
       background: rgb(255 255 255 / 0.12);
     }
     .buttons {
-      display: grid;
+      /* Two rows reserved: Continue appears once the saved game is found. */
+      min-height: 7.4em;
+      align-content: start;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
       gap: 0.75rem;
-      width: min(18rem, 80vw);
+      width: min(26rem, 92vw);
+    }
+    .buttons .btn {
+      flex: 0 0 calc(50% - 0.375rem);
+      box-sizing: border-box;
     }
     .confirm {
       margin: 0 0 1.25rem;
