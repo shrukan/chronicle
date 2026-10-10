@@ -75,7 +75,7 @@ import { TitleScene } from '../ui/title-scene';
       (closed)="confirmOpen.set(false)"
       label="Start a new game"
     >
-      <p class="confirm">
+      <p class="question">
         {{
           t(
             'UI/MainMenu/Viewarea/RewriteData UI/RewriteData Panel/PanelBG/RewriteText',
@@ -234,7 +234,7 @@ import { TitleScene } from '../ui/title-scene';
       flex: 0 0 calc(50% - 0.375rem);
       box-sizing: border-box;
     }
-    .confirm {
+    .question {
       margin: 0 0 1.25rem;
       font-size: 1.2rem;
       text-align: center;
