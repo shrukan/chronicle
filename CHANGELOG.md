@@ -1,5 +1,38 @@
 # Changelog
 
+## [0.5.0](https://github.com/shrukan/chronicle/compare/v0.4.0...v0.5.0) (2026-10-10)
+
+
+### Features
+
+* a title screen in the original's storm sky, with the logo and buttons in the middle ([7c9e770](https://github.com/shrukan/chronicle/commit/7c9e7704586146016823c5414fe1815061e081de))
+* choose the number of players on the original's tiles, for 2 to 4 players ([6bfbd04](https://github.com/shrukan/chronicle/commit/6bfbd04456c162c1d1734ef2c1c98498096f5c7e))
+* each action on a location page is its own panel, and tapping the panel takes it ([4e933a1](https://github.com/shrukan/chronicle/commit/4e933a1d69b443a003dca98290bbd6289cd0a03f))
+* each scenario plays its own music, and the original's missing pictures are in ([cafd21a](https://github.com/shrukan/chronicle/commit/cafd21aa97aed69f227d07d93ef3a387effa4971))
+* every voiced page is read by Emma and George too, in Original, Easy and Short ([a38c71e](https://github.com/shrukan/chronicle/commit/a38c71e4f6cdd245222440f8275b4b3ce80d0d20))
+* language, story version and narrator are chosen from drop-downs in the settings ([f4dfa32](https://github.com/shrukan/chronicle/commit/f4dfa32b08856679c92c6907ede84f8bba9174d0))
+* switch the story text to Easy English or Short mid-game, and two generated voices ([b059f1e](https://github.com/shrukan/chronicle/commit/b059f1ed2bf6884ae870407c7e6b9f1f01af1f9f))
+* the foreword in Easy English and Short ([dd0c352](https://github.com/shrukan/chronicle/commit/dd0c35244c57c9d4e3219ffc1aa33b470ec90072))
+* the scenario description in Easy English and Short too ([85bb2e4](https://github.com/shrukan/chronicle/commit/85bb2e4978765d35b1c63cf1e4f2af9da6cf182d))
+* the storybook looks and plays more like the original ([00f89b1](https://github.com/shrukan/chronicle/commit/00f89b16a13f036eefdf215d12d1ffa3cb78d649))
+* the whole of The Cost of Disease in Easy and Short (beta) ([5f3016b](https://github.com/shrukan/chronicle/commit/5f3016bf930d0b140edd7aa9a1de18a2bd83549a))
+* undo sits next to the menu in the storybook header, still asking first ([5135e90](https://github.com/shrukan/chronicle/commit/5135e908076bd5aef831c4c8f10fb67c9035d254))
+
+
+### Bug Fixes
+
+* a page that opens with a bold heading running into its text shows the heading as its title ([281ccd5](https://github.com/shrukan/chronicle/commit/281ccd57c7ccd710bcc688c3316544a6617fde70))
+* after reloading the page, its voice-over and the music start again with your first tap ([5df7a0b](https://github.com/shrukan/chronicle/commit/5df7a0b9a36ac4a37e6cfb498f7871c309158040))
+* opening the new-game address directly no longer overwrites a saved game without asking ([b31b23d](https://github.com/shrukan/chronicle/commit/b31b23dab10c45dc7319131e6f0fa237834ea7a2))
+* rules that read like story text stay unchanged in Easy and Short, and are not read aloud ([ab34d9a](https://github.com/shrukan/chronicle/commit/ab34d9aff85c42c93e080e9bba1232512c6c8773))
+* simpler settings – the version is called Easy, no arrow on Continue, pages always whole ([d1663fa](https://github.com/shrukan/chronicle/commit/d1663fac835e29e3d27bd6a85114a78e296ff511))
+* the buttons in the "rewrite existing data?" dialog have the same size again ([52936f6](https://github.com/shrukan/chronicle/commit/52936f63b76f911d04fc93fd827046ef316fe573))
+* the Easy and Short versions are marked as beta, and the settings lose the duplicate mute switch ([71522b7](https://github.com/shrukan/chronicle/commit/71522b72e2d20a6ac14ecf358275b1e9b45ced29))
+* the generated voices are as loud as the original recordings ([f76fc71](https://github.com/shrukan/chronicle/commit/f76fc710dba097ee3472304c1b07d05b08486bf5))
+* the generated voices are available offline too ([30bd308](https://github.com/shrukan/chronicle/commit/30bd308ab8d0e0322aa6b04d1937154726dc6b18))
+* the original narrators can only be chosen with the original English text ([db46f4f](https://github.com/shrukan/chronicle/commit/db46f4f61ec84491b6c25c0874dbc17964aa8300))
+* the storybook's paper looks aged, and actions on a page are clearly set apart ([55b34ce](https://github.com/shrukan/chronicle/commit/55b34ceb70712555fad98313e3373e3d24dd180b))
+
 ## [0.4.0](https://github.com/shrukan/chronicle/compare/v0.3.0...v0.4.0) (2026-10-09)
 
 
