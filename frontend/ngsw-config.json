@@ -36,6 +36,7 @@
           "/content/ui.en.json",
           "/content/changelog.md",
           "/content/assets/manifest.json",
+          "/content/assets/voices.json",
           "/content/assets/icons/**",
           "/content/assets/ui/**"
         ]
