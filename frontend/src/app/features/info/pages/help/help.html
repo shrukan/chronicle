@@ -1,17 +1,128 @@
 <section class="paper sheet">
-  <cr-tabs #tabBar [tabs]="tabs()" [(selected)]="active" panelId="help" />
+  <h1 class="heading">Help</h1>
+  @if (installNote()) {
+    <aside class="install-note">
+      <ng-container *ngTemplateOutlet="installState" />
+    </aside>
+  }
+
+  <cr-tabs #tabBar [tabs]="tabs" [(selected)]="active" panelId="help" />
   <div id="help" class="panel" role="tabpanel" [attr.aria-labelledby]="tabBar.tabId(active())">
-    @if (active() === chronicle.id) {
-      <h1 class="heading">{{ chronicle.title }}</h1>
-      <div class="details">
-        <cr-rich-text [text]="chronicle.text" />
-      </div>
-    } @else {
-      <h1 class="heading">{{ t('UI/Help/Viewarea/' + active() + '/DetailsPanel/title') }}</h1>
-      <div class="details">
-        <cr-rich-text [text]="t('UI/Help/Viewarea/' + active() + '/DetailsPanel/details')" />
-      </div>
+    @switch (active()) {
+      @case ('playing') {
+        <ng-container *ngTemplateOutlet="topics; context: { $implicit: playing() }" />
+      }
+      @case ('install') {
+        <section class="topic">
+          <div class="picture">
+            <ng-container *ngTemplateOutlet="picture; context: { $implicit: 'app' }" />
+          </div>
+          <div>
+            <h2>Installing</h2>
+            <p>
+              Installed, Chronicle opens full screen, works offline and keeps your games safe
+              (Safari clears a website’s data after about a week without a visit).
+            </p>
+            @if (!installNote()) {
+              <ng-container *ngTemplateOutlet="installState" />
+            }
+            <cr-rich-text class="steps" [text]="installSteps" />
+          </div>
+        </section>
+        <ng-container *ngTemplateOutlet="topics; context: { $implicit: saves }" />
+      }
+      @case ('settings') {
+        <ng-container *ngTemplateOutlet="topics; context: { $implicit: settings }" />
+      }
     }
   </div>
-  <button type="button" class="btn cancel" (click)="back()">Back</button>
+  <button type="button" class="btn" (click)="back()">Back</button>
 </section>
+
+<!-- Whether this device can install Chronicle, and the way to do it. -->
+<ng-template #installState>
+  @if (install.installed()) {
+    <p class="state">✓ Chronicle is installed on this device.</p>
+  } @else if (install.canPrompt()) {
+    <p class="state">
+      Install Chronicle on this device: it opens full screen, works offline and keeps your games
+      safe.
+    </p>
+    <button type="button" class="btn confirm" (click)="install.prompt()">Install</button>
+  } @else if (install.apple) {
+    <p class="state">
+      To install Chronicle on this device, tap Share, then <em>Add to Home Screen</em> – before your
+      first game: the installed app keeps its own saves.
+    </p>
+  }
+</ng-template>
+
+<ng-template #topics let-topics>
+  @for (topic of topics; track topic.title) {
+    <section class="topic" [class.wide]="wide.includes(topic.picture)">
+      @if (topic.picture) {
+        <div class="picture">
+          <ng-container *ngTemplateOutlet="picture; context: { $implicit: topic.picture }" />
+        </div>
+      }
+      <div>
+        <h2>{{ topic.title }}</h2>
+        <cr-rich-text [text]="topic.text" />
+        @if (topic.note) {
+          <p class="note">{{ topic.note }}</p>
+        }
+      </div>
+    </section>
+  }
+</ng-template>
+
+<!-- The things on screen a topic is about, as they look in the app. -->
+<ng-template #picture let-kind>
+  @switch (kind) {
+    @case ('app') {
+      <img class="app-icon" src="content/assets/app-icon/icon-144.png" alt="" />
+    }
+    @case ('panel') {
+      <!-- An action panel as on a location page (the storybook's own look, see StoryOutput). -->
+      <span class="sample-panel" aria-hidden="true">
+        <strong>An action</strong>
+        <span>Tap the panel once you have taken it.</span>
+        <span class="go">›</span>
+      </span>
+    }
+    @case ('rounds') {
+      <cr-round-bar aria-hidden="true" [done]="2" />
+    }
+    @case ('versions') {
+      <span class="versions" aria-hidden="true">
+        <span>Original</span><span>Easy</span><span>Short</span>
+      </span>
+    }
+    @case ('hand') {
+      <span class="mask hand" aria-hidden="true"></span>
+    }
+    @case ('book') {
+      <span class="icon" aria-hidden="true">
+        @if (library.ui('general/book-icon-1'); as src) {
+          <img [src]="src" alt="" />
+        } @else {
+          📖
+        }
+      </span>
+    }
+    @case ('undo') {
+      <span class="icon" aria-hidden="true">↶</span>
+    }
+    @case ('menu') {
+      <span class="icon" aria-hidden="true">☰</span>
+    }
+    @case ('sound') {
+      <span class="icon" aria-hidden="true"><span class="mask speaker"></span></span>
+    }
+    @case ('crown') {
+      @if (library.ui('ranking/mfw-crown-icon'); as src) {
+        <img class="crown" [src]="src" alt="" />
+      }
+    }
+  }
+</ng-template>

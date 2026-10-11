@@ -41,15 +41,21 @@ function appleMobile(): boolean {
 @Injectable({ providedIn: 'root' })
 export class Install {
   private offer?: InstallPromptEvent;
-  private readonly canPrompt = signal(false);
-  private readonly installed = signal(standalone());
+  private readonly offered = signal(false);
+  private readonly isInstalled = signal(standalone());
   private readonly dismissed = signal(stored());
+  /** The browser offers its own install dialog (see `prompt`). */
+  readonly canPrompt = this.offered.asReadonly();
+  /** Running as the installed app, or just installed. */
+  readonly installed = this.isInstalled.asReadonly();
+  /** iPhone or iPad: only Share → Add to Home Screen installs. */
+  readonly apple = appleMobile();
 
   /** Which hint to show: the install button, the iPhone/iPad steps, or none. */
   readonly hint = computed<'prompt' | 'apple' | undefined>(() => {
     if (this.installed() || this.dismissed()) return undefined;
     if (this.canPrompt()) return 'prompt';
-    return appleMobile() ? 'apple' : undefined;
+    return this.apple ? 'apple' : undefined;
   });
 
   constructor() {
@@ -57,9 +63,9 @@ export class Install {
       // Keep it for the button instead of the browser's own mini bar.
       e.preventDefault();
       this.offer = e as InstallPromptEvent;
-      this.canPrompt.set(true);
+      this.offered.set(true);
     });
-    addEventListener('appinstalled', () => this.installed.set(true));
+    addEventListener('appinstalled', () => this.isInstalled.set(true));
   }
 
   /** Opens the browser's install dialog. */
@@ -68,9 +74,9 @@ export class Install {
     if (!offer) return;
     // An offer can be used once.
     this.offer = undefined;
-    this.canPrompt.set(false);
+    this.offered.set(false);
     await offer.prompt();
-    if ((await offer.userChoice).outcome === 'accepted') this.installed.set(true);
+    if ((await offer.userChoice).outcome === 'accepted') this.isInstalled.set(true);
   }
 
   /** Not now, and not again on this device. */
