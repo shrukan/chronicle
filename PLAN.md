@@ -223,6 +223,22 @@ but writing short texts is a content job and works best once the logic is stable
 4. *Retire:* tag `converter-final`, then remove `tools/converter/`, `sources/`, the asset
    extraction and the `content:convert` / `content:assets` tasks. They stay in the git history.
 
+**Translations: English is the reference**
+- A language is another string table with the same keys (`strings.<lang>.json`). The game logic
+  lives only in `scenario.json`, so a translation cannot change the game. The app reads meaning
+  from the content, never from the wording: `kind` and `role` (e.g. `continue` links, `handover`
+  commands) say what a text is for.
+- *Full* and *Short* are translated from their English versions. The English Short is reviewed
+  (no rule dropped, the cuts agreed), so translating it keeps that review; shortening each
+  translated Full would need the review again in every language. *Easy* is plain English for
+  non-native speakers; other languages may not need one and fall back to Full.
+- Each translated entry records a hash of the English text it came from (per reading mode). Once
+  English is edited by hand after the freeze, the story tester counts outdated and missing
+  translations, as it counts missing strings now.
+- French is translated from English like any other language: the original French scripts were
+  edited separately from the English ones and may play differently. They remain a reference for
+  wording.
+
 ## 5. Risks
 
 | Risk | Mitigation |
