@@ -15,7 +15,7 @@ import {
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { form, FormField, FormRoot, required } from '@angular/forms/signals';
 import { AudioPlayer } from '../../../../core/services/audio';
-import { Game, PLAIN_CONTINUE } from '../../../../core/services/game';
+import { Game } from '../../../../core/services/game';
 import { bugReportUrl } from '../../../../core/utils/bug-report';
 import { keepScreenOn } from '../../../../core/utils/wake-lock';
 import { Autofocus } from '../../../../shared/directives/autofocus/autofocus';
@@ -139,8 +139,7 @@ export class Play {
     if (!view || view.prompt || view.links.length !== 1) return undefined;
     const link = findStoryLink(view.output, view.links[0]!);
     if (!link) return undefined;
-    const label = this.game.text(link.key).replace(/[*\\]/g, '').trim();
-    return { id: link.id, key: link.key, args: link.args, plain: PLAIN_CONTINUE.test(label) };
+    return { id: link.id, key: link.key, args: link.args, plain: link.role === 'continue' };
   });
 
   protected onKey(event: KeyboardEvent): void {
@@ -195,7 +194,7 @@ export class Play {
     let end = start;
     while (isCommand(out[end])) end++;
     const notice = out.slice(start, end) as Extract<Out, { t: 'text' }>[];
-    const passes = notice.some((o) => /\b(hand|pass|give|bring)\b/i.test(this.game.text(o.key)));
+    const passes = notice.some((o) => o.role === 'handover');
     return this.holding() && !passes ? undefined : notice;
   });
 

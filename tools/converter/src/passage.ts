@@ -337,6 +337,7 @@ export class PassageConverter {
         const label = constString(a[0]!);
         const node: Node = { t: 'link', key: this.str(label === undefined ? '{0}' : toMarkup(label), 'instruction', true) };
         if (label === undefined) node.args = [this.expr(a[0]!)];
+        else if (isPlainContinue(label)) node.role = 'continue';
         if (a[1] && a[1].type !== 'null_literal') node.to = this.expr(a[1]);
         const action = a[2];
         if (action && action.type !== 'null_literal') {
@@ -550,6 +551,7 @@ export class PassageConverter {
       : isNarrative(plain, out) ? 'narrative'
       : 'instruction';
     const node: Node = { t: 'text', key: this.str(out, kind, true), kind };
+    if (kind === 'command' && HANDOVER.test(plain)) node.role = 'handover';
     if (textArgs.length) node.args = textArgs;
     return node;
   }
@@ -652,6 +654,14 @@ const APP_COMMAND = [
 
 export function isAppCommand(plain: string): boolean {
   return APP_COMMAND.some((r) => r.test(plain));
+}
+
+/** An app command that moves the storybook to another player (not one for whoever holds it). */
+const HANDOVER = /\b(hand|pass|give|bring)\b/i;
+
+/** A link label that only moves the reading on ("Click to continue…"): no decision, no secret. */
+export function isPlainContinue(label: string): boolean {
+  return /^(click( here)? to continue|continue)[.…\s]*$/i.test(toMarkup(label).replace(/[*\\]/g, '').trim());
 }
 
 /**

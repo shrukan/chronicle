@@ -1893,6 +1893,7 @@
     {
      "t": "link",
      "key": "common.click-to-continue",
+     "role": "continue",
      "to": {
       "lit": "Dubious"
      }
@@ -2023,6 +2024,7 @@
     {
      "t": "link",
      "key": "common.click-to-continue",
+     "role": "continue",
      "to": {
       "lit": "S5Special1a"
      }
@@ -2284,6 +2286,7 @@
         {
          "t": "link",
          "key": "common.click-here-to-continue",
+         "role": "continue",
          "to": {
           "lit": "Hospitalintro"
          }
@@ -2306,6 +2309,7 @@
         {
          "t": "link",
          "key": "common.click-here-to-continue",
+         "role": "continue",
          "to": {
           "lit": "DevastationIntro"
          }
@@ -3286,6 +3290,7 @@
     {
      "t": "link",
      "key": "common.click-to-continue",
+     "role": "continue",
      "to": {
       "lit": "EradicateDisease"
      }
@@ -3509,6 +3514,7 @@
     {
      "t": "link",
      "key": "common.click-to-continue",
+     "role": "continue",
      "to": {
       "lit": "UniMayor"
      }
@@ -3615,6 +3621,7 @@
     {
      "t": "link",
      "key": "NoUniversityIntro.7",
+     "role": "continue",
      "to": {
       "lit": "CreepyStar"
      }
@@ -4163,6 +4170,7 @@
         {
          "t": "link",
          "key": "common.click-to-continue",
+         "role": "continue",
          "to": {
           "lit": "2p-S5SpecialVoteALT"
          }
@@ -4174,6 +4182,7 @@
         {
          "t": "link",
          "key": "common.click-to-continue",
+         "role": "continue",
          "to": {
           "lit": "S5SpecialVote"
          }
@@ -4289,6 +4298,7 @@
         {
          "t": "link",
          "key": "common.click-to-continue",
+         "role": "continue",
          "to": {
           "lit": "PanaceaUnleash"
          }
@@ -4300,6 +4310,7 @@
         {
          "t": "link",
          "key": "common.click-to-continue",
+         "role": "continue",
          "to": {
           "lit": "Hospital3"
          }
@@ -4416,6 +4427,7 @@
         {
          "t": "link",
          "key": "common.click-to-continue",
+         "role": "continue",
          "to": {
           "lit": "PanaceaUnleash"
          }
@@ -4427,6 +4439,7 @@
         {
          "t": "link",
          "key": "common.click-to-continue",
+         "role": "continue",
          "to": {
           "lit": "Hospital3"
          }
@@ -4566,6 +4579,7 @@
     {
      "t": "link",
      "key": "common.click-to-continue",
+     "role": "continue",
      "reveal": "0",
      "replace": true
     },
@@ -4981,6 +4995,7 @@
         {
          "t": "link",
          "key": "common.click-to-continue",
+         "role": "continue",
          "to": {
           "lit": "NoUni1"
          }
@@ -5001,6 +5016,7 @@
         {
          "t": "link",
          "key": "common.click-to-continue",
+         "role": "continue",
          "to": {
           "lit": "NoUni2"
          }
@@ -5012,6 +5028,7 @@
         {
          "t": "link",
          "key": "common.click-to-continue",
+         "role": "continue",
          "to": {
           "lit": "NoUni3"
          }
@@ -5072,6 +5089,7 @@
     {
      "t": "link",
      "key": "common.click-to-continue",
+     "role": "continue",
      "to": {
       "lit": "FeverHeart2"
      }
@@ -6293,6 +6311,7 @@
     {
      "t": "link",
      "key": "common.click-to-continue",
+     "role": "continue",
      "reveal": "0",
      "replace": true
     }
@@ -9883,6 +9902,7 @@
         {
          "t": "link",
          "key": "common.click-to-continue",
+         "role": "continue",
          "reveal": "0",
          "replace": true
         }
@@ -9915,6 +9935,7 @@
         {
          "t": "link",
          "key": "common.click-to-continue",
+         "role": "continue",
          "reveal": "2",
          "replace": true
         }
@@ -10975,6 +10996,7 @@
      "t": "text",
      "key": "Unicure.1",
      "kind": "command",
+     "role": "handover",
      "args": [
       {
        "var": "fevercure"
@@ -11471,6 +11493,7 @@
     {
      "t": "link",
      "key": "common.click-to-continue",
+     "role": "continue",
      "reveal": "0",
      "replace": true
     },
@@ -11609,6 +11632,7 @@
     {
      "t": "link",
      "key": "common.click-to-continue",
+     "role": "continue",
      "reveal": "0",
      "replace": true
     }
@@ -11757,6 +11781,7 @@
     {
      "t": "link",
      "key": "common.click-to-continue",
+     "role": "continue",
      "reveal": "0",
      "replace": true
     }
@@ -12071,6 +12096,7 @@
     {
      "t": "link",
      "key": "common.click-to-continue",
+     "role": "continue",
      "reveal": "0",
      "replace": true
     },
@@ -12172,6 +12198,7 @@
     {
      "t": "link",
      "key": "common.click-to-continue",
+     "role": "continue",
      "reveal": "0",
      "replace": true
     }
@@ -12366,6 +12393,7 @@
                 {
                  "t": "link",
                  "key": "common.click-to-continue",
+                 "role": "continue",
                  "to": {
                   "lit": "EvilWolvesEventStart"
                  }
@@ -12377,6 +12405,7 @@
                 {
                  "t": "link",
                  "key": "common.click-to-continue",
+                 "role": "continue",
                  "reveal": "0",
                  "replace": true
                 }
@@ -12499,6 +12528,7 @@
                 {
                  "t": "link",
                  "key": "LosingOrderAid.7",
+                 "role": "continue",
                  "to": {
                   "lit": "TaxesEventStart"
                  }
@@ -12510,6 +12540,7 @@
                 {
                  "t": "link",
                  "key": "common.click-to-continue",
+                 "role": "continue",
                  "reveal": "2",
                  "replace": true
                 }
@@ -13333,6 +13364,7 @@
     {
      "t": "link",
      "key": "common.click-to-continue",
+     "role": "continue",
      "reveal": "0",
      "replace": true
     }
@@ -13399,6 +13431,7 @@
     {
      "t": "link",
      "key": "common.click-to-continue",
+     "role": "continue",
      "reveal": "0",
      "replace": true
     }
@@ -13476,6 +13509,7 @@
     {
      "t": "link",
      "key": "common.click-to-continue",
+     "role": "continue",
      "reveal": "0",
      "replace": true
     }
@@ -13676,6 +13710,7 @@
     {
      "t": "link",
      "key": "common.click-to-continue",
+     "role": "continue",
      "reveal": "0",
      "replace": true
     },
@@ -13811,6 +13846,7 @@
     {
      "t": "link",
      "key": "common.click-to-continue",
+     "role": "continue",
      "reveal": "0",
      "replace": true
     },
@@ -13959,6 +13995,7 @@
     {
      "t": "link",
      "key": "common.click-here-to-continue",
+     "role": "continue",
      "reveal": "0",
      "replace": true
     },
@@ -17007,6 +17044,7 @@
      {
       "t": "link",
       "key": "common.click-here-to-continue",
+      "role": "continue",
       "to": {
        "lit": "EnvPasscode"
       }
@@ -17726,6 +17764,7 @@
     {
      "t": "link",
      "key": "common.click-here-to-continue",
+     "role": "continue",
      "to": {
       "lit": "MostInvestigated"
      }
@@ -17916,6 +17955,7 @@
     {
      "t": "link",
      "key": "common.click-to-continue",
+     "role": "continue",
      "to": {
       "lit": "HuntersHUBcode"
      }
@@ -17997,6 +18037,7 @@
     {
      "t": "link",
      "key": "common.click-to-continue",
+     "role": "continue",
      "reveal": "0",
      "replace": true
     },
@@ -18195,6 +18236,7 @@
     {
      "t": "link",
      "key": "DevastationIntro.7",
+     "role": "continue",
      "to": {
       "lit": "DiseaseConsequence"
      }
@@ -18553,6 +18595,7 @@
     {
      "t": "link",
      "key": "common.click-to-continue",
+     "role": "continue",
      "reveal": "0",
      "replace": true
     },
@@ -18579,7 +18622,8 @@
        {
         "t": "text",
         "key": "Immortality.6",
-        "kind": "command"
+        "kind": "command",
+        "role": "handover"
        },
        {
         "t": "br"
@@ -18775,6 +18819,7 @@
     {
      "t": "link",
      "key": "common.click-to-continue",
+     "role": "continue",
      "reveal": "1",
      "replace": true
     }
@@ -18866,6 +18911,7 @@
     {
      "t": "link",
      "key": "common.click-to-continue",
+     "role": "continue",
      "reveal": "1",
      "replace": true
     }
@@ -18939,6 +18985,7 @@
     {
      "t": "link",
      "key": "common.click-to-continue",
+     "role": "continue",
      "reveal": "1",
      "replace": true
     }
@@ -19036,6 +19083,7 @@
     {
      "t": "link",
      "key": "common.click-to-continue",
+     "role": "continue",
      "reveal": "0",
      "replace": true
     }
@@ -19148,6 +19196,7 @@
     {
      "t": "link",
      "key": "common.click-to-continue",
+     "role": "continue",
      "reveal": "0",
      "replace": true
     },
@@ -19664,6 +19713,7 @@
         {
          "t": "link",
          "key": "common.click-to-continue",
+         "role": "continue",
          "reveal": "0",
          "replace": true
         }
@@ -20009,6 +20059,7 @@
         {
          "t": "link",
          "key": "common.click-to-continue",
+         "role": "continue",
          "reveal": "0",
          "replace": true
         }
@@ -20687,6 +20738,7 @@
     {
      "t": "link",
      "key": "common.click-to-continue",
+     "role": "continue",
      "reveal": "0",
      "replace": true
     },
@@ -20838,6 +20890,7 @@
     {
      "t": "link",
      "key": "common.click-to-continue",
+     "role": "continue",
      "reveal": "1",
      "replace": true
     }
@@ -21193,6 +21246,7 @@
         {
          "t": "link",
          "key": "common.click-to-continue",
+         "role": "continue",
          "reveal": "0",
          "replace": true
         }
@@ -21236,6 +21290,7 @@
         {
          "t": "link",
          "key": "common.click-to-continue",
+         "role": "continue",
          "reveal": "2",
          "replace": true
         }
@@ -22138,6 +22193,7 @@
             {
              "t": "link",
              "key": "common.click-to-continue",
+             "role": "continue",
              "to": {
               "lit": "HelpingEvil"
              }
@@ -22160,6 +22216,7 @@
             {
              "t": "link",
              "key": "common.click-to-continue",
+             "role": "continue",
              "to": {
               "lit": "ProsperityHunterIntro"
              }
@@ -22205,6 +22262,7 @@
             {
              "t": "link",
              "key": "common.click-to-continue",
+             "role": "continue",
              "to": {
               "lit": "HelpingEvil"
              }
@@ -22227,6 +22285,7 @@
             {
              "t": "link",
              "key": "common.click-to-continue",
+             "role": "continue",
              "to": {
               "lit": "ProsperityWolvesIntro"
              }
@@ -23948,6 +24007,7 @@
         {
          "t": "link",
          "key": "common.click-here-to-continue",
+         "role": "continue",
          "to": {
           "lit": "Devastation2"
          }
@@ -23959,6 +24019,7 @@
         {
          "t": "link",
          "key": "common.click-here-to-continue",
+         "role": "continue",
          "to": {
           "lit": "Devastation3"
          }
@@ -24017,6 +24078,7 @@
         {
          "t": "link",
          "key": "common.click-here-to-continue",
+         "role": "continue",
          "to": {
           "lit": "Devastation2"
          }
@@ -24028,6 +24090,7 @@
         {
          "t": "link",
          "key": "common.click-here-to-continue",
+         "role": "continue",
          "to": {
           "lit": "Devastation3"
          }
@@ -26037,6 +26100,7 @@
     {
      "t": "link",
      "key": "common.click-here-to-continue",
+     "role": "continue",
      "to": {
       "lit": "DiseaseEnd"
      }
@@ -27553,7 +27617,8 @@
     {
      "t": "text",
      "key": "Trigger35Points.1",
-     "kind": "command"
+     "kind": "command",
+     "role": "handover"
     },
     {
      "t": "br"
@@ -28118,6 +28183,7 @@
      "t": "text",
      "key": "ChooseScience.1",
      "kind": "command",
+     "role": "handover",
      "args": [
       {
        "var": "charity"
@@ -28336,6 +28402,7 @@
     {
      "t": "link",
      "key": "common.click-to-continue",
+     "role": "continue",
      "to": {
       "lit": "SymposiumEvent2"
      }
@@ -28368,6 +28435,7 @@
      "t": "text",
      "key": "SanityChoice.1",
      "kind": "command",
+     "role": "handover",
      "args": [
       {
        "var": "saneplayer"
@@ -28706,6 +28774,7 @@
     {
      "t": "link",
      "key": "common.click-to-continue",
+     "role": "continue",
      "reveal": "0",
      "replace": true
     },
@@ -30238,6 +30307,7 @@
     {
      "t": "link",
      "key": "common.click-to-continue",
+     "role": "continue",
      "reveal": "0",
      "replace": true
     },
@@ -30971,6 +31041,7 @@
             {
              "t": "link",
              "key": "common.click-here-to-continue",
+             "role": "continue",
              "reveal": "0",
              "replace": true
             }
@@ -30981,6 +31052,7 @@
             {
              "t": "link",
              "key": "common.click-here-to-continue",
+             "role": "continue",
              "to": {
               "lit": "NoHospitalCons"
              }
@@ -31717,6 +31789,7 @@
      "t": "text",
      "key": "NewMaster1A.1",
      "kind": "command",
+     "role": "handover",
      "args": [
       {
        "var": "nameA"
@@ -32439,6 +32512,7 @@
     {
      "t": "link",
      "key": "common.click-to-continue",
+     "role": "continue",
      "to": {
       "lit": "NewMaster1B"
      }
@@ -33399,6 +33473,7 @@
      "t": "text",
      "key": "NewMaster1B.1",
      "kind": "command",
+     "role": "handover",
      "args": [
       {
        "var": "nameB"
@@ -36657,6 +36732,7 @@
     {
      "t": "link",
      "key": "common.click-to-continue",
+     "role": "continue",
      "to": {
       "lit": "NewMHub"
      }
@@ -37669,6 +37745,7 @@
      "t": "text",
      "key": "NewMaster1C.1",
      "kind": "command",
+     "role": "handover",
      "args": [
       {
        "var": "nameC"
@@ -38394,6 +38471,7 @@
     {
      "t": "link",
      "key": "common.click-to-continue",
+     "role": "continue",
      "to": {
       "lit": "NewMHub"
      }
@@ -38416,6 +38494,7 @@
      "t": "text",
      "key": "NewMaster1D.1",
      "kind": "command",
+     "role": "handover",
      "args": [
       {
        "var": "nameD"
@@ -40010,6 +40089,7 @@
     {
      "t": "link",
      "key": "common.click-to-continue",
+     "role": "continue",
      "to": {
       "lit": "NewMHub"
      }
@@ -40032,6 +40112,7 @@
      "t": "text",
      "key": "NewMaster1E.1",
      "kind": "command",
+     "role": "handover",
      "args": [
       {
        "var": "nameE"
@@ -40729,6 +40810,7 @@
     {
      "t": "link",
      "key": "common.click-to-continue",
+     "role": "continue",
      "reveal": "0",
      "replace": true
     },
@@ -41675,6 +41757,7 @@
     {
      "t": "link",
      "key": "common.click-to-continue",
+     "role": "continue",
      "reveal": "0",
      "replace": true
     },
@@ -41820,6 +41903,7 @@
     {
      "t": "link",
      "key": "common.click-to-continue",
+     "role": "continue",
      "reveal": "0",
      "replace": true
     },
@@ -42177,6 +42261,7 @@
     {
      "t": "link",
      "key": "common.click-to-continue",
+     "role": "continue",
      "reveal": "0",
      "replace": true
     },
@@ -42261,7 +42346,8 @@
     {
      "t": "text",
      "key": "35VP.1",
-     "kind": "command"
+     "kind": "command",
+     "role": "handover"
     },
     {
      "t": "br"
@@ -42269,7 +42355,8 @@
     {
      "t": "text",
      "key": "35VP.2",
-     "kind": "command"
+     "kind": "command",
+     "role": "handover"
     },
     {
      "t": "br"
@@ -42492,6 +42579,7 @@
     {
      "t": "link",
      "key": "common.click-to-continue",
+     "role": "continue",
      "to": {
       "lit": "EvilConsequences"
      }
@@ -42813,6 +42901,7 @@
             {
              "t": "link",
              "key": "common.click-here-to-continue-2",
+             "role": "continue",
              "to": {
               "lit": "EvilMayor"
              }
@@ -42824,6 +42913,7 @@
             {
              "t": "link",
              "key": "common.click-to-continue",
+             "role": "continue",
              "reveal": "0",
              "replace": true
             }
@@ -43038,6 +43128,7 @@
             {
              "t": "link",
              "key": "common.click-here-to-continue-2",
+             "role": "continue",
              "to": {
               "lit": "EvilMayor"
              }
@@ -43049,6 +43140,7 @@
             {
              "t": "link",
              "key": "common.click-to-continue",
+             "role": "continue",
              "reveal": "2",
              "replace": true
             }
@@ -45574,6 +45666,7 @@
          "t": "text",
          "key": "EvilMayor.1",
          "kind": "command",
+         "role": "handover",
          "args": [
           {
            "var": "mayor"
@@ -45616,6 +45709,7 @@
         {
          "t": "link",
          "key": "common.click-to-continue",
+         "role": "continue",
          "reveal": "0",
          "replace": true
         }
@@ -45772,6 +45866,7 @@
     {
      "t": "link",
      "key": "common.click-to-continue",
+     "role": "continue",
      "reveal": "0",
      "replace": true
     }
@@ -46466,6 +46561,7 @@
      "t": "text",
      "key": "Gen1-CreepyTrackRes.2",
      "kind": "command",
+     "role": "handover",
      "args": [
       {
        "var": "gen1creep"
@@ -46709,6 +46805,7 @@
      "t": "text",
      "key": "Gen1-SanityTrackRes.2",
      "kind": "command",
+     "role": "handover",
      "args": [
       {
        "var": "gen1sane"
@@ -46846,6 +46943,7 @@
     {
      "t": "link",
      "key": "common.click-to-continue",
+     "role": "continue",
      "reveal": "0",
      "replace": true
     },
@@ -46926,6 +47024,7 @@
     {
      "t": "link",
      "key": "common.click-to-continue",
+     "role": "continue",
      "reveal": "0",
      "replace": true
     }
@@ -47257,6 +47356,7 @@
     {
      "t": "link",
      "key": "common.click-to-continue",
+     "role": "continue",
      "reveal": "0",
      "replace": true
     },
@@ -47312,6 +47412,7 @@
     {
      "t": "link",
      "key": "common.click-to-continue",
+     "role": "continue",
      "reveal": "0",
      "replace": true
     },
@@ -47625,6 +47726,7 @@
         {
          "t": "link",
          "key": "common.click-to-continue",
+         "role": "continue",
          "reveal": "0",
          "replace": true
         }
@@ -47665,6 +47767,7 @@
         {
          "t": "link",
          "key": "common.click-to-continue",
+         "role": "continue",
          "reveal": "2",
          "replace": true
         }
@@ -47764,6 +47867,7 @@
     {
      "t": "link",
      "key": "common.click-to-continue",
+     "role": "continue",
      "reveal": "1",
      "replace": true
     },
@@ -47908,6 +48012,7 @@
     {
      "t": "link",
      "key": "common.click-to-continue",
+     "role": "continue",
      "to": {
       "lit": "CharityNegCons"
      }
@@ -47970,6 +48075,7 @@
     {
      "t": "link",
      "key": "common.click-to-continue",
+     "role": "continue",
      "to": {
       "lit": "GloomyGothic2"
      }
@@ -48110,6 +48216,7 @@
     {
      "t": "link",
      "key": "common.click-to-continue",
+     "role": "continue",
      "reveal": "0",
      "replace": true
     },
@@ -48266,6 +48373,7 @@
     {
      "t": "link",
      "key": "common.click-to-continue",
+     "role": "continue",
      "reveal": "0",
      "replace": true
     },
@@ -48640,6 +48748,7 @@
     {
      "t": "link",
      "key": "common.click-to-continue",
+     "role": "continue",
      "reveal": "0",
      "replace": true
     },
@@ -48775,6 +48884,7 @@
     {
      "t": "link",
      "key": "common.click-to-continue",
+     "role": "continue",
      "reveal": "0",
      "replace": true
     },
@@ -48964,6 +49074,7 @@
     {
      "t": "link",
      "key": "common.click-to-continue",
+     "role": "continue",
      "reveal": "0",
      "replace": true
     },
@@ -49095,6 +49206,7 @@
     {
      "t": "link",
      "key": "common.click-to-continue",
+     "role": "continue",
      "reveal": "0",
      "replace": true
     }
@@ -49172,6 +49284,7 @@
     {
      "t": "link",
      "key": "common.click-to-continue",
+     "role": "continue",
      "reveal": "0",
      "replace": true
     },
@@ -49284,6 +49397,7 @@
     {
      "t": "link",
      "key": "common.click-to-continue",
+     "role": "continue",
      "to": {
       "lit": "UniCharity"
      }
@@ -49652,6 +49766,7 @@
     {
      "t": "link",
      "key": "common.click-to-continue",
+     "role": "continue",
      "reveal": "1",
      "replace": true
     },
@@ -49758,6 +49873,7 @@
     {
      "t": "link",
      "key": "common.click-to-continue",
+     "role": "continue",
      "reveal": "0",
      "replace": true
     },
@@ -49871,6 +49987,7 @@
      "t": "text",
      "key": "CharityAwardGood.1",
      "kind": "command",
+     "role": "handover",
      "args": [
       {
        "var": "charity"
@@ -49921,6 +50038,7 @@
     {
      "t": "link",
      "key": "common.click-to-continue",
+     "role": "continue",
      "reveal": "0",
      "replace": true
     }
@@ -49983,6 +50101,7 @@
          "t": "text",
          "key": "MayoralAward.1",
          "kind": "command",
+         "role": "handover",
          "args": [
           {
            "var": "mayor"
@@ -50033,6 +50152,7 @@
         {
          "t": "link",
          "key": "common.click-to-continue",
+         "role": "continue",
          "reveal": "0",
          "replace": true
         }
@@ -51085,6 +51205,7 @@
     {
      "t": "link",
      "key": "common.click-here-to-continue",
+     "role": "continue",
      "reveal": "0",
      "replace": false
     },
@@ -51222,6 +51343,7 @@
     {
      "t": "link",
      "key": "common.click-to-continue",
+     "role": "continue",
      "reveal": "0",
      "replace": true
     },
@@ -51510,6 +51632,7 @@
     {
      "t": "link",
      "key": "common.click-to-continue",
+     "role": "continue",
      "reveal": "0",
      "replace": true
     },
@@ -51721,6 +51844,7 @@
     {
      "t": "link",
      "key": "common.click-to-continue",
+     "role": "continue",
      "reveal": "1",
      "replace": true
     }
@@ -51901,6 +52025,7 @@
         {
          "t": "link",
          "key": "common.click-here-to-continue",
+         "role": "continue",
          "to": {
           "lit": "2p-FrenzyALT"
          }
@@ -51912,6 +52037,7 @@
         {
          "t": "link",
          "key": "common.click-here-to-continue",
+         "role": "continue",
          "to": {
           "lit": "GoodFrenzyEvent2"
          }
@@ -51983,6 +52109,7 @@
     {
      "t": "link",
      "key": "common.click-to-continue",
+     "role": "continue",
      "reveal": "0",
      "replace": true
     },
@@ -52049,6 +52176,7 @@
     {
      "t": "link",
      "key": "common.click-to-continue",
+     "role": "continue",
      "reveal": "1",
      "replace": true
     }
@@ -52413,6 +52541,7 @@
     {
      "t": "link",
      "key": "common.click-here-to-continue",
+     "role": "continue",
      "to": {
       "lit": "Preface-TCOD"
      }
@@ -52497,6 +52626,7 @@
     {
      "t": "link",
      "key": "common.click-to-continue",
+     "role": "continue",
      "to": {
       "lit": "Scenario5Start"
      }
@@ -52607,6 +52737,7 @@
         {
          "t": "link",
          "key": "common.click-to-continue",
+         "role": "continue",
          "reveal": "0",
          "replace": true
         }
@@ -52636,6 +52767,7 @@
         {
          "t": "link",
          "key": "common.click-to-continue",
+         "role": "continue",
          "reveal": "2",
          "replace": true
         }
@@ -53113,6 +53245,7 @@
     {
      "t": "link",
      "key": "common.click-to-continue",
+     "role": "continue",
      "reveal": "0",
      "replace": true
     }
@@ -53813,6 +53946,7 @@
     {
      "t": "link",
      "key": "common.click-to-continue",
+     "role": "continue",
      "reveal": "0",
      "replace": true
     }
@@ -53949,6 +54083,7 @@
         {
          "t": "link",
          "key": "common.click-to-continue",
+         "role": "continue",
          "reveal": "0",
          "replace": true
         }
@@ -54013,6 +54148,7 @@
             {
              "t": "link",
              "key": "common.click-to-continue",
+             "role": "continue",
              "reveal": "2",
              "replace": true
             }
@@ -54516,6 +54652,7 @@
         {
          "t": "link",
          "key": "common.click-here-to-continue",
+         "role": "continue",
          "to": {
           "lit": "SymposiumSuccess"
          }
@@ -54538,6 +54675,7 @@
         {
          "t": "link",
          "key": "common.click-here-to-continue",
+         "role": "continue",
          "to": {
           "lit": "SymposiumFail"
          }
@@ -54602,6 +54740,7 @@
         {
          "t": "link",
          "key": "common.click-to-continue",
+         "role": "continue",
          "reveal": "0",
          "replace": true
         }
@@ -54696,6 +54835,7 @@
         {
          "t": "link",
          "key": "common.click-to-continue",
+         "role": "continue",
          "reveal": "0",
          "replace": true
         }
@@ -54776,6 +54916,7 @@
     {
      "t": "link",
      "key": "common.click-to-continue",
+     "role": "continue",
      "reveal": "1",
      "replace": true
     },
@@ -55260,6 +55401,7 @@
         {
          "t": "link",
          "key": "common.click-here-to-continue",
+         "role": "continue",
          "to": {
           "lit": "RippedMasterwork"
          }
@@ -55310,6 +55452,7 @@
         {
          "t": "link",
          "key": "common.click-here-to-continue",
+         "role": "continue",
          "to": {
           "lit": "RippedMasterwork"
          }
@@ -55351,6 +55494,7 @@
         {
          "t": "link",
          "key": "common.click-here-to-continue",
+         "role": "continue",
          "to": {
           "lit": "UniversityIntro"
          }
@@ -55560,6 +55704,7 @@
     {
      "t": "link",
      "key": "common.click-to-continue",
+     "role": "continue",
      "to": {
       "lit": "NewMHub"
      }
@@ -56477,6 +56622,7 @@
     {
      "t": "link",
      "key": "common.click-to-continue",
+     "role": "continue",
      "reveal": "0",
      "replace": true
     },
@@ -57027,6 +57173,7 @@
     {
      "t": "link",
      "key": "common.click-to-continue",
+     "role": "continue",
      "reveal": "1",
      "replace": true
     },
@@ -57565,6 +57712,7 @@
     {
      "t": "link",
      "key": "common.click-to-continue",
+     "role": "continue",
      "reveal": "1",
      "replace": true
     }
@@ -57928,6 +58076,7 @@
     {
      "t": "link",
      "key": "common.click-to-continue",
+     "role": "continue",
      "to": {
       "lit": "SymposiumEvent3"
      }
@@ -58998,6 +59147,7 @@
     {
      "t": "link",
      "key": "common.click-to-continue",
+     "role": "continue",
      "to": {
       "lit": "VialCharity"
      }
@@ -59065,6 +59215,7 @@
     {
      "t": "link",
      "key": "common.click-to-continue",
+     "role": "continue",
      "reveal": "0",
      "replace": true
     }
@@ -60435,6 +60586,7 @@
     {
      "t": "link",
      "key": "common.click-to-continue",
+     "role": "continue",
      "reveal": "0",
      "replace": true
     },
@@ -60634,6 +60786,7 @@
     {
      "t": "link",
      "key": "common.click-to-continue",
+     "role": "continue",
      "reveal": "0",
      "replace": true
     },
@@ -61488,6 +61641,7 @@
     {
      "t": "link",
      "key": "common.click-to-continue",
+     "role": "continue",
      "reveal": "0",
      "replace": true
     }
@@ -61640,6 +61794,7 @@
     {
      "t": "link",
      "key": "common.click-to-continue",
+     "role": "continue",
      "reveal": "0",
      "replace": true
     }
@@ -62002,6 +62157,7 @@
     {
      "t": "link",
      "key": "OptiontoKillYes.8",
+     "role": "continue",
      "to": {
       "lit": "OptiontoKillQuestion"
      }
@@ -62075,6 +62231,7 @@
     {
      "t": "link",
      "key": "common.click-to-continue",
+     "role": "continue",
      "to": {
       "lit": "OptiontoKillYes"
      }
@@ -62298,6 +62455,7 @@
     {
      "t": "link",
      "key": "common.click-to-continue",
+     "role": "continue",
      "reveal": "0",
      "replace": true
     },
@@ -62491,6 +62649,7 @@
     {
      "t": "link",
      "key": "common.click-here-to-continue-2",
+     "role": "continue",
      "to": {
       "lit": "MWComplete"
      }
@@ -62661,6 +62820,7 @@
     {
      "t": "link",
      "key": "common.click-to-continue",
+     "role": "continue",
      "to": {
       "lit": "EvilConsequences"
      }
@@ -62734,6 +62894,7 @@
         {
          "t": "link",
          "key": "common.click-here-to-continue",
+         "role": "continue",
          "reveal": "0",
          "replace": true
         }
@@ -62744,6 +62905,7 @@
         {
          "t": "link",
          "key": "common.click-here-to-continue",
+         "role": "continue",
          "to": {
           "lit": "EvilHunter1Event"
          }
@@ -62893,6 +63055,7 @@
      "t": "text",
      "key": "VialCharity.1",
      "kind": "command",
+     "role": "handover",
      "args": [
       {
        "var": "charity"
@@ -62994,6 +63157,7 @@
      {
       "t": "link",
       "key": "common.click-to-continue",
+      "role": "continue",
       "reveal": "0",
       "replace": true
      }
@@ -63035,6 +63199,7 @@
     {
      "t": "link",
      "key": "common.click-to-continue",
+     "role": "continue",
      "reveal": "0",
      "replace": true
     },
@@ -63153,6 +63318,7 @@
     {
      "t": "link",
      "key": "common.click-to-continue",
+     "role": "continue",
      "reveal": "0",
      "replace": true
     },
@@ -63352,6 +63518,7 @@
      "t": "text",
      "key": "Gen1Creepy-ConcealExpose.1",
      "kind": "command",
+     "role": "handover",
      "args": [
       {
        "var": "gen1creep"
@@ -64469,6 +64636,7 @@
                  {
                   "t": "link",
                   "key": "common.click-to-continue",
+                  "role": "continue",
                   "reveal": "1",
                   "replace": true
                  }
@@ -64479,6 +64647,7 @@
                  {
                   "t": "link",
                   "key": "common.click-to-continue",
+                  "role": "continue",
                   "to": {
                    "lit": "Devastation3"
                   }
@@ -64541,6 +64710,7 @@
                  {
                   "t": "link",
                   "key": "common.click-to-continue",
+                  "role": "continue",
                   "reveal": "1",
                   "replace": true
                  }
@@ -64551,6 +64721,7 @@
                  {
                   "t": "link",
                   "key": "common.click-to-continue",
+                  "role": "continue",
                   "to": {
                    "lit": "Devastation3"
                   }
@@ -64613,6 +64784,7 @@
                  {
                   "t": "link",
                   "key": "common.click-to-continue",
+                  "role": "continue",
                   "reveal": "1",
                   "replace": true
                  }
@@ -64623,6 +64795,7 @@
                  {
                   "t": "link",
                   "key": "common.click-to-continue",
+                  "role": "continue",
                   "to": {
                    "lit": "Devastation3"
                   }
@@ -64685,6 +64858,7 @@
                  {
                   "t": "link",
                   "key": "common.click-to-continue",
+                  "role": "continue",
                   "reveal": "1",
                   "replace": true
                  }
@@ -64695,6 +64869,7 @@
                  {
                   "t": "link",
                   "key": "common.click-to-continue",
+                  "role": "continue",
                   "to": {
                    "lit": "Devastation3"
                   }
@@ -64748,6 +64923,7 @@
                  {
                   "t": "link",
                   "key": "common.click-to-continue",
+                  "role": "continue",
                   "reveal": "1",
                   "replace": true
                  }
@@ -64758,6 +64934,7 @@
                  {
                   "t": "link",
                   "key": "common.click-to-continue",
+                  "role": "continue",
                   "to": {
                    "lit": "Devastation3"
                   }
@@ -64829,6 +65006,7 @@
                  {
                   "t": "link",
                   "key": "common.click-to-continue",
+                  "role": "continue",
                   "reveal": "1",
                   "replace": true
                  }
@@ -64839,6 +65017,7 @@
                  {
                   "t": "link",
                   "key": "common.click-to-continue",
+                  "role": "continue",
                   "to": {
                    "lit": "Devastation3"
                   }
@@ -64901,6 +65080,7 @@
                  {
                   "t": "link",
                   "key": "common.click-to-continue",
+                  "role": "continue",
                   "reveal": "1",
                   "replace": true
                  }
@@ -64911,6 +65091,7 @@
                  {
                   "t": "link",
                   "key": "common.click-to-continue",
+                  "role": "continue",
                   "to": {
                    "lit": "Devastation3"
                   }
@@ -64973,6 +65154,7 @@
                  {
                   "t": "link",
                   "key": "common.click-to-continue",
+                  "role": "continue",
                   "reveal": "1",
                   "replace": true
                  }
@@ -64983,6 +65165,7 @@
                  {
                   "t": "link",
                   "key": "common.click-to-continue",
+                  "role": "continue",
                   "to": {
                    "lit": "Devastation3"
                   }
@@ -65045,6 +65228,7 @@
                  {
                   "t": "link",
                   "key": "common.click-to-continue",
+                  "role": "continue",
                   "reveal": "1",
                   "replace": true
                  }
@@ -65055,6 +65239,7 @@
                  {
                   "t": "link",
                   "key": "common.click-to-continue",
+                  "role": "continue",
                   "to": {
                    "lit": "Devastation3"
                   }
@@ -65108,6 +65293,7 @@
                  {
                   "t": "link",
                   "key": "common.click-to-continue",
+                  "role": "continue",
                   "reveal": "1",
                   "replace": true
                  }
@@ -65118,6 +65304,7 @@
                  {
                   "t": "link",
                   "key": "common.click-to-continue",
+                  "role": "continue",
                   "to": {
                    "lit": "Devastation3"
                   }
@@ -65243,6 +65430,7 @@
      "t": "text",
      "key": "Gen1Creepy-RefusalBuild.1",
      "kind": "command",
+     "role": "handover",
      "args": [
       {
        "var": "gen1creep"
@@ -65404,6 +65592,7 @@
          {
           "t": "link",
           "key": "common.click-to-continue",
+          "role": "continue",
           "reveal": "0",
           "replace": true
          }
@@ -65454,6 +65643,7 @@
          {
           "t": "link",
           "key": "common.click-to-continue",
+          "role": "continue",
           "reveal": "2",
           "replace": true
          }
@@ -65522,6 +65712,7 @@
         {
          "t": "link",
          "key": "common.click-to-continue",
+         "role": "continue",
          "reveal": "0",
          "replace": true
         }
@@ -65567,6 +65758,7 @@
         {
          "t": "link",
          "key": "common.click-to-continue",
+         "role": "continue",
          "reveal": "2",
          "replace": true
         }
@@ -65862,6 +66054,7 @@
         {
          "t": "link",
          "key": "common.click-to-continue",
+         "role": "continue",
          "reveal": "0",
          "replace": true
         }
@@ -66069,6 +66262,7 @@
     {
      "t": "link",
      "key": "common.click-to-continue",
+     "role": "continue",
      "reveal": "0",
      "replace": true
     }
@@ -66276,6 +66470,7 @@
         {
          "t": "link",
          "key": "common.click-to-continue",
+         "role": "continue",
          "reveal": "0",
          "replace": true
         }
@@ -66462,6 +66657,7 @@
      "t": "text",
      "key": "Gen1Creepy-RefuseBonus.1",
      "kind": "command",
+     "role": "handover",
      "args": [
       {
        "var": "gen1creep"
@@ -66657,6 +66853,7 @@
          {
           "t": "link",
           "key": "common.click-to-continue",
+          "role": "continue",
           "reveal": "0",
           "replace": true
          }
@@ -66707,6 +66904,7 @@
          {
           "t": "link",
           "key": "common.click-to-continue",
+          "role": "continue",
           "reveal": "2",
           "replace": true
          }
@@ -66732,6 +66930,7 @@
      "t": "text",
      "key": "Gen1Creepy-AgreedReturn.1",
      "kind": "command",
+     "role": "handover",
      "args": [
       {
        "var": "gen1creep"
@@ -66824,6 +67023,7 @@
         {
          "t": "link",
          "key": "common.click-to-continue",
+         "role": "continue",
          "reveal": "0",
          "replace": true
         }
@@ -66897,6 +67097,7 @@
         {
          "t": "link",
          "key": "common.click-to-continue",
+         "role": "continue",
          "reveal": "2",
          "replace": true
         }
@@ -67016,6 +67217,7 @@
          "t": "text",
          "key": "Gen1Insanity-Yes.2",
          "kind": "command",
+         "role": "handover",
          "args": [
           {
            "var": "gen1sane"
@@ -67099,6 +67301,7 @@
         {
          "t": "link",
          "key": "common.click-to-continue",
+         "role": "continue",
          "reveal": "0",
          "replace": true
         }
@@ -67217,6 +67420,7 @@
          "t": "text",
          "key": "Gen1Insanity-Yes2.2",
          "kind": "command",
+         "role": "handover",
          "args": [
           {
            "var": "gen1sane"
@@ -67300,6 +67504,7 @@
         {
          "t": "link",
          "key": "common.click-to-continue",
+         "role": "continue",
          "reveal": "0",
          "replace": true
         }
@@ -67458,6 +67663,7 @@
             {
              "t": "link",
              "key": "common.click-to-continue",
+             "role": "continue",
              "reveal": "0",
              "replace": true
             }
@@ -67739,6 +67945,7 @@
             {
              "t": "link",
              "key": "common.click-to-continue",
+             "role": "continue",
              "reveal": "0",
              "replace": true
             }
@@ -67865,6 +68072,7 @@
     {
      "t": "link",
      "key": "common.click-to-continue",
+     "role": "continue",
      "reveal": "0",
      "replace": true
     },
@@ -68335,6 +68543,7 @@
     {
      "t": "link",
      "key": "common.click-to-continue",
+     "role": "continue",
      "to": {
       "lit": "VialSoldforLess"
      }
@@ -68403,6 +68612,7 @@
     {
      "t": "link",
      "key": "common.click-to-continue",
+     "role": "continue",
      "reveal": "0",
      "replace": true
     },
@@ -68608,6 +68818,7 @@
     {
      "t": "link",
      "key": "common.click-to-continue",
+     "role": "continue",
      "reveal": "0",
      "replace": true
     }
@@ -69555,6 +69766,7 @@
         {
          "t": "link",
          "key": "common.click-to-continue",
+         "role": "continue",
          "reveal": "0",
          "replace": true
         }
@@ -69631,6 +69843,7 @@
         {
          "t": "link",
          "key": "common.click-to-continue",
+         "role": "continue",
          "to": {
           "lit": "Prosperity3b"
          }
@@ -70827,6 +71040,7 @@
     {
      "t": "link",
      "key": "common.click-to-continue",
+     "role": "continue",
      "reveal": "0",
      "replace": true
     },
@@ -70923,6 +71137,7 @@
     {
      "t": "link",
      "key": "common.click-to-continue",
+     "role": "continue",
      "reveal": "0",
      "replace": true
     },
@@ -71109,6 +71324,7 @@
     {
      "t": "link",
      "key": "common.click-to-continue",
+     "role": "continue",
      "to": {
       "lit": "GoodConsequences"
      }
@@ -71737,6 +71953,7 @@
     {
      "t": "link",
      "key": "common.click-to-continue",
+     "role": "continue",
      "reveal": "0",
      "replace": true
     }
@@ -72522,6 +72739,7 @@
     {
      "t": "link",
      "key": "HunterConf3.4",
+     "role": "continue",
      "to": {
       "lit": "OhYesTheyDead"
      }
@@ -72540,6 +72758,7 @@
     {
      "t": "link",
      "key": "HunterConf3.6",
+     "role": "continue",
      "to": {
       "lit": "ConfrontationFail"
      }
@@ -72670,6 +72889,7 @@
      "t": "text",
      "key": "MayorResolveHunters.2",
      "kind": "command",
+     "role": "handover",
      "args": [
       {
        "var": "mayor"
@@ -72723,6 +72943,7 @@
     {
      "t": "link",
      "key": "common.click-to-continue",
+     "role": "continue",
      "reveal": "0",
      "replace": true
     }
@@ -72808,6 +73029,7 @@
      "t": "text",
      "key": "ResolveCharityWolves.2",
      "kind": "command",
+     "role": "handover",
      "args": [
       {
        "var": "charity"
@@ -72853,6 +73075,7 @@
     {
      "t": "link",
      "key": "common.click-to-continue",
+     "role": "continue",
      "reveal": "0",
      "replace": true
     },
@@ -72947,6 +73170,7 @@
          "t": "text",
          "key": "MayorLibraryEvil.2",
          "kind": "command",
+         "role": "handover",
          "args": [
           {
            "var": "mayor"
@@ -73024,6 +73248,7 @@
         {
          "t": "link",
          "key": "common.click-to-continue",
+         "role": "continue",
          "reveal": "0",
          "replace": true
         },
@@ -73190,6 +73415,7 @@
          "t": "text",
          "key": "WolvesBankMayorGood.2",
          "kind": "command",
+         "role": "handover",
          "args": [
           {
            "var": "mayor"
@@ -73235,6 +73461,7 @@
         {
          "t": "link",
          "key": "common.click-to-continue",
+         "role": "continue",
          "reveal": "0",
          "replace": true
         },

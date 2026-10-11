@@ -15,6 +15,20 @@ const keys = (out: Out[]): string[] =>
 const first: Chooser = { choose: () => 0 };
 
 describe('Story', () => {
+  it('passes roles of texts and links on to the output', () => {
+    const s = new Story(
+      scenario({
+        A: { body: [{ t: 'text', key: 'a', kind: 'command', role: 'handover' }, { t: 'link', key: 'go', to: { lit: 'B' }, role: 'continue' }] },
+        B: { body: [] },
+      }),
+    );
+    const v = s.start();
+    assert.deepEqual(v.output, [
+      { t: 'text', key: 'a', kind: 'command', role: 'handover', args: [] },
+      { t: 'link', id: 1, key: 'go', role: 'continue', args: [] },
+    ]);
+  });
+
   it('renders text with evaluated arguments and follows links', () => {
     const s = new Story(
       scenario({

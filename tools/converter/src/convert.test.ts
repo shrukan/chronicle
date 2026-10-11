@@ -256,7 +256,15 @@ describe('convertScenario: page openings and sections', () => {
   it('keeps a hand-over with the player name in it as one command', () => {
     const first = node('Hand')!;
     assert.equal(first.kind, 'command');
+    assert.equal(first.role, 'handover');
     assert.equal(r.strings[first.key]!.full, '**Carefully hand the Storybook to {0}. This choice is read within view of all players.**');
+  });
+
+  it('marks links that only move the reading on', () => {
+    const links = Object.values(r.scenario.passages).flatMap((p) => p.body.filter((n) => n.t === 'link'));
+    const role = (label: string) => links.find((l) => r.strings[l.key]!.full.startsWith(label))?.role;
+    assert.equal(role('Click to continue'), 'continue');
+    assert.equal(role('Click here at the end of the round'), undefined);
   });
 
   it('keeps a value that is part of the heading in the title', () => {

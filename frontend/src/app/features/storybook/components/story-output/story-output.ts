@@ -1,7 +1,7 @@
 import { NgTemplateOutlet } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject, input } from '@angular/core';
 import { SETUP_CONTINUE_KEY, type Out } from '@chronicle/engine';
-import { Game, PLAIN_CONTINUE } from '../../../../core/services/game';
+import { Game } from '../../../../core/services/game';
 import { Library } from '../../../../core/services/library';
 import { RichText } from '../rich-text/rich-text';
 import { ScreenCard } from '../screen-card/screen-card';
@@ -41,10 +41,6 @@ export class StoryOutput {
   /** A link drawn by the panel around it: its label stays in the sentence, as plain text. */
   readonly hideLink = input<number | undefined>(undefined);
   protected readonly setupContinue = SETUP_CONTINUE_KEY;
-
-  protected isPlain(key: string): boolean {
-    return PLAIN_CONTINUE.test(this.game.text(key).replace(/[*\\]/g, '').trim());
-  }
 
   /**
    * Hub pages list their actions as a heading block followed by a details block: each pair

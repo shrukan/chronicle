@@ -23,9 +23,6 @@ const UNDO_LIMIT = 10;
 /** How long after a page change a tap is taken for the second half of a double tap. */
 const TAP_GUARD_MS = 350;
 
-/** Labels that only move the reading on ("Click to continue…") – no decision, no secret. */
-export const PLAIN_CONTINUE = /^(click( here)? to continue|continue)[.…\s]*$/i;
-
 /** Nodes that must not run without the players: leaving the page, asking a question. */
 function interrupts(
   nodes: Node[],
@@ -347,7 +344,7 @@ export class Game {
   }
 
   /**
-   * Shows each page at once: opens reveals whose label only says "continue" and whose content
+   * Shows each page at once: opens reveals that only say "continue" and whose content
    * stays on the page – the reader would click them anyway. Reveals with their own label
    * (often hiding something from the other players), jumps and prompts still wait.
    */
@@ -357,9 +354,7 @@ export class Game {
       const next = view.links.find((id) => {
         const target = this.story!.linkTarget(id);
         if (!target?.reveal || !target.replace) return false;
-        const out = findLink(view.output, id);
-        if (!out || !PLAIN_CONTINUE.test(this.text(out.key).replace(/[*\\]/g, '').trim()))
-          return false;
+        if (findLink(view.output, id)?.role !== 'continue') return false;
         const fragment = passages[target.revealFrom!]?.fragments[target.reveal];
         return !!fragment && !interrupts(fragment, passages);
       });

@@ -41,7 +41,7 @@
         </button>
       } @else if (o.id === primaryLink()) {
         <button type="button" class="btn continue-inline" (click)="game.tap(o.id)">
-          @if (isPlain(o.key)) {
+          @if (o.role === 'continue') {
             Continue
           } @else {
             <cr-rich-text [text]="game.text(o.key)" [args]="o.args" />

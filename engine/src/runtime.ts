@@ -1,4 +1,4 @@
-import { SETUP_CONTINUE_KEY, type BlockStyle, type Expr, type IfNode, type Node, type Passage, type PromptNode, type Scenario, type TextKind, type Value } from './schema.ts';
+import { SETUP_CONTINUE_KEY, type BlockStyle, type LinkRole, type TextRole, type Expr, type IfNode, type Node, type Passage, type PromptNode, type Scenario, type TextKind, type Value } from './schema.ts';
 import { binary, equals, indexList, toNumber, toText, truthy, typeOf, ValueError } from './values.ts';
 
 /**
@@ -28,13 +28,13 @@ export const randomChooser: Chooser = {
 // ---------------------------------------------------------------------------
 
 export type Out =
-  | { t: 'text'; key: string; kind: TextKind; args: string[] }
+  | { t: 'text'; key: string; kind: TextKind; role?: TextRole; args: string[] }
   | { t: 'br' }
   | { t: 'block'; style: BlockStyle; image?: string; children: Out[] }
   /** Output of a revealed fragment; render its children inline. */
   | { t: 'group'; children: Out[] }
   /** `disabled`: a used reveal link that stays visible as plain text (Harlowe behaviour). */
-  | { t: 'link'; id: number; key: string; args: string[]; disabled?: boolean }
+  | { t: 'link'; id: number; key: string; role?: LinkRole; args: string[]; disabled?: boolean }
   | { t: 'prompt'; var: string; input: PromptNode['input']; key: string; args: string[] }
   /** App screen; when it has `link`, the app calls `click(link)` once the players confirm. */
   | { t: 'ui'; ui: string; args: Record<string, Value>; link?: number };
@@ -268,7 +268,7 @@ export class Story {
     for (const node of nodes) {
       switch (node.t) {
         case 'text':
-          out.push({ t: 'text', key: node.key, kind: node.kind, args: this.display(node.args) });
+          out.push({ t: 'text', key: node.key, kind: node.kind, ...(node.role ? { role: node.role } : {}), args: this.display(node.args) });
           break;
         case 'br':
           out.push({ t: 'br' });
@@ -301,7 +301,7 @@ export class Story {
           if (node.to) target.to = toText(this.eval(node.to));
           if (node.reveal) target.reveal = node.reveal;
           if (node.revealFrom) target.revealFrom = node.revealFrom;
-          this.addLink(out, passage, target, node.key, this.display(node.args));
+          this.addLink(out, passage, target, node.key, this.display(node.args), node.role);
           break;
         }
         case 'goto':
@@ -370,9 +370,9 @@ export class Story {
     this.vars[name] = value;
   }
 
-  private addLink(out: Out[], passage: Passage, target: LinkTarget, key: string, args: string[] = []): void {
+  private addLink(out: Out[], passage: Passage, target: LinkTarget, key: string, args: string[] = [], role?: LinkRole): void {
     const id = this.nextLinkId++;
-    const o: Out = { t: 'link', id, key, args };
+    const o: Out = { t: 'link', id, key, ...(role ? { role } : {}), args };
     const entry: LinkEntry = { passage, replace: target.replace ?? false, container: out, out: o };
     if (target.to !== undefined) entry.to = target.to;
     if (target.reveal !== undefined) entry.reveal = target.reveal;

@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import { describe, it } from 'node:test';
-import { isNarrative } from './passage.ts';
+import { isNarrative, isPlainContinue } from './passage.ts';
 
 const narrative = (text: string) => isNarrative(text, text);
 
@@ -19,5 +19,17 @@ describe('isNarrative', () => {
       'Every scientist MUST personally visit the Hospital at least one time during this Generation.',
     ])
       assert.equal(narrative(rule), false, rule);
+  });
+});
+
+describe('isPlainContinue', () => {
+  it('accepts labels that only say continue', () => {
+    for (const label of ['Continue', 'Click to continue...', 'Click here to continue…', '<b>Continue.</b>'])
+      assert.ok(isPlainContinue(label), label);
+  });
+
+  it('rejects labels that say more', () => {
+    for (const label of ['Click here to reveal your secret', 'Continue to the Hospital', 'Click here at the end of the round to continue...'])
+      assert.equal(isPlainContinue(label), false, label);
   });
 });

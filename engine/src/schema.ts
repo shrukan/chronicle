@@ -68,8 +68,12 @@ export interface TextNode {
   t: 'text';
   key: string;
   kind: TextKind;
+  /** Set on a `command` that passes the storybook to another player. */
+  role?: TextRole;
   args?: Expr[];
 }
+
+export type TextRole = 'handover';
 
 export interface BreakNode {
   t: 'br';
@@ -117,7 +121,11 @@ export interface LinkNode {
   /** Passage that owns the revealed fragment, when it isn't the current one. */
   revealFrom?: string;
   replace?: boolean;
+  /** Set on a link that only moves the reading on ("Continue…"): no decision, no secret. */
+  role?: LinkRole;
 }
+
+export type LinkRole = 'continue';
 
 /** Immediately leave the current passage. */
 export interface GotoNode {
