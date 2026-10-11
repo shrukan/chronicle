@@ -114,6 +114,10 @@ from the CSS tokens in `src/styles.css` (light and dark paper).
 | `sources/original/`   | The original files the converter reads                                  |
 | `media/`, `upstream/` | Local, git-ignored: Renegade's media download, fan repository clone     |
 
+The root `package.json` is an npm workspace over `engine`, `frontend` and `tools/*`: one install
+and lock file, the engine linked as `@chronicle/engine`. Add dependencies to the package that
+uses them (`npm install -w frontend <package>`), never to the root (see CONTRIBUTING.md).
+
 ## Commands
 
 ```bash

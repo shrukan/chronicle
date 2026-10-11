@@ -51,7 +51,20 @@ Versions are managed by release-please – don't edit version numbers by hand.
 
 - TypeScript everywhere, run directly by Node (type stripping): no enums, namespaces or
   parameter properties; use `.ts` extensions in relative imports.
-- Unit tests use `node:test` next to the code (`*.test.ts`).
+- Unit tests use `node:test` next to the code (`*.test.ts`); the app uses Vitest (`*.spec.ts`).
+
+## Packages
+
+The repository is one [npm workspace](https://docs.npmjs.com/cli/using-npm/workspaces): the
+root `package.json` lists the packages (`engine`, `frontend`, `tools/*`) and holds only what
+checks them all together (TypeScript). Each package declares its own dependencies in its own
+`package.json`; npm installs them all into the root `node_modules` with one lock file, and
+links the engine there as `@chronicle/engine`, so the app and the tools play the same code.
+
+```bash
+npm install -w frontend <package>        # a dependency of the app
+npm install -D -w tools/e2e <package>    # a dev dependency of one tool
+```
 
 ## Content
 
