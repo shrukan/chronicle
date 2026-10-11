@@ -6,8 +6,12 @@ export const ROUNDS_PER_GENERATION = 3;
 export const GENERATIONS = 3;
 export const ROUNDS = GENERATIONS * ROUNDS_PER_GENERATION;
 
-/** Generation numerals as the original shows them (I-1 … III-3). */
-export const ROMAN = ['I', 'II', 'III'] as const;
+const ROMAN = ['I', 'II', 'III'];
+
+/** A generation's numeral as the original shows it (I-1 … III-3). */
+export function generationNumeral(generation: number): string {
+  return ROMAN[generation - 1] ?? String(generation);
+}
 
 /** Where a round of the whole game (from 1) falls: its generation and its round in it, from 1. */
 export function roundPosition(round: number): { generation: number; round: number } {

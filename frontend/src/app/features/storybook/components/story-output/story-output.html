@@ -21,11 +21,7 @@
       }
     }
     @case ('text') {
-      <cr-rich-text
-        [text]="game.text(o.key, o.kind)"
-        [args]="o.args"
-        [class]="o.kind"
-      />
+      <cr-rich-text [text]="game.text(o.key, o.kind)" [args]="o.args" [class]="o.kind" />
     }
     @case ('br') {
       <br />

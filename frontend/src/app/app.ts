@@ -93,10 +93,8 @@ export class App {
    */
   private readonly backdrop = computed(() => {
     const page = this.url().split(/[?#]/)[0];
-    const illustration =
-      page === '/play'
-        ? this.library.ui(STORYBOOK_ILLUSTRATIONS[this.game.scenarioId()])
-        : undefined;
+    const art = STORYBOOK_ILLUSTRATIONS[this.game.scenarioId()];
+    const illustration = page === '/play' && art ? this.library.ui(art) : undefined;
     if (illustration) return `${DIM}, url("${illustration}")`;
     const src = this.library.ui(page === '/score' ? 'general/main-bg-scoring' : 'general/main-bg');
     return src ? `url("${src}")` : 'none';

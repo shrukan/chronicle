@@ -9,7 +9,7 @@ describe('RichText', () => {
     fixture.componentRef.setInput('args', ['Ada']);
     await fixture.whenStable();
 
-    const el: HTMLElement = fixture.nativeElement;
+    const el = fixture.nativeElement as HTMLElement;
     expect(el.textContent?.replace(/\s+/g, ' ').trim()).toBe('Give Ada a Heart Token now');
     expect(el.querySelector('.font-semibold')?.textContent).toBe('Ada');
     expect(el.querySelector('.italic')?.textContent).toBe('now');

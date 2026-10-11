@@ -1,11 +1,11 @@
 import { ChangeDetectionStrategy, Component, computed, inject, input } from '@angular/core';
 import { Library } from '../../../../core/services/library';
-import { ROMAN, ROUNDS, roundPosition } from '../../../../core/utils/rounds';
+import { generationNumeral, ROUNDS, roundPosition } from '../../../../core/utils/rounds';
 
 /** "I-1" … "III-3" for a round of the whole game (from 1). */
 function slotLabel(n: number): string {
   const { generation, round } = roundPosition(n);
-  return `${ROMAN[generation - 1]}-${round}`;
+  return `${generationNumeral(generation)}-${round}`;
 }
 
 /**
@@ -39,7 +39,7 @@ export class RoundBar {
   }));
   protected readonly label = computed(() => {
     const { generation, round } = roundPosition(this.done() + 1);
-    return `Generation ${ROMAN[generation - 1]}, round ${round}`;
+    return `Generation ${generationNumeral(generation)}, round ${round}`;
   });
   protected readonly tube = computed(() => {
     const src = this.library.ui('progress-bar/mfw-progress-bar');

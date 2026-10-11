@@ -51,8 +51,7 @@
     radial-gradient(5rem 4rem at 70% 72%, rgb(150 95 35 / 0.1), transparent 70%),
     radial-gradient(120% 90% at 50% 45%, rgb(255 248 230 / 0.35), transparent 75%);
   /* Darkened, slightly burnt edges. */
-  --paper-edge:
-    inset 0 0 2.5rem rgb(110 65 20 / 0.35), inset 0 0 0.4rem rgb(70 40 10 / 0.45);
+  --paper-edge: inset 0 0 2.5rem rgb(110 65 20 / 0.35), inset 0 0 0.4rem rgb(70 40 10 / 0.45);
 }
 :root[data-theme='dark'] {
   color-scheme: dark;
@@ -107,15 +106,17 @@ body {
   /* Weathered paper: where story text and forms live. */
   .paper {
     background-color: var(--color-bg);
-    background-image: var(--paper-age, linear-gradient(transparent, transparent)),
-      var(--paper-image, none);
+    background-image:
+      var(--paper-age, linear-gradient(transparent, transparent)), var(--paper-image, none);
     background-position: center;
     background-size: auto, cover;
     background-repeat: no-repeat;
     background-blend-mode: normal, var(--paper-blend);
     color: var(--color-ink);
     border-radius: 0.4rem;
-    box-shadow: var(--paper-edge, 0 0 transparent), 0 0.5rem 1.5rem rgb(0 0 0 / 0.45);
+    box-shadow:
+      var(--paper-edge, 0 0 transparent),
+      0 0.5rem 1.5rem rgb(0 0 0 / 0.45);
     padding: 1.5rem 1.25rem;
   }
 

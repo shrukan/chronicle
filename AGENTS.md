@@ -30,8 +30,8 @@ Disease_ playable from setup to the endings; expect breaking changes.
   (`engine`, `converter`, `tester`, `frontend`, `content`, `docker`, `task`, `ci`, `deps`,
   `docs`, `repo`). Subject in lower case, header ≤ 100 characters. Don't edit version numbers:
   release-please manages them.
-- **Check before committing:** `task project:check` (types, unit tests, build, story tester) and,
-  for UI changes, `task frontend:e2e` (a full game in headless Chrome).
+- **Check before committing:** `task project:check` (types, lint, unit tests, build, story
+  tester) and, for UI changes, `task frontend:e2e` (a full game in headless Chrome).
 
 ## Architecture
 
@@ -119,7 +119,8 @@ from the CSS tokens in `src/styles.css` (light and dark paper).
 ```bash
 task deps:install             # dependencies
 task frontend:serve:dev       # dev server at http://localhost:4200 (copies content/ at start)
-task project:check            # types, unit tests, build, story tester
+task project:check            # types, lint, unit tests, build, story tester
+task frontend:lint FIX=true   # fix lint and formatting in the app
 task frontend:e2e             # full game in headless Chrome
 task content:convert          # original scripts → content/
 task content:assets           # media/ → content/assets/

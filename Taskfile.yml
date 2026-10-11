@@ -49,10 +49,11 @@ tasks:
 
   # Project
   project:check:
-    desc: "Everything CI checks: types, unit tests, app build, story tester."
+    desc: "Everything CI checks: types, lint and formatting, unit tests, app build, story tester."
     deps: [deps:install]
     cmds:
       - npx tsc -b
+      - task: frontend:lint
       - npm test
       - task: frontend:test
       - task: frontend:build
@@ -91,6 +92,14 @@ tasks:
     sources: ["src/**/*", "public/**/*", "angular.json", "ngsw-config.json", "../engine/src/**/*.ts", "../package-lock.json"]
     generates: ["{{.OUTPUT_DIR}}/browser/index.html"]
     cmd: npx ng build --configuration=production --output-path="{{.OUTPUT_DIR}}" --base-href="{{.BASE_HREF}}"
+
+  frontend:lint:
+    desc: "Lint the app (ESLint, also its templates) and check its formatting (Prettier; FIX=true to fix both)."
+    deps: [deps:install]
+    dir: frontend
+    cmds:
+      - npx eslint src {{if .FIX}}--fix{{end}}
+      - npx prettier {{if .FIX}}--write{{else}}--check{{end}} "src/**/*.{ts,html,css}" eslint.config.js
 
   frontend:test:
     desc: Unit tests of the app (Vitest).

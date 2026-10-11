@@ -47,10 +47,11 @@ const DB = 'chronicle';
 const SAVES = 'saves';
 const UNLOCKS = 'unlocks';
 
-function request<T>(req: IDBRequest<T>): Promise<T> {
+/** An IndexedDB request as a promise; `T` is what this app stored there. */
+function request<T>(req: IDBRequest): Promise<T> {
   return new Promise((resolve, reject) => {
-    req.onsuccess = () => resolve(req.result);
-    req.onerror = () => reject(req.error);
+    req.onsuccess = () => resolve(req.result as T);
+    req.onerror = () => reject(req.error ?? new Error('IndexedDB request failed'));
   });
 }
 
@@ -73,7 +74,7 @@ export class SaveStore {
           db.createObjectStore(UNLOCKS, { keyPath: 'scenario' });
       };
       req.onsuccess = () => resolve(req.result);
-      req.onerror = () => reject(req.error);
+      req.onerror = () => reject(req.error ?? new Error('IndexedDB could not be opened'));
     });
     return this.db;
   }

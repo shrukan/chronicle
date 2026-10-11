@@ -291,7 +291,7 @@ chronicle/
 | Task | What it does |
 |---|---|
 | `deps:install` | install all workspace dependencies |
-| `project:check` | everything CI checks: types, unit tests, app build, story tester |
+| `project:check` | everything CI checks: types, lint and formatting (app), unit tests, app build, story tester |
 | `content:convert` | converter on `upstream/` → `content/` (stories and screen texts) |
 | `content:assets` | images and audio from Renegade's download → `content/assets` |
 | `content:test` | story tester, fails on new issues |

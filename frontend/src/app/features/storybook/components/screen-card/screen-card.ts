@@ -14,7 +14,12 @@ import { toText, type Out } from '@chronicle/engine';
 import { AudioPlayer } from '../../../../core/services/audio';
 import { Game } from '../../../../core/services/game';
 import { Library } from '../../../../core/services/library';
-import { ROMAN, ROUNDS, ROUNDS_PER_GENERATION, roundPosition } from '../../../../core/utils/rounds';
+import {
+  generationNumeral,
+  ROUNDS,
+  ROUNDS_PER_GENERATION,
+  roundPosition,
+} from '../../../../core/utils/rounds';
 import { Modal } from '../../../../shared/components/modal/modal';
 import { RichText } from '../rich-text/rich-text';
 
@@ -60,7 +65,8 @@ export class ScreenCard implements OnInit, OnDestroy {
     const n = this.round()?.round;
     if (!n) return undefined;
     const { generation, round } = roundPosition(n);
-    return this.library.ui(`progress-bar/${ROMAN[generation - 1].toLowerCase()}${round}-glow`);
+    const numeral = generationNumeral(generation).toLowerCase();
+    return this.library.ui(`progress-bar/${numeral}${round}-glow`);
   });
 
   /**
