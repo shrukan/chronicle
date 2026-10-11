@@ -80,10 +80,26 @@ h3 {
 }
 ul {
   margin: 0;
-  padding-left: 1.25rem;
+  padding: 0;
+  list-style: none;
   display: grid;
-  gap: 0.3rem;
+  gap: 0.5rem;
   line-height: 1.5;
+}
+/* Each entry behind one of the original's brass studs (a dot without the picture). */
+li {
+  position: relative;
+  padding-left: 1.4rem;
+}
+li::before {
+  content: '';
+  position: absolute;
+  left: 0.15rem;
+  top: 0.5em;
+  width: 0.6rem;
+  height: 0.6rem;
+  border-radius: 50%;
+  background: var(--bullet-image, none) center / contain no-repeat var(--color-accent);
 }
 /* The entries are written as continuations ("mute all sound …"). */
 li::first-letter {

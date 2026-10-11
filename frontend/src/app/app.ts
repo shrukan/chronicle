@@ -26,6 +26,7 @@ const THEME_IMAGES = {
   '--button-cancel-image': 'general/buttons/button-red',
   '--button-confirm-image': 'general/buttons/blank-button-green',
   '--checkbox-image': 'scoring-and-tie-breaker/checkbox',
+  '--bullet-image': 'popup-panels/brass-stud',
   '--checkmark-image': 'scoring-and-tie-breaker/checkmark',
   '--bracket-left-image': 'general/brackets/bracket-left',
   '--bracket-right-image': 'general/brackets/bracket-right',
