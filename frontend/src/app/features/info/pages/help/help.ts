@@ -24,7 +24,7 @@ const CHRONICLE = {
     '**Location pages.** Each action is a panel of its own: tap it when the game says so. The plate below the actions moves on to the next round.',
     '**Menu.** ☰ pauses the game. There you can switch the story to Easy English or Short, change the narrator, the paper and the volume – at any time. Easy and Short change only the story, never the rules.',
     '**Sound.** The speaker turns all sound off and on.',
-    '**Saving.** The game saves after every step: close the app whenever you like and continue from the main menu. Once loaded, Chronicle also works offline; add it to your home screen from the browser’s menu.',
+    '**Saving.** The game saves after every step: close the app whenever you like and continue from the main menu. Several games can be kept side by side – a new game never replaces one; find them all under Saved games. Saves stay in this browser on this device. Once loaded, Chronicle also works offline; add it to your home screen from the browser’s menu.',
     '**Back.** Your device’s Back closes an open window. Windows that need an answer, such as a hand-over, stay.',
   ].join('\n\n'),
 };

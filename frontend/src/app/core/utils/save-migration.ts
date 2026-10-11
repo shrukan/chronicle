@@ -32,7 +32,46 @@ interface SaveV0 extends Omit<
 function isSave(raw: unknown): raw is SaveV0 | SavedGame {
   if (!raw || typeof raw !== 'object') return false;
   const save = raw as Partial<SavedGame>;
-  return !!save.setup && !!save.snapshot && typeof save.snapshot.passage === 'string';
+  return (
+    typeof save.id === 'string' &&
+    !!save.setup &&
+    !!save.snapshot &&
+    typeof save.snapshot.passage === 'string'
+  );
+}
+
+/** What the list of saved games shows about one, without giving the story away. */
+export interface SaveSummary {
+  id: string;
+  scenario: string;
+  village: string;
+  /** The players' names, in order. */
+  names: string[];
+  roundsDone: number;
+  playTime: number;
+  savedAt: number;
+  /** The story reached an ending. */
+  finished: boolean;
+  status: LoadedSave['status'];
+}
+
+/** A stored save as the list shows it; undefined when it isn't a save. */
+export function summarizeSave(raw: unknown, scenario: Scenario): SaveSummary | undefined {
+  const loaded = migrateSave(raw, scenario);
+  if (!loaded || !isSave(raw)) return undefined;
+  const save = loaded.status === 'ok' ? loaded.save : raw;
+  const passage = scenario.passages[save.snapshot.passage];
+  return {
+    id: save.id,
+    scenario: save.scenario,
+    village: save.setup.village,
+    names: save.setup.names.slice(0, save.setup.players),
+    roundsDone: save.roundsDone ?? 0,
+    playTime: save.playTime ?? 0,
+    savedAt: save.savedAt,
+    finished: loaded.status === 'ok' && !!passage?.tags.includes('ending'),
+    status: loaded.status,
+  };
 }
 
 /**

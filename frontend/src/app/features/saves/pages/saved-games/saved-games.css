@@ -1,0 +1,83 @@
+:host {
+  display: block;
+}
+.sheet {
+  display: grid;
+  justify-items: center;
+  gap: 1rem;
+  max-width: 32rem;
+  margin: 0 auto;
+}
+h1 {
+  margin: 0;
+  font-size: 1.8rem;
+}
+.empty {
+  margin: 0;
+  font-style: italic;
+}
+.games {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 0.6rem;
+}
+.games li {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem 1rem;
+  padding: 0.7rem 0.85rem;
+  border: 1px solid var(--color-rule);
+  border-radius: 0.4rem;
+  background: var(--color-field);
+}
+.games li.unavailable .about {
+  opacity: 0.7;
+}
+.about {
+  display: grid;
+  gap: 0.1rem;
+  min-width: 0;
+  flex: 1 1 14rem;
+}
+.about strong {
+  font-family: var(--font-display);
+  font-weight: normal;
+  font-size: 1.2rem;
+  color: var(--color-heading);
+  overflow-wrap: anywhere;
+}
+.standing {
+  font-style: italic;
+}
+.about small {
+  color: var(--color-muted);
+}
+.actions {
+  display: flex;
+  gap: 0.5rem;
+}
+.actions .btn {
+  padding: 0.3rem 0.9rem;
+}
+.question {
+  margin: 0 0 0.25rem;
+  font-size: 1.2rem;
+  text-align: center;
+}
+.consequence {
+  margin: 0 0 1.25rem;
+  text-align: center;
+  font-style: italic;
+  color: var(--color-muted);
+}
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.75rem;
+}

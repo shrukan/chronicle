@@ -16,6 +16,7 @@ import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { form, FormField, FormRoot, required } from '@angular/forms/signals';
 import { AudioPlayer } from '../../../../core/services/audio';
 import { Game, NOT_RESUMED, type ResumeResult } from '../../../../core/services/game';
+import { SavedGames } from '../../../../core/services/saved-games';
 import { bugReportUrl } from '../../../../core/utils/bug-report';
 import { Autofocus } from '../../../../shared/directives/autofocus/autofocus';
 import { Library } from '../../../../core/services/library';
@@ -161,12 +162,14 @@ export class Play {
   protected readonly notResumed = signal<string | undefined>(undefined);
 
   constructor() {
-    // After a reload (or opening /play directly) continue the saved game.
+    // After a reload (or opening /play directly) continue the game played last.
+    const savedGames = inject(SavedGames);
     const resumed: Promise<ResumeResult> = this.game.view()
       ? Promise.resolve('resumed')
       : (this.resuming.set(true),
-        this.game
-          .resume()
+        savedGames
+          .list()
+          .then(([last]) => (last ? this.game.resume(last.id) : 'none'))
           .then((result) => {
             if (result === 'changed' || result === 'newer')
               this.notResumed.set(NOT_RESUMED[result]);

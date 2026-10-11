@@ -1,7 +1,7 @@
 import { FORMAT_VERSION, type Scenario, type StorySnapshot } from '@chronicle/engine';
 import { describe, expect, it } from 'vitest';
 import { SAVE_VERSION, type SavedGame } from '../services/save-store';
-import { migrateSave } from './save-migration';
+import { migrateSave, summarizeSave } from './save-migration';
 
 const scenario: Scenario = {
   format: FORMAT_VERSION,
@@ -36,6 +36,7 @@ const snapshot = (passage = 'A', to = 'B'): StorySnapshot => ({
 
 /** A save as 0.6.0 wrote it: no version, no undo, no round count. */
 const v0 = {
+  id: 'game-1',
   scenario: 'cost-of-disease',
   setup: { players: 2, names: ['Ada', 'Bram'], village: 'Testville' },
   snapshot: snapshot(),
@@ -85,5 +86,31 @@ describe('migrateSave', () => {
     };
     const loaded = migrateSave(save, scenario) as { save: SavedGame };
     expect(loaded.save.undo).toHaveLength(2);
+  });
+});
+
+describe('summarizeSave', () => {
+  it('tells where a game stands without the story', () => {
+    expect(summarizeSave({ ...v0, roundsDone: 4, playTime: 60_000 }, scenario)).toEqual({
+      id: 'game-1',
+      scenario: 'cost-of-disease',
+      village: 'Testville',
+      names: ['Ada', 'Bram'],
+      roundsDone: 4,
+      playTime: 60_000,
+      savedAt: 1,
+      finished: false,
+      status: 'ok',
+    });
+  });
+
+  it('marks a game that reached an ending, and one the story can no longer continue', () => {
+    const ending: Scenario = {
+      ...scenario,
+      passages: { ...scenario.passages, A: { ...scenario.passages['A']!, tags: ['ending'] } },
+    };
+    expect(summarizeSave(v0, ending)?.finished).toBe(true);
+    const gone = { ...v0, snapshot: snapshot('Gone') };
+    expect(summarizeSave(gone, scenario)).toMatchObject({ status: 'changed', finished: false });
   });
 });

@@ -13,6 +13,8 @@ export const SAVE_VERSION = 1;
 
 export interface SavedGame {
   version: typeof SAVE_VERSION;
+  /** Several games can be saved; each has its own id (see `newSaveId`). */
+  id: string;
   scenario: ScenarioId;
   setup: GameSetup;
   snapshot: StorySnapshot;
@@ -44,8 +46,18 @@ export interface Unlocks {
 }
 
 const DB = 'chronicle';
-const SAVES = 'saves';
+const GAMES = 'games';
 const UNLOCKS = 'unlocks';
+/** Up to database version 2: one game per scenario, keyed by the scenario. */
+const OLD_SAVES = 'saves';
+
+/** A new saved game's id (random, so ids from other devices never clash). */
+export function newSaveId(): string {
+  // randomUUID only exists on https (and localhost); a self-hosted copy may run on plain http.
+  return (
+    crypto.randomUUID?.() ?? `${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 10)}`
+  );
+}
 
 /** An IndexedDB request as a promise; `T` is what this app stored there. */
 function request<T>(req: IDBRequest): Promise<T> {
@@ -65,15 +77,32 @@ export class SaveStore {
 
   private open(): Promise<IDBDatabase> {
     this.db ??= new Promise((resolve, reject) => {
-      const req = indexedDB.open(DB, 2);
+      const req = indexedDB.open(DB, 3);
       req.onupgradeneeded = () => {
         const db = req.result;
-        if (!db.objectStoreNames.contains(SAVES))
-          db.createObjectStore(SAVES, { keyPath: 'scenario' });
+        const tx = req.transaction!;
         if (!db.objectStoreNames.contains(UNLOCKS))
           db.createObjectStore(UNLOCKS, { keyPath: 'scenario' });
+        if (!db.objectStoreNames.contains(GAMES)) db.createObjectStore(GAMES, { keyPath: 'id' });
+        // The game saved before there could be several becomes the first of them.
+        if (db.objectStoreNames.contains(OLD_SAVES)) {
+          const old = tx.objectStore(OLD_SAVES).getAll();
+          old.onsuccess = () => {
+            for (const game of old.result as object[])
+              tx.objectStore(GAMES).put({ ...game, id: newSaveId() });
+            db.deleteObjectStore(OLD_SAVES);
+          };
+        }
       };
-      req.onsuccess = () => resolve(req.result);
+      req.onsuccess = () => {
+        const db = req.result;
+        // Another tab with a newer version wants to upgrade the database: let it.
+        db.onversionchange = () => {
+          db.close();
+          this.db = undefined;
+        };
+        resolve(db);
+      };
       req.onerror = () => reject(req.error ?? new Error('IndexedDB could not be opened'));
     });
     return this.db;
@@ -86,17 +115,22 @@ export class SaveStore {
     return (await this.open()).transaction(name, mode).objectStore(name);
   }
 
-  /** The save as stored, possibly by an earlier version of the app (see `migrateSave`). */
-  async load(scenario: ScenarioId): Promise<unknown> {
-    return request<unknown>((await this.store(SAVES)).get(scenario));
+  /** Every saved game as stored, possibly by an earlier version of the app (see `migrateSave`). */
+  async list(): Promise<unknown[]> {
+    return request<unknown[]>((await this.store(GAMES)).getAll());
+  }
+
+  /** One saved game as stored (see `list`). */
+  async load(id: string): Promise<unknown> {
+    return request<unknown>((await this.store(GAMES)).get(id));
   }
 
   async save(game: SavedGame): Promise<void> {
-    await request((await this.store(SAVES, 'readwrite')).put(game));
+    await request((await this.store(GAMES, 'readwrite')).put(game));
   }
 
-  async remove(scenario: ScenarioId): Promise<void> {
-    await request((await this.store(SAVES, 'readwrite')).delete(scenario));
+  async remove(id: string): Promise<void> {
+    await request((await this.store(GAMES, 'readwrite')).delete(id));
   }
 
   async unlocks(scenario: ScenarioId): Promise<Unlocks> {

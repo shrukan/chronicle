@@ -1,16 +1,26 @@
 import { Autofocus } from '../../../../shared/directives/autofocus/autofocus';
-import { ChangeDetectionStrategy, Component, inject, resource, signal } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  inject,
+  resource,
+  signal,
+} from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
-import { AppUpdate } from '../../../../core/services/app-update';
 import { AudioPlayer } from '../../../../core/services/audio';
-import { Game, NOT_RESUMED } from '../../../../core/services/game';
+import { Game } from '../../../../core/services/game';
 import { Library } from '../../../../core/services/library';
+import { SavedGames } from '../../../../core/services/saved-games';
 import { WhatsNew } from '../../../../core/services/whats-new';
 import { Modal } from '../../../../shared/components/modal/modal';
 import { SettingsPanel } from '../../../../shared/components/settings-panel/settings-panel';
 import { TitleScene } from '../../components/title-scene/title-scene';
 
-/** Title screen, laid out like the original's: continue, new game, settings, endings, help. */
+/**
+ * Title screen, laid out like the original's: continue, new game, settings, endings, help – and
+ * the saved games, since several can be kept.
+ */
 @Component({
   selector: 'cr-main-menu',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -24,13 +34,13 @@ export class MainMenu {
   private readonly game = inject(Game);
   private readonly router = inject(Router);
   private readonly audio = inject(AudioPlayer);
-  private readonly appUpdate = inject(AppUpdate);
+  private readonly savedGames = inject(SavedGames);
 
-  protected readonly hasSave = resource({ loader: () => this.game.hasSave() });
-  protected readonly confirmOpen = signal(false);
-  /** Why the saved game can't be continued, once Continue found out. */
-  protected readonly notResumed = signal<'changed' | 'newer' | undefined>(undefined);
-  protected readonly notResumedText = NOT_RESUMED;
+  protected readonly saves = resource({ loader: () => this.savedGames.list() });
+  /** Continue picks up the game played last that isn't over and still fits the story. */
+  protected readonly toContinue = computed(() =>
+    this.saves.value()?.find((s) => s.status === 'ok' && !s.finished),
+  );
   protected readonly settingsOpen = signal(false);
 
   protected t(key: string, fallback: string): string {
@@ -38,28 +48,16 @@ export class MainMenu {
   }
 
   protected async resume(): Promise<void> {
+    const save = this.toContinue();
+    if (!save) return;
     this.audio.effect('welcome');
-    const result = await this.game.resume();
-    if (result === 'resumed') await this.router.navigate(['/play']);
-    else if (result !== 'none') this.notResumed.set(result);
+    if ((await this.game.resume(save.id)) === 'resumed') await this.router.navigate(['/play']);
+    else this.saves.reload();
   }
 
-  protected newGame(): void {
-    // Starting over would overwrite the saved game – ask first, like the original.
-    if (this.hasSave.value()) this.confirmOpen.set(true);
-    else void this.startOver();
-  }
-
-  /** A newer version saved the game: fetch it and switch to it. */
-  protected async reload(): Promise<void> {
-    await this.appUpdate.check();
-    await this.appUpdate.reload();
-  }
-
-  protected async startOver(): Promise<void> {
-    this.confirmOpen.set(false);
-    this.notResumed.set(undefined);
-    await this.game.abandon();
+  /** A new game is saved next to the others; the one being played stays saved. */
+  protected async newGame(): Promise<void> {
+    this.game.close();
     this.audio.effect('welcome');
     await this.router.navigate(['/setup']);
   }

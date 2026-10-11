@@ -35,7 +35,7 @@
 
   <!-- The original's 2 × 2 grid of brown plates. -->
   <nav class="buttons">
-    @if (hasSave.value()) {
+    @if (toContinue()) {
       <button crAutofocus type="button" class="btn" (click)="resume()">
         {{ t('UI/MainMenu/Viewarea/GridButtons/Continue/Text (TMP)', 'Continue') }}
       </button>
@@ -43,6 +43,9 @@
     <button type="button" class="btn" (click)="newGame()">
       {{ t('UI/MainMenu/Viewarea/GridButtons/NewGame/Text (TMP)', 'New game') }}
     </button>
+    @if (saves.value()?.length) {
+      <a class="btn" routerLink="/saves">Saved games</a>
+    }
     <button type="button" class="btn" (click)="settingsOpen.set(true)">
       {{ t('UI/MainMenu/Viewarea/GridButtons/Setting/Text (TMP)', 'Settings') }}
     </button>
@@ -51,69 +54,6 @@
     }}</a>
   </nav>
 </section>
-
-<cr-modal
-  [open]="confirmOpen()"
-  [dismissable]="true"
-  (closed)="confirmOpen.set(false)"
-  label="Start a new game"
->
-  <p class="question">
-    {{
-      t(
-        'UI/MainMenu/Viewarea/RewriteData UI/RewriteData Panel/PanelBG/RewriteText',
-        'Rewrite existing data?'
-      )
-    }}
-  </p>
-  <p class="consequence">Your saved game will be replaced.</p>
-  <div class="row">
-    <button type="button" class="btn cancel" (click)="confirmOpen.set(false)">
-      {{
-        t(
-          'UI/MainMenu/Viewarea/RewriteData UI/RewriteData Panel/PanelBG/CancleButton/Text (TMP)',
-          'Cancel'
-        )
-      }}
-    </button>
-    <button type="button" class="btn confirm" (click)="startOver()">
-      {{
-        t(
-          'UI/MainMenu/Viewarea/RewriteData UI/RewriteData Panel/PanelBG/OkButton/Text (TMP)',
-          'Confirm'
-        )
-      }}
-    </button>
-  </div>
-</cr-modal>
-
-@let reason = notResumed();
-<cr-modal
-  [open]="!!reason"
-  [dismissable]="true"
-  (closed)="notResumed.set(undefined)"
-  label="Saved game"
->
-  <p class="question">Your saved game can’t be continued</p>
-  <p class="consequence">{{ reason && notResumedText[reason] }}</p>
-  <div class="row">
-    <button type="button" class="btn cancel" (click)="notResumed.set(undefined)">
-      {{
-        t(
-          'UI/MainMenu/Viewarea/RewriteData UI/RewriteData Panel/PanelBG/CancleButton/Text (TMP)',
-          'Cancel'
-        )
-      }}
-    </button>
-    @if (reason === 'newer') {
-      <button type="button" class="btn confirm" (click)="reload()">Reload</button>
-    } @else {
-      <button type="button" class="btn confirm" (click)="startOver()">
-        {{ t('UI/MainMenu/Viewarea/GridButtons/NewGame/Text (TMP)', 'New game') }}
-      </button>
-    }
-  </div>
-</cr-modal>
 
 <cr-modal
   [open]="settingsOpen()"

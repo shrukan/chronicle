@@ -1,0 +1,53 @@
+<section class="paper sheet">
+  <h1 class="heading">Saved games</h1>
+
+  @if (loaded() && !items().length) {
+    <p class="empty">No saved games on this device.</p>
+  }
+  <ul class="games">
+    @for (save of items(); track save.id) {
+      <li [class.unavailable]="save.status !== 'ok'">
+        <div class="about">
+          <strong>{{ save.village }}</strong>
+          <span>{{ save.title }} · {{ save.names.join(', ') }}</span>
+          <span class="standing">{{ save.standing }}</span>
+          <small>Last played {{ save.lastPlayed }} · played for {{ save.played }}</small>
+        </div>
+        <div class="actions">
+          @if (save.status === 'ok') {
+            <button type="button" class="btn confirm" (click)="open(save.id)">
+              {{ save.finished ? 'Open' : 'Continue' }}
+            </button>
+          } @else if (save.status === 'newer') {
+            <button type="button" class="btn confirm" (click)="update()">Reload</button>
+          }
+          <button
+            type="button"
+            class="btn cancel"
+            (click)="toDelete.set(save)"
+            [attr.aria-label]="'Delete the game of ' + save.village"
+          >
+            Delete
+          </button>
+        </div>
+      </li>
+    }
+  </ul>
+
+  <a class="btn cancel" routerLink="/">Back</a>
+</section>
+
+@let deleting = toDelete();
+<cr-modal
+  [open]="!!deleting"
+  [dismissable]="true"
+  (closed)="toDelete.set(undefined)"
+  label="Delete a saved game"
+>
+  <p class="question">Delete the game of {{ deleting?.village }}?</p>
+  <p class="consequence">It can’t be brought back.</p>
+  <div class="row">
+    <button type="button" class="btn cancel" (click)="toDelete.set(undefined)">Cancel</button>
+    <button type="button" class="btn confirm" (click)="remove()">Delete</button>
+  </div>
+</cr-modal>

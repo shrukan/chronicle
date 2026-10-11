@@ -13,12 +13,12 @@ import {
   type Value,
 } from '@chronicle/engine';
 import { AudioPlayer } from './audio';
-import { loadContent, type ScenarioContent, type ScenarioId } from './content';
+import { isScenarioId, loadContent, type ScenarioContent, type ScenarioId } from './content';
 import { boxOnly, revealPlainContinues, takeBoxesTogether } from '../utils/auto-steps';
 import { ROUNDS, roundPosition, roundsAfter } from '../utils/rounds';
 import { migrateSave } from '../utils/save-migration';
 import { titleKey } from '../utils/story-output';
-import { SAVE_VERSION, SaveStore, type GameSetup, type UndoStep } from './save-store';
+import { newSaveId, SAVE_VERSION, SaveStore, type GameSetup, type UndoStep } from './save-store';
 import { Settings } from './settings';
 
 /**
@@ -49,6 +49,8 @@ export class Game {
   private readonly audio = inject(AudioPlayer);
 
   readonly scenarioId = signal<ScenarioId>('cost-of-disease');
+  /** Id of the saved game being played (several can be saved; see SavedGames). */
+  readonly saveId = signal<string | undefined>(undefined);
   /** Loaded content of the current scenario (undefined until loaded). */
   readonly content = signal<ScenarioContent | undefined>(undefined);
   private readonly loading = new Map<ScenarioId, Promise<ScenarioContent>>();
@@ -112,12 +114,10 @@ export class Game {
     return strings ? resolveText(strings, key, this.settings.readingMode(), kind) : '';
   }
 
-  async hasSave(): Promise<boolean> {
-    return !!(await this.saves.load(this.scenarioId()));
-  }
-
+  /** Starts a game of the current scenario; it is saved next to the games saved before. */
   async newGame(setup: GameSetup): Promise<void> {
     const content = await this.loadContent();
+    this.saveId.set(newSaveId());
     const vars: Record<string, Value> = { players: setup.players, townname: setup.village };
     PLAYER_NAME_VARIABLES.forEach((v, i) => (vars[v] = i < setup.players ? setup.names[i]! : ''));
     this.story = new Story(content.scenario, { vars });
@@ -132,16 +132,19 @@ export class Game {
     this.step(() => this.story!.start());
   }
 
-  /** Continues the saved game, if there is one that fits the current story. */
-  async resume(): Promise<ResumeResult> {
-    const raw = await this.saves.load(this.scenarioId());
-    if (!raw) return 'none';
+  /** Continues a saved game, if it fits the current story. */
+  async resume(id: string): Promise<ResumeResult> {
+    const raw = await this.saves.load(id);
+    const scenario = (raw as { scenario?: unknown } | undefined)?.scenario;
+    if (!isScenarioId(scenario)) return 'none';
+    this.scenarioId.set(scenario);
     const content = await this.loadContent();
     const loaded = migrateSave(raw, content.scenario);
     if (!loaded) return 'none';
     // Not logged: the problems name passages, which would give the story away.
     if (loaded.status !== 'ok') return loaded.status;
     const saved = loaded.save;
+    this.saveId.set(saved.id);
     this.story = new Story(content.scenario);
     this.setup.set(saved.setup);
     this.log.set(saved.log);
@@ -156,9 +159,12 @@ export class Game {
     return 'resumed';
   }
 
-  async abandon(): Promise<void> {
-    await this.saves.remove(this.scenarioId());
+  /** Leaves the game being played (it stays saved), e.g. before starting another one. */
+  close(): void {
     this.story = undefined;
+    this.saveId.set(undefined);
+    this.setup.set(undefined);
+    this.lastSafe = undefined;
     this.view.set(undefined);
     this.log.set([]);
     this.undoSteps.set([]);
@@ -326,10 +332,11 @@ export class Game {
 
   /** Saves the game now (also called when leaving the storybook or hiding the app). */
   async persist(): Promise<void> {
-    const setup = this.setup();
-    if (!setup || !this.lastSafe) return;
+    const [id, setup] = [this.saveId(), this.setup()];
+    if (!id || !setup || !this.lastSafe) return;
     await this.saves.save({
       version: SAVE_VERSION,
+      id,
       scenario: this.scenarioId(),
       setup,
       snapshot: this.lastSafe,
@@ -344,14 +351,18 @@ export class Game {
 
   /** Loads (once) and returns the current scenario's content. */
   async loadContent(): Promise<ScenarioContent> {
-    const id = this.scenarioId();
-    let loading = this.loading.get(id);
-    if (!loading) {
-      loading = loadContent(id, new AbortController().signal);
-      this.loading.set(id, loading);
-    }
-    const content = await loading;
+    const content = await this.contentOf(this.scenarioId());
     this.content.set(content);
     return content;
+  }
+
+  /** Loads (once) a scenario's content, without making it the current one. */
+  contentOf(id: ScenarioId): Promise<ScenarioContent> {
+    let loading = this.loading.get(id);
+    if (!loading) {
+      loading = loadContent(id);
+      this.loading.set(id, loading);
+    }
+    return loading;
   }
 }

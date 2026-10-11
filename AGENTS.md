@@ -74,8 +74,8 @@ Feature-based, one folder per component, each with its own `.ts`, `.html`, `.css
 app.ts / app.html / app.css      shell: backdrop, update and error notices, footer
 app.routes.ts, app.config.ts
 core/services/                   app-wide singletons: game, library (assets, screen texts,
-                                 voices), audio, settings, save-store, content, whats-new,
-                                 app-update, app-errors
+                                 voices), audio, settings, save-store, saved-games, content,
+                                 whats-new, app-update, app-errors
 core/utils/                      plain helpers: steps the app takes for the players
                                  (auto-steps), page output, rounds, save migration,
                                  bug-report links, wake lock
@@ -89,10 +89,10 @@ shared/directives/<name>/        e.g. autofocus
 shared/utils/                    e.g. duration formatting
 ```
 
-Features: `menu` (main menu, title scene), `setup` (player count to scenario choice),
-`storybook` (play page; story output, rich text, screen cards for end of round / votes /
-scoring hand-off, round bar, log book), `scoring`, `endings`, `info` (about, help, what's new),
-`dev` (the `/voices` test page, development builds only). Put a new component in the feature
+Features: `menu` (main menu, title scene), `saves` (the list of saved games), `setup` (player
+count to scenario choice), `storybook` (play page; story output, rich text, screen cards for end
+of round / votes / scoring hand-off, round bar, log book), `scoring`, `endings`, `info` (about,
+help, what's new), `dev` (the `/voices` test page, development builds only). Put a new component in the feature
 that uses it; move it to `shared/` only once a second feature needs it.
 
 Component conventions: selector prefix `cr-`, `templateUrl`/`styleUrl` (no inline templates),

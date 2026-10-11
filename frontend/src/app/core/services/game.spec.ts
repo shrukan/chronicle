@@ -6,6 +6,7 @@ import {
   type StringTable,
 } from '@chronicle/engine';
 import { Game } from './game';
+import { SavedGames } from './saved-games';
 import { SAVE_VERSION, SaveStore, type SavedGame } from './save-store';
 
 const scenario: Scenario = {
@@ -52,18 +53,23 @@ const strings: StringTable = {
 };
 const extras: ScenarioExtras = { endOfRound: {}, logBook: {}, voiceOver: {} };
 
-class MemorySaves implements Pick<SaveStore, 'load' | 'save' | 'remove'> {
-  saved?: SavedGame;
-  async load() {
-    return this.saved;
+class MemorySaves implements Pick<SaveStore, 'list' | 'load' | 'save' | 'remove'> {
+  readonly games = new Map<string, SavedGame>();
+  async list() {
+    return [...this.games.values()];
+  }
+  async load(id: string) {
+    return this.games.get(id);
   }
   async save(g: SavedGame) {
-    this.saved = structuredClone(g);
+    this.games.set(g.id, structuredClone(g));
   }
-  async remove() {
-    this.saved = undefined;
+  async remove(id: string) {
+    this.games.delete(id);
   }
 }
+
+const settle = () => new Promise((resolve) => setTimeout(resolve));
 
 describe('Game', () => {
   let saves: MemorySaves;
@@ -137,23 +143,50 @@ describe('Game', () => {
     await game.newGame({ players: 2, names: ['Ada', 'Bram', '', '', ''], village: 'Ravensbrück' });
     game.click(game.view()!.links[0]!);
     game.answer('4');
-    await Promise.resolve();
-    expect(saves.saved?.snapshot.passage).toBe('B');
+    await settle();
+    const id = game.saveId()!;
+    expect(saves.games.get(id)?.snapshot.passage).toBe('B');
+    expect(saves.games.get(id)?.version).toBe(SAVE_VERSION);
 
-    const again = TestBed.inject(Game);
-    expect(await again.resume()).toBe('resumed');
-    expect(again.view()?.passage).toBe('B');
-    expect(again.setup()?.names[0]).toBe('Ada');
-    expect(saves.saved?.version).toBe(SAVE_VERSION);
+    game.close();
+    expect(game.view()).toBeUndefined();
+    expect(await game.resume(id)).toBe('resumed');
+    expect(game.view()?.passage).toBe('B');
+    expect(game.setup()?.names[0]).toBe('Ada');
+  });
+
+  it('keeps several games, the one played last first', async () => {
+    const game = TestBed.inject(Game);
+    const list = TestBed.inject(SavedGames);
+    await game.newGame({ players: 2, names: ['Ada', 'Bram'], village: 'Ravensbrück' });
+    await settle();
+    const first = game.saveId()!;
+    await game.newGame({ players: 3, names: ['Cosima', 'Dara', 'Emil'], village: 'Testville' });
+    await settle();
+    // The first one is played again: it moves to the top.
+    expect(await game.resume(first)).toBe('resumed');
+    game.click(game.view()!.links[0]!);
+    await settle();
+
+    const saved = await list.list();
+    expect(saved.map((s) => s.village)).toEqual(['Ravensbrück', 'Testville']);
+    expect(saved[1]).toMatchObject({ names: ['Cosima', 'Dara', 'Emil'], status: 'ok' });
+
+    await list.remove(first);
+    expect(game.view()).toBeUndefined();
+    expect((await list.list()).map((s) => s.village)).toEqual(['Testville']);
   });
 
   it('does not continue a save the changed story cannot continue', async () => {
     const game = TestBed.inject(Game);
     await game.newGame({ players: 2, names: ['Ada', 'Bram', '', '', ''], village: 'Ravensbrück' });
-    await Promise.resolve();
-    saves.saved = { ...saves.saved!, snapshot: { ...saves.saved!.snapshot, passage: 'Gone' } };
+    await settle();
+    const id = game.saveId()!;
+    const saved = saves.games.get(id)!;
+    saves.games.set(id, { ...saved, snapshot: { ...saved.snapshot, passage: 'Gone' } });
 
-    expect(await game.resume()).toBe('changed');
-    expect(await TestBed.inject(Game).hasSave()).toBe(true);
+    expect(await game.resume(id)).toBe('changed');
+    const [summary] = await TestBed.inject(SavedGames).list();
+    expect(summary).toMatchObject({ village: 'Ravensbrück', status: 'changed' });
   });
 });

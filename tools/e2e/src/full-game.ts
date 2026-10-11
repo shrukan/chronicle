@@ -1,8 +1,8 @@
 /**
  * Plays The Cost of Disease from the title screen to an ending in headless Chrome, against
  * the production build: setup flow, story with its dialogs (setup pop-ups, end of round,
- * bidding countdown), a tied final score through both tie-breakers, the ending and the
- * endings gallery. Fails on any page error or if the game cannot be finished.
+ * bidding countdown), a tied final score through both tie-breakers, the ending, the endings
+ * gallery and the saved games. Fails on any page error or if the game cannot be finished.
  *
  * Usage: node tools/e2e/src/full-game.ts [--build build/web/browser] [--base /sub/path/] [--chrome /usr/bin/google-chrome] [--shots dir]
  */
@@ -160,6 +160,13 @@ try {
   await page.locator('.slots li').first().waitFor();
   check((await page.locator('.slots li:not(.locked)').count()) === 1, 'the gallery shows the unlocked ending');
   check((await page.locator('.slots li.locked strong').allInnerTexts()).every((t) => t === '???'), 'locked endings stay hidden');
+
+  console.log('saved games');
+  await page.goto(url);
+  await page.getByRole('link', { name: 'Saved games' }).click();
+  await page.locator('.games li').first().waitFor();
+  const saved = (await page.locator('.games li').allInnerTexts()).map((t) => t.replace(/\s+/g, ' '));
+  check(saved.length === 1 && saved[0]!.includes('Ravensbrück') && saved[0]!.includes('Finished'), 'the finished game is in the saved games');
 } catch (e) {
   const lines = String(e).split('\n');
   const message = [lines[0], lines.find((l) => l.includes('waiting for'))?.trim()].filter(Boolean).join(' – ');
