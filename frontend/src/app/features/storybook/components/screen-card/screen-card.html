@@ -8,11 +8,17 @@
         @if (marker(); as src) {
           <img class="marker" [src]="src" [alt]="'Round ' + r.round + ' of 9'" />
         }
-        <p><cr-rich-text [text]="game.text(r.text)" /></p>
-        <p><cr-rich-text [text]="game.text(r.then)" /></p>
+        @if (roundSteps(); as s) {
+          <p class="ended"><cr-rich-text [text]="s.ended" /></p>
+          <ol class="steps">
+            @for (step of s.steps; track $index) {
+              <li><cr-rich-text [text]="step" /></li>
+            }
+          </ol>
+        }
         <div class="actions">
           <button crAutofocus type="button" class="btn confirm" (click)="continue()">
-            {{ text('UI/EndOfRound/ViewArea/Acceptbtn/Text (TMP)', 'Confirm') }}
+            {{ lastRound() ? 'Done' : 'Next round' }}
           </button>
         </div>
       </cr-modal>
@@ -21,10 +27,14 @@
   @case ('endOfGeneration') {
     <cr-modal [open]="!dismissed()" [label]="generationTitle">
       <h2 class="heading title">{{ generationTitle }}</h2>
-      <p><cr-rich-text [text]="game.text(arg('text'))" /></p>
+      <ol class="steps">
+        @for (step of generationSteps(); track $index) {
+          <li><cr-rich-text [text]="step" /></li>
+        }
+      </ol>
       <div class="actions">
         <button crAutofocus type="button" class="btn confirm" (click)="dismissed.set(true)">
-          {{ text('UI/EndOfGeneration/ViewArea/Acceptbtn/Text (TMP)', 'Confirm') }}
+          Done
         </button>
       </div>
     </cr-modal>

@@ -25,6 +25,14 @@ const ROMAN = ['i', 'ii', 'iii'];
  * App screens the story opens: end of round / generation, special events, secret bids and
  * votes, final scoring. They appear as dialogs over the story, like in the original.
  */
+/** A text's sentences, one step each ("Remove all pieces. Return the cards." → two). */
+function sentences(text: string): string[] {
+  return text
+    .split(/(?<=[.!?](?:\*\*)?)\s+(?=[A-Z*{])/)
+    .map((s) => s.trim())
+    .filter(Boolean);
+}
+
 @Component({
   selector: 'cr-screen-card',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -56,6 +64,20 @@ export class ScreenCard implements OnInit, OnDestroy {
       `progress-bar/${ROMAN[Math.floor((round - 1) / 3)]}${((round - 1) % 3) + 1}-glow`,
     );
   });
+
+  /**
+   * The end of a round as steps: the original's first sentence says which round ended, the
+   * others what to do, in order. Its wording stays as it is; only the layout changes.
+   */
+  protected readonly roundSteps = computed(() => {
+    const r = this.round();
+    if (!r) return undefined;
+    const [ended = '', ...todo] = sentences(this.game.text(r.text));
+    return { ended, steps: [...todo, ...sentences(this.game.text(r.then))] };
+  });
+  /** The third round's end leads to the end of the generation, not to a next round. */
+  protected readonly lastRound = computed(() => (this.round()?.round ?? 0) % 3 === 0);
+  protected readonly generationSteps = computed(() => sentences(this.game.text(this.arg('text'))));
 
   protected get generationTitle(): string {
     return this.text(
