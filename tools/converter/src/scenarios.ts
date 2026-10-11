@@ -13,16 +13,7 @@ export interface ScenarioConfig {
 }
 
 /** Variables filled in by the app instead of the story (setup and scoring screens). */
-export const EXTERNAL_VARIABLES = {
-  players: 'number',
-  townname: 'string',
-  nameA: 'string',
-  nameB: 'string',
-  nameC: 'string',
-  nameD: 'string',
-  nameE: 'string',
-  winnerName: 'string',
-} as const;
+export { APP_VARIABLES as EXTERNAL_VARIABLES } from '@chronicle/engine';
 
 export const SCENARIOS: ScenarioConfig[] = [
   {

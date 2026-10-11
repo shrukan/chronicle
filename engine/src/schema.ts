@@ -11,6 +11,20 @@ export const FORMAT_VERSION = 1;
 /** Story values are strictly typed; a variable keeps the type of its initial value. */
 export type Value = string | number | boolean | Value[];
 
+/** The name variable of each player, A to E: a game has up to five players. */
+export const PLAYER_NAME_VARIABLES = ['nameA', 'nameB', 'nameC', 'nameD', 'nameE'] as const;
+
+/**
+ * Variables the app sets instead of the story, the same in every scenario: the setup (player
+ * count, village, a name per player) and the winner the scoring screens report. Name → type.
+ */
+export const APP_VARIABLES = {
+  players: 'number',
+  townname: 'string',
+  ...Object.fromEntries(PLAYER_NAME_VARIABLES.map((v) => [v, 'string'])),
+  winnerName: 'string',
+} as const satisfies Record<string, 'number' | 'string'>;
+
 export interface Scenario {
   format: typeof FORMAT_VERSION;
   id: string;

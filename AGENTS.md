@@ -74,7 +74,8 @@ app.routes.ts, app.config.ts
 core/services/                   app-wide singletons: game, library (assets, screen texts,
                                  voices), audio, settings, save-store, content, whats-new,
                                  app-update
-core/utils/                      plain helpers: bug-report links, save migration, wake lock
+core/utils/                      plain helpers: bug-report links, rounds, save migration,
+                                 wake lock
 features/<feature>/pages/<name>/        routed pages
 features/<feature>/components/<name>/   components only that feature uses
 shared/components/<name>/        reused across features: modal (+ modal-stack), tabs,

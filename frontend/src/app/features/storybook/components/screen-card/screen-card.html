@@ -6,7 +6,7 @@
           {{ text('UI/Help/Viewarea/EndOfRound/DetailsPanel/title', 'End of Round') }}
         </h2>
         @if (marker(); as src) {
-          <img class="marker" [src]="src" [alt]="'Round ' + r.round + ' of 9'" />
+          <img class="marker" [src]="src" [alt]="'Round ' + r.round + ' of ' + rounds" />
         }
         @if (roundSteps(); as s) {
           <p class="ended"><cr-rich-text [text]="s.ended" /></p>

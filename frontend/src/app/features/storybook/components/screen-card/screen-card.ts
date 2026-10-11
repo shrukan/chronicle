@@ -14,12 +14,11 @@ import { toText, type Out } from '@chronicle/engine';
 import { AudioPlayer } from '../../../../core/services/audio';
 import { Game } from '../../../../core/services/game';
 import { Library } from '../../../../core/services/library';
+import { ROMAN, ROUNDS, ROUNDS_PER_GENERATION, roundPosition } from '../../../../core/utils/rounds';
 import { Modal } from '../../../../shared/components/modal/modal';
 import { RichText } from '../rich-text/rich-text';
 
 type Screen = Extract<Out, { t: 'ui' }>;
-
-const ROMAN = ['i', 'ii', 'iii'];
 
 /**
  * App screens the story opens: end of round / generation, special events, secret bids and
@@ -58,11 +57,10 @@ export class ScreenCard implements OnInit, OnDestroy {
   protected readonly voting = computed(() => this.arg('mode') === 'Voting');
   /** The round just completed, as the original's glowing marker (I-1 … III-3). */
   protected readonly marker = computed(() => {
-    const round = this.round()?.round;
-    if (!round) return undefined;
-    return this.library.ui(
-      `progress-bar/${ROMAN[Math.floor((round - 1) / 3)]}${((round - 1) % 3) + 1}-glow`,
-    );
+    const n = this.round()?.round;
+    if (!n) return undefined;
+    const { generation, round } = roundPosition(n);
+    return this.library.ui(`progress-bar/${ROMAN[generation - 1].toLowerCase()}${round}-glow`);
   });
 
   /**
@@ -76,7 +74,10 @@ export class ScreenCard implements OnInit, OnDestroy {
     return { ended, steps: [...todo, ...sentences(this.game.text(r.then))] };
   });
   /** The third round's end leads to the end of the generation, not to a next round. */
-  protected readonly lastRound = computed(() => (this.round()?.round ?? 0) % 3 === 0);
+  protected readonly lastRound = computed(
+    () => (this.round()?.round ?? 0) % ROUNDS_PER_GENERATION === 0,
+  );
+  protected readonly rounds = ROUNDS;
   protected readonly generationSteps = computed(() => sentences(this.game.text(this.arg('text'))));
 
   protected get generationTitle(): string {

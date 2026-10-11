@@ -22,7 +22,7 @@ export interface SavedGame {
   playTime: number;
   /** Earlier states for "undo last choice", oldest first. */
   undo: UndoStep[];
-  /** Rounds completed (of 9), for the progress bar. */
+  /** Rounds completed (of `ROUNDS`), for the progress bar. */
   roundsDone: number;
   /** Boxes from steps taken together with the current page (see Game). */
   carried: Out[];

@@ -1,7 +1,12 @@
 import { ChangeDetectionStrategy, Component, computed, inject, input } from '@angular/core';
 import { Library } from '../../../../core/services/library';
+import { ROMAN, ROUNDS, roundPosition } from '../../../../core/utils/rounds';
 
-const ROMAN = ['I', 'II', 'III'];
+/** "I-1" … "III-3" for a round of the whole game (from 1). */
+function slotLabel(n: number): string {
+  const { generation, round } = roundPosition(n);
+  return `${ROMAN[generation - 1]}-${round}`;
+}
 
 /**
  * The original's progress bar: a glass tube in the three generations' colours, filled up to the
@@ -13,27 +18,29 @@ const ROMAN = ['I', 'II', 'III'];
   host: {
     role: 'progressbar',
     'aria-valuemin': '1',
-    'aria-valuemax': '9',
+    '[attr.aria-valuemax]': 'rounds',
     '[attr.aria-valuenow]': 'done() + 1',
     '[attr.aria-valuetext]': 'label()',
     '[style.--tube]': 'tube()',
-    '[style.--filled]': '(done() + 1) / 9',
+    '[style.--filled]': '(done() + 1) / rounds',
   },
   templateUrl: './round-bar.html',
   styleUrl: './round-bar.css',
 })
 export class RoundBar {
   private readonly library = inject(Library);
-  /** Rounds completed so far (0–8); the next one is being played. */
+  /** Rounds completed so far (0 to `ROUNDS` − 1); the next one is being played. */
   readonly done = input.required<number>();
 
-  protected readonly slots = Array.from({ length: 9 }, (_, i) => ({
-    generation: Math.floor(i / 3) + 1,
-    label: `${ROMAN[Math.floor(i / 3)]}-${(i % 3) + 1}`,
+  protected readonly rounds = ROUNDS;
+  protected readonly slots = Array.from({ length: ROUNDS }, (_, i) => ({
+    generation: roundPosition(i + 1).generation,
+    label: slotLabel(i + 1),
   }));
-  protected readonly label = computed(
-    () => `Generation ${ROMAN[Math.floor(this.done() / 3)]}, round ${(this.done() % 3) + 1}`,
-  );
+  protected readonly label = computed(() => {
+    const { generation, round } = roundPosition(this.done() + 1);
+    return `Generation ${ROMAN[generation - 1]}, round ${round}`;
+  });
   protected readonly tube = computed(() => {
     const src = this.library.ui('progress-bar/mfw-progress-bar');
     return src ? `url("${src}")` : 'none';

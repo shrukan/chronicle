@@ -1,6 +1,7 @@
 import { computed, inject, Injectable, signal } from '@angular/core';
 import {
   resolveText,
+  PLAYER_NAME_VARIABLES,
   SETUP_CONTINUE_KEY,
   Story,
   StoryError,
@@ -15,6 +16,7 @@ import {
 } from '@chronicle/engine';
 import { AudioPlayer } from './audio';
 import { loadContent, type ScenarioContent, type ScenarioId } from './content';
+import { ROUNDS, ROUNDS_PER_GENERATION, roundPosition } from '../utils/rounds';
 import { migrateSave } from '../utils/save-migration';
 import { SAVE_VERSION, SaveStore, type GameSetup, type UndoStep } from './save-store';
 import { Settings } from './settings';
@@ -139,14 +141,14 @@ export class Game {
   readonly isEnding = computed(() => this.passage()?.tags.includes('ending') ?? false);
 
   /**
-   * Rounds completed (of 9: three generations of three rounds), counted as end-of-round and
+   * Rounds completed (of `ROUNDS`: three generations of three), counted as end-of-round and
    * end-of-generation screens appear. Saved with the game and with each undo step.
    */
   readonly roundsDone = signal(0);
   /** Generation and round being played (from 1); none once the last generation ended. */
   readonly progress = computed(() => {
     const done = this.roundsDone();
-    return done >= 9 ? undefined : { generation: Math.floor(done / 3) + 1, round: (done % 3) + 1 };
+    return done >= ROUNDS ? undefined : roundPosition(done + 1);
   });
   readonly title = computed(() => {
     const key = titleKey(this.view()?.output ?? []);
@@ -180,9 +182,7 @@ export class Game {
   async newGame(setup: GameSetup): Promise<void> {
     const content = await this.loadContent();
     const vars: Record<string, Value> = { players: setup.players, townname: setup.village };
-    'ABCDE'
-      .split('')
-      .forEach((letter, i) => (vars[`name${letter}`] = i < setup.players ? setup.names[i]! : ''));
+    PLAYER_NAME_VARIABLES.forEach((v, i) => (vars[v] = i < setup.players ? setup.names[i]! : ''));
     this.story = new Story(content.scenario, { vars });
     // Ask the browser not to clear saves when storage runs low (some browsers ask the user).
     void navigator.storage?.persist?.().catch(() => false);
@@ -417,7 +417,8 @@ export class Game {
       for (const o of items) {
         if (o.t === 'ui' && o.ui === 'endOfRound') {
           const round = extras?.endOfRound[String(o.args['progress'] ?? '')]?.round;
-          if (round !== undefined) marks.push(round === 0 ? (Math.floor(done / 3) + 1) * 3 : round);
+          if (round !== undefined)
+            marks.push(round || roundPosition(done + 1).generation * ROUNDS_PER_GENERATION);
         } else if (o.t === 'ui' && o.ui === 'endOfGeneration') {
           marks.push(Number(o.args['generation']));
         } else if (o.t === 'block' || o.t === 'group') visit(o.children);
