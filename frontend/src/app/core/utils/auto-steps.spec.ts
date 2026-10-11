@@ -41,6 +41,27 @@ describe('revealPlainContinues', () => {
   });
 });
 
+describe('revealPlainContinues and app screens', () => {
+  it('opens a reveal of nothing but the Score Entry button, not one of a dialog', () => {
+    const sc = scenario({
+      A: {
+        body: [
+          { t: 'link', key: 'score', reveal: '0', replace: true },
+          { t: 'link', key: 'vote', reveal: '1', replace: true },
+        ],
+        fragments: {
+          '0': [{ t: 'ui', ui: 'scoreEntry' }, { t: 'br' }],
+          '1': [{ t: 'ui', ui: 'bidding' }],
+        },
+      },
+    });
+    const story = new Story(sc);
+    const view = revealPlainContinues(story, sc.passages, story.start());
+    expect(keys(story, view.output)).toEqual(['vote']);
+    expect(view.output.some((o) => o.t === 'group' && o.children[0]?.t === 'ui')).toBe(true);
+  });
+});
+
 describe('takeBoxesTogether', () => {
   it('shows boxes in a row on one page, with the last one’s Accept', () => {
     const box = (key: string, next: string): Partial<Passage> => ({

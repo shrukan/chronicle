@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict';
 import { before, describe, it } from 'node:test';
-import { Story, type Node, type Out, type StringTable } from '@chronicle/engine';
+import { Story, type Node, type Out, type Passage, type StringTable } from '@chronicle/engine';
+import { boxScoringReminders } from './analyze.ts';
 import { convertScenario, type ConvertResult } from './convert.ts';
 import type { ScenarioConfig } from './scenarios.ts';
 
@@ -282,5 +283,23 @@ describe('convertScenario: page openings and sections', () => {
     assert.equal(titles.length, 1);
     assert.ok(!hub.some((n) => n.t === 'block' && n.style === 'hubDetails' && n.body.length === 0));
     assert.ok(hub.some((n) => n.t === 'link'));
+  });
+});
+
+describe('boxScoringReminders', () => {
+  it('puts the reminders before the final scoring into a setup box', () => {
+    const text = (key: string, kind: 'title' | 'instruction' = 'instruction'): Node => ({ t: 'text', key, kind });
+    const passages = {
+      Score: {
+        name: 'Score',
+        tags: [],
+        body: [text('t', 'title'), { t: 'br' }, text('a'), { t: 'br' }, { t: 'if', branches: [{ body: [text('b')] }] }, { t: 'br' }, { t: 'link', key: 'go', reveal: '0', replace: true }],
+        fragments: { '0': [{ t: 'ui', ui: 'scoreEntry' }] },
+      },
+      Other: { name: 'Other', tags: [], body: [text('c')], fragments: {} },
+    } satisfies Record<string, Passage>;
+    assert.equal(boxScoringReminders(passages), 1);
+    assert.deepEqual(passages.Score.body.map((n) => (n.t === 'block' ? `block:${n.style}:${n.body.length}` : n.t)), ['text', 'br', 'block:setup:3', 'br', 'link']);
+    assert.equal(passages.Other.body[0]!.t, 'text');
   });
 });

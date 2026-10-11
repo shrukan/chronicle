@@ -1,6 +1,7 @@
 /** Converts one Cradle story script into Chronicle story data. */
 import { FORMAT_VERSION, SETUP_CONTINUE_KEY, type Passage, type Scenario, type StringTable, type TextKind, type Value } from '@chronicle/engine';
 import {
+  boxScoringReminders,
   brokenTargets,
   dropDeadFragments,
   tagEndings,
@@ -114,6 +115,7 @@ export async function convertScenario(input: ConvertInput): Promise<ConvertResul
   const variables = Object.fromEntries(Object.entries(allVars).filter(([v]) => used.has(v) || v in EXTERNAL_VARIABLES));
 
   hoistProgressionLinks(passages, converter.strings);
+  boxScoringReminders(passages);
   const final = finalizeStrings(passages, converter.strings, converter.kinds, { [SETUP_CONTINUE_KEY]: { full: 'Continue' } });
 
   const raw: Scenario = { format: FORMAT_VERSION, id: config.id, start: config.start, variables, passages };

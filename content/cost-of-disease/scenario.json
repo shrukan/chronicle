@@ -3315,70 +3315,76 @@
      "t": "br"
     },
     {
-     "t": "text",
-     "key": "Scoring.2",
-     "kind": "instruction"
-    },
-    {
-     "t": "br"
-    },
-    {
-     "t": "text",
-     "key": "Scoring.3",
-     "kind": "instruction"
-    },
-    {
-     "t": "br"
-    },
-    {
-     "t": "text",
-     "key": "Scoring.4",
-     "kind": "instruction"
-    },
-    {
-     "t": "br"
-    },
-    {
-     "t": "if",
-     "branches": [
+     "t": "block",
+     "style": "setup",
+     "body": [
       {
-       "cond": {
-        "op": "==",
-        "a": {
-         "var": "lycan"
-        },
-        "b": {
-         "lit": "yes"
-        }
-       },
-       "body": [
+       "t": "text",
+       "key": "Scoring.2",
+       "kind": "instruction"
+      },
+      {
+       "t": "br"
+      },
+      {
+       "t": "text",
+       "key": "Scoring.3",
+       "kind": "instruction"
+      },
+      {
+       "t": "br"
+      },
+      {
+       "t": "text",
+       "key": "Scoring.4",
+       "kind": "instruction"
+      },
+      {
+       "t": "br"
+      },
+      {
+       "t": "if",
+       "branches": [
         {
-         "t": "text",
-         "key": "Scoring.5",
-         "kind": "instruction"
+         "cond": {
+          "op": "==",
+          "a": {
+           "var": "lycan"
+          },
+          "b": {
+           "lit": "yes"
+          }
+         },
+         "body": [
+          {
+           "t": "text",
+           "key": "Scoring.5",
+           "kind": "instruction"
+          }
+         ]
         }
        ]
-      }
-     ]
-    },
-    {
-     "t": "if",
-     "branches": [
+      },
       {
-       "cond": {
-        "op": "==",
-        "a": {
-         "var": "immort"
-        },
-        "b": {
-         "lit": "yes"
-        }
-       },
-       "body": [
+       "t": "if",
+       "branches": [
         {
-         "t": "text",
-         "key": "Scoring.6",
-         "kind": "instruction"
+         "cond": {
+          "op": "==",
+          "a": {
+           "var": "immort"
+          },
+          "b": {
+           "lit": "yes"
+          }
+         },
+         "body": [
+          {
+           "t": "text",
+           "key": "Scoring.6",
+           "kind": "instruction"
+          }
+         ]
         }
        ]
       }

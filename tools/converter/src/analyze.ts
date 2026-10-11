@@ -164,6 +164,40 @@ export function hoistProgressionLinks(passages: Passages, strings: StringTable):
   return moved;
 }
 
+/**
+ * The page before the final scoring reminds the players what to count (Estate Upgrades,
+ * Maladjustments …): things to do at the table, so they become a setup box, with the Score
+ * Entry button below it. The texts stay as they are. Returns how many pages changed.
+ */
+export function boxScoringReminders(passages: Passages): number {
+  let boxed = 0;
+  const instruction = (n: Node): boolean =>
+    (n.t === 'text' && n.kind === 'instruction') ||
+    (n.t === 'if' && n.branches.every((b) => b.body.every((c) => c.t === 'br' || instruction(c))));
+  for (const p of Object.values(passages)) {
+    let scoring = false;
+    const find = (nodes: Node[]) =>
+      nodes.forEach((n) => {
+        if (n.t === 'ui' && n.ui === 'scoreEntry') scoring = true;
+        if (n.t === 'block') find(n.body);
+        if (n.t === 'if') n.branches.forEach((b) => find(b.body));
+      });
+    find(p.body);
+    Object.values(p.fragments).forEach(find);
+    const first = p.body.findIndex(instruction);
+    if (!scoring || first < 0) continue;
+    let last = first;
+    for (let k = first + 1; k < p.body.length; k++) {
+      const n = p.body[k]!;
+      if (instruction(n)) last = k;
+      else if (n.t !== 'br') break;
+    }
+    p.body.splice(first, last - first + 1, { t: 'block', style: 'setup', body: p.body.slice(first, last + 1) });
+    boxed++;
+  }
+  return boxed;
+}
+
 /** Removes hub sections (heading + details) whose details show nothing. */
 function dropEmptySections(nodes: Node[]): Node[] {
   const shows = (body: Node[]): boolean =>

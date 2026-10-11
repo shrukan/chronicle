@@ -33,6 +33,20 @@ function interrupts(nodes: Node[], passages: Passages, seen = new Set<string>())
   });
 }
 
+/**
+ * App screens shown as a button on the page (ScreenCard). The others open as dialogs and keep
+ * the link that reveals them: it may guard a secret after a hand-over.
+ */
+const INLINE_SCREENS = new Set(['scoreEntry']);
+
+/** A revealed part that holds nothing but such a screen: its button is the way on anyway. */
+function onlyInlineScreen(nodes: Node[]): boolean {
+  return (
+    nodes.some((n) => n.t === 'ui' && INLINE_SCREENS.has(n.ui)) &&
+    nodes.every((n) => n.t === 'br' || (n.t === 'ui' && INLINE_SCREENS.has(n.ui)))
+  );
+}
+
 /** A page that shows nothing but a box of things to do at the table (and sets values). */
 export function boxOnly(passage: Passage | undefined): boolean {
   const body = passage?.body ?? [];
@@ -46,17 +60,18 @@ export function boxOnly(passage: Passage | undefined): boolean {
 
 /**
  * Opens reveals that only say "continue" and whose content stays on the page – the reader
- * would click them anyway. Reveals with their own label (often hiding something from the other
- * players), jumps and prompts still wait.
+ * would click them anyway – and reveals of nothing but an app screen's button (Score Entry).
+ * Reveals with their own label (often hiding something from the other players), jumps and
+ * prompts still wait.
  */
 export function revealPlainContinues(story: Story, passages: Passages, view: StoryView): StoryView {
   for (let i = 0; i < 30 && !view.prompt; i++) {
     const next = view.links.find((id) => {
       const target = story.linkTarget(id);
       if (!target?.reveal || !target.replace) return false;
-      if (findLink(view.output, id)?.role !== 'continue') return false;
       const fragment = passages[target.revealFrom!]?.fragments[target.reveal];
-      return !!fragment && !interrupts(fragment, passages);
+      if (!fragment || interrupts(fragment, passages)) return false;
+      return findLink(view.output, id)?.role === 'continue' || onlyInlineScreen(fragment);
     });
     if (next === undefined) break;
     view = story.click(next);
