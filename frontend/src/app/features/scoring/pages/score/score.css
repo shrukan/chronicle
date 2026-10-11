@@ -37,15 +37,6 @@ td input[type='number'] {
   font: inherit;
   text-align: center;
 }
-/* The original's dark box and green tick, large enough to tap (44 px). */
-td input[type='checkbox'] {
-  appearance: none;
-  margin: 0;
-  background: var(--checkbox-image) center / contain no-repeat;
-  cursor: pointer;
-  width: 2.75rem;
-  height: 2.75rem;
-}
 .ranking {
   list-style: none;
   margin: 0;
@@ -85,10 +76,8 @@ td input[type='checkbox'] {
 }
 /* As in setup: a quiet way back to correct an entry. */
 .back {
-  order: -1;
-  justify-self: start;
   min-height: 2.75rem;
-  margin: -1rem 0 -1rem -0.75rem;
+  margin-top: -0.75rem;
   padding: 0 0.5rem;
   border: 0;
   background: none;
@@ -96,13 +85,67 @@ td input[type='checkbox'] {
   font: inherit;
   cursor: pointer;
 }
-td input[type='checkbox']:checked {
+.form {
+  display: grid;
+  gap: 1.25rem;
+  width: 100%;
+}
+.tie {
+  display: grid;
+  justify-items: center;
+  gap: 0.6rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--color-rule);
+}
+h2 {
+  margin: 0;
+  font-size: 1.4rem;
+}
+.question {
+  margin: 0;
+}
+.toggles {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.5rem;
+}
+/* The whole row is the switch: name and box, at least 44 px high. */
+.toggle {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  min-height: 2.75rem;
+  padding: 0 0.9rem 0 0.25rem;
+  border: 1px solid var(--color-rule);
+  border-radius: 0.4rem;
+  background: var(--color-field);
+  font-size: 1.15rem;
+  cursor: pointer;
+}
+.toggle:has(:checked) {
+  border-color: var(--color-accent);
+}
+.error {
+  margin: 0;
+  color: var(--color-error);
+}
+/* The original's dark box and green tick. */
+.toggle input[type='checkbox'] {
+  appearance: none;
+  margin: 0;
+  background: var(--checkbox-image) center / contain no-repeat;
+  cursor: pointer;
+  width: 2.5rem;
+  height: 2.5rem;
+}
+.toggle input[type='checkbox']:checked {
   background-image: var(--checkmark-image), var(--checkbox-image);
   background-size:
     85% auto,
     contain;
 }
-td input[type='checkbox']:focus-visible {
-  outline: 2px solid var(--color-accent);
+.toggle:has(input:focus-visible) {
+  outline: 2px solid #e6c47a;
   outline-offset: 2px;
 }

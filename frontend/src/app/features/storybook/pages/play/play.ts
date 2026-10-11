@@ -178,7 +178,9 @@ export class Play {
           .finally(() => this.resuming.set(false)));
 
     // Development only – the passage names would give the story away to players:
-    // the URL shows the current passage, and /play?passage=<name> jumps there.
+    // the URL shows the current passage, and /play?passage=<name> jumps there. A jump skips
+    // everything the story set on the way, so late pages (e.g. the choice of the ending) may
+    // fail with an error that a real game never reaches.
     if (isDevMode()) {
       const jump = inject(ActivatedRoute).snapshot.queryParamMap.get('passage');
       if (jump)

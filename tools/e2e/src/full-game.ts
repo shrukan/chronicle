@@ -132,24 +132,23 @@ try {
   console.log('scoring');
   const scores = page.locator('input[type=number]');
   await scores.nth(2).waitFor();
-  await scores.nth(0).fill('42');
-  await scores.nth(1).fill('42');
-  await scores.nth(2).fill('30');
-  await button(/continue/i).click();
+  // Scores, then the tie-breakers below them, on one page: typed with Enter only.
+  check(await scores.nth(0).evaluate((e) => e === document.activeElement), 'the first score field has the focus');
+  for (const [i, v] of ['42', '42', '30'].entries()) {
+    await page.keyboard.type(v);
+    if (i < 2) await page.keyboard.press('Enter');
+  }
   // Tie-breaker 1: both leaders completed their Masterwork.
-  await page.locator('input[type=checkbox]').nth(1).waitFor();
-  await page.locator('input[type=checkbox]').nth(0).check();
-  await page.locator('input[type=checkbox]').nth(1).check();
-  await button(/continue/i).click();
+  await page.getByRole('checkbox', { name: 'Ada' }).check();
+  await page.getByRole('checkbox', { name: 'Bram' }).check();
   // Tie-breaker 2: the same number of Estate Upgrades.
-  await page.getByLabel('Estate Upgrades of Bram').waitFor();
   await page.getByLabel('Estate Upgrades of Ada').fill('3');
   await page.getByLabel('Estate Upgrades of Bram').fill('3');
-  await button(/continue/i).click();
+  await button('Show ranking').click();
   await page.locator('.ranking').waitFor();
   await shot(page, '3-ranking');
   check((await page.locator('.family').count()) === 1, 'a tie that survives both tie-breakers is a family victory');
-  await button(/continue/i).click();
+  await button('To the ending').click();
   await page.waitForURL('**/play');
   await page.locator('footer.ending').waitFor({ timeout: 5000 });
   check((await page.locator('.unlocked').count()) === 1, 'the ending is reached and unlocked');

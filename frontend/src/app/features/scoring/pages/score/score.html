@@ -2,150 +2,113 @@
   @if (!link()) {
     <p>Scoring opens at the end of the game.</p>
     <a class="btn cancel" routerLink="/play">Back to the story</a>
-  } @else {
-    @switch (phase()) {
-      @case ('entry') {
-        <h1 class="heading">{{ t('UI/Scoring/ViewArea/Title', 'Score Entry') }}</h1>
-        <table>
-          <thead>
+  } @else if (phase() === 'entry') {
+    <h1 class="heading">{{ t('UI/Scoring/ViewArea/Title', 'Score Entry') }}</h1>
+    <!-- Scores, and below them only the tie-breakers a tie calls for: one page, one button. -->
+    <div class="form" #form>
+      <table>
+        <thead>
+          <tr>
+            <th>{{ t('UI/Scoring/ViewArea/ScorePanel/VerticalList/Titles/Player', 'Player') }}</th>
+            <th>{{ t('UI/Scoring/ViewArea/ScorePanel/VerticalList/Titles/Score', 'Score') }}</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (p of players(); track p.index; let first = $first) {
             <tr>
-              <th>
-                {{ t('UI/Scoring/ViewArea/ScorePanel/VerticalList/Titles/Player', 'Player') }}
-              </th>
-              <th>
-                {{ t('UI/Scoring/ViewArea/ScorePanel/VerticalList/Titles/Score', 'Score') }}
-              </th>
+              <td>{{ p.name }}</td>
+              <td>
+                <input
+                  [crAutofocus]="first"
+                  type="number"
+                  min="0"
+                  inputmode="numeric"
+                  enterkeyhint="next"
+                  [attr.aria-label]="'Score of ' + p.name"
+                  [value]="scores()[p.index] ?? ''"
+                  (input)="setScore(p.index, $any($event.target).value)"
+                  (keydown.enter)="next($event)"
+                />
+              </td>
             </tr>
-          </thead>
-          <tbody>
-            @for (p of players(); track p.index) {
-              <tr>
-                <td>{{ p.name }}</td>
-                <td>
-                  <input
-                    type="number"
-                    min="0"
-                    inputmode="numeric"
-                    [attr.aria-label]="'Score of ' + p.name"
-                    [value]="scores()[p.index] ?? ''"
-                    (input)="setScore(p.index, $any($event.target).value)"
-                    (keydown.enter)="allScored() && afterEntry()"
-                  />
-                </td>
-              </tr>
-            }
-          </tbody>
-        </table>
-        <button type="button" class="btn" [disabled]="!allScored()" (click)="afterEntry()">
-          {{ continueLabel() }}
-        </button>
-      }
-
-      @case ('masterwork') {
-        <h1 class="heading">{{ t('UI/TieBreak/ViewArea/Title', 'Tie Breaker') }}</h1>
-        <table>
-          <thead>
-            <tr>
-              <th>
-                {{ t('UI/TieBreak/ViewArea/Prompt/TieBreaker1/Titles/Player', 'Player') }}
-              </th>
-              <th>
-                {{
-                  t(
-                    'UI/TieBreak/ViewArea/Prompt/TieBreaker1/Titles/Completed Masterwork',
-                    'Completed Masterwork'
-                  )
-                }}
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            @for (p of tied(); track p.index) {
-              <tr>
-                <td>{{ p.name }}</td>
-                <td>
-                  <input
-                    type="checkbox"
-                    [attr.aria-label]="p.name + ' completed their Masterwork'"
-                    [checked]="completed().has(p.index)"
-                    (change)="toggleCompleted(p.index)"
-                  />
-                </td>
-              </tr>
-            }
-          </tbody>
-        </table>
-        <button crAutofocus type="button" class="btn" (click)="afterMasterwork()">
-          {{ continueLabel() }}
-        </button>
-      }
-
-      @case ('upgrades') {
-        <h1 class="heading">{{ t('UI/TieBreak/ViewArea/Title', 'Tie Breaker') }}</h1>
-        <table>
-          <thead>
-            <tr>
-              <th>
-                {{ t('UI/TieBreak/ViewArea/Prompt/TieBreaker2/Titles/Player', 'Player') }}
-              </th>
-              <th>
-                {{
-                  t(
-                    'UI/TieBreak/ViewArea/Prompt/TieBreaker2/Titles/Estate Upgrades',
-                    'Estate Upgrades'
-                  )
-                }}
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            @for (p of contenders(); track p.index) {
-              <tr>
-                <td>{{ p.name }}</td>
-                <td>
-                  <input
-                    type="number"
-                    min="0"
-                    inputmode="numeric"
-                    [attr.aria-label]="'Estate Upgrades of ' + p.name"
-                    [value]="upgrades()[p.index] ?? ''"
-                    (input)="setUpgrades(p.index, $any($event.target).value)"
-                    (keydown.enter)="allUpgrades() && afterUpgrades()"
-                  />
-                </td>
-              </tr>
-            }
-          </tbody>
-        </table>
-        <button type="button" class="btn" [disabled]="!allUpgrades()" (click)="afterUpgrades()">
-          {{ continueLabel() }}
-        </button>
-      }
-
-      @case ('ranking') {
-        <h1 class="heading">{{ t('UI/RankingPage/ViewArea/Title', 'Rankings') }}</h1>
-        <ol class="ranking">
-          @for (p of result().ranking; track p.index; let i = $index) {
-            <li>
-              <span class="place">{{ ordinals[result().places[i]! - 1] }}</span>
-              <span class="name">{{ p.name }}</span>
-              <span class="score">{{ entered(p.index) }}</span>
-              @if (isWinner(i) && library.ui('ranking/mfw-crown-icon'); as crown) {
-                <img class="crown" [src]="crown" alt="winner" />
-              }
-            </li>
           }
-        </ol>
-        @if (result().familyWins) {
-          <p class="family">{{ family }} share the victory.</p>
-        }
-        <button crAutofocus type="button" class="btn" (click)="finish()">
-          {{ continueLabel() }}
-        </button>
+        </tbody>
+      </table>
+
+      @if (tied().length) {
+        <section class="tie" aria-live="polite">
+          <h2 class="heading">{{ t('UI/TieBreak/ViewArea/Title', 'Tie Breaker') }}</h2>
+          <p class="question">
+            {{ names(tied()) }} are tied for first. Who completed their Masterwork?
+          </p>
+          <div class="toggles">
+            @for (p of tied(); track p.index) {
+              <label class="toggle">
+                <input
+                  type="checkbox"
+                  [checked]="completed().has(p.index)"
+                  (change)="toggleCompleted(p.index)"
+                  (keydown.enter)="next($event)"
+                />
+                <span>{{ p.name }}</span>
+              </label>
+            }
+          </div>
+
+          @if (needsUpgrades()) {
+            <p class="question">Still tied – how many Estate Upgrades does each have?</p>
+            <table>
+              <tbody>
+                @for (p of contenders(); track p.index) {
+                  <tr>
+                    <td>{{ p.name }}</td>
+                    <td>
+                      <input
+                        type="number"
+                        min="0"
+                        inputmode="numeric"
+                        enterkeyhint="next"
+                        [attr.aria-label]="'Estate Upgrades of ' + p.name"
+                        [value]="upgrades()[p.index] ?? ''"
+                        (input)="setUpgrades(p.index, $any($event.target).value)"
+                        (keydown.enter)="next($event)"
+                      />
+                    </td>
+                  </tr>
+                }
+              </tbody>
+            </table>
+          }
+        </section>
       }
+    </div>
+    <button type="button" class="btn" [disabled]="!ready()" (click)="phase.set('ranking')">
+      Show ranking
+    </button>
+  } @else {
+    <h1 class="heading">{{ t('UI/RankingPage/ViewArea/Title', 'Rankings') }}</h1>
+    <ol class="ranking">
+      @for (p of result().ranking; track p.index; let i = $index) {
+        <li>
+          <span class="place">{{ ordinals[result().places[i]! - 1] }}</span>
+          <span class="name">{{ p.name }}</span>
+          <span class="score">{{ scoreOf(p.index) }}</span>
+          @if (isWinner(i) && library.ui('ranking/mfw-crown-icon'); as crown) {
+            <img class="crown" [src]="crown" alt="winner" />
+          }
+        </li>
+      }
+    </ol>
+    @if (result().familyWins) {
+      <p class="family">{{ family }} share the victory.</p>
     }
-    @if (phase() !== 'entry') {
-      <button type="button" class="back" (click)="back()">‹ Back</button>
+    @if (game.error(); as error) {
+      <p class="error" role="alert">
+        The ending could not be opened: {{ error }}
+        <a [href]="bugReport(error)" target="_blank" rel="noopener">Report this error ↗</a>
+      </p>
     }
+    <button crAutofocus type="button" class="btn" (click)="finish()">To the ending</button>
+    <button type="button" class="back" (click)="phase.set('entry')">‹ Change scores</button>
   }
 </section>
