@@ -203,7 +203,7 @@ export class Play {
       title.focus({ preventScroll: true });
     });
 
-    inject(DestroyRef).onDestroy(startPlaySession(this.game));
+    inject(DestroyRef).onDestroy(startPlaySession(this.game, this.pauseOpen));
   }
 
   private readonly endingTitles = computed(() => {
