@@ -8,20 +8,24 @@ export interface GameSetup {
   village: string;
 }
 
+/** Version of the saved-game format; `migrateSave` brings older saves up to it. */
+export const SAVE_VERSION = 1;
+
 export interface SavedGame {
+  version: typeof SAVE_VERSION;
   scenario: ScenarioId;
   setup: GameSetup;
   snapshot: StorySnapshot;
   /** Passages with a log book entry, in the order they were reached. */
   log: string[];
   /** Time spent in the storybook, in milliseconds. */
-  playTime?: number;
+  playTime: number;
   /** Earlier states for "undo last choice", oldest first. */
-  undo?: UndoStep[];
-  /** Rounds completed (of 9), for the progress bar; missing in saves before it. */
-  roundsDone?: number;
+  undo: UndoStep[];
+  /** Rounds completed (of 9), for the progress bar. */
+  roundsDone: number;
   /** Boxes from steps taken together with the current page (see Game). */
-  carried?: Out[];
+  carried: Out[];
   savedAt: number;
 }
 
@@ -29,8 +33,8 @@ export interface SavedGame {
 export interface UndoStep {
   snapshot: StorySnapshot;
   log: string[];
-  roundsDone?: number;
-  carried?: Out[];
+  roundsDone: number;
+  carried: Out[];
 }
 
 /** Endings reached on this device: passage → first time reached. */
@@ -81,9 +85,9 @@ export class SaveStore {
     return (await this.open()).transaction(name, mode).objectStore(name);
   }
 
-  async load(scenario: ScenarioId): Promise<SavedGame | undefined> {
-    const saved = await request<SavedGame | undefined>((await this.store(SAVES)).get(scenario));
-    return saved && { ...saved, log: saved.log ?? [] };
+  /** The save as stored, possibly by an earlier version of the app (see `migrateSave`). */
+  async load(scenario: ScenarioId): Promise<unknown> {
+    return request<unknown>((await this.store(SAVES)).get(scenario));
   }
 
   async save(game: SavedGame): Promise<void> {

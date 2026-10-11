@@ -168,6 +168,11 @@
   </section>
 } @else if (resuming()) {
   <p class="loading">Opening the storybook…</p>
+} @else if (notResumed(); as reason) {
+  <section class="paper empty">
+    <p role="alert">Your saved game can’t be continued. {{ reason }}</p>
+    <a class="btn cancel" routerLink="/">Back to the title</a>
+  </section>
 } @else {
   <section class="paper empty">
     <p>No game in progress.</p>

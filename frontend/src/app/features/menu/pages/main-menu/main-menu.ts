@@ -1,8 +1,9 @@
 import { Autofocus } from '../../../../shared/directives/autofocus/autofocus';
 import { ChangeDetectionStrategy, Component, inject, resource, signal } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
+import { AppUpdate } from '../../../../core/services/app-update';
 import { AudioPlayer } from '../../../../core/services/audio';
-import { Game } from '../../../../core/services/game';
+import { Game, NOT_RESUMED } from '../../../../core/services/game';
 import { Library } from '../../../../core/services/library';
 import { WhatsNew } from '../../../../core/services/whats-new';
 import { Modal } from '../../../../shared/components/modal/modal';
@@ -23,9 +24,13 @@ export class MainMenu {
   private readonly game = inject(Game);
   private readonly router = inject(Router);
   private readonly audio = inject(AudioPlayer);
+  private readonly appUpdate = inject(AppUpdate);
 
   protected readonly hasSave = resource({ loader: () => this.game.hasSave() });
   protected readonly confirmOpen = signal(false);
+  /** Why the saved game can't be continued, once Continue found out. */
+  protected readonly notResumed = signal<'changed' | 'newer' | undefined>(undefined);
+  protected readonly notResumedText = NOT_RESUMED;
   protected readonly settingsOpen = signal(false);
 
   protected t(key: string, fallback: string): string {
@@ -34,7 +39,9 @@ export class MainMenu {
 
   protected async resume(): Promise<void> {
     this.audio.effect('welcome');
-    if (await this.game.resume()) await this.router.navigate(['/play']);
+    const result = await this.game.resume();
+    if (result === 'resumed') await this.router.navigate(['/play']);
+    else if (result !== 'none') this.notResumed.set(result);
   }
 
   protected newGame(): void {
@@ -43,8 +50,15 @@ export class MainMenu {
     else void this.startOver();
   }
 
+  /** A newer version saved the game: fetch it and switch to it. */
+  protected async reload(): Promise<void> {
+    await this.appUpdate.check();
+    await this.appUpdate.reload();
+  }
+
   protected async startOver(): Promise<void> {
     this.confirmOpen.set(false);
+    this.notResumed.set(undefined);
     await this.game.abandon();
     this.audio.effect('welcome');
     await this.router.navigate(['/setup']);

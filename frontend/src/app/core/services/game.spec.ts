@@ -6,7 +6,7 @@ import {
   type StringTable,
 } from '@chronicle/engine';
 import { Game } from './game';
-import { SaveStore, type SavedGame } from './save-store';
+import { SAVE_VERSION, SaveStore, type SavedGame } from './save-store';
 
 const scenario: Scenario = {
   format: FORMAT_VERSION,
@@ -141,8 +141,19 @@ describe('Game', () => {
     expect(saves.saved?.snapshot.passage).toBe('B');
 
     const again = TestBed.inject(Game);
-    expect(await again.resume()).toBe(true);
+    expect(await again.resume()).toBe('resumed');
     expect(again.view()?.passage).toBe('B');
     expect(again.setup()?.names[0]).toBe('Ada');
+    expect(saves.saved?.version).toBe(SAVE_VERSION);
+  });
+
+  it('does not continue a save the changed story cannot continue', async () => {
+    const game = TestBed.inject(Game);
+    await game.newGame({ players: 2, names: ['Ada', 'Bram', '', '', ''], village: 'Ravensbrück' });
+    await Promise.resolve();
+    saves.saved = { ...saves.saved!, snapshot: { ...saves.saved!.snapshot, passage: 'Gone' } };
+
+    expect(await game.resume()).toBe('changed');
+    expect(await TestBed.inject(Game).hasSave()).toBe(true);
   });
 });

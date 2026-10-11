@@ -15,7 +15,7 @@ import {
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { form, FormField, FormRoot, required } from '@angular/forms/signals';
 import { AudioPlayer } from '../../../../core/services/audio';
-import { Game } from '../../../../core/services/game';
+import { Game, NOT_RESUMED, type ResumeResult } from '../../../../core/services/game';
 import { bugReportUrl } from '../../../../core/utils/bug-report';
 import { keepScreenOn } from '../../../../core/utils/wake-lock';
 import { Autofocus } from '../../../../shared/directives/autofocus/autofocus';
@@ -230,12 +230,22 @@ export class Play {
 
   /** True while a reload picks up the saved game. */
   protected readonly resuming = signal(false);
+  /** Why the saved game could not be picked up, when it couldn't. */
+  protected readonly notResumed = signal<string | undefined>(undefined);
 
   constructor() {
     // After a reload (or opening /play directly) continue the saved game.
-    const resumed = this.game.view()
-      ? Promise.resolve(true)
-      : (this.resuming.set(true), this.game.resume().finally(() => this.resuming.set(false)));
+    const resumed: Promise<ResumeResult> = this.game.view()
+      ? Promise.resolve('resumed')
+      : (this.resuming.set(true),
+        this.game
+          .resume()
+          .then((result) => {
+            if (result === 'changed' || result === 'newer')
+              this.notResumed.set(NOT_RESUMED[result]);
+            return result;
+          })
+          .finally(() => this.resuming.set(false)));
 
     // Development only – the passage names would give the story away to players:
     // the URL shows the current passage, and /play?passage=<name> jumps there.

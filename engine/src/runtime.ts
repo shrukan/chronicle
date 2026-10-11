@@ -51,6 +51,31 @@ export interface StoryView {
 export class StoryError extends Error {}
 
 /**
+ * Why a snapshot (e.g. from a save made before an update) cannot continue with this scenario:
+ * passages, fragments or link targets it needs are gone, or a variable changed its type. Empty
+ * when it can continue.
+ */
+export function snapshotProblems(scenario: Scenario, snap: StorySnapshot): string[] {
+  const problems = new Set<string>();
+  const passages = scenario.passages;
+  const passage = (name: string) => {
+    if (!passages[name]) problems.add(`unknown passage "${name}"`);
+  };
+  passage(snap.passage);
+  for (const l of snap.links) {
+    passage(l.passage);
+    if (l.to !== undefined) passage(l.to);
+    const owner = l.revealFrom ?? l.passage;
+    if (l.reveal !== undefined && !passages[owner]?.fragments[l.reveal]) problems.add(`unknown fragment ${l.reveal} in "${owner}"`);
+  }
+  for (const [name, value] of Object.entries(snap.vars)) {
+    const initial = scenario.variables[name];
+    if (initial !== undefined && typeOf(initial) !== typeOf(value)) problems.add(`variable "${name}" is now ${typeOf(initial)}`);
+  }
+  return [...problems];
+}
+
+/**
  * Everything needed to continue a story later: plain JSON, usable for save games.
  * Only available while no prompt is waiting.
  */
@@ -148,11 +173,16 @@ export class Story {
     });
   }
 
+  /**
+   * Continues from a snapshot. It may come from an earlier version of the scenario (see
+   * `snapshotProblems`): variables added since take their initial value, removed ones go.
+   */
   restore(snap: StorySnapshot): StoryView {
     const s = structuredClone(snap);
     this.passage = s.passage;
     this.history = s.history;
-    this.vars = s.vars;
+    this.vars = { ...this.scenario.variables };
+    for (const [name, value] of Object.entries(s.vars)) if (name in this.vars) this.vars[name] = value;
     this.output = s.output;
     this.nextLinkId = s.nextLinkId;
     this.suspended = undefined;

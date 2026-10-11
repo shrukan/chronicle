@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import { describe, it } from 'node:test';
-import { Story, StoryError, type Chooser, type Out } from './runtime.ts';
+import { snapshotProblems, Story, StoryError, type Chooser, type Out } from './runtime.ts';
 import { FORMAT_VERSION, type Passage, type Scenario } from './schema.ts';
 
 function scenario(passages: Record<string, Omit<Passage, 'name' | 'tags' | 'fragments'> & Partial<Passage>>): Scenario {
@@ -179,6 +179,31 @@ describe('Story', () => {
     assert.equal(t.vars['count'], 5);
     const b = t.click(restored.links[0]!);
     assert.deepEqual(b.output[0], { t: 'text', key: 'b', kind: 'narrative', args: ['5'] });
+  });
+
+  it('restores a snapshot of an earlier scenario version: new variables start, removed ones go', () => {
+    const sc = scenario({ A: { body: [{ t: 'link', key: 'go', to: { lit: 'A' } }] } });
+    const s = new Story(sc);
+    s.start();
+    const old = { ...s.snapshot(), vars: { count: 3, gone: true } };
+
+    const t = new Story({ ...sc, variables: { ...sc.variables, added: 'x' } });
+    t.restore(old);
+    assert.deepEqual(t.vars, { count: 3, who: '', added: 'x' });
+  });
+
+  it('finds what keeps a snapshot from continuing with a changed scenario', () => {
+    const sc = scenario({
+      A: { body: [{ t: 'link', key: 'more', reveal: '0' }, { t: 'link', key: 'go', to: { lit: 'B' } }], fragments: { '0': [] } },
+      B: { body: [] },
+    });
+    const s = new Story(sc);
+    s.start();
+    const snap = s.snapshot();
+    assert.deepEqual(snapshotProblems(sc, snap), []);
+
+    const changed: Scenario = { ...sc, variables: { count: '', who: '' }, passages: { A: { ...sc.passages['A']!, fragments: {} } } };
+    assert.deepEqual(snapshotProblems(changed, snap), ['unknown fragment 0 in "A"', 'unknown passage "B"', 'variable "count" is now string']);
   });
 
   it('marks random picks in displayed text as display-only', () => {

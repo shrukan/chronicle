@@ -87,6 +87,34 @@
   </div>
 </cr-modal>
 
+@let reason = notResumed();
+<cr-modal
+  [open]="!!reason"
+  [dismissable]="true"
+  (closed)="notResumed.set(undefined)"
+  label="Saved game"
+>
+  <p class="question">Your saved game can’t be continued</p>
+  <p class="consequence">{{ reason && notResumedText[reason] }}</p>
+  <div class="row">
+    <button type="button" class="btn cancel" (click)="notResumed.set(undefined)">
+      {{
+        t(
+          'UI/MainMenu/Viewarea/RewriteData UI/RewriteData Panel/PanelBG/CancleButton/Text (TMP)',
+          'Cancel'
+        )
+      }}
+    </button>
+    @if (reason === 'newer') {
+      <button type="button" class="btn confirm" (click)="reload()">Reload</button>
+    } @else {
+      <button type="button" class="btn confirm" (click)="startOver()">
+        {{ t('UI/MainMenu/Viewarea/GridButtons/NewGame/Text (TMP)', 'New game') }}
+      </button>
+    }
+  </div>
+</cr-modal>
+
 <cr-modal
   [open]="settingsOpen()"
   [dismissable]="true"

@@ -15,8 +15,21 @@ import {
 } from '@chronicle/engine';
 import { AudioPlayer } from './audio';
 import { loadContent, type ScenarioContent, type ScenarioId } from './content';
-import { SaveStore, type GameSetup, type UndoStep } from './save-store';
+import { migrateSave } from '../utils/save-migration';
+import { SAVE_VERSION, SaveStore, type GameSetup, type UndoStep } from './save-store';
 import { Settings } from './settings';
+
+/**
+ * What became of continuing the saved game: `none` when there is none, `changed` when the story
+ * changed in an update so that it can't continue, `newer` when a newer version of the app saved it.
+ */
+export type ResumeResult = 'resumed' | 'none' | 'changed' | 'newer';
+
+/** What to tell the players when the saved game can't be continued. */
+export const NOT_RESUMED: Record<'changed' | 'newer', string> = {
+  changed: 'The story has changed in an update since it was saved.',
+  newer: 'A newer version of Chronicle saved it. Reload to update, then continue.',
+};
 
 /** How many choices can be undone. */
 const UNDO_LIMIT = 10;
@@ -182,23 +195,28 @@ export class Game {
     this.step(() => this.story!.start());
   }
 
-  /** Continues the saved game; false when there is none. */
-  async resume(): Promise<boolean> {
-    const saved = await this.saves.load(this.scenarioId());
-    if (!saved) return false;
+  /** Continues the saved game, if there is one that fits the current story. */
+  async resume(): Promise<ResumeResult> {
+    const raw = await this.saves.load(this.scenarioId());
+    if (!raw) return 'none';
     const content = await this.loadContent();
+    const loaded = migrateSave(raw, content.scenario);
+    if (!loaded) return 'none';
+    // Not logged: the problems name passages, which would give the story away.
+    if (loaded.status !== 'ok') return loaded.status;
+    const saved = loaded.save;
     this.story = new Story(content.scenario);
     this.setup.set(saved.setup);
     this.log.set(saved.log);
-    this.roundsDone.set(saved.roundsDone ?? 0);
-    this.playTime.set(saved.playTime ?? 0);
-    this.undoSteps.set(saved.undo ?? []);
+    this.roundsDone.set(saved.roundsDone);
+    this.playTime.set(saved.playTime);
+    this.undoSteps.set(saved.undo);
     this.audio.playMusic(this.scenarioId());
-    this.step(() => this.story!.restore(saved.snapshot), false, saved.carried ?? []);
+    this.step(() => this.story!.restore(saved.snapshot), false, saved.carried);
     // The page's voice-over starts again, as when it was first reached.
     const passage = this.view()?.passage;
     if (passage) this.audio.playVoice(passage, this.voiceMode(passage));
-    return true;
+    return 'resumed';
   }
 
   async abandon(): Promise<void> {
@@ -277,9 +295,9 @@ export class Game {
     if (!last || !this.story) return;
     this.undoSteps.set(steps.slice(0, -1));
     this.log.set(last.log);
-    this.roundsDone.set(last.roundsDone ?? 0);
+    this.roundsDone.set(last.roundsDone);
     this.audio.stopVoice();
-    this.step(() => this.story!.restore(last.snapshot), false, last.carried ?? []);
+    this.step(() => this.story!.restore(last.snapshot), false, last.carried);
   }
 
   /** Remembers the current page before a choice (not while a prompt waits: see undo). */
@@ -430,6 +448,7 @@ export class Game {
     const setup = this.setup();
     if (!setup || !this.lastSafe) return;
     await this.saves.save({
+      version: SAVE_VERSION,
       scenario: this.scenarioId(),
       setup,
       snapshot: this.lastSafe,
