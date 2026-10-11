@@ -1,9 +1,26 @@
 # Chronicle – project plan
 
-A fan-made, non-commercial companion app for *My Father's Work*. Background and code analysis: `HANDOFF.md`.
+A fan-made, non-commercial companion app for *My Father's Work*.
 
 **Working mode:** solo for now, open-sourced later → keep the repo publishable from day one
 (clean history, no secrets, licences in place, README a stranger could follow).
+
+## Background
+
+- *My Father's Work* (Renegade Game Studios) depends on a companion app. The official Android app
+  is gone from Google Play; the iOS and web versions are still up but buggy.
+- On 24 June 2026 Renegade released the app's development files to the community
+  ([blog post](https://renegadegamestudios.com/blog/my-fathers-work-app-update-community-resources/)),
+  licensed CC BY-NC 4.0: a free, credited, non-commercial fan app is allowed.
+- The original is a Unity 2019.4 project. Its story was written in Twine (Harlowe) and compiled to
+  C# by the Cradle plugin; the generated C# was then edited by hand (password checks, pop-ups,
+  calls into the UI). The Twine sources are not included.
+- Size of the English stories: *The Cost of Disease* 869 passages (~41,000 words), *Fear of the
+  Unknown* 1,059 (~32,000), *A Time of War* 808 (~32,000). The French versions are similar in
+  size; `Assets/Scripts/OldStory/` holds unused drafts.
+- The original makes no network calls and keeps all state on the device (Unity PlayerPrefs).
+- Other reusable material in the Unity project: images, music and voice-over, and the log book
+  summaries in 8 languages (`Assets/CSV/`).
 
 ## 1. Goals
 
@@ -16,7 +33,7 @@ A fan-made, non-commercial companion app for *My Father's Work*. Background and 
 
 **Later**
 - The other two scenarios, then other languages. French is deferred: the original French
-  scripts were edited separately from the English ones (see `spike/FINDINGS.md`).
+  scripts were edited separately from the English ones.
 - **Reading modes:** *Full* (original text), *Short* (shortened story text, same game
   instructions), possibly more (e.g. instructions only).
 - Voice-over, Capacitor app-store builds, cloud saves.
@@ -80,7 +97,7 @@ reviewed/unreviewed in the string table. Only reviewed short texts are shown.
 
 Each milestone has an exit criterion. Don't start the next until it's met (unless noted).
 
-**M0 – Repo and spike** ✅ done – see `spike/FINDINGS.md`
+**M0 – Repo and spike** ✅ done
 - Repo, licences, Taskfile, prek + commitlint, release-please, CI.
 - Spike went further than planned: a prototype converter for all six scripts, the engine,
   a terminal player and a random-walk smoke test (1,000 runs; ~29% reach the end of the game).
