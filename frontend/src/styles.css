@@ -120,9 +120,9 @@ body {
     padding: 1.5rem 1.25rem;
   }
 
-  /* The original's buttons: metal-framed plates, coloured by what they do – brown moves on
-     (Continue, the main menu), green confirms a dialog (OK, Accept), red backs out (Cancel,
-     Back, Main menu from a game). Drawn as a 9-slice border image so they fit any width.
+  /* The original's buttons: metal-framed plates, coloured by what they do – brown moves on or
+     back (Continue, Back, Cancel, the main menu), green confirms a dialog (OK, Accept), red
+     destroys something (Delete). Drawn as a 9-slice border image so they fit any width.
      Hover lights them up like the original's highlight plate; pressing sinks them in. */
   .btn {
     position: relative;
@@ -148,8 +148,8 @@ body {
       transform 0.12s ease-out,
       filter 0.18s ease-out;
   }
-  /* Back and Cancel, as in the original – and an action that destroys something (danger). */
-  .btn:is(.cancel, .danger) {
+  /* Red: an action that destroys something (the original used it for Back and Cancel). */
+  .btn.danger {
     border-image-source: var(--button-cancel-image, none);
     background-color: var(--color-accent);
   }

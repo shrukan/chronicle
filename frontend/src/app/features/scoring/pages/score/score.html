@@ -1,7 +1,7 @@
 <section class="paper sheet">
   @if (!link()) {
     <p>Scoring opens at the end of the game.</p>
-    <a class="btn cancel" routerLink="/play">Back to the story</a>
+    <a class="btn" routerLink="/play">Back to the story</a>
   } @else if (phase() === 'entry') {
     <h1 class="heading">{{ t('UI/Scoring/ViewArea/Title', 'Score Entry') }}</h1>
     <!-- Scores, and below them only the tie-breakers a tie calls for: one page, one button. -->
