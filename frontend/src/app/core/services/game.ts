@@ -2,13 +2,10 @@ import { computed, inject, Injectable, signal } from '@angular/core';
 import {
   resolveText,
   PLAYER_NAME_VARIABLES,
-  SETUP_CONTINUE_KEY,
   Story,
   StoryError,
   ValueError,
-  type Node,
   type Out,
-  type Passage,
   type ReadingMode,
   type StorySnapshot,
   type StoryView,
@@ -17,8 +14,10 @@ import {
 } from '@chronicle/engine';
 import { AudioPlayer } from './audio';
 import { loadContent, type ScenarioContent, type ScenarioId } from './content';
-import { ROUNDS, ROUNDS_PER_GENERATION, roundPosition } from '../utils/rounds';
+import { boxOnly, revealPlainContinues, takeBoxesTogether } from '../utils/auto-steps';
+import { ROUNDS, roundPosition, roundsAfter } from '../utils/rounds';
 import { migrateSave } from '../utils/save-migration';
+import { titleKey } from '../utils/story-output';
 import { SAVE_VERSION, SaveStore, type GameSetup, type UndoStep } from './save-store';
 import { Settings } from './settings';
 
@@ -38,69 +37,6 @@ export const NOT_RESUMED: Record<'changed' | 'newer', string> = {
 const UNDO_LIMIT = 10;
 /** How long after a page change a tap is taken for the second half of a double tap. */
 const TAP_GUARD_MS = 350;
-
-/** Nodes that must not run without the players: leaving the page, asking a question. */
-function interrupts(
-  nodes: Node[],
-  passages: Record<string, Passage>,
-  seen = new Set<string>(),
-): boolean {
-  return nodes.some((n) => {
-    if (n.t === 'goto' || n.t === 'prompt' || n.t === 'manual') return true;
-    if (n.t === 'include') {
-      const name = 'lit' in n.passage ? String(n.passage.lit) : undefined;
-      if (!name) return true;
-      if (seen.has(name)) return false;
-      seen.add(name);
-      return interrupts(passages[name]?.body ?? [], passages, seen);
-    }
-    if (n.t === 'block') return interrupts(n.body, passages, seen);
-    if (n.t === 'if') return n.branches.some((b) => interrupts(b.body, passages, seen));
-    return false;
-  });
-}
-
-/** A page that shows nothing but a box of things to do at the table (and sets values). */
-function boxOnly(passage: Passage | undefined): boolean {
-  const body = passage?.body ?? [];
-  return (
-    body.some((n) => n.t === 'block' && n.style === 'setupEvent') &&
-    body.every(
-      (n) => n.t === 'set' || n.t === 'br' || (n.t === 'block' && n.style === 'setupEvent'),
-    )
-  );
-}
-
-/** The output without one link (the Accept of a box taken together with the next one). */
-function withoutLink(out: Out[], id: number): Out[] {
-  return out.flatMap((o): Out[] =>
-    o.t === 'link' && o.id === id
-      ? []
-      : o.t === 'block' || o.t === 'group'
-        ? [{ ...o, children: withoutLink(o.children, id) }]
-        : [o],
-  );
-}
-
-function findLink(out: Out[], id: number): Extract<Out, { t: 'link' }> | undefined {
-  for (const o of out) {
-    if (o.t === 'link' && o.id === id) return o;
-    if (o.t === 'block' || o.t === 'group') {
-      const inner = findLink(o.children, id);
-      if (inner) return inner;
-    }
-  }
-  return undefined;
-}
-
-/** First title of a passage's output (its heading in the original). */
-function titleKey(out: Out[]): string | undefined {
-  for (const o of out) {
-    if (o.t === 'text' && o.kind === 'title') return o.key;
-    if (o.t === 'text') return undefined;
-  }
-  return undefined;
-}
 
 /**
  * The running game: loads the scenario, drives the story engine and saves progress after
@@ -236,10 +172,6 @@ export class Game {
   }
 
   /**
-   * Follows a link. `undoable: false` folds it into the previous choice, for a step the app
-   * takes for the players (see Play.showPage): undo then skips the page it leaves.
-   */
-  /**
    * A player's tap on the page. Taps right after the page changed are ignored: a double tap
    * would otherwise also take the first link of the next page, unseen.
    */
@@ -248,6 +180,10 @@ export class Game {
     this.click(link);
   }
 
+  /**
+   * Follows a link. `undoable: false` folds it into the previous choice, for a step the app
+   * takes for the players (see Play.showPage): undo then skips the page it leaves.
+   */
   click(link: number, values?: Record<string, Value>, undoable = true): void {
     if (undoable) this.remember();
     this.step(() => this.story!.click(link, values));
@@ -324,63 +260,31 @@ export class Game {
   private step(action: () => StoryView, entering = true, carried: Out[] = []): void {
     const before = this.story?.history.length ?? 0;
     try {
-      const taken = this.takeBoxesTogether(this.revealPlainContinues(action()), carried);
+      const story = this.story!;
+      const passages = this.content()?.scenario.passages ?? {};
+      const taken = takeBoxesTogether(
+        story,
+        passages,
+        revealPlainContinues(story, passages, action()),
+        carried,
+      );
       this.carried = taken.carried;
       const view = { ...taken.view, output: [...taken.carried, ...taken.view.output] };
       this.error.set(undefined);
       // The engine reuses its output tree; hand the UI a copy so signals see a change.
       this.view.set({ ...view, output: structuredClone(view.output) });
       this.shownAt = performance.now();
-      this.visit.set(this.story!.history.length);
-      this.countRounds(view.output);
-      if (!view.prompt) this.lastSafe = this.story!.snapshot();
-      if (entering) this.entered(this.story!.history.slice(before));
+      this.visit.set(story.history.length);
+      const endOfRound = this.content()?.extras.endOfRound ?? {};
+      this.roundsDone.set(roundsAfter(view.output, this.roundsDone(), endOfRound));
+      if (!view.prompt) this.lastSafe = story.snapshot();
+      if (entering) this.entered(story.history.slice(before));
       void this.persist();
     } catch (e) {
       // Errors in the story data are shown on the page; anything else is a bug in the app.
       if (!(e instanceof StoryError) && !(e instanceof ValueError)) throw e;
       this.error.set(e.message);
     }
-  }
-
-  /**
-   * Boxes in a row (the opening's setup steps, rewards after a story) on one page: when the
-   * page's only way on is a box's Accept and it leads to a page that is just another box, that
-   * step is taken now and its box shown below. One Accept then confirms them all; values
-   * rolled on the way are rolled once, so what is shown is what counts.
-   */
-  private takeBoxesTogether(view: StoryView, carried: Out[]): { view: StoryView; carried: Out[] } {
-    const passages = this.content()?.scenario.passages ?? {};
-    for (let i = 0; i < 10 && !view.prompt && view.links.length === 1; i++) {
-      const id = view.links[0]!;
-      if (findLink(view.output, id)?.key !== SETUP_CONTINUE_KEY) break;
-      const to = this.story!.linkTarget(id)?.to;
-      if (!to || !boxOnly(passages[to])) break;
-      carried = [...carried, ...structuredClone(withoutLink(view.output, id))];
-      view = this.revealPlainContinues(this.story!.click(id));
-    }
-    return { view, carried };
-  }
-
-  /**
-   * Shows each page at once: opens reveals that only say "continue" and whose content
-   * stays on the page – the reader would click them anyway. Reveals with their own label
-   * (often hiding something from the other players), jumps and prompts still wait.
-   */
-  private revealPlainContinues(view: StoryView): StoryView {
-    const passages = this.content()?.scenario.passages ?? {};
-    for (let i = 0; i < 30 && !view.prompt; i++) {
-      const next = view.links.find((id) => {
-        const target = this.story!.linkTarget(id);
-        if (!target?.reveal || !target.replace) return false;
-        if (findLink(view.output, id)?.role !== 'continue') return false;
-        const fragment = passages[target.revealFrom!]?.fragments[target.reveal];
-        return !!fragment && !interrupts(fragment, passages);
-      });
-      if (next === undefined) break;
-      view = this.story!.click(next);
-    }
-    return view;
   }
 
   /** Bookkeeping for passages just entered: log book, voice-over, endings. */
@@ -403,31 +307,6 @@ export class Game {
         .unlock(this.scenarioId(), current)
         .then((first) => first && this.newEnding.set(current));
     }
-  }
-
-  /**
-   * Moves the round count on for an end-of-round or end-of-generation screen on the page. Each
-   * says how many rounds are done; 0 means "this generation's third round". A screen counts only
-   * when it is the next step, so showing the same page again changes nothing.
-   */
-  private countRounds(output: Out[]): void {
-    const extras = this.content()?.extras;
-    const done = this.roundsDone();
-    const marks: number[] = [];
-    const visit = (items: Out[]): void => {
-      for (const o of items) {
-        if (o.t === 'ui' && o.ui === 'endOfRound') {
-          const round = extras?.endOfRound[String(o.args['progress'] ?? '')]?.round;
-          if (round !== undefined)
-            marks.push(round || roundPosition(done + 1).generation * ROUNDS_PER_GENERATION);
-        } else if (o.t === 'ui' && o.ui === 'endOfGeneration') {
-          marks.push(Number(o.args['generation']));
-        } else if (o.t === 'block' || o.t === 'group') visit(o.children);
-      }
-    };
-    visit(output);
-    const next = marks.filter((m) => m > done).sort((a, b) => a - b)[0];
-    if (next !== undefined) this.roundsDone.set(next);
   }
 
   /** The reading mode whose text a passage shows: the setting, or `full` without own text. */

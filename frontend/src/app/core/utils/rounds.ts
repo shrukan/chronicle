@@ -1,3 +1,6 @@
+import type { Out, ScenarioExtras } from '@chronicle/engine';
+import { eachOut } from './story-output';
+
 /** Every scenario is played over three generations of three rounds: a rule of the board game. */
 export const ROUNDS_PER_GENERATION = 3;
 export const GENERATIONS = 3;
@@ -12,4 +15,27 @@ export function roundPosition(round: number): { generation: number; round: numbe
     generation: Math.floor((round - 1) / ROUNDS_PER_GENERATION) + 1,
     round: ((round - 1) % ROUNDS_PER_GENERATION) + 1,
   };
+}
+
+/**
+ * Rounds completed after a page with end-of-round or end-of-generation screens. Each says how
+ * many rounds are done (an end of round with round 0 means "this generation's third"). A screen
+ * counts only when it is the next step, so showing the same page again changes nothing.
+ */
+export function roundsAfter(
+  output: Out[],
+  done: number,
+  endOfRound: ScenarioExtras['endOfRound'],
+): number {
+  const marks: number[] = [];
+  eachOut(output, (o) => {
+    if (o.t === 'ui' && o.ui === 'endOfRound') {
+      const round = endOfRound[String(o.args['progress'] ?? '')]?.round;
+      if (round !== undefined)
+        marks.push(round || roundPosition(done + 1).generation * ROUNDS_PER_GENERATION);
+    } else if (o.t === 'ui' && o.ui === 'endOfGeneration') {
+      marks.push(Number(o.args['generation']));
+    }
+  });
+  return marks.filter((m) => m > done).sort((a, b) => a - b)[0] ?? done;
 }

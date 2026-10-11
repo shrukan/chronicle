@@ -17,7 +17,6 @@ import { form, FormField, FormRoot, required } from '@angular/forms/signals';
 import { AudioPlayer } from '../../../../core/services/audio';
 import { Game, NOT_RESUMED, type ResumeResult } from '../../../../core/services/game';
 import { bugReportUrl } from '../../../../core/utils/bug-report';
-import { keepScreenOn } from '../../../../core/utils/wake-lock';
 import { Autofocus } from '../../../../shared/directives/autofocus/autofocus';
 import { Library } from '../../../../core/services/library';
 import { Settings } from '../../../../core/services/settings';
@@ -25,47 +24,11 @@ import { LogBook } from '../../components/log-book/log-book';
 import { RoundBar } from '../../components/round-bar/round-bar';
 import { RichText } from '../../components/rich-text/rich-text';
 import { StoryOutput } from '../../components/story-output/story-output';
-import { SETUP_CONTINUE_KEY, type Out } from '@chronicle/engine';
 import { formatDuration } from '../../../../shared/utils/duration';
 import { Modal } from '../../../../shared/components/modal/modal';
 import { SettingsPanel } from '../../../../shared/components/settings-panel/settings-panel';
-
-/** A clickable story link (not one inside a setup pop-up, which the pop-up handles). */
-function findStoryLink(out: Out[], id: number): Extract<Out, { t: 'link' }> | undefined {
-  for (const o of out) {
-    if (o.t === 'link' && o.id === id && !o.disabled && o.key !== SETUP_CONTINUE_KEY) return o;
-    if (o.t === 'group' || (o.t === 'block' && o.style !== 'setupEvent')) {
-      const inner = findStoryLink(o.children, id);
-      if (inner) return inner;
-    }
-  }
-  return undefined;
-}
-
-/**
- * What the original showed as a pop-up once the story was read (gain, lose, place …) comes
- * after the story, as a box with its Accept (the way on) right below: read first, then act –
- * also while the voice-over reads the story.
- */
-function setupAfterStory(out: Out[]): Out[] {
-  const setups: Out[] = [];
-  const accepts: Out[] = [];
-  // Also inside the sections that "continue" opened on the page.
-  const take = (items: Out[]): Out[] =>
-    items.flatMap((o): Out[] => {
-      if (o.t === 'group') return [{ ...o, children: take(o.children) }];
-      if (o.t !== 'block' || o.style !== 'setupEvent') return [o];
-      const children = o.children.filter((c) => {
-        const accept = c.t === 'link' && c.key === SETUP_CONTINUE_KEY;
-        if (accept) accepts.push(c);
-        return !accept;
-      });
-      setups.push({ ...o, children });
-      return [];
-    });
-  const rest = take(out);
-  return setups.length ? [...rest, ...setups, ...accepts] : out;
-}
+import { handoverNotice, noticeLink, onlyWay, pageBody } from '../../utils/page-layout';
+import { startPlaySession } from '../../utils/play-session';
 
 /** The storybook: current passage, log book, pause menu, prompts and endings. */
 @Component({
@@ -116,31 +79,16 @@ export class Play {
     },
   });
 
-  /**
-   * The passage without its title (shown in the header) and the line breaks around it – the
-   * original often ends a page with empty lines after its last button.
-   */
-  protected readonly body = computed(() => {
-    const out = this.game.view()?.output ?? [];
-    let i = 0;
-    if (this.game.title() && out[0]?.t === 'text' && out[0].kind === 'title') i = 1;
-    while (out[i]?.t === 'br') i++;
-    let end = out.length;
-    while (end > i && out[end - 1]!.t === 'br') end--;
-    return setupAfterStory(out.slice(i, end));
-  });
+  /** The page without the title the header shows (see `pageBody`). */
+  protected readonly body = computed(() =>
+    pageBody(this.game.view()?.output ?? [], !!this.game.title()),
+  );
 
   /**
    * The single way forward when a page offers no choice: shown as a clear button where the
    * link is, and bound to Space / Enter.
    */
-  protected readonly onlyWay = computed(() => {
-    const view = this.game.view();
-    if (!view || view.prompt || view.links.length !== 1) return undefined;
-    const link = findStoryLink(view.output, view.links[0]!);
-    if (!link) return undefined;
-    return { id: link.id, key: link.key, args: link.args, plain: link.role === 'continue' };
-  });
+  protected readonly onlyWay = computed(() => onlyWay(this.game.view()));
 
   protected onKey(event: KeyboardEvent): void {
     const way = this.onlyWay();
@@ -181,36 +129,15 @@ export class Play {
    */
   private readonly holding = linkedSignal({ source: this.game.isHub, computation: () => false });
 
-  /**
-   * The app commands opening the page ("hand the storybook to …", and a tie rule right after
-   * it): shown full screen first.
-   */
-  protected readonly handover = computed(() => {
-    if (this.handedOver()) return undefined;
-    const out = this.body().filter((o) => o.t !== 'br');
-    const isCommand = (o: Out | undefined) => o?.t === 'text' && o.kind === 'command';
-    const start = out.slice(0, 2).findIndex(isCommand);
-    if (start < 0) return undefined;
-    let end = start;
-    while (isCommand(out[end])) end++;
-    const notice = out.slice(start, end) as Extract<Out, { t: 'text' }>[];
-    const passes = notice.some((o) => o.role === 'handover');
-    return this.holding() && !passes ? undefined : notice;
-  });
+  /** The hand-over notice opening the page, shown full screen first (see `handoverNotice`). */
+  protected readonly handover = computed(() =>
+    this.handedOver() ? undefined : handoverNotice(this.body(), this.holding()),
+  );
 
-  /**
-   * The page's only link when it holds nothing but the handover notice and that link ("click
-   * here to reveal your secret …"): confirming the notice follows it, so it takes one tap.
-   */
+  /** A link that confirming the notice follows at once (see `noticeLink`). */
   private readonly handoverLink = computed(() => {
     const notice = this.handover();
-    const view = this.game.view();
-    if (!notice || !view || view.prompt || view.links.length !== 1) return undefined;
-    const flat = (out: Out[]): Out[] =>
-      out.flatMap((o) => (o.t === 'group' ? flat(o.children) : o.t === 'br' ? [] : [o]));
-    const rest = flat(this.body()).filter((o) => !(notice as Out[]).includes(o));
-    const only = rest.length === 1 ? rest[0] : undefined;
-    return only?.t === 'link' && only.id === view.links[0] && !only.disabled ? only.id : undefined;
+    return notice && noticeLink(notice, this.body(), this.game.view());
   });
 
   protected showPage(): void {
@@ -271,24 +198,7 @@ export class Play {
       title.focus({ preventScroll: true });
     });
 
-    // Count play time while the storybook is on screen and the story isn't over.
-    const timer = setInterval(() => {
-      if (document.visibilityState === 'visible' && this.game.view() && !this.game.isEnding())
-        this.game.tick(1000);
-    }, 1000);
-    // Save on leaving and when the app goes to the background (phones may close it there).
-    const save = () => void this.game.persist();
-    const onVisibility = () => document.visibilityState === 'hidden' && save();
-    document.addEventListener('visibilitychange', onVisibility);
-    window.addEventListener('pagehide', save);
-    const releaseScreen = keepScreenOn();
-    inject(DestroyRef).onDestroy(() => {
-      releaseScreen();
-      clearInterval(timer);
-      document.removeEventListener('visibilitychange', onVisibility);
-      window.removeEventListener('pagehide', save);
-      save();
-    });
+    inject(DestroyRef).onDestroy(startPlaySession(this.game));
   }
 
   private readonly endingTitles = computed(() => {

@@ -61,6 +61,8 @@ original C# story scripts ──converter──▶ content/ (JSON) ──engine�
 - **App** (`frontend/`): Angular, standalone components, signals, zoneless, `OnPush`, the new
   control flow, `inject()`, Signal Forms; Tailwind for tokens; Angular CDK where needed. The
   `Game` service drives the engine, saves after every step (IndexedDB) and keeps undo steps;
+  what a page shows (steps taken for the players, layout, hand-overs) is decided by plain
+  functions in `utils/` folders, tested without Angular;
   settings live in localStorage; a service worker makes it work offline.
 
 ### Frontend layout (`frontend/src/app/`)
@@ -69,15 +71,18 @@ Feature-based, one folder per component, each with its own `.ts`, `.html`, `.css
 `.spec.ts` when it has tests:
 
 ```
-app.ts / app.html / app.css      shell: backdrop, update notice, footer
+app.ts / app.html / app.css      shell: backdrop, update and error notices, footer
 app.routes.ts, app.config.ts
 core/services/                   app-wide singletons: game, library (assets, screen texts,
                                  voices), audio, settings, save-store, content, whats-new,
-                                 app-update
-core/utils/                      plain helpers: bug-report links, rounds, save migration,
-                                 wake lock
+                                 app-update, app-errors
+core/utils/                      plain helpers: steps the app takes for the players
+                                 (auto-steps), page output, rounds, save migration,
+                                 bug-report links, wake lock
 features/<feature>/pages/<name>/        routed pages
 features/<feature>/components/<name>/   components only that feature uses
+features/<feature>/utils/               plain helpers only that feature uses (storybook:
+                                        page layout, play session)
 shared/components/<name>/        reused across features: modal (+ modal-stack), tabs,
                                  settings-panel
 shared/directives/<name>/        e.g. autofocus
