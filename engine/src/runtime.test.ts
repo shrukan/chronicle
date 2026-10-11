@@ -203,7 +203,24 @@ describe('Story', () => {
     assert.deepEqual(snapshotProblems(sc, snap), []);
 
     const changed: Scenario = { ...sc, variables: { count: '', who: '' }, passages: { A: { ...sc.passages['A']!, fragments: {} } } };
-    assert.deepEqual(snapshotProblems(changed, snap), ['unknown fragment 0 in "A"', 'unknown passage "B"', 'variable "count" is now string']);
+    assert.deepEqual(snapshotProblems(changed, snap), ['unknown fragment 0 in "A"', 'unknown passage "B"', 'passage "A" changed', 'variable "count" is now string']);
+  });
+
+  it('notices when a passage the page was made from changed (its keys may name other texts)', () => {
+    const sc = scenario({
+      A: { body: [{ t: 'text', key: 'A.1', kind: 'narrative' }, { t: 'include', passage: { lit: 'B' } }] },
+      B: { body: [{ t: 'text', key: 'B.1', kind: 'narrative' }] },
+    });
+    const s = new Story(sc);
+    s.start();
+    const snap = JSON.parse(JSON.stringify(s.snapshot()));
+    assert.deepEqual(Object.keys(snap.sources), ['A', 'B']);
+    assert.deepEqual(snapshotProblems(sc, snap), []);
+    // A text added at the top of B: B.1 is now another text.
+    const changed = scenario({ A: sc.passages['A']!, B: { body: [{ t: 'text', key: 'B.1', kind: 'narrative' }, { t: 'text', key: 'B.2', kind: 'narrative' }] } });
+    assert.deepEqual(snapshotProblems(changed, snap), ['passage "B" changed']);
+    // Snapshots from before fingerprints are not checked for it.
+    assert.deepEqual(snapshotProblems(changed, { ...snap, sources: undefined }), []);
   });
 
   it('marks random picks in displayed text as display-only', () => {

@@ -50,6 +50,26 @@ export interface StoryView {
 
 export class StoryError extends Error {}
 
+const fingerprints = new WeakMap<Passage, string>();
+/** The scenario each snapshot was taken of (see `Story.restore`). */
+const madeFor = new WeakMap<StorySnapshot, Scenario>();
+
+/**
+ * Short hash of a passage's nodes (FNV-1a over its JSON, without the source reference). Text
+ * edits don't change it – they live in the string tables – but added or removed nodes do.
+ */
+export function passageFingerprint(passage: Passage): string {
+  let hash = fingerprints.get(passage);
+  if (hash === undefined) {
+    const json = JSON.stringify({ body: passage.body, fragments: passage.fragments });
+    let h = 0x811c9dc5;
+    for (let i = 0; i < json.length; i++) h = Math.imul(h ^ json.charCodeAt(i), 0x01000193);
+    hash = (h >>> 0).toString(16).padStart(8, '0');
+    fingerprints.set(passage, hash);
+  }
+  return hash;
+}
+
 /**
  * Why a snapshot (e.g. from a save made before an update) cannot continue with this scenario:
  * passages, fragments or link targets it needs are gone, or a variable changed its type. Empty
@@ -67,6 +87,11 @@ export function snapshotProblems(scenario: Scenario, snap: StorySnapshot): strin
     if (l.to !== undefined) passage(l.to);
     const owner = l.revealFrom ?? l.passage;
     if (l.reveal !== undefined && !passages[owner]?.fragments[l.reveal]) problems.add(`unknown fragment ${l.reveal} in "${owner}"`);
+  }
+  for (const [name, hash] of Object.entries(snap.sources ?? {})) {
+    const source = passages[name];
+    if (!source) passage(name);
+    else if (passageFingerprint(source) !== hash) problems.add(`passage "${name}" changed`);
   }
   for (const [name, value] of Object.entries(snap.vars)) {
     const initial = scenario.variables[name];
@@ -86,6 +111,12 @@ export interface StorySnapshot {
   output: Out[];
   links: { id: number; passage: string; to?: string; reveal?: string; revealFrom?: string; replace: boolean }[];
   nextLinkId: number;
+  /**
+   * Fingerprint of each passage the page was made from (see `passageFingerprint`). The page
+   * refers to texts by key, and keys are numbered per passage: if a passage changed, its keys
+   * may now name other texts. Missing in snapshots from before it was added.
+   */
+  sources?: Record<string, string>;
 }
 
 type Flow = undefined | { goto: string };
@@ -119,6 +150,8 @@ export class Story {
   private output: Out[] = [];
   private links = new Map<number, LinkEntry>();
   private nextLinkId = 1;
+  /** Passages the current page was made from. */
+  private sources = new Set<string>();
   private suspended: { thread: Thread; prompt: PromptNode; args: string[] } | undefined;
   /** > 0 while evaluating values that are only displayed. */
   private displayDepth = 0;
@@ -156,7 +189,7 @@ export class Story {
 
   snapshot(): StorySnapshot {
     if (this.suspended) throw new StoryError('Cannot snapshot while a prompt is waiting');
-    return structuredClone({
+    const snap: StorySnapshot = structuredClone({
       passage: this.passage,
       history: this.history,
       vars: this.vars,
@@ -170,7 +203,10 @@ export class Story {
         ...(l.revealFrom !== undefined ? { revealFrom: l.revealFrom } : {}),
       })),
       nextLinkId: this.nextLinkId,
+      sources: Object.fromEntries([...this.sources].map((n) => [n, passageFingerprint(this.scenario.passages[n]!)])),
     });
+    madeFor.set(snap, this.scenario);
+    return snap;
   }
 
   /**
@@ -181,11 +217,18 @@ export class Story {
     const s = structuredClone(snap);
     this.passage = s.passage;
     this.history = s.history;
-    this.vars = { ...this.scenario.variables };
-    for (const [name, value] of Object.entries(s.vars)) if (name in this.vars) this.vars[name] = value;
+    this.vars = s.vars;
+    // Snapshots taken here of this scenario have its variables (the story tester restores one
+    // for every step); others, e.g. from a save, may be of an earlier version.
+    if (madeFor.get(snap) !== this.scenario) {
+      const initial = this.scenario.variables;
+      for (const name in initial) if (!(name in this.vars)) this.vars[name] = initial[name]!;
+      for (const name in this.vars) if (!(name in initial)) delete this.vars[name];
+    }
     this.output = s.output;
     this.nextLinkId = s.nextLinkId;
     this.suspended = undefined;
+    this.sources = new Set(Object.keys(s.sources ?? {}));
 
     // Re-attach links to where they sit in the output (screen links sit nowhere).
     const placed = new Map<number, { container: Out[]; out: Out }>();
@@ -279,6 +322,7 @@ export class Story {
     this.history.push(name);
     this.output = [];
     this.links.clear();
+    this.sources.clear();
     this.suspended = undefined;
     this.drive(this.exec(passage.body, this.output, passage), undefined, jumps);
   }
@@ -295,6 +339,7 @@ export class Story {
   }
 
   private *exec(nodes: Node[], out: Out[], passage: Passage): Thread {
+    this.sources.add(passage.name);
     for (const node of nodes) {
       switch (node.t) {
         case 'text':
