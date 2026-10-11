@@ -59,7 +59,14 @@ td input[type='number'] {
   color: var(--color-muted);
 }
 .name {
+  display: grid;
   font-size: 1.25rem;
+}
+/* The tie-breaker that decided, under the name. */
+.tie-note {
+  font-size: 0.85rem;
+  font-style: italic;
+  color: var(--color-muted);
 }
 .crown {
   width: 2rem;

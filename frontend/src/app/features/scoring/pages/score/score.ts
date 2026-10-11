@@ -128,12 +128,15 @@ export class Score {
       (!this.needsUpgrades() ||
         this.contenders().every((p) => this.upgrades()[p.index] !== undefined)),
   );
-  protected readonly result = computed(() => {
-    const bonus = tieBreak(this.entered(), this.completed(), this.upgrades());
-    return rankPlayers(
-      this.entered().map((p) => ({ ...p, score: p.score + (bonus[p.index] ?? 0) })),
-    );
-  });
+  /** Points the tie-breakers add (see `tieBreak`). */
+  private readonly bonus = computed(() =>
+    tieBreak(this.entered(), this.completed(), this.upgrades()),
+  );
+  protected readonly result = computed(() =>
+    rankPlayers(
+      this.entered().map((p) => ({ ...p, score: p.score + (this.bonus()[p.index] ?? 0) })),
+    ),
+  );
 
   protected t(key: string, fallback: string): string {
     return this.library.text(key, fallback);
@@ -188,6 +191,17 @@ export class Score {
     const following = fields[fields.indexOf(event.target as HTMLInputElement) + 1];
     if (following) following.focus();
     else if (this.ready()) this.phase.set('ranking');
+  }
+
+  /**
+   * Why a tied leader ranks where they do: the ranking shows the scores entered, so the
+   * tie-breaker that decided is named under the name.
+   */
+  protected tieNote(i: number): string | undefined {
+    const points = this.bonus()[i];
+    if (points === undefined) return undefined;
+    if (this.contenders().length === 1) return 'Completed Masterwork';
+    return `${points} Estate Upgrade${points === 1 ? '' : 's'}`;
   }
 
   protected isWinner(i: number): boolean {

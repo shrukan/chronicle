@@ -91,7 +91,12 @@
       @for (p of result().ranking; track p.index; let i = $index) {
         <li>
           <span class="place">{{ ordinals[result().places[i]! - 1] }}</span>
-          <span class="name">{{ p.name }}</span>
+          <span class="name">
+            {{ p.name }}
+            @if (tieNote(p.index); as note) {
+              <small class="tie-note">{{ note }}</small>
+            }
+          </span>
           <span class="score">{{ scoreOf(p.index) }}</span>
           @if (isWinner(i) && library.ui('ranking/mfw-crown-icon'); as crown) {
             <img class="crown" [src]="crown" alt="winner" />
