@@ -240,6 +240,49 @@ but writing short texts is a content job and works best once the logic is stable
 4. *Retire:* tag `converter-final`, then remove `tools/converter/`, `sources/`, the asset
    extraction and the `content:convert` / `content:assets` tasks. They stay in the git history.
 
+**Next scenarios: where they stand** (trial conversion, 11 October 2026; counts only)
+
+| | Fear of the Unknown | A Time of War |
+|---|---|---|
+| Passages kept / dropped as unreachable | 336 / 42 | 127 / 170 |
+| Endings found | 8 | 3 |
+| Code the converter can't handle (`manual`) | 15 | 8 |
+| Expressions it can't read | 42 | 0 |
+| Typing issues | 4 | 0 |
+| Log book entries | 0 | 0 |
+| End-of-round texts / voice-over pages | 21 / 8 | 16 / 9 |
+
+Start with *Fear of the Unknown*: its structure is complete, what's open is converter work.
+*A Time of War* loses most of its passages because the converter doesn't know where the
+original app enters the story.
+
+To find out (by hand, in the original app or on the Discord):
+- *A Time of War*'s entry points: which passages the app's screens jump to (for *The Cost of
+  Disease*, the generation screen opens `Preface-TCOD`).
+- The log book CSV: 140 rows, 97 match *The Cost of Disease* by title, none the others. Does it
+  cover only that scenario, or are the other titles worded differently?
+
+Converter (content):
+- *Fear of the Unknown*: removing an entry from a list (8 places), assignments to a helper
+  variable (4), the end-of-generation text (2), one local variable that can't be inlined; the
+  42 unreadable expressions and 4 typing issues.
+- *A Time of War*: 8 calls to a "special setup" screen at the end of a generation – a screen the
+  app doesn't have yet.
+- Story tester per scenario (`task content:test ID=<id>`) until all endings are reachable with
+  0 errors; mark impossible branches as for *The Cost of Disease*.
+- `tools/voice/voices.json`: the scenario's introduction for the voice test page.
+
+App:
+- `core/services/content.ts`: add the scenario to `SCENARIOS`.
+- Setup: choosing a scenario must set `Game.scenarioId` (`Setup.start` ignores any other).
+- Endings page: scenario name and "8 endings" are hard-coded; one view per scenario, the count
+  from the content.
+- The e2e game plays *The Cost of Disease* only.
+- Already ready: saved games, music (all three mapped), the storybook backdrop, scoring.
+
+Order: converter and story tester for *Fear of the Unknown* → app changes → table session →
+the same for *A Time of War* once its entry points are known → freeze `content/`.
+
 **Translations: English is the reference**
 - A language is another string table with the same keys (`strings.<lang>.json`). The game logic
   lives only in `scenario.json`, so a translation cannot change the game. The app reads meaning
