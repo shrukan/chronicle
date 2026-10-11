@@ -22,7 +22,7 @@ import { Autofocus } from '../../../../shared/directives/autofocus/autofocus';
 import { Library } from '../../../../core/services/library';
 import { Settings } from '../../../../core/services/settings';
 import { LogBook } from '../../components/log-book/log-book';
-import { RoundBar } from '../../components/round-bar/round-bar';
+import { RoundBar } from '../../../../shared/components/round-bar/round-bar';
 import { RichText } from '../../components/rich-text/rich-text';
 import { StoryOutput } from '../../components/story-output/story-output';
 import { formatDuration } from '../../../../shared/utils/duration';

@@ -25,44 +25,83 @@ h1 {
   gap: 0.6rem;
 }
 .games li {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
-  gap: 0.5rem 1rem;
-  padding: 0.7rem 0.85rem;
+  position: relative;
+}
+.card {
+  display: grid;
+  gap: 0.15rem;
+  width: 100%;
+  box-sizing: border-box;
+  /* Room for the delete button in the corner. */
+  padding: 0.7rem 3.25rem 0.75rem 0.85rem;
   border: 1px solid var(--color-rule);
   border-radius: 0.4rem;
   background: var(--color-field);
+  color: inherit;
+  font: inherit;
+  text-align: left;
 }
-.games li.unavailable .about {
-  opacity: 0.7;
+button.card {
+  cursor: pointer;
+  transition:
+    border-color 0.15s,
+    box-shadow 0.15s;
 }
-.about {
-  display: grid;
-  gap: 0.1rem;
-  min-width: 0;
-  flex: 1 1 14rem;
+button.card:hover {
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 1px var(--color-accent);
 }
-.about strong {
+/* The same gold outline as the plate buttons (styles.css). */
+:is(button.card, .delete):focus-visible {
+  outline: 2px solid #e6c47a;
+  outline-offset: 2px;
+}
+.unavailable .card {
+  opacity: 0.75;
+}
+.village {
   font-family: var(--font-display);
   font-weight: normal;
   font-size: 1.2rem;
   color: var(--color-heading);
   overflow-wrap: anywhere;
 }
+.rounds {
+  margin: 0.35rem 0 0.2rem;
+}
 .standing {
   font-style: italic;
 }
-.about small {
+.card small {
   color: var(--color-muted);
 }
-.actions {
-  display: flex;
-  gap: 0.5rem;
+/* 44 px: easy to tap, but small next to the card, which is the main action. */
+.delete {
+  position: absolute;
+  top: 0.3rem;
+  right: 0.3rem;
+  display: grid;
+  place-items: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  border: 0;
+  border-radius: 50%;
+  background: none;
+  color: var(--color-muted);
+  cursor: pointer;
 }
-.actions .btn {
-  padding: 0.3rem 0.9rem;
+.delete:is(:hover, :focus-visible) {
+  color: var(--color-error);
+  background: rgb(0 0 0 / 0.06);
+}
+.delete svg {
+  width: 1.35rem;
+  height: 1.35rem;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
 }
 .question {
   margin: 0 0 0.25rem;

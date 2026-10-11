@@ -6,6 +6,7 @@ import {
   resource,
   signal,
 } from '@angular/core';
+import { NgTemplateOutlet } from '@angular/common';
 import { Router, RouterLink } from '@angular/router';
 import { AppUpdate } from '../../../../core/services/app-update';
 import { AudioPlayer } from '../../../../core/services/audio';
@@ -14,25 +15,28 @@ import { Game, NOT_RESUMED } from '../../../../core/services/game';
 import { SavedGames } from '../../../../core/services/saved-games';
 import { generationNumeral, ROUNDS, roundPosition } from '../../../../core/utils/rounds';
 import type { SaveSummary } from '../../../../core/utils/save-migration';
+import { Autofocus } from '../../../../shared/directives/autofocus/autofocus';
 import { Modal } from '../../../../shared/components/modal/modal';
+import { RoundBar } from '../../../../shared/components/round-bar/round-bar';
 import { formatDuration } from '../../../../shared/utils/duration';
 
 const lastPlayed = new Intl.DateTimeFormat(undefined, { dateStyle: 'medium', timeStyle: 'short' });
 
 /** Where a saved game stands, without giving the story away. */
 function standing(save: SaveSummary): string {
-  if (save.status !== 'ok') return NOT_RESUMED[save.status];
+  if (save.status === 'changed') return `Can’t be continued: ${NOT_RESUMED.changed.toLowerCase()}`;
+  if (save.status === 'newer') return NOT_RESUMED.newer;
   if (save.finished) return 'Finished';
   if (save.roundsDone >= ROUNDS) return 'Final scoring';
   const { generation, round } = roundPosition(save.roundsDone + 1);
   return `Generation ${generationNumeral(generation)}, round ${round}`;
 }
 
-/** The games saved on this device: continue one, or delete it. */
+/** The games saved on this device: tap one to continue it, or delete it. */
 @Component({
   selector: 'cr-saved-games',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [Modal, RouterLink],
+  imports: [Autofocus, Modal, NgTemplateOutlet, RoundBar, RouterLink],
   templateUrl: './saved-games.html',
   styleUrl: './saved-games.css',
 })
@@ -50,6 +54,10 @@ export class SavedGamesPage {
       ...save,
       title: SCENARIOS.find((s) => s.id === save.scenario)?.title ?? save.scenario,
       standing: standing(save),
+      /** Under way: the round bar says where it stands, so the text is for screen readers. */
+      underWay: save.status === 'ok' && !save.finished && save.roundsDone < ROUNDS,
+      /** For the round bar: a finished game shows all rounds played. */
+      roundsShown: save.finished ? ROUNDS : save.roundsDone,
       lastPlayed: lastPlayed.format(save.savedAt),
       played: formatDuration(save.playTime),
     })),

@@ -7,35 +7,47 @@
   <ul class="games">
     @for (save of items(); track save.id) {
       <li [class.unavailable]="save.status !== 'ok'">
-        <div class="about">
-          <strong>{{ save.village }}</strong>
-          <span>{{ save.title }} · {{ save.names.join(', ') }}</span>
-          <span class="standing">{{ save.standing }}</span>
-          <small>Last played {{ save.lastPlayed }} · played for {{ save.played }}</small>
-        </div>
-        <div class="actions">
-          @if (save.status === 'ok') {
-            <button type="button" class="btn confirm" (click)="open(save.id)">
-              {{ save.finished ? 'Open' : 'Continue' }}
-            </button>
-          } @else if (save.status === 'newer') {
-            <button type="button" class="btn confirm" (click)="update()">Reload</button>
-          }
+        <!-- The whole card continues the game (or, saved by a newer version, updates the app). -->
+        @if (save.status === 'changed') {
+          <div class="card">
+            <ng-container *ngTemplateOutlet="about; context: { $implicit: save }" />
+          </div>
+        } @else {
           <button
             type="button"
-            class="btn cancel"
-            (click)="toDelete.set(save)"
-            [attr.aria-label]="'Delete the game of ' + save.village"
+            class="card"
+            (click)="save.status === 'ok' ? open(save.id) : update()"
           >
-            Delete
+            <ng-container *ngTemplateOutlet="about; context: { $implicit: save }" />
           </button>
-        </div>
+        }
+        <button
+          type="button"
+          class="delete"
+          (click)="toDelete.set(save)"
+          [attr.aria-label]="'Delete the game of ' + save.village"
+          title="Delete"
+        >
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3" />
+          </svg>
+        </button>
       </li>
     }
   </ul>
 
   <a class="btn cancel" routerLink="/">Back</a>
 </section>
+
+<ng-template #about let-save>
+  <strong class="village">{{ save.village }}</strong>
+  <span>{{ save.title }} · {{ save.names.join(', ') }}</span>
+  @if (save.status === 'ok') {
+    <cr-round-bar class="rounds" aria-hidden="true" [done]="save.roundsShown" />
+  }
+  <span class="standing" [class.sr-only]="save.underWay">{{ save.standing }}</span>
+  <small>Last played {{ save.lastPlayed }} · played for {{ save.played }}</small>
+</ng-template>
 
 @let deleting = toDelete();
 <cr-modal
@@ -47,7 +59,7 @@
   <p class="question">Delete the game of {{ deleting?.village }}?</p>
   <p class="consequence">It can’t be brought back.</p>
   <div class="row">
-    <button type="button" class="btn cancel" (click)="toDelete.set(undefined)">Cancel</button>
-    <button type="button" class="btn confirm" (click)="remove()">Delete</button>
+    <button crAutofocus type="button" class="btn" (click)="toDelete.set(undefined)">Cancel</button>
+    <button type="button" class="btn danger" (click)="remove()">Delete</button>
   </div>
 </cr-modal>

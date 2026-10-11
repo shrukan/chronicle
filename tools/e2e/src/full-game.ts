@@ -164,8 +164,8 @@ try {
   console.log('saved games');
   await page.goto(url);
   await page.getByRole('link', { name: 'Saved games' }).click();
-  await page.locator('.games li').first().waitFor();
-  const saved = (await page.locator('.games li').allInnerTexts()).map((t) => t.replace(/\s+/g, ' '));
+  await page.locator('.games > li').first().waitFor();
+  const saved = (await page.locator('.games > li').allInnerTexts()).map((t) => t.replace(/\s+/g, ' '));
   check(saved.length === 1 && saved[0]!.includes('Ravensbrück') && saved[0]!.includes('Finished'), 'the finished game is in the saved games');
 } catch (e) {
   const lines = String(e).split('\n');

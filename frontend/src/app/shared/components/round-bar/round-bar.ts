@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, computed, inject, input } from '@angular/core';
-import { Library } from '../../../../core/services/library';
-import { generationNumeral, ROUNDS, roundPosition } from '../../../../core/utils/rounds';
+import { Library } from '../../../core/services/library';
+import { generationNumeral, ROUNDS, roundPosition } from '../../../core/utils/rounds';
 
 /** "I-1" … "III-3" for a round of the whole game (from 1). */
 function slotLabel(n: number): string {
@@ -19,18 +19,21 @@ function slotLabel(n: number): string {
     role: 'progressbar',
     'aria-valuemin': '1',
     '[attr.aria-valuemax]': 'rounds',
-    '[attr.aria-valuenow]': 'done() + 1',
+    '[attr.aria-valuenow]': 'current()',
     '[attr.aria-valuetext]': 'label()',
     '[style.--tube]': 'tube()',
-    '[style.--filled]': '(done() + 1) / rounds',
+    '[style.--filled]': 'current() / rounds',
+    '[style.--rounds]': 'rounds',
   },
   templateUrl: './round-bar.html',
   styleUrl: './round-bar.css',
 })
 export class RoundBar {
   private readonly library = inject(Library);
-  /** Rounds completed so far (0 to `ROUNDS` − 1); the next one is being played. */
+  /** Rounds completed so far; the next one is being played, unless all are done. */
   readonly done = input.required<number>();
+  /** The round being played (from 1), or the last one once all are done. */
+  protected readonly current = computed(() => Math.min(this.done() + 1, ROUNDS));
 
   protected readonly rounds = ROUNDS;
   protected readonly slots = Array.from({ length: ROUNDS }, (_, i) => ({
@@ -38,6 +41,7 @@ export class RoundBar {
     label: slotLabel(i + 1),
   }));
   protected readonly label = computed(() => {
+    if (this.done() >= ROUNDS) return 'All rounds played';
     const { generation, round } = roundPosition(this.done() + 1);
     return `Generation ${generationNumeral(generation)}, round ${round}`;
   });

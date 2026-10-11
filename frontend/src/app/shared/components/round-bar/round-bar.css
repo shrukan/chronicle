@@ -20,7 +20,7 @@
 ol {
   position: relative;
   display: grid;
-  grid-template-columns: repeat(9, 1fr);
+  grid-template-columns: repeat(var(--rounds), 1fr);
   height: 100%;
   margin: 0;
   padding: 0;

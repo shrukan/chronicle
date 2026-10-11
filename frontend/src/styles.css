@@ -148,7 +148,8 @@ body {
       transform 0.12s ease-out,
       filter 0.18s ease-out;
   }
-  .btn.cancel {
+  /* Back and Cancel, as in the original – and an action that destroys something (danger). */
+  .btn:is(.cancel, .danger) {
     border-image-source: var(--button-cancel-image, none);
     background-color: var(--color-accent);
   }
