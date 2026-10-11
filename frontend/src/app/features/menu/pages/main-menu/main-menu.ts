@@ -10,6 +10,7 @@ import {
 import { Router, RouterLink } from '@angular/router';
 import { AudioPlayer } from '../../../../core/services/audio';
 import { Game } from '../../../../core/services/game';
+import { Install } from '../../../../core/services/install';
 import { Library } from '../../../../core/services/library';
 import { SavedGames } from '../../../../core/services/saved-games';
 import { WhatsNew } from '../../../../core/services/whats-new';
@@ -31,6 +32,7 @@ import { TitleScene } from '../../components/title-scene/title-scene';
 export class MainMenu {
   protected readonly library = inject(Library);
   protected readonly whatsNew = inject(WhatsNew);
+  protected readonly install = inject(Install);
   private readonly game = inject(Game);
   private readonly router = inject(Router);
   private readonly audio = inject(AudioPlayer);

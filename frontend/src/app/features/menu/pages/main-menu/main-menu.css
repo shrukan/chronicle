@@ -89,10 +89,17 @@ h1 {
   border-radius: 0.5rem;
   background: rgb(0 0 0 / 0.35);
 }
-.updated a {
+.updated :is(a, .link) {
   color: inherit;
   text-decoration: underline;
   text-underline-offset: 0.2em;
+}
+.updated .link {
+  padding: 0.5rem;
+  border: 0;
+  background: none;
+  font: inherit;
+  cursor: pointer;
 }
 .dismiss {
   /* 44 px: easy to tap. */

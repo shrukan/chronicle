@@ -75,7 +75,7 @@ app.ts / app.html / app.css      shell: backdrop, update and error notices, foot
 app.routes.ts, app.config.ts
 core/services/                   app-wide singletons: game, library (assets, screen texts,
                                  voices), audio, settings, save-store, saved-games, content,
-                                 whats-new, app-update, app-errors
+                                 whats-new, app-update, app-errors, install
 core/utils/                      plain helpers: steps the app takes for the players
                                  (auto-steps), page output, rounds, save migration,
                                  bug-report links, wake lock
