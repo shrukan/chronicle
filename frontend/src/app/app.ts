@@ -33,6 +33,16 @@ const THEME_IMAGES = {
   '--bracket-right-image': 'general/brackets/bracket-right',
 };
 
+/**
+ * Chrome only draws an image from these variables on elements created later (a dialog's
+ * buttons and frame) if an element already used it when the variable was set; otherwise those
+ * elements stay plain until their style changes. An invisible element in the shell uses them
+ * all, so it doesn't matter which page was opened first.
+ */
+const THEME_IMAGE_LIST = Object.keys(THEME_IMAGES)
+  .map((name) => `var(${name})`)
+  .join(', ');
+
 const TITLE_PICTURES = [
   'main-menu/sky-dome',
   'main-menu/mountain',
@@ -69,6 +79,7 @@ export class App {
     ['/', '/about', '/endings', '/help', '/whats-new'].includes(this.url().split(/[?#]/)[0]!),
   );
   protected readonly version = VERSION;
+  protected readonly themeImages = THEME_IMAGE_LIST;
   protected bugReport(error?: string): string {
     return bugReportUrl({ error, where: location.pathname });
   }

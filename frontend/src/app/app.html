@@ -1,6 +1,8 @@
 <main>
   <router-outlet />
 </main>
+<!-- Uses every theme image from the start (see THEME_IMAGES). -->
+<div class="theme-images" aria-hidden="true" [style.background-image]="themeImages"></div>
 @if (errors.last(); as error) {
   <aside class="update" role="alert">
     <span>

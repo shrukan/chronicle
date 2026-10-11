@@ -68,3 +68,11 @@ footer a:focus-visible {
   opacity: 1;
   color: var(--color-on-backdrop);
 }
+/* See THEME_IMAGE_LIST in app.ts: present, but takes no space and shows nothing. */
+.theme-images {
+  position: fixed;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
+}
