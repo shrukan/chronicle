@@ -1,7 +1,15 @@
 <main>
   <router-outlet />
 </main>
-@if (update.ready()) {
+@if (errors.last(); as error) {
+  <aside class="update" role="alert">
+    <span>
+      Something went wrong in Chronicle –
+      <a [href]="bugReport(error)" target="_blank" rel="noopener">report it ↗</a>.
+    </span>
+    <button type="button" class="later" (click)="errors.last.set(undefined)">Close</button>
+  </aside>
+} @else if (update.ready()) {
   <aside class="update" role="status">
     <span>
       A new version of Chronicle is ready –

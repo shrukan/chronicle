@@ -5,6 +5,7 @@ import {
   SETUP_CONTINUE_KEY,
   Story,
   StoryError,
+  ValueError,
   type Node,
   type Out,
   type Passage,
@@ -336,8 +337,8 @@ export class Game {
       if (entering) this.entered(this.story!.history.slice(before));
       void this.persist();
     } catch (e) {
-      if (!(e instanceof StoryError) && !(e instanceof TypeError) && !(e instanceof RangeError))
-        throw e;
+      // Errors in the story data are shown on the page; anything else is a bug in the app.
+      if (!(e instanceof StoryError) && !(e instanceof ValueError)) throw e;
       this.error.set(e.message);
     }
   }

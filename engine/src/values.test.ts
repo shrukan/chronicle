@@ -63,6 +63,6 @@ describe('indexList', () => {
     assert.equal(indexList(a, 'last'), 30);
     assert.equal(indexList(a, '2ndlast'), 20);
     assert.equal(indexList(a, 2), 20);
-    assert.throws(() => indexList(a, '4th'), RangeError);
+    assert.throws(() => indexList(a, '4th'), ValueError);
   });
 });

@@ -6,6 +6,7 @@ import type { BinaryOp, Value } from './schema.ts';
  * instead of silently evaluating to false. Conversions are explicit (`num`, `str`).
  */
 
+/** A value of the wrong type or out of range: a bug in the story data, not in the engine. */
 export class ValueError extends TypeError {}
 
 export type ValueType = 'number' | 'string' | 'boolean' | 'list';
@@ -92,6 +93,6 @@ export function indexList(list: Value, key: Value): Value {
     if (key === 'last') i = list.length - 1;
     else if (m) i = m[2] ? list.length - Number(m[1]) : Number(m[1]) - 1;
   }
-  if (i === undefined || i < 0 || i >= list.length) throw new RangeError(`Index ${JSON.stringify(key)} out of range for a list of ${list.length}`);
+  if (i === undefined || i < 0 || i >= list.length) throw new ValueError(`Index ${JSON.stringify(key)} out of range for a list of ${list.length}`);
   return list[i]!;
 }

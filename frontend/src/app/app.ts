@@ -9,6 +9,7 @@ import {
 import { NavigationEnd, Router, RouterLink, RouterOutlet } from '@angular/router';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { filter, map } from 'rxjs';
+import { AppErrors } from './core/services/app-errors';
 import { AppUpdate } from './core/services/app-update';
 import { AudioPlayer } from './core/services/audio';
 import { bugReportUrl } from './core/utils/bug-report';
@@ -68,9 +69,10 @@ export class App {
     ['/', '/about', '/endings', '/help', '/whats-new'].includes(this.url().split(/[?#]/)[0]!),
   );
   protected readonly version = VERSION;
-  protected bugReport(): string {
-    return bugReportUrl({ where: location.pathname });
+  protected bugReport(error?: string): string {
+    return bugReportUrl({ error, where: location.pathname });
   }
+  protected readonly errors = inject(AppErrors);
   private readonly library = inject(Library);
   private readonly audio = inject(AudioPlayer);
   protected readonly update = inject(AppUpdate);
