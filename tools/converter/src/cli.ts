@@ -2,7 +2,9 @@
  * Converts the original story scripts into `content/`.
  *
  * Usage: node tools/converter/src/cli.ts --upstream <UnityOriginalApp> [--out content]
- *          [--reports build/reports] [--strict] [scenario-id …]
+ *          [--reports build/reports] [--strict] [--force] [scenario-id …]
+ *
+ * Frozen scenarios (see scenarios.ts) are skipped unless named with --force.
  */
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { basename, join } from 'node:path';
@@ -19,12 +21,17 @@ const { values, positionals } = parseArgs({
     out: { type: 'string', default: 'content' },
     reports: { type: 'string', default: 'build/reports' },
     strict: { type: 'boolean', default: false },
+    force: { type: 'boolean', default: false },
   },
 });
 
 const scripts = join(values.upstream, 'Assets/Scripts');
-const selected = positionals.length ? SCENARIOS.filter((s) => positionals.includes(s.id)) : SCENARIOS;
-if (!selected.length) {
+const named = positionals.length ? SCENARIOS.filter((s) => positionals.includes(s.id)) : SCENARIOS;
+const selected = named.filter((s) => !s.frozen || (values.force && positionals.includes(s.id)));
+for (const s of named.filter((n) => !selected.includes(n))) {
+  console.log(`${s.id}: frozen since ${s.frozen}, edited in content/ directly – skipped (--force overwrites)`);
+}
+if (!named.length) {
   console.error(`Unknown scenario. Known: ${SCENARIOS.map((s) => s.id).join(', ')}`);
   process.exit(2);
 }

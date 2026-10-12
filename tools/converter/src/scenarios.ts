@@ -10,6 +10,8 @@ export interface ScenarioConfig {
   entries: string[];
   /** Screens opened with `ViewController.ChangeView` and the passage they continue with. */
   screens: Record<string, { next?: string }>;
+  /** Edited in `content/` directly since this date: converting again would undo those edits. */
+  frozen?: string;
 }
 
 /** Variables filled in by the app instead of the story (setup and scoring screens). */
@@ -20,6 +22,7 @@ export const SCENARIOS: ScenarioConfig[] = [
     id: 'cost-of-disease',
     source: 'English/TheCostofDiseaseEng.cs',
     start: 'Preparations-TCOD',
+    frozen: '2026-10-12',
     // ViewGeneration → "Preface-TCOD"; ViewRankingPage → "VarEndingsPassage".
     entries: ['Preface-TCOD', 'VarEndingsPassage'],
     screens: { scoreEntry: { next: 'VarEndingsPassage' } },
@@ -35,6 +38,7 @@ export const SCENARIOS: ScenarioConfig[] = [
     id: 'a-time-of-war',
     source: 'English/ATimeofWarEng.cs',
     start: 'ATOW-Preparations',
+    frozen: '2026-10-12',
     entries: ['VarEndingsPassage'],
     screens: { scoreEntry: { next: 'VarEndingsPassage' } },
   },
