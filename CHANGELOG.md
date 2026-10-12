@@ -1,5 +1,34 @@
 # Changelog
 
+## [0.7.0](https://github.com/shrukan/chronicle/compare/v0.6.0...v0.7.0) (2026-10-12)
+
+
+### Features
+
+* help is sorted into playing, install & saves and settings, with pictures of what it explains ([d309a5a](https://github.com/shrukan/chronicle/commit/d309a5ab69f431d6ff000a5ea27dc1a744746fbf))
+* keep several games side by side and pick one from the saved games ([6b6b476](https://github.com/shrukan/chronicle/commit/6b6b4764eb1fa5dde443c4b624db27ca68691732))
+* saved games show their rounds on the original's progress bar, tap a game to continue it ([f645e36](https://github.com/shrukan/chronicle/commit/f645e3619536f0f640e87e97b8efcb3042f230aa))
+* scoring on one page, with the tie-breakers asked right below the scores ([d3c3be3](https://github.com/shrukan/chronicle/commit/d3c3be3fe9844885507099acbf16c018d333dd6f))
+* setup steps in a row show on one page with one accept, also the game's opening ([5ea2e09](https://github.com/shrukan/chronicle/commit/5ea2e09de41c031c09a2ca9e508ffb32e52a8f55))
+* the main menu suggests installing chronicle, so games stay safe and it opens full screen ([7334edf](https://github.com/shrukan/chronicle/commit/7334edfe3c72f0f4a5e0cd882e47163f98204d64))
+* the page before scoring shows what to count in a setup box, with score entry right below ([c3c4bce](https://github.com/shrukan/chronicle/commit/c3c4bce540ffd852221f439c932659e299e7ab5f))
+* the ranking names the tie-breaker that decided between tied leaders ([4bb64a7](https://github.com/shrukan/chronicle/commit/4bb64a7e4352770f355dc83bc732c3164c911bf8))
+* the reminders before the final scoring are a list, one point each ([e9ce3c8](https://github.com/shrukan/chronicle/commit/e9ce3c82ab0ce2408f6e96bcf9537f4a76117756))
+
+
+### Bug Fixes
+
+* a saved game is not continued with the wrong texts after its page changed in an update ([bebfb02](https://github.com/shrukan/chronicle/commit/bebfb0220df9fa8c7c5cb6cf82da8c511c72c518))
+* back, cancel and close buttons are brown; red is kept for deleting ([45f48a0](https://github.com/shrukan/chronicle/commit/45f48a00c8d779f705d03cc0f0c457dfbfe13a2c))
+* buttons and dialog frames keep their artwork when a page was opened directly ([3b0de13](https://github.com/shrukan/chronicle/commit/3b0de139812085fb08dd022ced0daa64e0faf6b8))
+* help is a plate on the main menu like the others, instead of a red button in the corner ([6f77fa2](https://github.com/shrukan/chronicle/commit/6f77fa2382cf506e3aeafa1208a6836e0d1b1ea9))
+* no empty space under the last button of a page ([2846f5e](https://github.com/shrukan/chronicle/commit/2846f5eaaa9a852c1fcb4ea225e6f2709d24fa30))
+* saved games keep working after story updates, and say so when they can't ([f0d635b](https://github.com/shrukan/chronicle/commit/f0d635b82cdad2d22d61f69eb0ccd9f8e4684410))
+* the end of a round or generation lists what to do as numbered steps ([f6c574c](https://github.com/shrukan/chronicle/commit/f6c574c57fa0443bbf73151fd99b694003a8f34c))
+* the play time stops while the menu is open ([795240f](https://github.com/shrukan/chronicle/commit/795240f8078ed25ceebd52a412bc957e8cce4457))
+* what's new lists each change behind a brass stud, easier to scan ([00fc268](https://github.com/shrukan/chronicle/commit/00fc268f6734044e98a99b66d3ddf5c9fb555ae6))
+* when something goes wrong in the app, a notice offers to report it ([ce7dde6](https://github.com/shrukan/chronicle/commit/ce7dde600c216abb8cc344f289ece4fa71052b18))
+
 ## [0.6.0](https://github.com/shrukan/chronicle/compare/v0.5.0...v0.6.0) (2026-10-10)
 
 
