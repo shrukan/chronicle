@@ -522,6 +522,8 @@ export class Story {
         if (!Array.isArray(list)) throw new ValueError('count needs a list');
         return list.filter((v) => equals(v, x!)).length;
       }
+      case 'replace':
+        return toText(args[0]!).replaceAll(toText(args[1]!), toText(args[2]!));
     }
     throw new StoryError(`Unknown function ${fn}`);
   }

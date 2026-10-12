@@ -206,9 +206,10 @@ export type BinaryOp = '==' | '!=' | '<' | '<=' | '>' | '>=' | '&&' | '||' | '+'
 /**
  * Built-in functions. `either` picks one argument, `random` an integer in a range,
  * `num`/`str` convert between text and numbers, `array` builds a list, `count(list, x)`
- * counts entries equal to x, `max`/`min` take numbers or one list.
+ * counts entries equal to x, `max`/`min` take numbers or one list, `replace(text, from, to)`
+ * replaces every occurrence in a text.
  */
-export type FnName = 'either' | 'random' | 'num' | 'str' | 'array' | 'shuffled' | 'max' | 'min' | 'count';
+export type FnName = 'either' | 'random' | 'num' | 'str' | 'array' | 'shuffled' | 'max' | 'min' | 'count' | 'replace';
 
 // ---------------------------------------------------------------------------
 // Text

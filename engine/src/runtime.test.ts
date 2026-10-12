@@ -15,6 +15,16 @@ const keys = (out: Out[]): string[] =>
 const first: Chooser = { choose: () => 0 };
 
 describe('Story', () => {
+  it('replaces every occurrence in a text', () => {
+    const s = new Story(
+      scenario({
+        A: { body: [{ t: 'set', var: 'who', value: { fn: 'replace', args: [{ lit: 'Ada_1 and Ada_1' }, { lit: '_1' }, { lit: '' }] } }] },
+      }),
+    );
+    s.start();
+    assert.equal(s.vars['who'], 'Ada and Ada');
+  });
+
   it('passes roles of texts and links on to the output', () => {
     const s = new Story(
       scenario({
