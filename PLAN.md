@@ -191,6 +191,15 @@ ending → endings & achievements gallery. Help and settings from the main menu.
   be rules (its classifier knows the rule phrasings found while rewriting).
 - Open: review at the table; the other two scenarios once converted; drop "(beta)" when reviewed.
 
+**Review of the boxes** (open, alongside the review above)
+Boxes can say how their lines read (`list` on a block): `items` – separate points, shown as a
+list behind brass studs (the reminders before the final scoring) – or `steps` in order, numbered
+like the end of a generation; without it, the lines run as text. In *The Cost of Disease*, 15
+setup boxes and 58 boxes after story events have several lines. Someone has to read each and
+decide: steps, items, or text (some may be one paragraph broken over lines, which a list would
+chop up). Once `content/` is frozen, the decisions go straight into the JSON; until then, as a
+converter rule like the one for the scoring reminders (`boxScoringReminders`).
+
 **M7 – Voice-over** (in progress)
 - Done: the 9 original recordings (original English text only); generated voices Emma and George
   (Kokoro, `tools/voice/`, settings in `tools/voice/voices.json`: speed, pauses, sibilance filter,
