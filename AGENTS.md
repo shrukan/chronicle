@@ -52,8 +52,9 @@ original C# story scripts ──converter──▶ content/ (JSON) ──engine�
 - **Converter** (`tools/converter/`): original C# → JSON, screen texts (`content/ui.en.json`) and
   assets (`content/assets/`, WebP/MP3, capped at 2048 px). It is currently the source of truth for
   `content/` and keeps hand-written Easy/Short texts across re-conversions (matched by text). It
-  is a migration tool: once all scenarios are converted, `content/` is frozen and edited directly
-  (see PLAN.md, "Content lifecycle").
+  is a migration tool: a scenario that converts cleanly is frozen (`frozen` in `scenarios.ts`; the
+  converter then skips it) and edited in `content/` directly – _The Cost of Disease_ and _A Time of War_ already are (see
+  PLAN.md, "Content lifecycle").
 - **Story tester** (`tools/story-tester/`): static checks plus coverage-guided exploration of
   every scenario; spoiler-free summary.
 - **Voice generator** (`tools/voice/`, Python via `uv`): Kokoro voices (Emma, George) for voiced
@@ -155,8 +156,9 @@ Full detail in [PLAN.md](PLAN.md). As of October 2026:
 Next, roughly in order:
 
 1. Play a session at the table; fix what comes up; post the BGG announcement; release v1.0.0.
-2. Convert _Fear of the Unknown_ and _A Time of War_ (converter reports 15 / 8 manual nodes;
-   A Time of War needs its real entry points), check them with the story tester and at the table.
+2. Convert _Fear of the Unknown_ (converter reports 15 manual nodes) and check it with the story
+   tester; _A Time of War_ is converted and playable (8/8 endings in the tester), check both at
+   the table.
 3. Freeze `content/` and retire the converter (PLAN.md, "Content lifecycle").
 4. Review Easy and Short; write them for the other scenarios.
 5. Voice-over for every new story text (M7): voice packs outside git, names generated in the

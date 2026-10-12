@@ -197,8 +197,7 @@ list behind brass studs (the reminders before the final scoring) – or `steps` 
 like the end of a generation; without it, the lines run as text. In *The Cost of Disease*, 15
 setup boxes and 58 boxes after story events have several lines. Someone has to read each and
 decide: steps, items, or text (some may be one paragraph broken over lines, which a list would
-chop up). Once `content/` is frozen, the decisions go straight into the JSON; until then, as a
-converter rule like the one for the scoring reminders (`boxScoringReminders`).
+chop up). Both converted scenarios are frozen, so the decisions go straight into the JSON.
 
 **M7 – Voice-over** (in progress)
 - Done: the 9 original recordings (original English text only); generated voices Emma and George
@@ -243,7 +242,8 @@ but writing short texts is a content job and works best once the logic is stable
    on the fan repository staying online.
 2. *Convert Fear of the Unknown and A Time of War*, check them with the story tester and at the
    table. Fixes in the converter still reach all scenarios at once.
-3. *Freeze:* `content/` becomes the source of truth and is edited directly (fixes, Easy and Short
+3. *Freeze* (per scenario, once it converts cleanly; `frozen` in
+   `tools/converter/src/scenarios.ts`, then the converter skips it): `content/` becomes the source of truth and is edited directly (fixes, Easy and Short
    texts, translations). The story tester stays as the safety net – it reads the JSON only.
    The first hand edit marks this point: converting again afterwards would overwrite it.
 4. *Retire:* tag `converter-final`, then remove `tools/converter/`, `sources/`, the asset
@@ -262,12 +262,18 @@ but writing short texts is a content job and works best once the logic is stable
 | End-of-round texts / voice-over pages | 21 / 8 | 16 / 9 |
 
 Start with *Fear of the Unknown*: its structure is complete, what's open is converter work.
-*A Time of War* loses most of its passages because the converter doesn't know where the
-original app enters the story.
+*A Time of War* (12 October 2026): converted. The missing "entry points" were the passages its
+special-setup screens continue with; with those, plus end-of-round texts written into the story
+and setup targets chosen per branch, it converts with 262 passages, 8/8 endings (the original's
+own ending list agrees), 0 manual nodes and 0 tester errors. It is frozen on its own (see
+"Content lifecycle"): two dead spots of the original were then removed by hand – branches on a
+variable whose setting the original commented out, and a fallback passage no game can reach.
+Neither changes what players see. *The Cost of Disease* is frozen the same way: a developer
+note whose only used part (an end-of-round screen) was revealed from another passage now has
+that part moved into the passage that uses it. Open: a session at the table, Easy and Short texts,
+generated voices.
 
 To find out (by hand, in the original app or on the Discord):
-- *A Time of War*'s entry points: which passages the app's screens jump to (for *The Cost of
-  Disease*, the generation screen opens `Preface-TCOD`).
 - The log book CSV: 140 rows, 97 match *The Cost of Disease* by title, none the others. Does it
   cover only that scenario, or are the other titles worded differently?
 
@@ -275,22 +281,16 @@ Converter (content):
 - *Fear of the Unknown*: removing an entry from a list (8 places), assignments to a helper
   variable (4), the end-of-generation text (2), one local variable that can't be inlined; the
   42 unreadable expressions and 4 typing issues.
-- *A Time of War*: 8 calls to a "special setup" screen at the end of a generation – a screen the
-  app doesn't have yet.
 - Story tester per scenario (`task content:test ID=<id>`) until all endings are reachable with
   0 errors; mark impossible branches as for *The Cost of Disease*.
 - `tools/voice/voices.json`: the scenario's introduction for the voice test page.
 
-App:
-- `core/services/content.ts`: add the scenario to `SCENARIOS`.
-- Setup: choosing a scenario must set `Game.scenarioId` (`Setup.start` ignores any other).
-- Endings page: scenario name and "8 endings" are hard-coded; one view per scenario, the count
-  from the content.
-- The e2e game plays *The Cost of Disease* only.
-- Already ready: saved games, music (all three mapped), the storybook backdrop, scoring.
+App (done with *A Time of War*): a converted scenario is listed in `SCENARIOS` and unlocked in
+setup, which sets `Game.scenarioId`; the endings page shows one scenario at a time. Still open:
+the e2e game plays *The Cost of Disease* only.
 
-Order: converter and story tester for *Fear of the Unknown* → app changes → table session →
-the same for *A Time of War* once its entry points are known → freeze `content/`.
+Order: converter and story tester for *Fear of the Unknown* → table sessions for both new
+scenarios → freeze `content/`.
 
 **Translations: English is the reference**
 - A language is another string table with the same keys (`strings.<lang>.json`). The game logic
