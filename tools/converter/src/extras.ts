@@ -5,6 +5,7 @@
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { parse } from 'yaml';
+import type { ConvertResult } from './convert.ts';
 import { toMarkup } from './passage.ts';
 import { guidIndex } from './unity.ts';
 import { type Node, type Scenario, type ScenarioExtras as Extras, type StringTable } from '@chronicle/engine';
@@ -36,7 +37,12 @@ function titleOf(nodes: Node[], strings: StringTable): string | undefined {
  * @param assets the Unity `Assets` folder
  * @param strings English string table; extracted texts are added to it
  */
-export function extractExtras(scenario: Scenario, strings: StringTable, assets: string): { extras: Extras; report: ExtrasReport } {
+export function extractExtras(
+  scenario: Scenario,
+  strings: StringTable,
+  assets: string,
+  inlineRounds: ConvertResult['endOfRound'] = {},
+): { extras: Extras; report: ExtrasReport } {
   const extras: Extras = { endOfRound: {}, logBook: {}, voiceOver: {} };
   const report: ExtrasReport = { endOfRound: 0, logBook: 0, voiceOver: 0, irregularLogBookRows: [] };
   const passages = scenario.passages;
@@ -58,6 +64,13 @@ export function extractExtras(scenario: Scenario, strings: StringTable, assets: 
       };
       report.endOfRound++;
     }
+  }
+
+  // End of round with its texts in the story's own call (no scene entry).
+  for (const [key, { round, text, then }] of Object.entries(inlineRounds)) {
+    if (extras.endOfRound[key]) throw new Error(`End of round "${key}" is defined twice`);
+    extras.endOfRound[key] = { round, text: add(`round.${key}.end`, text), then: add(`round.${key}.then`, then) };
+    report.endOfRound++;
   }
 
   // Log book: rows are matched against passage titles, case-insensitively.

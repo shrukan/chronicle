@@ -286,6 +286,99 @@ describe('convertScenario: page openings and sections', () => {
   });
 });
 
+/** Screens that lead on to a passage of their own, as in A Time of War. */
+const SCREENS = String.raw`
+public partial class @Screens : Cradle.StoryFormats.Harlowe.HarloweStory
+{
+    public class VarDefs : RuntimeVars { public StoryVar @players = 0; public StoryVar @side = 0; }
+
+    void passage1_Init() { this.Passages[@"Start"] = new StoryPassage(@"Start", new string[] { }, passage1_Main); }
+    IStoryThread passage1_Main()
+    {
+        string name = macros1.either(Vars.nameA, Vars.nameB);
+        yield return text(macros1.either("Hail " + name + "!", "Hail all!"));
+        yield return lineBreak();
+        if (Vars.side == 1) { ViewItemObtain.SetupPassagename = "Left"; }
+        else { ViewItemObtain.SetupPassagename = "Right"; }
+        using (styleScope("setupStyleEvnt", true)) { yield return text("Place a token."); }
+        yield break;
+    }
+
+    void passage2_Init() { this.Passages[@"Left"] = new StoryPassage(@"Left", new string[] { }, passage2_Main); }
+    IStoryThread passage2_Main()
+    {
+        ViewEndOfRound.instance.SetEndOfRound("The round has ended.", 4, "Special", "Complete all End of Round Actions.");
+        yield break;
+    }
+
+    void passage3_Init() { this.Passages[@"Right"] = new StoryPassage(@"Right", new string[] { }, passage3_Main); }
+    IStoryThread passage3_Main()
+    {
+        string twice = macros1.either("a", "b");
+        yield return text(twice);
+        yield return text(twice);
+        yield return link("Click to continue...", "Special", null);
+        yield break;
+    }
+
+    void passage4_Init() { this.Passages[@"Special"] = new StoryPassage(@"Special", new string[] { }, passage4_Main); }
+    IStoryThread passage4_Main()
+    {
+        string passage = Vars.side == 1 ? "Peace" : "War";
+        ViewEndOfGeneration.S_OnSetSpecialSetup?.Invoke("Special Setup", -1, passage,
+            "Do NOT perform the End of Round actions at this time.");
+        yield break;
+    }
+
+    void passage5_Init() { this.Passages[@"Peace"] = new StoryPassage(@"Peace", new string[] { }, passage5_Main); }
+    IStoryThread passage5_Main() { yield return text("Peace."); yield break; }
+
+    void passage6_Init() { this.Passages[@"War"] = new StoryPassage(@"War", new string[] { }, passage6_Main); }
+    IStoryThread passage6_Main() { yield return text("War."); yield break; }
+}`;
+
+describe('convertScenario: screens with a passage of their own', () => {
+  let r: ConvertResult;
+  const body = (passage: string) => r.scenario.passages[passage]!.body;
+  before(async () => {
+    r = await convertScenario({ config: { ...CONFIG, id: 'screens' }, story: SCREENS, mainData: MAIN_DATA, file: 'Screens.cs' });
+  });
+
+  it('follows every passage a screen or a setup box leads to', () => {
+    assert.deepEqual(Object.keys(r.scenario.passages).sort(), ['Left', 'Peace', 'Right', 'Special', 'Start', 'War']);
+    assert.equal(r.report.manual.length, 0);
+  });
+
+  it('turns a special setup into the end-of-generation screen with its own title and next passage', () => {
+    const ui = body('Special').find((n) => n.t === 'ui')!;
+    assert.ok(ui.t === 'ui' && ui.ui === 'endOfGeneration');
+    const lit = (name: string) => String((ui.args![name] as { lit: unknown }).lit);
+    assert.equal(r.strings[lit('title')]!.full, 'Special Setup');
+    assert.equal(r.strings[lit('text')]!.full, 'Do NOT perform the End of Round actions at this time.');
+    const s = new Story(r.scenario, { vars: { side: 1 } });
+    const v = s.click(s.start('Special').links[0]!);
+    assert.equal(v.passage, 'Peace');
+  });
+
+  it('keeps end-of-round texts written into the call', () => {
+    const ui = body('Left').find((n) => n.t === 'ui')!;
+    assert.ok(ui.t === 'ui' && ui.ui === 'endOfRound');
+    const key = String((ui.args!['progress'] as { lit: unknown }).lit);
+    assert.deepEqual(r.endOfRound[key], { round: 4, text: 'The round has ended.', then: 'Complete all End of Round Actions.' });
+  });
+
+  it('chooses the setup box target per branch', () => {
+    const box = body('Start').find((n) => n.t === 'block')!;
+    assert.ok(box.t === 'block' && box.next && 'cases' in box.next);
+    assert.deepEqual(box.next.cases.map((c) => c.value), [{ lit: 'Left' }, { lit: 'Right' }]);
+  });
+
+  it('inlines a random local read once, but not one read twice', () => {
+    assert.ok(!r.report.unknownExpressions.some((u) => u.passage === 'Start'));
+    assert.equal(r.report.unknownExpressions.filter((u) => u.passage === 'Right').length, 1);
+  });
+});
+
 describe('boxScoringReminders', () => {
   it('puts the reminders before the final scoring into a setup box', () => {
     const text = (key: string, kind: 'title' | 'instruction' = 'instruction'): Node => ({ t: 'text', key, kind });

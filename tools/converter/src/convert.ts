@@ -47,6 +47,8 @@ export interface ConvertResult {
   scenario: Scenario;
   strings: StringTable;
   report: ConvertReport;
+  /** End-of-round texts written into the story itself, by `progress` key (see extras.ts). */
+  endOfRound: Record<string, { round: number; text: string; then: string }>;
 }
 
 function findStoryClass(root: TsNode): TsNode {
@@ -124,6 +126,9 @@ export async function convertScenario(input: ConvertInput): Promise<ConvertResul
   return {
     scenario,
     strings: final.strings,
+    endOfRound: Object.fromEntries(
+      Object.entries(converter.endOfRound).filter(([, e]) => live.has(e.passage)).map(([k, { passage: _, ...e }]) => [k, e]),
+    ),
     report: {
       passages: Object.keys(passages).length,
       endings: endings.length,

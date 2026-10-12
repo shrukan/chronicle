@@ -34,14 +34,14 @@ let problems = 0;
 
 for (const config of selected) {
   const storyPath = join(scripts, 'StoryScript', config.source);
-  const { scenario, strings, report } = await convertScenario({
+  const { scenario, strings, report, endOfRound } = await convertScenario({
     config,
     story: readFileSync(storyPath, 'utf8'),
     mainData: readFileSync(join(scripts, 'Data/MainData.cs'), 'utf8'),
     file: basename(storyPath),
   });
 
-  const { extras, report: extrasReport } = extractExtras(scenario, strings, join(values.upstream, 'Assets'));
+  const { extras, report: extrasReport } = extractExtras(scenario, strings, join(values.upstream, 'Assets'), endOfRound);
 
   const dir = join(values.out, config.id);
   mkdirSync(dir, { recursive: true });

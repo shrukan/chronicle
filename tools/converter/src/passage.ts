@@ -65,12 +65,19 @@ export class PassageConverter {
   readonly ignored: Record<string, number> = {};
   /** "Passage#id" of every fragment referenced from live code. */
   readonly usedFragments = new Set<string>();
+  /**
+   * End-of-round screens the story opens with their texts in the call (most take theirs from
+   * the scene, see extras.ts), by the screen's `progress` key; texts as written.
+   */
+  readonly endOfRound: Record<string, { passage: string; round: number; text: string; then: string }> = {};
 
   private readonly opts: PassageConverterOptions;
   private passage = '';
   private counter = 0;
   private setupNext: Expr | undefined;
   private locals = new Map<string, Expr>();
+  /** Locals holding a random choice, with how often they were read: once is safe to inline. */
+  private randomLocals = new Map<string, { uses: number }>();
 
   constructor(opts: PassageConverterOptions) {
     this.opts = opts;
@@ -126,7 +133,11 @@ export class PassageConverter {
         return { at: this.expr(field(n, 'expression')!), key: this.expr(named(sub).at(-1)!) };
       }
       case 'identifier':
-        if (this.locals.has(n.text)) return this.locals.get(n.text)!;
+        if (this.locals.has(n.text)) {
+          // A random choice inlined twice would be made twice.
+          if (this.randomLocals.has(n.text) && this.randomLocals.get(n.text)!.uses++) return this.unknown(n);
+          return this.locals.get(n.text)!;
+        }
         if (this.opts.fields.has(n.text)) return { var: n.text };
         break;
       case 'member_access_expression': {
@@ -203,6 +214,7 @@ export class PassageConverter {
 
   private body(method: TsNode, isMain: boolean): Node[] {
     this.locals = new Map();
+    this.randomLocals = new Map();
     this.setupNext = undefined;
     const stmts = named(field(method, 'body')!);
     const prompt = this.findPrompt(method);
@@ -302,7 +314,7 @@ export class PassageConverter {
     return [this.manual(s, `unsupported statement: ${s.type}`)];
   }
 
-  /** Locals are inlined where used, so they must be free of random choices. */
+  /** Locals are inlined where used; one holding a random choice may be read only once. */
   private local(s: TsNode): Item[] {
     const decl = named(s)[0]!;
     for (const d of named(decl).filter((c) => c.type === 'variable_declarator')) {
@@ -310,9 +322,8 @@ export class PassageConverter {
       const init = named(d).at(-1)!;
       const before = this.unknownExprs.length;
       const e = this.expr(init);
-      if (this.unknownExprs.length > before || /"fn":"(either|random|shuffled)"/.test(JSON.stringify(e))) {
-        return [this.manual(s, 'local variable that cannot be inlined')];
-      }
+      if (this.unknownExprs.length > before) return [this.manual(s, 'local variable that cannot be inlined')];
+      if (/"fn":"(either|random|shuffled)"/.test(JSON.stringify(e))) this.randomLocals.set(name, { uses: 0 });
       this.locals.set(name, e);
     }
     return [];
@@ -389,9 +400,11 @@ export class PassageConverter {
   }
 
   private ifStmt(s: TsNode, st: Style): Item[] {
-    const branches: { cond?: Expr; items: Item[] }[] = [];
+    const branches: { cond?: Expr; items: Item[]; setupNext?: Expr | undefined }[] = [];
+    const setupBefore = this.setupNext;
     let cur: TsNode | null = s;
     while (cur) {
+      this.setupNext = undefined;
       if (cur.type === 'if_statement') {
         branches.push({ cond: this.expr(field(cur, 'condition')!), items: this.stmt(field(cur, 'consequence')!, st) });
         cur = field(cur, 'alternative');
@@ -399,6 +412,15 @@ export class PassageConverter {
         branches.push({ items: this.stmt(cur, st) });
         cur = null;
       }
+      branches.at(-1)!.setupNext = this.setupNext;
+    }
+    // The pop-up's continue target, chosen per branch, becomes one conditional value.
+    this.setupNext = setupBefore;
+    if (branches.some((b) => b.setupNext)) {
+      const keep = setupBefore ?? { lit: '' };
+      const cases = branches.map((b) => ({ ...(b.cond ? { cond: b.cond } : {}), value: b.setupNext ?? keep }));
+      if (branches.at(-1)!.cond) cases.push({ value: keep });
+      this.setupNext = { cases };
     }
 
     // A condition that only picks a *value* to print (e.g. a player name) becomes an
@@ -457,6 +479,27 @@ export class PassageConverter {
         const text = this.expr(a[0]!);
         if (!('lit' in text) || typeof text.lit !== 'string') break;
         return ui('endOfGeneration', { text: { lit: this.str(toMarkup(text.lit), 'instruction', true) }, generation: arg(1) });
+      }
+      case 'ViewEndOfRound.instance.SetEndOfRound': {
+        // (text, rounds completed, next passage, then): what CheckProgress does with scene data.
+        const [text, round, then] = [constString(a[0]!), this.expr(a[1]!), constString(a[3]!)];
+        if (text === undefined || then === undefined || !('lit' in round) || typeof round.lit !== 'number') break;
+        let key = `${this.passage}.round`;
+        for (let i = 2; key in this.endOfRound; i++) key = `${this.passage}.round${i}`;
+        this.endOfRound[key] = { passage: this.passage, round: round.lit, text, then };
+        return ui('endOfRound', { progress: { lit: key }, next: arg(2) });
+      }
+      case 'ViewEndOfGeneration.S_OnSetSpecialSetup?.Invoke': {
+        // (title, rounds completed or -1, next passage, text): the same screen with its own
+        // title, continuing with a passage instead of the story's own link.
+        const [title, body] = [constString(a[0]!), constString(a[3]!)];
+        if (title === undefined || body === undefined) break;
+        return ui('endOfGeneration', {
+          title: { lit: this.str(title, 'title') },
+          text: { lit: this.str(toMarkup(body), 'instruction', true) },
+          generation: arg(1),
+          next: arg(2),
+        });
       }
       case 'ViewController.instance.ChangeView': {
         const screen = a[0]!.text.split('.').pop()!;

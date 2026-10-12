@@ -265,7 +265,12 @@ export function finalizeStrings(
       for (const n of nodes) {
         if (n.t === 'link' && !n.args && commonKey.has(strings[n.key]!.full)) n.key = commonKey.get(strings[n.key]!.full)!;
         else if (n.t === 'text' || n.t === 'link' || n.t === 'prompt') n.key = rekey(n.key);
-        if (n.t === 'ui' && n.args?.['text'] && 'lit' in n.args['text']) n.args['text'] = { lit: rekey(String(n.args['text'].lit)) };
+        if (n.t === 'ui' && n.args) {
+          for (const arg of ['title', 'text']) {
+            const v = n.args[arg];
+            if (v && 'lit' in v) n.args[arg] = { lit: rekey(String(v.lit)) };
+          }
+        }
         if (n.t === 'block') visit(n.body);
         if (n.t === 'if') n.branches.forEach((b) => visit(b.body));
       }
