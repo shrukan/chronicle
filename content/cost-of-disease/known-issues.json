@@ -1,8 +1,5 @@
 {
   "neverSet": {
     "hunt1c": "Unfinished in the original: with 5 players it should name a third member of the second hunting group, but the setup writes hunt3a instead, and the resulting name (h2c) is never shown anywhere. Setting it would change nothing visible; adding the fifth player would need new story text. Kept as in the original."
-  },
-  "unvisited": {
-    "EvilWolves1Note": "Developer note. Only one of its fragments is used (revealed from another passage, a hand edit in the original); the passage itself is never shown."
   }
 }
