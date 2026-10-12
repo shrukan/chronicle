@@ -299,7 +299,7 @@ describe('boxScoringReminders', () => {
       Other: { name: 'Other', tags: [], body: [text('c')], fragments: {} },
     } satisfies Record<string, Passage>;
     assert.equal(boxScoringReminders(passages), 1);
-    assert.deepEqual(passages.Score.body.map((n) => (n.t === 'block' ? `block:${n.style}:${n.body.length}` : n.t)), ['text', 'br', 'block:setup:3', 'br', 'link']);
+    assert.deepEqual(passages.Score.body.map((n) => (n.t === 'block' ? `block:${n.style}:${n.list}:${n.body.length}` : n.t)), ['text', 'br', 'block:setup:items:3', 'br', 'link']);
     assert.equal(passages.Other.body[0]!.t, 'text');
   });
 });

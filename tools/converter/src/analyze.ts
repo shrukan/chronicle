@@ -167,7 +167,8 @@ export function hoistProgressionLinks(passages: Passages, strings: StringTable):
 /**
  * The page before the final scoring reminds the players what to count (Estate Upgrades,
  * Maladjustments …): things to do at the table, so they become a setup box, with the Score
- * Entry button below it. The texts stay as they are. Returns how many pages changed.
+ * Entry button below it – a list, as each line counts on its own, in any order. The texts stay
+ * as they are. Returns how many pages changed.
  */
 export function boxScoringReminders(passages: Passages): number {
   let boxed = 0;
@@ -192,7 +193,7 @@ export function boxScoringReminders(passages: Passages): number {
       if (instruction(n)) last = k;
       else if (n.t !== 'br') break;
     }
-    p.body.splice(first, last - first + 1, { t: 'block', style: 'setup', body: p.body.slice(first, last + 1) });
+    p.body.splice(first, last - first + 1, { t: 'block', style: 'setup', list: 'items', body: p.body.slice(first, last + 1) });
     boxed++;
   }
   return boxed;

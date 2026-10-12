@@ -69,7 +69,7 @@
               <img class="setup-image" [src]="src" alt="" />
             }
             <div class="setup-body">
-              <cr-story-output [items]="trim(o.children)" [primaryLink]="primaryLink()" />
+              <ng-container *ngTemplateOutlet="boxBody; context: { $implicit: o }" />
             </div>
           </div>
         </section>
@@ -78,7 +78,7 @@
           @if (o.style === 'setup') {
             <header>{{ setupLabel }}</header>
           }
-          <cr-story-output [items]="trim(o.children)" [primaryLink]="primaryLink()" />
+          <ng-container *ngTemplateOutlet="boxBody; context: { $implicit: o }" />
         </section>
       }
     }
@@ -87,6 +87,15 @@
     }
   }
 }
+<!-- A box's content; lines the content marks as a list (items or steps) become one. -->
+<ng-template #boxBody let-box>
+  @if (box.list) {
+    <cr-box-lines [lines]="lines(box.children)" [numbered]="box.list === 'steps'" />
+    <cr-story-output [items]="besideLines(box.children)" [primaryLink]="primaryLink()" />
+  } @else {
+    <cr-story-output [items]="trim(box.children)" [primaryLink]="primaryLink()" />
+  }
+</ng-template>
 <ng-template #panelBody let-p>
   <div class="panel-title">
     <cr-story-output [items]="trim(p.title.children)" />

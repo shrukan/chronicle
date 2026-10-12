@@ -1,4 +1,4 @@
-import { SETUP_CONTINUE_KEY, type BlockStyle, type LinkRole, type TextRole, type Expr, type IfNode, type Node, type Passage, type PromptNode, type Scenario, type TextKind, type Value } from './schema.ts';
+import { SETUP_CONTINUE_KEY, type BlockList, type BlockStyle, type LinkRole, type TextRole, type Expr, type IfNode, type Node, type Passage, type PromptNode, type Scenario, type TextKind, type Value } from './schema.ts';
 import { binary, equals, indexList, toNumber, toText, truthy, typeOf, ValueError } from './values.ts';
 
 /**
@@ -30,7 +30,7 @@ export const randomChooser: Chooser = {
 export type Out =
   | { t: 'text'; key: string; kind: TextKind; role?: TextRole; args: string[] }
   | { t: 'br' }
-  | { t: 'block'; style: BlockStyle; image?: string; children: Out[] }
+  | { t: 'block'; style: BlockStyle; list?: BlockList; image?: string; children: Out[] }
   /** Output of a revealed fragment; render its children inline. */
   | { t: 'group'; children: Out[] }
   /** `disabled`: a used reveal link that stays visible as plain text (Harlowe behaviour). */
@@ -350,7 +350,7 @@ export class Story {
           break;
         case 'block': {
           const children: Out[] = [];
-          const block: Out = { t: 'block', style: node.style, children };
+          const block: Out = { t: 'block', style: node.style, ...(node.list ? { list: node.list } : {}), children };
           out.push(block);
           const flow = yield* this.exec(node.body, children, passage);
           if (node.style === 'setupEvent' && this.vars['_SetupImage']) block.image = toText(this.vars['_SetupImage']);

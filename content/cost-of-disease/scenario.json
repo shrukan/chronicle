@@ -3317,6 +3317,7 @@
     {
      "t": "block",
      "style": "setup",
+     "list": "items",
      "body": [
       {
        "t": "text",

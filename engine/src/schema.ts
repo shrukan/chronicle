@@ -100,7 +100,11 @@ export interface BlockNode {
   body: Node[];
   /** Setup pop-ups: passage to continue with once the players confirm. */
   next?: Expr;
+  /** How the box's lines read: separate `items` (a list) or `steps` in order (numbered). */
+  list?: BlockList;
 }
+
+export type BlockList = 'items' | 'steps';
 
 /** String key for the button that confirms a setup pop-up. */
 export const SETUP_CONTINUE_KEY = 'common.setupContinue';

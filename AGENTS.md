@@ -90,10 +90,10 @@ shared/utils/                    e.g. duration formatting
 ```
 
 Features: `menu` (main menu, title scene), `saves` (the list of saved games), `setup` (player
-count to scenario choice), `storybook` (play page; story output, rich text, screen cards for end
-of round / votes / scoring hand-off, log book), `scoring`, `endings`, `info` (about, help, what's
-new), `dev` (the `/voices` test page, development builds only). Put a new component in the
-feature that uses it; move it to `shared/` only once a second feature needs it.
+count to scenario choice), `storybook` (play page; story output, rich text, box lines, screen
+cards for end of round / votes / scoring hand-off, log book), `scoring`, `endings`, `info`
+(about, help, what's new), `dev` (the `/voices` test page, development builds only). Put a new
+component in the feature that uses it; move it to `shared/` only once a second feature needs it.
 
 Component conventions: selector prefix `cr-`, `templateUrl`/`styleUrl` (no inline templates),
 signals and `computed` over manual state, `input()`/`output()`, no `NgModule`s. Component styles

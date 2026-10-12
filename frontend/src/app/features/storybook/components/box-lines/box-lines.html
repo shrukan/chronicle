@@ -1,0 +1,13 @@
+@if (numbered()) {
+  <ol class="steps">
+    @for (line of lines(); track $index) {
+      <li><cr-rich-text [text]="game.text(line.key, line.kind)" [args]="line.args" /></li>
+    }
+  </ol>
+} @else {
+  <ul class="items">
+    @for (line of lines(); track $index) {
+      <li><cr-rich-text [text]="game.text(line.key, line.kind)" [args]="line.args" /></li>
+    }
+  </ul>
+}

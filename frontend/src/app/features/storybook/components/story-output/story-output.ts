@@ -5,6 +5,8 @@ import { Game } from '../../../../core/services/game';
 import { Library } from '../../../../core/services/library';
 import { RichText } from '../rich-text/rich-text';
 import { ScreenCard } from '../screen-card/screen-card';
+import type { TextOut } from '../../../../core/utils/story-output';
+import { BoxLines } from '../box-lines/box-lines';
 
 type Block = Extract<Out, { t: 'block' }>;
 type Link = Extract<Out, { t: 'link' }>;
@@ -28,7 +30,7 @@ function links(out: Out[]): Link[] {
 @Component({
   selector: 'cr-story-output',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [NgTemplateOutlet, RichText, ScreenCard],
+  imports: [BoxLines, NgTemplateOutlet, RichText, ScreenCard],
   templateUrl: './story-output.html',
   styleUrl: './story-output.css',
 })
@@ -83,6 +85,16 @@ export class StoryOutput {
   }
 
   /** Line breaks at the start or end of a block only add empty space. */
+  /** A listed box's lines: its texts, in order. */
+  protected lines(out: Out[]): TextOut[] {
+    return out.filter((o): o is TextOut => o.t === 'text');
+  }
+
+  /** What a listed box holds besides its lines (e.g. a box's Accept). */
+  protected besideLines(out: Out[]): Out[] {
+    return out.filter((o) => o.t !== 'text' && o.t !== 'br');
+  }
+
   protected trim(out: Out[]): Out[] {
     let start = 0,
       end = out.length;

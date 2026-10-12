@@ -1,0 +1,34 @@
+:host {
+  display: block;
+}
+ul,
+ol {
+  margin: 0.2rem 0 0;
+  padding: 0;
+  display: grid;
+  gap: 0.35rem;
+}
+li {
+  position: relative;
+  padding-left: 1.4rem;
+}
+ul {
+  list-style: none;
+}
+/* The original's brass stud, as on the "What's new" page. */
+ul li::before {
+  content: '';
+  position: absolute;
+  left: 0.2rem;
+  top: 0.55em;
+  width: 0.6rem;
+  height: 0.6rem;
+  border-radius: 50%;
+  background: var(--bullet-image, none) center / contain no-repeat var(--color-accent);
+}
+ol {
+  padding-left: 1.4rem;
+}
+ol li {
+  padding-left: 0.2rem;
+}
