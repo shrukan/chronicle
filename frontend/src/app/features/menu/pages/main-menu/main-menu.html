@@ -1,11 +1,4 @@
 <cr-title-scene />
-<a class="help" routerLink="/help" aria-label="How to use" title="How to use">
-  @if (library.ui('help/mfwhelp-button'); as src) {
-    <img [src]="src" alt="" />
-  } @else {
-    ?
-  }
-</a>
 
 <section class="menu">
   <!-- A fixed box, so the menu stays put whether the logo or its fallback renders first. -->
@@ -55,7 +48,7 @@
     </p>
   }
 
-  <!-- The original's 2 × 2 grid of brown plates. -->
+  <!-- The original's grid of brown plates, two to a row; Help joins them. -->
   <nav class="buttons">
     @if (toContinue()) {
       <button crAutofocus type="button" class="btn" (click)="resume()">
@@ -74,6 +67,7 @@
     <a class="btn" routerLink="/endings">{{
       t('UI/MainMenu/Viewarea/GridButtons/Endings/Text (TMP)', 'Endings')
     }}</a>
+    <a class="btn" routerLink="/help">Help</a>
   </nav>
 </section>
 

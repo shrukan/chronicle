@@ -50,7 +50,6 @@ const TITLE_PICTURES = [
   'main-menu/myfathersworklogofinal',
   'general/main-border',
   'general/vignette',
-  'help/mfwhelp-button',
 ];
 
 /** The storybook's backdrop per scenario, as in the original (ViewGenerationEnding). */
