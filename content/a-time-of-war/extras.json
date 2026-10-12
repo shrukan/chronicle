@@ -1,0 +1,181 @@
+{
+ "endOfRound": {
+  "TakeSides": {
+   "round": 1,
+   "text": "round.TakeSides.end",
+   "then": "round.TakeSides.then"
+  },
+  "TakeSides2": {
+   "round": 2,
+   "text": "round.TakeSides2.end",
+   "then": "round.TakeSides2.then"
+  },
+  "TakeSides3": {
+   "round": 0,
+   "text": "round.TakeSides3.end",
+   "then": "round.TakeSides3.then"
+  },
+  "TimeTravel": {
+   "round": 4,
+   "text": "round.TimeTravel.end",
+   "then": "round.TimeTravel.then"
+  },
+  "Martial1": {
+   "round": 4,
+   "text": "round.Martial1.end",
+   "then": "round.Martial1.then"
+  },
+  "TimeTravel2": {
+   "round": 5,
+   "text": "round.TimeTravel2.end",
+   "then": "round.TimeTravel2.then"
+  },
+  "Martial2": {
+   "round": 5,
+   "text": "round.Martial2.end",
+   "then": "round.Martial2.then"
+  },
+  "TimeTravel3": {
+   "round": 0,
+   "text": "round.TimeTravel3.end",
+   "then": "round.TimeTravel3.then"
+  },
+  "Martial3": {
+   "round": 0,
+   "text": "round.Martial3.end",
+   "then": "round.Martial3.then"
+  },
+  "Paradox1": {
+   "round": 7,
+   "text": "round.Paradox1.end",
+   "then": "round.Paradox1.then"
+  },
+  "MonarchReign1": {
+   "round": 7,
+   "text": "round.MonarchReign1.end",
+   "then": "round.MonarchReign1.then"
+  },
+  "Peace1": {
+   "round": 7,
+   "text": "round.Peace1.end",
+   "then": "round.Peace1.then"
+  },
+  "Warning1": {
+   "round": 7,
+   "text": "round.Warning1.end",
+   "then": "round.Warning1.then"
+  },
+  "Paradox2": {
+   "round": 8,
+   "text": "round.Paradox2.end",
+   "then": "round.Paradox2.then"
+  },
+  "MonarchReign2": {
+   "round": 8,
+   "text": "round.MonarchReign2.end",
+   "then": "round.MonarchReign2.then"
+  },
+  "Peace2": {
+   "round": 8,
+   "text": "round.Peace2.end",
+   "then": "round.Peace2.then"
+  },
+  "Warning2": {
+   "round": 8,
+   "text": "round.Warning2.end",
+   "then": "round.Warning2.then"
+  },
+  "Warning2time": {
+   "round": 8,
+   "text": "round.Warning2time.end",
+   "then": "round.Warning2time.then"
+  },
+  "Paradox3": {
+   "round": 0,
+   "text": "round.Paradox3.end",
+   "then": "round.Paradox3.then"
+  },
+  "MonarchReign3": {
+   "round": 0,
+   "text": "round.MonarchReign3.end",
+   "then": "round.MonarchReign3.then"
+  },
+  "Peace3": {
+   "round": 0,
+   "text": "round.Peace3.end",
+   "then": "round.Peace3.then"
+  },
+  "Warning3": {
+   "round": 0,
+   "text": "round.Warning3.end",
+   "then": "round.Warning3.then"
+  },
+  "Warning3time": {
+   "round": 0,
+   "text": "round.Warning3time.end",
+   "then": "round.Warning3time.then"
+  },
+  "Paradox3b": {
+   "round": 0,
+   "text": "round.Paradox3b.end",
+   "then": "round.Paradox3b.then"
+  },
+  "Martia1Pre2.round": {
+   "round": 4,
+   "text": "round.Martia1Pre2.round.end",
+   "then": "round.Martia1Pre2.round.then"
+  },
+  "MartialPre3.round": {
+   "round": 5,
+   "text": "round.MartialPre3.round.end",
+   "then": "round.MartialPre3.round.then"
+  }
+ },
+ "logBook": {},
+ "voiceOver": {
+  "IntroMartial-Monarchists": {
+   "male": "SFX/Male VO oggs/IntroMartial-Monarchist.ogg",
+   "female": "SFX/female Takes VO oggs/IntroMartial-Monarchists.ogg"
+  },
+  "IntroMartial-Separatists": {
+   "male": "SFX/Male VO oggs/IntroMartial-Separatists.ogg",
+   "female": "SFX/female Takes VO oggs/IntroMartial-Separatists.ogg"
+  },
+  "MonarchReignIntro": {
+   "male": "SFX/Male VO oggs/MonarchReignIntro.ogg",
+   "female": "SFX/female Takes VO oggs/MonarchReignIntro.ogg"
+  },
+  "WarningIntro": {
+   "male": "SFX/Male VO oggs/Paradox Intro Warning Intro.ogg",
+   "female": "SFX/female Takes VO oggs/WarningIntro.ogg"
+  },
+  "ParadoxIntro": {
+   "male": "SFX/Male VO oggs/Paradox Intro Warning Intro.ogg",
+   "female": "SFX/female Takes VO oggs/WarningIntro.ogg"
+  },
+  "PeaceIntro": {
+   "male": "SFX/Male VO oggs/PeaceIntro.ogg",
+   "female": "SFX/female Takes VO oggs/PeaceIntro.ogg"
+  },
+  "WarningEvent": {
+   "male": "SFX/Male VO oggs/WarningEvent.ogg",
+   "female": "SFX/female Takes VO oggs/WarningEvent.ogg"
+  },
+  "TimeTravelintro1": {
+   "male": "SFX/Male VO oggs/TimeTravelintro1.ogg",
+   "female": "SFX/female Takes VO oggs/TimeTravelintro1.ogg"
+  },
+  "TimeTravelIntro2": {
+   "male": "SFX/Male VO oggs/TimeTravelintro2.ogg",
+   "female": "SFX/female Takes VO oggs/TimeTravelIntro2.ogg"
+  },
+  "TTIntro3": {
+   "male": "SFX/Male VO oggs/TTintro3.ogg",
+   "female": "SFX/female Takes VO oggs/TTIntro3.ogg"
+  },
+  "ATimeofWarIntro": {
+   "male": "SFX/Male VO oggs/ATimeofWarIntro-2.ogg",
+   "female": "SFX/female Takes VO oggs/ATimeofWarIntro.ogg"
+  }
+ }
+}

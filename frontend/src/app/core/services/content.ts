@@ -7,7 +7,10 @@ export interface ScenarioContent {
   extras: ScenarioExtras;
 }
 
-export const SCENARIOS = [{ id: 'cost-of-disease', title: 'The Cost of Disease' }] as const;
+export const SCENARIOS = [
+  { id: 'cost-of-disease', title: 'The Cost of Disease' },
+  { id: 'a-time-of-war', title: 'A Time of War' },
+] as const;
 export type ScenarioId = (typeof SCENARIOS)[number]['id'];
 
 export function isScenarioId(id: unknown): id is ScenarioId {

@@ -3,7 +3,7 @@ import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@a
 import { Router } from '@angular/router';
 import { form, FormField, FormRoot, required } from '@angular/forms/signals';
 import { AudioPlayer } from '../../../../core/services/audio';
-import { SCENARIOS } from '../../../../core/services/content';
+import { isScenarioId } from '../../../../core/services/content';
 import { Game } from '../../../../core/services/game';
 import { Library } from '../../../../core/services/library';
 import { Settings } from '../../../../core/services/settings';
@@ -134,7 +134,8 @@ export class Setup {
   }
 
   protected async start(id: string): Promise<void> {
-    if (id !== this.game.scenarioId()) return;
+    if (!isScenarioId(id)) return;
+    this.game.scenarioId.set(id);
     await this.game.newGame({
       players: this.players(),
       names: this.names(),
@@ -144,7 +145,7 @@ export class Setup {
   }
 }
 
-/** The three scenarios as the original's chooser shows them; only The Cost of Disease is converted. */
+/** The three scenarios as the original's chooser shows them; those not converted yet are locked. */
 const SCENARIOS_UI = [
   {
     id: 'cost-of-disease',
@@ -152,7 +153,7 @@ const SCENARIOS_UI = [
     titleKey: 'UI/Scenarios/Viewarea/costOfDiseaseBtn/costofDiseaseTitle',
     detailsKey: 'UI/Scenarios/Viewarea/costOfDiseaseBtn/costofDiseaseDetails',
     image: 'scenario/mfw-scenario-1',
-    available: SCENARIOS.some((s) => s.id === 'cost-of-disease'),
+    available: isScenarioId('cost-of-disease'),
   },
   {
     id: 'fear-of-the-unknown',
@@ -160,7 +161,7 @@ const SCENARIOS_UI = [
     titleKey: 'UI/Scenarios/Viewarea/FearoftheUnknownBtn/industryForeverTitle',
     detailsKey: 'UI/Scenarios/Viewarea/FearoftheUnknownBtn/industryForeverDetails',
     image: 'scenario/mfw-scenario-2',
-    available: false,
+    available: isScenarioId('fear-of-the-unknown'),
   },
   {
     id: 'a-time-of-war',
@@ -168,6 +169,6 @@ const SCENARIOS_UI = [
     titleKey: 'UI/Scenarios/Viewarea/timeOfWarBtn/timeOfWarTitle',
     detailsKey: 'UI/Scenarios/Viewarea/timeOfWarBtn/timeOfWarDetails',
     image: 'scenario/mfw-scenario-3',
-    available: false,
+    available: isScenarioId('a-time-of-war'),
   },
 ];

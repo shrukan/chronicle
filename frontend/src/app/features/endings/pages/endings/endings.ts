@@ -7,15 +7,22 @@ import {
   signal,
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { resolveText } from '@chronicle/engine';
+import { SCENARIOS, type ScenarioId } from '../../../../core/services/content';
 import { Game } from '../../../../core/services/game';
 import { Library } from '../../../../core/services/library';
 import { SaveStore } from '../../../../core/services/save-store';
+import { Settings } from '../../../../core/services/settings';
 import { Tabs } from '../../../../shared/components/tabs/tabs';
 
 /**
- * Endings and achievements unlocked on this device. Locked endings stay hidden ("???"), as
- * in the original, so the gallery gives nothing away.
+ * Endings and achievements unlocked on this device, one scenario at a time (first the current
+ * game's). Locked endings stay hidden ("???"), as in the original, so the gallery gives nothing
+ * away.
  */
+/** The scenarios in the original's order (its achievement texts follow it). */
+const SCENARIOS_IN_ORIGINAL: string[] = ['cost-of-disease', 'fear-of-the-unknown', 'a-time-of-war'];
+
 @Component({
   selector: 'cr-endings',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -27,6 +34,7 @@ export class Endings {
   private readonly library = inject(Library);
   private readonly game = inject(Game);
   private readonly saves = inject(SaveStore);
+  private readonly settings = inject(Settings);
 
   protected readonly tab = signal('endings');
   protected readonly tabs = computed(() => [
@@ -39,13 +47,23 @@ export class Endings {
       label: this.t('UI/Endings and Achievement/Viewarea/achievement/Text (TMP)', 'Achievements'),
     },
   ]);
-  protected readonly scenarioName = 'The Cost of Disease';
-  private readonly unlocks = resource({ loader: () => this.saves.unlocks(this.game.scenarioId()) });
+  protected readonly scenarios = SCENARIOS;
+  protected readonly scenario = signal<ScenarioId>(this.game.scenarioId());
+  protected readonly scenarioName = computed(
+    () => SCENARIOS.find((s) => s.id === this.scenario())?.title ?? '',
+  );
+  private readonly unlocks = resource({
+    params: () => this.scenario(),
+    loader: ({ params }) => this.saves.unlocks(params),
+  });
   /** Ending titles need the scenario's strings. */
-  private readonly content = resource({ loader: () => this.game.loadContent() });
+  private readonly content = resource({
+    params: () => this.scenario(),
+    loader: ({ params }) => this.game.contentOf(params),
+  });
 
   protected readonly endings = computed(() => {
-    const scenario = this.content.value()?.scenario;
+    const { scenario, strings } = this.content.value() ?? {};
     const reached = this.unlocks.value()?.endings ?? {};
     const order = this.library
       .list('@PassageTracker.endingPassageList')
@@ -58,7 +76,12 @@ export class Endings {
         passage,
         unlocked: !!reached[passage],
         title:
-          title?.t === 'text' ? this.game.text(title.key, 'title').replace(/\*/g, '') : passage,
+          title?.t === 'text' && strings
+            ? resolveText(strings, title.key, this.settings.readingMode(), 'title').replace(
+                /\*/g,
+                '',
+              )
+            : passage,
         date: reached[passage] ? new Date(reached[passage]).toLocaleDateString() : '',
       };
     });
@@ -67,14 +90,17 @@ export class Endings {
     () => this.endings().filter((e) => e.unlocked).length,
   );
   protected readonly achievements = computed(() => {
-    const [reachEnd, allEndings] = [0, 3].map(
+    // The original lists the first-ending achievements of all scenarios, then the all-endings ones.
+    const index = SCENARIOS_IN_ORIGINAL.indexOf(this.scenario());
+    const [reachEnd, allEndings] = [index, index + 3].map(
       (i) => this.library.list('@ViewEndings.specialAchievement')[i] ?? '',
     );
+    const name = this.scenarioName();
     const total = this.endings().length;
     return [
-      { text: reachEnd || 'Reach the end of The Cost of Disease.', done: this.unlockedCount() > 0 },
+      { text: reachEnd || `Reach the end of ${name}.`, done: this.unlockedCount() > 0 },
       {
-        text: allEndings || 'Complete all 8 Endings in The Cost of Disease.',
+        text: allEndings || `Complete all ${total} Endings in ${name}.`,
         done: total > 0 && this.unlockedCount() === total,
       },
     ];

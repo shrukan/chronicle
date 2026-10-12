@@ -284,6 +284,50 @@
   "thunder": "audio/effects/thunder.mp3"
  },
  "voiceOver": {
+  "IntroMartial-Monarchists": {
+   "male": "audio/voice/male/intro-martial-monarchist.mp3",
+   "female": "audio/voice/female/intro-martial-monarchists.mp3"
+  },
+  "IntroMartial-Separatists": {
+   "male": "audio/voice/male/intro-martial-separatists.mp3",
+   "female": "audio/voice/female/intro-martial-separatists.mp3"
+  },
+  "MonarchReignIntro": {
+   "male": "audio/voice/male/monarch-reign-intro.mp3",
+   "female": "audio/voice/female/monarch-reign-intro.mp3"
+  },
+  "WarningIntro": {
+   "male": "audio/voice/male/paradox-intro-warning-intro.mp3",
+   "female": "audio/voice/female/warning-intro.mp3"
+  },
+  "ParadoxIntro": {
+   "male": "audio/voice/male/paradox-intro-warning-intro.mp3",
+   "female": "audio/voice/female/warning-intro.mp3"
+  },
+  "PeaceIntro": {
+   "male": "audio/voice/male/peace-intro.mp3",
+   "female": "audio/voice/female/peace-intro.mp3"
+  },
+  "WarningEvent": {
+   "male": "audio/voice/male/warning-event.mp3",
+   "female": "audio/voice/female/warning-event.mp3"
+  },
+  "TimeTravelintro1": {
+   "male": "audio/voice/male/time-travelintro1.mp3",
+   "female": "audio/voice/female/time-travelintro1.mp3"
+  },
+  "TimeTravelIntro2": {
+   "male": "audio/voice/male/time-travelintro2.mp3",
+   "female": "audio/voice/female/time-travel-intro2.mp3"
+  },
+  "TTIntro3": {
+   "male": "audio/voice/male/ttintro3.mp3",
+   "female": "audio/voice/female/ttintro3.mp3"
+  },
+  "ATimeofWarIntro": {
+   "male": "audio/voice/male/atimeof-war-intro-2.mp3",
+   "female": "audio/voice/female/atimeof-war-intro.mp3"
+  },
   "NoUniversityIntro": {
    "male": "audio/voice/male/no-university-intro.mp3",
    "female": "audio/voice/female/no-university-intro.mp3"

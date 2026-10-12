@@ -86,7 +86,10 @@ export class ScreenCard implements OnInit, OnDestroy {
   protected readonly rounds = ROUNDS;
   protected readonly generationSteps = computed(() => sentences(this.game.text(this.arg('text'))));
 
+  /** The screen's own title (e.g. a special setup), or the original's "End of Generation". */
   protected get generationTitle(): string {
+    const own = this.arg('title');
+    if (own) return this.game.text(own, 'title');
     return this.text(
       'UI/EndOfGeneration/ViewArea/MainPanel/HeaderTitle/EndOfRoundText',
       'End of Generation',

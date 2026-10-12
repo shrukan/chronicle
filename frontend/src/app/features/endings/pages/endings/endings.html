@@ -2,7 +2,22 @@
   <cr-tabs #tabBar [tabs]="tabs()" [(selected)]="tab" panelId="unlocks" />
 
   <div id="unlocks" class="panel" role="tabpanel" [attr.aria-labelledby]="tabBar.tabId(tab())">
-    <h1 class="heading">{{ scenarioName }}</h1>
+    @if (scenarios.length > 1) {
+      <div class="scenarios">
+        @for (s of scenarios; track s.id) {
+          <button
+            type="button"
+            class="btn"
+            [class.selected]="scenario() === s.id"
+            [attr.aria-pressed]="scenario() === s.id"
+            (click)="scenario.set(s.id)"
+          >
+            {{ s.title }}
+          </button>
+        }
+      </div>
+    }
+    <h1 class="heading">{{ scenarioName() }}</h1>
 
     @if (tab() === 'endings') {
       <p class="count">

@@ -33,9 +33,14 @@
         }
       </ol>
       <div class="actions">
-        <button crAutofocus type="button" class="btn confirm" (click)="dismissed.set(true)">
-          Done
-        </button>
+        <!-- A special setup continues with a passage of its own; the others close. -->
+        @if (screen().link !== undefined) {
+          <button crAutofocus type="button" class="btn confirm" (click)="continue()">Done</button>
+        } @else {
+          <button crAutofocus type="button" class="btn confirm" (click)="dismissed.set(true)">
+            Done
+          </button>
+        }
       </div>
     </cr-modal>
   }

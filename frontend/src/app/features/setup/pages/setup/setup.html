@@ -136,7 +136,6 @@
       <div class="scenarios">
         @for (s of scenarioCards; track s.id) {
           <button
-            [crAutofocus]="s.available"
             type="button"
             class="scenario"
             [disabled]="!s.available"
