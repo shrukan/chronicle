@@ -21,11 +21,15 @@ export function staticChecks(s: Scenario, strings: StringTable, external: string
 
   eachNode(s, (n, p) => {
     if (n.t === 'text' || n.t === 'link' || n.t === 'prompt') usedKeys.add(n.key);
-    if (n.t === 'ui' && n.args?.['text'] && 'lit' in n.args['text']) usedKeys.add(String(n.args['text'].lit));
+    // Screen texts and titles are string keys.
+    for (const arg of ['title', 'text']) {
+      const v = n.t === 'ui' ? n.args?.[arg] : undefined;
+      if (v && 'lit' in v) usedKeys.add(String(v.lit));
+    }
     if (n.t === 'set' || n.t === 'prompt') written.add(n.var);
     if (n.t === 'manual') manualNodes++;
     for (const e of nodeExprs(n)) eachExpr(e, (x) => { if ('var' in x) read.add(x.var); });
-    const target = n.t === 'link' || n.t === 'goto' ? n.to : n.t === 'include' ? n.passage : n.t === 'block' ? n.next : undefined;
+    const target = n.t === 'link' || n.t === 'goto' ? n.to : n.t === 'include' ? n.passage : n.t === 'block' ? n.next : n.t === 'ui' ? n.args?.['next'] : undefined;
     if (target && 'lit' in target && typeof target.lit === 'string' && !s.passages[target.lit]) missingPassages.push({ passage: p.name, target: target.lit });
   });
 
