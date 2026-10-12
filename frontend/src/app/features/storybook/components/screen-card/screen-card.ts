@@ -85,6 +85,11 @@ export class ScreenCard implements OnInit, OnDestroy {
   );
   protected readonly rounds = ROUNDS;
   protected readonly generationSteps = computed(() => sentences(this.game.text(this.arg('text'))));
+  /** Values for the placeholders in the screen's text ({0} …). */
+  protected readonly textArgs = computed(() => {
+    const v = this.screen().args['textArgs'];
+    return Array.isArray(v) ? v.map(toText) : [];
+  });
 
   /** The screen's own title (e.g. a special setup), or the original's "End of Generation". */
   protected get generationTitle(): string {

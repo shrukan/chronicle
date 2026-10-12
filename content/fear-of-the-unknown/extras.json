@@ -1,0 +1,144 @@
+{
+ "endOfRound": {
+  "Mania": {
+   "round": 1,
+   "text": "round.Mania.end",
+   "then": "round.Mania.then"
+  },
+  "Mania2": {
+   "round": 2,
+   "text": "round.Mania2.end",
+   "then": "round.Mania2.then"
+  },
+  "Mania3": {
+   "round": 0,
+   "text": "round.Mania3.end",
+   "then": "round.Mania3.then"
+  },
+  "Foreign": {
+   "round": 4,
+   "text": "round.Foreign.end",
+   "then": "round.Foreign.then"
+  },
+  "Creature": {
+   "round": 4,
+   "text": "round.Creature.end",
+   "then": "round.Creature.then"
+  },
+  "Foreign2": {
+   "round": 5,
+   "text": "round.Foreign2.end",
+   "then": "round.Foreign2.then"
+  },
+  "Creature2": {
+   "round": 5,
+   "text": "round.Creature2.end",
+   "then": "round.Creature2.then"
+  },
+  "Creature3": {
+   "round": 0,
+   "text": "round.Creature3.end",
+   "then": "round.Creature3.then"
+  },
+  "Foreign3": {
+   "round": 0,
+   "text": "round.Foreign3.end",
+   "then": "round.Foreign3.then"
+  },
+  "Isolation": {
+   "round": 7,
+   "text": "round.Isolation.end",
+   "then": "round.Isolation.then"
+  },
+  "Tension": {
+   "round": 7,
+   "text": "round.Tension.end",
+   "then": "round.Tension.then"
+  },
+  "Privatized": {
+   "round": 7,
+   "text": "round.Privatized.end",
+   "then": "round.Privatized.then"
+  },
+  "Liberal": {
+   "round": 7,
+   "text": "round.Liberal.end",
+   "then": "round.Liberal.then"
+  },
+  "Tension2": {
+   "round": 8,
+   "text": "round.Tension2.end",
+   "then": "round.Tension2.then"
+  },
+  "Isolation2": {
+   "round": 8,
+   "text": "round.Isolation2.end",
+   "then": "round.Isolation2.then"
+  },
+  "Privatized2": {
+   "round": 8,
+   "text": "round.Privatized2.end",
+   "then": "round.Privatized2.then"
+  },
+  "Liberal2": {
+   "round": 8,
+   "text": "round.Liberal2.end",
+   "then": "round.Liberal2.then"
+  },
+  "Isolation3": {
+   "round": 0,
+   "text": "round.Isolation3.end",
+   "then": "round.Isolation3.then"
+  },
+  "Privatized3": {
+   "round": 0,
+   "text": "round.Privatized3.end",
+   "then": "round.Privatized3.then"
+  },
+  "Liberal3": {
+   "round": 0,
+   "text": "round.Liberal3.end",
+   "then": "round.Liberal3.then"
+  },
+  "Tension3": {
+   "round": 0,
+   "text": "round.Tension3.end",
+   "then": "round.Tension3.then"
+  }
+ },
+ "logBook": {},
+ "voiceOver": {
+  "IsolationIntro": {
+   "male": "SFX/Male VO oggs/IsolationIntro.ogg",
+   "female": "SFX/female Takes VO oggs/IsolationIntro.ogg"
+  },
+  "LiberalIntro": {
+   "male": "SFX/Male VO oggs/Liberal-intro.ogg",
+   "female": "SFX/female Takes VO oggs/LiberalIntro.ogg"
+  },
+  "PrivatizedIntro": {
+   "male": "SFX/Male VO oggs/PrivatizedIntro.ogg",
+   "female": "SFX/female Takes VO oggs/PrivatizedIntro.ogg"
+  },
+  "TensionIntro": {
+   "male": "SFX/Male VO oggs/TensionIntro.ogg",
+   "female": "SFX/female Takes VO oggs/TensionIntro.ogg"
+  },
+  "CreatureDemands": {
+   "male": "SFX/Male VO oggs/CreatureDemands.ogg",
+   "female": "SFX/female Takes VO oggs/CreatureDemands.ogg"
+  },
+  "FearoftheUnknownStart": {
+   "male": "SFX/Male VO oggs/FearoftheUnknownStart.ogg",
+   "female": "SFX/female Takes VO oggs/FearoftheUnknownStart.ogg"
+  },
+  "ForeignIntro": {
+   "male": "SFX/Male VO oggs/ForeignIntro.ogg",
+   "female": "SFX/female Takes VO oggs/ForeignIntro.ogg"
+  },
+  "CreatureIntro": {
+   "male": "SFX/Male VO oggs/Creature intro-2.ogg",
+   "female": "SFX/female Takes VO oggs/CreatureIntro.ogg"
+  }
+ }
+}

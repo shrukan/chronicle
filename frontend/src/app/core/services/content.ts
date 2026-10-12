@@ -9,6 +9,7 @@ export interface ScenarioContent {
 
 export const SCENARIOS = [
   { id: 'cost-of-disease', title: 'The Cost of Disease' },
+  { id: 'fear-of-the-unknown', title: 'Fear of the Unknown' },
   { id: 'a-time-of-war', title: 'A Time of War' },
 ] as const;
 export type ScenarioId = (typeof SCENARIOS)[number]['id'];

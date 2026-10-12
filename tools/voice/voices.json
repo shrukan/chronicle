@@ -5,6 +5,7 @@
  },
  "intros": {
   "cost-of-disease": "Scenario5Start",
+  "fear-of-the-unknown": "FearoftheUnknownStart",
   "a-time-of-war": "ATimeofWarIntro"
  },
  "paragraphPause": 0.6,

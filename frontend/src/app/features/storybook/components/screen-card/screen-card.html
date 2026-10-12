@@ -29,7 +29,7 @@
       <h2 class="heading title">{{ generationTitle }}</h2>
       <ol class="steps">
         @for (step of generationSteps(); track $index) {
-          <li><cr-rich-text [text]="step" /></li>
+          <li><cr-rich-text [text]="step" [args]="textArgs()" /></li>
         }
       </ol>
       <div class="actions">

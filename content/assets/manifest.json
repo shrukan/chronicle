@@ -363,6 +363,38 @@
   "Hospitalintro": {
    "male": "audio/voice/male/hospital-intro.mp3",
    "female": "audio/voice/female/hospitalintro.mp3"
+  },
+  "IsolationIntro": {
+   "male": "audio/voice/male/isolation-intro.mp3",
+   "female": "audio/voice/female/isolation-intro.mp3"
+  },
+  "LiberalIntro": {
+   "male": "audio/voice/male/liberal-intro.mp3",
+   "female": "audio/voice/female/liberal-intro.mp3"
+  },
+  "PrivatizedIntro": {
+   "male": "audio/voice/male/privatized-intro.mp3",
+   "female": "audio/voice/female/privatized-intro.mp3"
+  },
+  "TensionIntro": {
+   "male": "audio/voice/male/tension-intro.mp3",
+   "female": "audio/voice/female/tension-intro.mp3"
+  },
+  "CreatureDemands": {
+   "male": "audio/voice/male/creature-demands.mp3",
+   "female": "audio/voice/female/creature-demands.mp3"
+  },
+  "FearoftheUnknownStart": {
+   "male": "audio/voice/male/fearofthe-unknown-start.mp3",
+   "female": "audio/voice/female/fearofthe-unknown-start.mp3"
+  },
+  "ForeignIntro": {
+   "male": "audio/voice/male/foreign-intro.mp3",
+   "female": "audio/voice/female/foreign-intro.mp3"
+  },
+  "CreatureIntro": {
+   "male": "audio/voice/male/creature-intro-2.mp3",
+   "female": "audio/voice/female/creature-intro.mp3"
   }
  },
  "missing": []
