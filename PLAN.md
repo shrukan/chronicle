@@ -249,48 +249,33 @@ but writing short texts is a content job and works best once the logic is stable
 4. *Retire:* tag `converter-final`, then remove `tools/converter/`, `sources/`, the asset
    extraction and the `content:convert` / `content:assets` tasks. They stay in the git history.
 
-**Next scenarios: where they stand** (trial conversion, 11 October 2026; counts only)
+**Converting the other scenarios: done** (12 October 2026; counts only)
 
 | | Fear of the Unknown | A Time of War |
 |---|---|---|
-| Passages kept / dropped as unreachable | 336 / 42 | 127 / 170 |
-| Endings found | 8 | 3 |
-| Code the converter can't handle (`manual`) | 15 | 8 |
-| Expressions it can't read | 42 | 0 |
-| Typing issues | 4 | 0 |
-| Log book entries | 0 | 0 |
-| End-of-round texts / voice-over pages | 21 / 8 | 16 / 9 |
+| Passages (all reachable in the tester) | 341 | 261 |
+| Endings (the original's own ending list agrees) | 8/8 | 8/8 |
+| Unconverted code / tester errors / dead ends | 0 / 0 / 0 | 0 / 0 / 0 |
+| End-of-round texts / voice-over pages | 21 / 8 | 26 / 11 |
 
-Start with *Fear of the Unknown*: its structure is complete, what's open is converter work.
-*A Time of War* (12 October 2026): converted. The missing "entry points" were the passages its
-special-setup screens continue with; with those, plus end-of-round texts written into the story
-and setup targets chosen per branch, it converts with 262 passages, 8/8 endings (the original's
-own ending list agrees), 0 manual nodes and 0 tester errors. It is frozen on its own (see
-"Content lifecycle"): two dead spots of the original were then removed by hand – branches on a
-variable whose setting the original commented out, and a fallback passage no game can reach.
-Neither changes what players see. *The Cost of Disease* is frozen the same way: a developer
-note whose only used part (an end-of-round screen) was revealed from another passage now has
-that part moved into the passage that uses it. Open: a session at the table, Easy and Short texts,
-generated voices.
+What it took, in the converter: special-setup screens that name the passage they continue with
+(*A Time of War*'s missing "entry points"), end-of-round texts written into the story, setup
+targets chosen per branch, random locals read once, `Replace` on texts (a `replace` function in
+the engine), and text winning a tie when a variable holds as many numbers as texts.
 
-To find out (by hand, in the original app or on the Discord):
-- The log book CSV: 140 rows, 97 match *The Cost of Disease* by title, none the others. Does it
-  cover only that scenario, or are the other titles worded differently?
+By hand, after freezing (see "Content lifecycle"; neither scenario's play changes at the table):
+- *Fear of the Unknown*: the random fates handed out from a C# list now use the story's own
+  list variable; four end-of-generation texts with an extra sentence under a condition became
+  one screen per case (screen texts can now hold placeholders, `textArgs`); a fifth player's
+  refusal led back to their own payment instead of on, as for the others (5 players only).
+- *A Time of War*: branches on a variable whose setting the original commented out, and a
+  fallback passage no game can reach, removed.
+- *The Cost of Disease*: a developer note's only used part (an end-of-round screen) moved into
+  the passage that reveals it.
 
-Converter (content):
-- *Fear of the Unknown*: removing an entry from a list (8 places), assignments to a helper
-  variable (4), the end-of-generation text (2), one local variable that can't be inlined; the
-  42 unreadable expressions and 4 typing issues.
-- Story tester per scenario (`task content:test ID=<id>`) until all endings are reachable with
-  0 errors; mark impossible branches as for *The Cost of Disease*.
-- `tools/voice/voices.json`: the scenario's introduction for the voice test page.
-
-App (done with *A Time of War*): a converted scenario is listed in `SCENARIOS` and unlocked in
-setup, which sets `Game.scenarioId`; the endings page shows one scenario at a time. Still open:
-the e2e game plays *The Cost of Disease* only.
-
-Order: converter and story tester for *Fear of the Unknown* → table sessions for both new
-scenarios → freeze `content/`.
+Open: sessions at the table for both, Easy and Short texts, generated voices; the e2e game plays
+*The Cost of Disease* only; the log book CSV matches *The Cost of Disease* only (97 of 140 rows) –
+are the other titles worded differently? Next: retire the converter (step 4 above).
 
 **Translations: English is the reference**
 - A language is another string table with the same keys (`strings.<lang>.json`). The game logic

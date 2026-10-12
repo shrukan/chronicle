@@ -50,11 +50,9 @@ original C# story scripts ──converter──▶ content/ (JSON) ──engine�
   as one-shot reveals), with `snapshot()`/`restore()` for saves and undo, and a trace hook for
   the tester. Shared by the app and the tools, so what is tested is what is played.
 - **Converter** (`tools/converter/`): original C# → JSON, screen texts (`content/ui.en.json`) and
-  assets (`content/assets/`, WebP/MP3, capped at 2048 px). It is currently the source of truth for
-  `content/` and keeps hand-written Easy/Short texts across re-conversions (matched by text). It
-  is a migration tool: a scenario that converts cleanly is frozen (`frozen` in `scenarios.ts`; the
-  converter then skips it) and edited in `content/` directly – _The Cost of Disease_ and _A Time of War_ already are (see
-  PLAN.md, "Content lifecycle").
+  assets (`content/assets/`, WebP/MP3, capped at 2048 px). It is a migration tool,
+  now finished: all three scenarios are frozen (`frozen` in `scenarios.ts`; the converter skips
+  them) and `content/` is edited directly. Next it is retired (PLAN.md, "Content lifecycle").
 - **Story tester** (`tools/story-tester/`): static checks plus coverage-guided exploration of
   every scenario; spoiler-free summary.
 - **Voice generator** (`tools/voice/`, Python via `uv`): Kokoro voices (Emma, George) for voiced
@@ -156,10 +154,9 @@ Full detail in [PLAN.md](PLAN.md). As of October 2026:
 Next, roughly in order:
 
 1. Play a session at the table; fix what comes up; post the BGG announcement; release v1.0.0.
-2. Convert _Fear of the Unknown_ (converter reports 15 manual nodes) and check it with the story
-   tester; _A Time of War_ is converted and playable (8/8 endings in the tester), check both at
-   the table.
-3. Freeze `content/` and retire the converter (PLAN.md, "Content lifecycle").
+2. _Fear of the Unknown_ and _A Time of War_ are converted and playable (8/8 endings each in the
+   tester); check both at the table.
+3. Retire the converter: all scenarios are frozen (PLAN.md, "Content lifecycle").
 4. Review Easy and Short; write them for the other scenarios.
 5. Voice-over for every new story text (M7): voice packs outside git, names generated in the
    browser.
