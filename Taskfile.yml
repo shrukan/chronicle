@@ -15,7 +15,7 @@ vars:
   SOURCES_DIR: '{{joinPath .ROOT_DIR "sources/original"}}'
   # Playable scenarios: what project:check tests and content:convert writes (it skips frozen
   # ones, see tools/converter/src/scenarios.ts).
-  SCENARIOS: cost-of-disease a-time-of-war
+  SCENARIOS: cost-of-disease fear-of-the-unknown a-time-of-war
   # Optional full clone of the fan repository, only needed to re-extract the screen texts.
   UPSTREAM_DIR: '{{joinPath .ROOT_DIR "upstream/UnityOriginalApp"}}'
 
