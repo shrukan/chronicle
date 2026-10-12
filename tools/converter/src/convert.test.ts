@@ -290,7 +290,7 @@ describe('convertScenario: page openings and sections', () => {
 const SCREENS = String.raw`
 public partial class @Screens : Cradle.StoryFormats.Harlowe.HarloweStory
 {
-    public class VarDefs : RuntimeVars { public StoryVar @players = 0; public StoryVar @side = 0; }
+    public class VarDefs : RuntimeVars { public StoryVar @players = 0; public StoryVar @side = 0; public StoryVar @shown; }
 
     void passage1_Init() { this.Passages[@"Start"] = new StoryPassage(@"Start", new string[] { }, passage1_Main); }
     IStoryThread passage1_Main()
@@ -314,7 +314,12 @@ public partial class @Screens : Cradle.StoryFormats.Harlowe.HarloweStory
     void passage3_Init() { this.Passages[@"Right"] = new StoryPassage(@"Right", new string[] { }, passage3_Main); }
     IStoryThread passage3_Main()
     {
-        string twice = macros1.either("a", "b");
+        string named = Vars.nameA;
+    yield return text(named.Replace("_1", "").Replace("_2", ""));
+    Vars.shown = macros1.either(2, 3);
+    Vars.shown = "None.";
+    Vars.shown = "Some.";
+    string twice = macros1.either("a", "b");
         yield return text(twice);
         yield return text(twice);
         yield return link("Click to continue...", "Special", null);
@@ -371,6 +376,20 @@ describe('convertScenario: screens with a passage of their own', () => {
     const box = body('Start').find((n) => n.t === 'block')!;
     assert.ok(box.t === 'block' && box.next && 'cases' in box.next);
     assert.deepEqual(box.next.cases.map((c) => c.value), [{ lit: 'Left' }, { lit: 'Right' }]);
+  });
+
+  it('turns string Replace calls into replace', () => {
+    const text = body('Right').find((n) => n.t === 'text' && n.args?.length);
+    assert.ok(text?.t === 'text');
+    assert.deepEqual(text.args![0], {
+      fn: 'replace',
+      args: [{ fn: 'replace', args: [{ var: 'nameA' }, { lit: '_1' }, { lit: '' }] }, { lit: '_2' }, { lit: '' }],
+    });
+  });
+
+  it('types a variable given as many numbers as texts as text', () => {
+    assert.equal(r.scenario.variables['shown'], '');
+    assert.equal(r.report.typing.issues.length, 0);
   });
 
   it('inlines a random local read once, but not one read twice', () => {

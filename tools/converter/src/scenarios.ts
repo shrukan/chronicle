@@ -31,6 +31,7 @@ export const SCENARIOS: ScenarioConfig[] = [
     id: 'fear-of-the-unknown',
     source: 'English/FearoftheUnknownEng.cs',
     start: 'ScenarioBox-FOTU',
+    frozen: '2026-10-12',
     entries: ['VarEndingsPassage'],
     screens: { scoreEntry: { next: 'VarEndingsPassage' } },
   },

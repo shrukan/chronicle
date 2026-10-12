@@ -187,7 +187,9 @@ export class PassageConverter {
     const m = /^macros\d*\.(\w+)$/.exec(name);
     const fn = m && FNS[m[1]!];
     if (fn) return { fn, args: a.map((x) => this.expr(x)) };
-    if (name.endsWith('.ToString') && a.length === 0) return { fn: 'str', args: [this.expr(field(field(n, 'function')!, 'expression')!)] };
+    const object = () => this.expr(field(field(n, 'function')!, 'expression')!);
+    if (name.endsWith('.ToString') && a.length === 0) return { fn: 'str', args: [object()] };
+    if (name.endsWith('.Replace') && a.length === 2) return { fn: 'replace', args: [object(), ...a.map((x) => this.expr(x))] };
     if (name === 'int.Parse' || name === 'float.Parse') return { fn: 'num', args: [this.expr(a[0]!)] };
     if (name === 'Mathf.Max' || name === 'Math.Max') return { fn: 'max', args: a.map((x) => this.expr(x)) };
     if (name === 'String.IsNullOrEmpty' || name === 'string.IsNullOrEmpty') {

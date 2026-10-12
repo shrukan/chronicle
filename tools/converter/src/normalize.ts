@@ -46,7 +46,7 @@ function sources(e: Expr): Src[] {
   if ('fn' in e) {
     switch (e.fn) {
       case 'either': return e.args.flatMap(sources);
-      case 'str': return [{ t: 'string' }];
+      case 'str': case 'replace': return [{ t: 'string' }];
       case 'array': case 'shuffled': return [{ t: 'list' }];
       default: return [{ t: 'number' }];
     }
@@ -155,9 +155,11 @@ function inferTypes(s: Scenario, external: Record<string, T>, report: NormalizeR
     else if (r.strong.size > 1) {
       const ts = [...r.strong];
       report.mixed.push({ var: v, types: ts });
-      // Use the type the story assigns most often; the rest show up as issues.
+      // Use the type the story assigns most often (on a tie text, which holds numbers too);
+      // the rest show up as issues.
       const c = counts.get(v);
-      t = c ? [...c].sort((a, b) => b[1] - a[1])[0]![0] : ts.includes('string') ? 'string' : ts[0]!;
+      const textFirst = (a: T) => (a === 'string' ? 0 : 1);
+      t = c ? [...c].sort((a, b) => b[1] - a[1] || textFirst(a[0]) - textFirst(b[0]))[0]![0] : ts.includes('string') ? 'string' : ts[0]!;
     } else if (r.weak.size === 1) t = [...r.weak][0]!;
     else if (r.weak.has('number')) t = 'number';
     else t = 'string';
@@ -200,7 +202,7 @@ class Rewriter {
     if ('unknown' in e) return undefined;
     if ('fn' in e) {
       if (e.fn === 'either') return e.args.map((a) => this.typeOf(a)).find(Boolean);
-      return e.fn === 'str' ? 'string' : e.fn === 'array' || e.fn === 'shuffled' ? 'list' : 'number';
+      return e.fn === 'str' || e.fn === 'replace' ? 'string' : e.fn === 'array' || e.fn === 'shuffled' ? 'list' : 'number';
     }
     if (COMPARE.has(e.op) || LOGIC.has(e.op) || e.op === 'not') return 'boolean';
     if (e.op === 'neg') return 'number';
