@@ -1,5 +1,15 @@
 # Changelog
 
+## [0.8.0](https://github.com/shrukan/chronicle/compare/v0.7.0...v0.8.0) (2026-10-13)
+
+
+### Features
+
+* a time of war can be played, from setup to its endings ([0b77175](https://github.com/shrukan/chronicle/commit/0b771754f4fba1e02a4caf53688636ba06977b44))
+* emma and george read the voiced pages of fear of the unknown and a time of war ([2c4be3e](https://github.com/shrukan/chronicle/commit/2c4be3e40e60dc6b1c32338febe38fef80c63ad1))
+* fear of the unknown and a time of war in easy and short (beta) ([8c9ad5f](https://github.com/shrukan/chronicle/commit/8c9ad5f1624d8992892f91ebcde6b091935c123a))
+* fear of the unknown can be played, from setup to its endings ([a956ad6](https://github.com/shrukan/chronicle/commit/a956ad65acc05feb062a1930343a70bf98f47bd1))
+
 ## [0.7.0](https://github.com/shrukan/chronicle/compare/v0.6.0...v0.7.0) (2026-10-12)
 
 
