@@ -1,5 +1,41 @@
 {
  "clips": {
+  "ATimeofWarIntro": {
+   "emma": {
+    "easy": "audio/voice/emma/atimeofwarintro-easy.mp3",
+    "full": "audio/voice/emma/atimeofwarintro.mp3",
+    "short": "audio/voice/emma/atimeofwarintro-short.mp3"
+   },
+   "george": {
+    "easy": "audio/voice/george/atimeofwarintro-easy.mp3",
+    "full": "audio/voice/george/atimeofwarintro.mp3",
+    "short": "audio/voice/george/atimeofwarintro-short.mp3"
+   }
+  },
+  "CreatureDemands": {
+   "emma": {
+    "easy": "audio/voice/emma/creaturedemands-easy.mp3",
+    "full": "audio/voice/emma/creaturedemands.mp3",
+    "short": "audio/voice/emma/creaturedemands-short.mp3"
+   },
+   "george": {
+    "easy": "audio/voice/george/creaturedemands-easy.mp3",
+    "full": "audio/voice/george/creaturedemands.mp3",
+    "short": "audio/voice/george/creaturedemands-short.mp3"
+   }
+  },
+  "CreatureIntro": {
+   "emma": {
+    "easy": "audio/voice/emma/creatureintro-easy.mp3",
+    "full": "audio/voice/emma/creatureintro.mp3",
+    "short": "audio/voice/emma/creatureintro-short.mp3"
+   },
+   "george": {
+    "easy": "audio/voice/george/creatureintro-easy.mp3",
+    "full": "audio/voice/george/creatureintro.mp3",
+    "short": "audio/voice/george/creatureintro-short.mp3"
+   }
+  },
   "DevastationIntro": {
    "emma": {
     "easy": "audio/voice/emma/devastationintro-easy.mp3",
@@ -10,6 +46,30 @@
     "easy": "audio/voice/george/devastationintro-easy.mp3",
     "full": "audio/voice/george/devastationintro.mp3",
     "short": "audio/voice/george/devastationintro-short.mp3"
+   }
+  },
+  "FearoftheUnknownStart": {
+   "emma": {
+    "easy": "audio/voice/emma/fearoftheunknownstart-easy.mp3",
+    "full": "audio/voice/emma/fearoftheunknownstart.mp3",
+    "short": "audio/voice/emma/fearoftheunknownstart-short.mp3"
+   },
+   "george": {
+    "easy": "audio/voice/george/fearoftheunknownstart-easy.mp3",
+    "full": "audio/voice/george/fearoftheunknownstart.mp3",
+    "short": "audio/voice/george/fearoftheunknownstart-short.mp3"
+   }
+  },
+  "ForeignIntro": {
+   "emma": {
+    "easy": "audio/voice/emma/foreignintro-easy.mp3",
+    "full": "audio/voice/emma/foreignintro.mp3",
+    "short": "audio/voice/emma/foreignintro-short.mp3"
+   },
+   "george": {
+    "easy": "audio/voice/george/foreignintro-easy.mp3",
+    "full": "audio/voice/george/foreignintro.mp3",
+    "short": "audio/voice/george/foreignintro-short.mp3"
    }
   },
   "GloomyHunterIntro": {
@@ -48,6 +108,66 @@
     "short": "audio/voice/george/hospitalintro-short.mp3"
    }
   },
+  "IntroMartial-Monarchists": {
+   "emma": {
+    "easy": "audio/voice/emma/intromartial-monarchists-easy.mp3",
+    "full": "audio/voice/emma/intromartial-monarchists.mp3",
+    "short": "audio/voice/emma/intromartial-monarchists-short.mp3"
+   },
+   "george": {
+    "easy": "audio/voice/george/intromartial-monarchists-easy.mp3",
+    "full": "audio/voice/george/intromartial-monarchists.mp3",
+    "short": "audio/voice/george/intromartial-monarchists-short.mp3"
+   }
+  },
+  "IntroMartial-Separatists": {
+   "emma": {
+    "easy": "audio/voice/emma/intromartial-separatists-easy.mp3",
+    "full": "audio/voice/emma/intromartial-separatists.mp3",
+    "short": "audio/voice/emma/intromartial-separatists-short.mp3"
+   },
+   "george": {
+    "easy": "audio/voice/george/intromartial-separatists-easy.mp3",
+    "full": "audio/voice/george/intromartial-separatists.mp3",
+    "short": "audio/voice/george/intromartial-separatists-short.mp3"
+   }
+  },
+  "IsolationIntro": {
+   "emma": {
+    "easy": "audio/voice/emma/isolationintro-easy.mp3",
+    "full": "audio/voice/emma/isolationintro.mp3",
+    "short": "audio/voice/emma/isolationintro-short.mp3"
+   },
+   "george": {
+    "easy": "audio/voice/george/isolationintro-easy.mp3",
+    "full": "audio/voice/george/isolationintro.mp3",
+    "short": "audio/voice/george/isolationintro-short.mp3"
+   }
+  },
+  "LiberalIntro": {
+   "emma": {
+    "easy": "audio/voice/emma/liberalintro-easy.mp3",
+    "full": "audio/voice/emma/liberalintro.mp3",
+    "short": "audio/voice/emma/liberalintro-short.mp3"
+   },
+   "george": {
+    "easy": "audio/voice/george/liberalintro-easy.mp3",
+    "full": "audio/voice/george/liberalintro.mp3",
+    "short": "audio/voice/george/liberalintro-short.mp3"
+   }
+  },
+  "MonarchReignIntro": {
+   "emma": {
+    "easy": "audio/voice/emma/monarchreignintro-easy.mp3",
+    "full": "audio/voice/emma/monarchreignintro.mp3",
+    "short": "audio/voice/emma/monarchreignintro-short.mp3"
+   },
+   "george": {
+    "easy": "audio/voice/george/monarchreignintro-easy.mp3",
+    "full": "audio/voice/george/monarchreignintro.mp3",
+    "short": "audio/voice/george/monarchreignintro-short.mp3"
+   }
+  },
   "NoUniversityIntro": {
    "emma": {
     "easy": "audio/voice/emma/nouniversityintro-easy.mp3",
@@ -58,6 +178,42 @@
     "easy": "audio/voice/george/nouniversityintro-easy.mp3",
     "full": "audio/voice/george/nouniversityintro.mp3",
     "short": "audio/voice/george/nouniversityintro-short.mp3"
+   }
+  },
+  "ParadoxIntro": {
+   "emma": {
+    "easy": "audio/voice/emma/paradoxintro-easy.mp3",
+    "full": "audio/voice/emma/paradoxintro.mp3",
+    "short": "audio/voice/emma/paradoxintro-short.mp3"
+   },
+   "george": {
+    "easy": "audio/voice/george/paradoxintro-easy.mp3",
+    "full": "audio/voice/george/paradoxintro.mp3",
+    "short": "audio/voice/george/paradoxintro-short.mp3"
+   }
+  },
+  "PeaceIntro": {
+   "emma": {
+    "easy": "audio/voice/emma/peaceintro-easy.mp3",
+    "full": "audio/voice/emma/peaceintro.mp3",
+    "short": "audio/voice/emma/peaceintro-short.mp3"
+   },
+   "george": {
+    "easy": "audio/voice/george/peaceintro-easy.mp3",
+    "full": "audio/voice/george/peaceintro.mp3",
+    "short": "audio/voice/george/peaceintro-short.mp3"
+   }
+  },
+  "PrivatizedIntro": {
+   "emma": {
+    "easy": "audio/voice/emma/privatizedintro-easy.mp3",
+    "full": "audio/voice/emma/privatizedintro.mp3",
+    "short": "audio/voice/emma/privatizedintro-short.mp3"
+   },
+   "george": {
+    "easy": "audio/voice/george/privatizedintro-easy.mp3",
+    "full": "audio/voice/george/privatizedintro.mp3",
+    "short": "audio/voice/george/privatizedintro-short.mp3"
    }
   },
   "ProsperityHunterIntro": {
@@ -96,6 +252,42 @@
     "short": "audio/voice/george/scenario5start-short.mp3"
    }
   },
+  "TTIntro3": {
+   "emma": {
+    "easy": "audio/voice/emma/ttintro3-easy.mp3",
+    "full": "audio/voice/emma/ttintro3.mp3",
+    "short": "audio/voice/emma/ttintro3-short.mp3"
+   },
+   "george": {
+    "easy": "audio/voice/george/ttintro3-easy.mp3",
+    "full": "audio/voice/george/ttintro3.mp3",
+    "short": "audio/voice/george/ttintro3-short.mp3"
+   }
+  },
+  "TensionIntro": {
+   "emma": {
+    "easy": "audio/voice/emma/tensionintro-easy.mp3",
+    "full": "audio/voice/emma/tensionintro.mp3",
+    "short": "audio/voice/emma/tensionintro-short.mp3"
+   },
+   "george": {
+    "easy": "audio/voice/george/tensionintro-easy.mp3",
+    "full": "audio/voice/george/tensionintro.mp3",
+    "short": "audio/voice/george/tensionintro-short.mp3"
+   }
+  },
+  "TimeTravelintro1": {
+   "emma": {
+    "easy": "audio/voice/emma/timetravelintro1-easy.mp3",
+    "full": "audio/voice/emma/timetravelintro1.mp3",
+    "short": "audio/voice/emma/timetravelintro1-short.mp3"
+   },
+   "george": {
+    "easy": "audio/voice/george/timetravelintro1-easy.mp3",
+    "full": "audio/voice/george/timetravelintro1.mp3",
+    "short": "audio/voice/george/timetravelintro1-short.mp3"
+   }
+  },
   "UniversityIntro": {
    "emma": {
     "easy": "audio/voice/emma/universityintro-easy.mp3",
@@ -107,10 +299,36 @@
     "full": "audio/voice/george/universityintro.mp3",
     "short": "audio/voice/george/universityintro-short.mp3"
    }
+  },
+  "WarningEvent": {
+   "emma": {
+    "easy": "audio/voice/emma/warningevent-easy.mp3",
+    "full": "audio/voice/emma/warningevent.mp3",
+    "short": "audio/voice/emma/warningevent-short.mp3"
+   },
+   "george": {
+    "easy": "audio/voice/george/warningevent-easy.mp3",
+    "full": "audio/voice/george/warningevent.mp3",
+    "short": "audio/voice/george/warningevent-short.mp3"
+   }
+  },
+  "WarningIntro": {
+   "emma": {
+    "easy": "audio/voice/emma/warningintro-easy.mp3",
+    "full": "audio/voice/emma/warningintro.mp3",
+    "short": "audio/voice/emma/warningintro-short.mp3"
+   },
+   "george": {
+    "easy": "audio/voice/george/warningintro-easy.mp3",
+    "full": "audio/voice/george/warningintro.mp3",
+    "short": "audio/voice/george/warningintro-short.mp3"
+   }
   }
  },
  "intros": {
-  "cost-of-disease": "Scenario5Start"
+  "a-time-of-war": "ATimeofWarIntro",
+  "cost-of-disease": "Scenario5Start",
+  "fear-of-the-unknown": "FearoftheUnknownStart"
  },
  "voices": {
   "emma": "Emma",
