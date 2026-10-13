@@ -12,14 +12,15 @@ installable web app that also works offline.
 > guarantee that an update keeps working the way it did: a saved game, an unlocked ending or a
 > setting may be lost or reset after an update. Finish a game before updating if it matters.
 >
-> **Status:** playable. _The Cost of Disease_ works from setup to the endings; the other two
-> scenarios follow. See [PLAN.md](PLAN.md) and the [changelog](CHANGELOG.md).
+> **Status:** playable. All three scenarios – _The Cost of Disease_, _Fear of the Unknown_ and
+> _A Time of War_ – work from setup to the endings; the last two are not yet tested at the
+> table. See [PLAN.md](PLAN.md) and the [changelog](CHANGELOG.md).
 
 ## Features
 
-- **The complete storybook** of _The Cost of Disease_: game setup, story, location pages, end of
-  round, secret bids and votes, final scoring, endings – with the original's art, music and
-  voice-over.
+- **The complete storybook** of all three scenarios: game setup, story, location pages, end of
+  round, special setups, secret bids and votes, final scoring, endings – with the original's
+  art, music and voice-over.
 - **Made for the table:** pages open at once instead of click by click; a full-screen notice
   when the storybook is passed on, so secrets stay secret; undo the last choice; the screen
   stays on during a game; works with the keyboard (Enter / Space).
@@ -28,11 +29,12 @@ installable web app that also works offline.
   English (_Easy_) or condensed (_Short_), switchable mid-game. Only the story is rewritten,
   never the rules – but these versions were written with AI help, are not fully reviewed yet
   and **can contain mistakes**. When in doubt, switch back to _Original_.
-- **Generated voices:** every page that has voice-over in the original can also be read by two
+- **Generated voices:** the pages that have voice-over in the original can also be read by two
   generated voices (Emma and George, made with [Kokoro](https://github.com/hexgrad/kokoro)),
-  in all three versions. The original recordings only read the original text.
+  in all three versions – except a page that names a value only known during play. The
+  original recordings only read the original text.
 - **Never loses a game:** saves on every step and resumes after a reload; log book, play time
-  and an endings gallery.
+  and an endings gallery for each scenario.
 - **Installable and offline:** a web app (PWA) for phones, tablets and computers – once
   loaded, it needs no connection.
 - **Tested:** every scenario is explored automatically for dead ends and errors, and a full
@@ -64,14 +66,16 @@ seven days without a visit.
 
 ## How it works
 
-The original app's stories were written in Twine and compiled to C#. Chronicle converts them
-into plain data:
+The original app's stories were written in Twine and compiled to C#. Chronicle converted them
+once into plain data, one folder per scenario in `content/`:
 
-- **`<scenario>.json`** – passages as a tree of nodes (text, links, conditions, variables, …)
-- **`<scenario>.strings.json`** – all text, per language, with optional shortened versions
+- **`scenario.json`** – passages as a tree of nodes (text, links, conditions, variables, …)
+- **`strings.en.json`** – all text by key, each with optional _Easy_ and _Short_ versions
+- **`extras.json`** – end-of-round texts, log book entries and which pages have voice-over
 
-A small TypeScript engine (`engine/`) plays that data. The same engine powers the app and the
-story tester.
+All three scenarios are converted and frozen: `content/` is now edited directly, and the
+converter is about to be retired. A small TypeScript engine (`engine/`) plays that data. The
+same engine powers the app and the story tester.
 
 ## Repository layout
 
@@ -79,10 +83,10 @@ story tester.
 | --------------------- | ----------------------------------------------------------------------------- |
 | `frontend/`           | Angular PWA (signals, zoneless, Signal Forms, Tailwind, CDK)                  |
 | `engine/`             | Story format (`schema.ts`), runtime, value semantics, text markup             |
-| `tools/converter/`    | Converts the original C# story scripts into `content/`                        |
+| `tools/converter/`    | Converted the original C# story scripts into `content/` (done; to be retired) |
 | `tools/story-tester/` | Static checks and coverage-guided exploration of every scenario               |
 | `tools/e2e/`          | Plays a full game in headless Chrome against the production build             |
-| `content/`            | Converted story data (© Renegade Game Studios, used under CC BY-NC 4.0 terms) |
+| `content/`            | Story data, edited directly (© Renegade Game Studios, CC BY-NC 4.0 terms)     |
 | `docs/`               | Notes, e.g. [M0 findings](docs/m0-findings.md)                                |
 | `sources/original/`   | The original files the converter reads (story scripts, scene, log book, VO)   |
 | `upstream/`           | Optional full clone of the fan repository, for reference (git-ignored)        |
@@ -100,9 +104,8 @@ when needed (`systemctl --user enable --now podman.socket` starts it with every 
 
 ```bash
 task deps:install
-task project:check          # type-check + unit tests
-task content:convert         # clone the original sources and regenerate content/
-task content:test            # story tester: dead ends, errors, coverage (spoiler-free output)
+task project:check          # types, lint, unit tests, build, story tester
+task content:test            # story tester: dead ends, errors, coverage (ID=<scenario>)
 task frontend:serve:dev      # the app at http://localhost:4200
 task frontend:e2e            # a full game in headless Chrome
 task project:up:prod         # the production container at http://localhost:8080
@@ -129,7 +132,7 @@ reverse proxy with HTTPS if you want those.
 ## Contributing
 
 Feature requests and pull requests are very welcome – whether it's an idea from your last
-game night, a fix, a translation or one of the scenarios still to come.
+game night, a fix, a translation or a review of the Easy and Short texts.
 
 - **Ideas:** [request a feature](https://github.com/shrukan/chronicle/issues/new?template=feature.yml)
 - **Bugs:** [report a bug](https://github.com/shrukan/chronicle/issues/new?template=bug.yml)

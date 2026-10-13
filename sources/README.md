@@ -17,5 +17,5 @@ The files are unchanged. Like everything in `content/`, they are © Renegade Gam
 released to the community in June 2026, and used non-commercially with credit under the terms
 of CC BY-NC 4.0 – see [content/LICENSE.md](../content/LICENSE.md).
 
-They are temporary: once all scenarios are converted and `content/` is edited directly, the
-converter and this folder are removed (see PLAN.md, "Content lifecycle").
+They are temporary: all scenarios are now converted and `content/` is edited directly, so the
+converter and this folder are removed next (see PLAN.md, "Content lifecycle").
