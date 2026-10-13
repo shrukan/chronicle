@@ -252,6 +252,8 @@ but writing short texts is a content job and works best once the logic is stable
    The first hand edit marks this point: converting again afterwards would overwrite it.
 4. *Retire:* tag `converter-final`, then remove `tools/converter/`, `sources/`, the asset
    extraction and the `content:convert` / `content:assets` tasks. They stay in the git history.
+   Done 13 October 2026; `git checkout converter-final -- tools/converter sources` restores
+   them.
 
 **Converting the other scenarios: done** (12 October 2026; counts only)
 
@@ -279,7 +281,7 @@ By hand, after freezing (see "Content lifecycle"; neither scenario's play change
 
 Open: sessions at the table for both, review of Easy and Short; the e2e game plays
 *The Cost of Disease* only; the log book CSV matches *The Cost of Disease* only (97 of 140 rows) –
-are the other titles worded differently? Next: retire the converter (step 4 above).
+are the other titles worded differently? The converter is retired (step 4 above).
 
 **Translations: English is the reference**
 - A language is another string table with the same keys (`strings.<lang>.json`). The game logic
@@ -314,9 +316,8 @@ are the other titles worded differently? Next: retire the converter (step 4 abov
 chronicle/
   frontend/            Angular PWA                                    – MIT
   engine/              story runtime shared by frontend + tester      – MIT
-  tools/converter/     Cradle C# → JSON                               – MIT
   tools/story-tester/                                                 – MIT
-  content/             generated JSON, string tables, images, audio   – CC BY-NC 4.0, © Renegade Game Studios
+  content/             JSON, string tables, images, audio (edited)    – CC BY-NC 4.0, © Renegade Game Studios
   docker/nginx.conf
   Containerfile  compose.yml  Taskfile.yml
   package.json         npm workspaces (frontend, engine, tools/*)
@@ -324,7 +325,8 @@ chronicle/
   upstream/            reference clone, git-ignored
 ```
 
-**Language:** TypeScript everywhere – the converter, tester and app share one schema and one engine.
+**Language:** TypeScript everywhere – the tester and app share one schema and one engine (so did
+the retired converter).
 
 **Taskfile** (naming `area:action[:env]`, `SOURCE_DIR`/`OUTPUT_DIR` vars,
 `sources`/`generates` for incremental builds, version line marked `# x-release-please-version`):
@@ -333,8 +335,6 @@ chronicle/
 |---|---|
 | `deps:install` | install all workspace dependencies |
 | `project:check` | everything CI checks: types, lint and formatting (app), unit tests, app build, story tester |
-| `content:convert` | converter on `upstream/` → `content/` (stories and screen texts) |
-| `content:assets` | images and audio from Renegade's download → `content/assets` |
 | `content:test` | story tester, fails on new issues |
 | `frontend:serve:dev` / `frontend:build` | `ng serve` / production build → `build/web` |
 | `frontend:test` / `frontend:e2e` | unit tests / a full game in headless Chrome |

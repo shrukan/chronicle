@@ -11,13 +11,8 @@ vars:
   CONTAINER_ENGINE: '{{.CONTAINER_ENGINE | default "podman"}}'
   # `podman compose` hands over to docker-compose, which talks to Podman's API socket.
   COMPOSE_SOCKET: '{{if eq .CONTAINER_ENGINE "podman"}}systemctl --user start podman.socket && {{end}}'
-  # The original files the converter reads (see sources/README.md).
-  SOURCES_DIR: '{{joinPath .ROOT_DIR "sources/original"}}'
-  # Playable scenarios: what project:check tests and content:convert writes (it skips frozen
-  # ones, see tools/converter/src/scenarios.ts).
+  # Playable scenarios: what project:check tests.
   SCENARIOS: cost-of-disease fear-of-the-unknown a-time-of-war
-  # Optional full clone of the fan repository, only needed to re-extract the screen texts.
-  UPSTREAM_DIR: '{{joinPath .ROOT_DIR "upstream/UnityOriginalApp"}}'
 
 tasks:
   # Dependencies
@@ -118,26 +113,6 @@ tasks:
     cmd: node tools/e2e/src/full-game.ts --build build/web/browser {{if .SHOTS}}--shots {{.SHOTS}}{{end}}
 
   # Content
-  content:convert:
-    desc: "Convert the original story scripts in sources/ into content/ (IDS: scenario ids; screen texts too if upstream/ is cloned)."
-    deps: [deps:install]
-    vars:
-      IDS: '{{.IDS | default .SCENARIOS}}'
-    cmds:
-      - node tools/converter/src/cli.ts --upstream {{.SOURCES_DIR}} --out content --reports build/reports {{.IDS}}
-      # The screen texts need the whole Unity project; content/ui.en.json is complete for all scenarios.
-      - |
-        if [ -d "{{.UPSTREAM_DIR}}" ]; then
-          node tools/converter/src/ui-text.ts --upstream "{{.UPSTREAM_DIR}}" --out content/ui.en.json
-        else
-          echo "upstream/ not cloned: keeping content/ui.en.json"
-        fi
-
-  content:assets:
-    desc: 'Extract icons, pictures, UI art and audio into content/assets (needs ffmpeg and the media folder, see README; MEDIA=<Assets folder> to override).'
-    deps: [deps:install]
-    cmd: node tools/converter/src/assets.ts {{if .MEDIA}}--media "{{.MEDIA}}"{{end}} --out content/assets
-
   content:voices:
     desc: "Generated voice-over with Kokoro (needs uv and ffmpeg; settings in tools/voice/voices.json). CLI_ARGS: passages, --voices emma,george, --try \"any text\""
     cmd: uv run -q tools/voice/generate.py {{.CLI_ARGS}}

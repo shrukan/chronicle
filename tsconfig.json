@@ -5,9 +5,6 @@
       "path": "engine"
     },
     {
-      "path": "tools/converter"
-    },
-    {
       "path": "tools/story-tester"
     },
     {

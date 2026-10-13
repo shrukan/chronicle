@@ -73,30 +73,24 @@ once into plain data, one folder per scenario in `content/`:
 - **`strings.en.json`** – all text by key, each with optional _Easy_ and _Short_ versions
 - **`extras.json`** – end-of-round texts, log book entries and which pages have voice-over
 
-All three scenarios are converted and frozen: `content/` is now edited directly, and the
-converter is about to be retired. A small TypeScript engine (`engine/`) plays that data. The
-same engine powers the app and the story tester.
+All three scenarios are converted and frozen: `content/` is now edited directly (the converter
+is retired; git tag `converter-final`). A small TypeScript engine (`engine/`) plays that data.
+The same engine powers the app and the story tester.
 
 ## Repository layout
 
-| Path                  | What                                                                          |
-| --------------------- | ----------------------------------------------------------------------------- |
-| `frontend/`           | Angular PWA (signals, zoneless, Signal Forms, Tailwind, CDK)                  |
-| `engine/`             | Story format (`schema.ts`), runtime, value semantics, text markup             |
-| `tools/converter/`    | Converted the original C# story scripts into `content/` (done; to be retired) |
-| `tools/story-tester/` | Static checks and coverage-guided exploration of every scenario               |
-| `tools/e2e/`          | Plays a full game in headless Chrome against the production build             |
-| `content/`            | Story data, edited directly (© Renegade Game Studios, CC BY-NC 4.0 terms)     |
-| `docs/`               | Notes, e.g. [M0 findings](docs/m0-findings.md)                                |
-| `sources/original/`   | The original files the converter reads (story scripts, scene, log book, VO)   |
-| `upstream/`           | Optional full clone of the fan repository, for reference (git-ignored)        |
+| Path                  | What                                                                      |
+| --------------------- | ------------------------------------------------------------------------- |
+| `frontend/`           | Angular PWA (signals, zoneless, Signal Forms, Tailwind, CDK)              |
+| `engine/`             | Story format (`schema.ts`), runtime, value semantics, text markup         |
+| `tools/story-tester/` | Static checks and coverage-guided exploration of every scenario           |
+| `tools/e2e/`          | Plays a full game in headless Chrome against the production build         |
+| `content/`            | Story data, edited directly (© Renegade Game Studios, CC BY-NC 4.0 terms) |
+| `docs/`               | Notes, e.g. [M0 findings](docs/m0-findings.md)                            |
 
 ## Getting started
 
 Requirements: Node.js 24+, [Task](https://taskfile.dev); Podman (or Docker) for the container.
-
-Images and audio come from Renegade's community download (the fan repo on GitHub only stores
-Git LFS pointers): unpack it into `media/` (git-ignored) and run `task content:assets`.
 
 The container tasks use Podman; with Docker, prefix them with `CONTAINER_ENGINE=docker`.
 `podman compose` (used by `project:up:prod`) needs Podman's API socket, which the tasks start

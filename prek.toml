@@ -18,7 +18,6 @@ hooks = [
   # tsconfig files are JSON with comments.
   { id = "check-json", exclude = "(^|/)tsconfig[^/]*\\.json$" },
   { id = "check-yaml" },
-  # sources/original/ keeps the original files byte for byte.
-  { id = "end-of-file-fixer", exclude = "^sources/original/" },
-  { id = "trailing-whitespace", args = ["--markdown-linebreak-ext=md"], exclude = "^sources/original/" },
+  { id = "end-of-file-fixer" },
+  { id = "trailing-whitespace", args = ["--markdown-linebreak-ext=md"] },
 ]

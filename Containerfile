@@ -24,7 +24,6 @@ FROM node-toolchain AS build-frontend
 # Workspace manifests first, so dependency installation is cached separately.
 COPY package.json package-lock.json Taskfile.yml tsconfig.base.json ./
 COPY engine/package.json engine/
-COPY tools/converter/package.json tools/converter/
 COPY tools/e2e/package.json tools/e2e/
 COPY tools/story-tester/package.json tools/story-tester/
 COPY frontend/package.json frontend/

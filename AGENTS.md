@@ -36,8 +36,8 @@ Disease_ playable from setup to the endings; expect breaking changes.
 ## Architecture
 
 ```
-original C# story scripts ──converter──▶ content/ (JSON) ──engine──▶ story tester
-                                                      └──engine──▶ Angular app (PWA)
+content/ (JSON, edited directly) ──engine──▶ story tester
+                                └──engine──▶ Angular app (PWA)
 ```
 
 - **Content model** (`engine/src/schema.ts`): a scenario is variables plus passages; a passage is
@@ -49,10 +49,9 @@ original C# story scripts ──converter──▶ content/ (JSON) ──engine�
 - **Engine** (`engine/`): a small TypeScript runtime that plays that data (Harlowe semantics such
   as one-shot reveals), with `snapshot()`/`restore()` for saves and undo, and a trace hook for
   the tester. Shared by the app and the tools, so what is tested is what is played.
-- **Converter** (`tools/converter/`): original C# → JSON, screen texts (`content/ui.en.json`) and
-  assets (`content/assets/`, WebP/MP3, capped at 2048 px). It is a migration tool,
-  now finished: all three scenarios are frozen (`frozen` in `scenarios.ts`; the converter skips
-  them) and `content/` is edited directly. Next it is retired (PLAN.md, "Content lifecycle").
+- **Content** (`content/`): converted once from the original app's C# story scripts, screen
+  texts and assets, then frozen; it is edited directly now. The converter that did it is retired
+  and can be restored from the git tag `converter-final` (PLAN.md, "Content lifecycle").
 - **Story tester** (`tools/story-tester/`): static checks plus coverage-guided exploration of
   every scenario; spoiler-free summary.
 - **Voice generator** (`tools/voice/`, Python via `uv`): Kokoro voices (Emma, George) for voiced
@@ -105,13 +104,10 @@ from the CSS tokens in `src/styles.css` (light and dark paper).
 | --------------------- | ----------------------------------------------------------------------- |
 | `frontend/`           | Angular PWA                                                             |
 | `engine/`             | Story format, runtime, values, text markup                              |
-| `tools/converter/`    | C# → JSON, screen texts, assets                                         |
 | `tools/story-tester/` | Static checks and exploration                                           |
 | `tools/e2e/`          | Full game in headless Chrome against the production build               |
 | `tools/voice/`        | Generated voice-over (Kokoro)                                           |
 | `content/`            | Converted story data and assets (© Renegade Game Studios, CC BY-NC 4.0) |
-| `sources/original/`   | The original files the converter reads                                  |
-| `media/`, `upstream/` | Local, git-ignored: Renegade's media download, fan repository clone     |
 
 The root `package.json` is an npm workspace over `engine`, `frontend` and `tools/*`: one install
 and lock file, the engine linked as `@chronicle/engine`. Add dependencies to the package that
@@ -125,8 +121,6 @@ task frontend:serve:dev       # dev server at http://localhost:4200 (copies cont
 task project:check            # types, lint, unit tests, build, story tester
 task frontend:lint FIX=true   # fix lint and formatting in the app
 task frontend:e2e             # full game in headless Chrome
-task content:convert          # original scripts → content/
-task content:assets           # media/ → content/assets/
 task content:test             # story tester (spoiler-free; details in build/reports/)
 task content:voices           # generated voices; -- --try "text" to hear any text
 task project:up:prod          # production container (Podman; CONTAINER_ENGINE=docker)
@@ -156,8 +150,7 @@ Next, roughly in order:
 1. Play a session at the table; fix what comes up; post the BGG announcement; release v1.0.0.
 2. _Fear of the Unknown_ and _A Time of War_ are converted and playable (8/8 endings each in the
    tester); check both at the table.
-3. Retire the converter: all scenarios are frozen (PLAN.md, "Content lifecycle").
-4. Review Easy and Short at the table.
-5. Voice-over for every new story text (M7): voice packs outside git, names generated in the
+3. Review Easy and Short at the table.
+4. Voice-over for every new story text (M7): voice packs outside git, names generated in the
    browser.
-6. Other UI languages; app-store builds (Capacitor) later, if needed.
+5. Other UI languages; app-store builds (Capacitor) later, if needed.
