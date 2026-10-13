@@ -179,7 +179,7 @@ ending → endings & achievements gallery. Help and settings from the main menu.
 - Open: a beta announcement on BoardGameGeek after the first table session (no Discord post);
   `v1.0.0` once the feedback from it is in.
 
-**M6 – Reading modes: Easy and Short** – in beta for *The Cost of Disease* (Oct 2026)
+**M6 – Reading modes: Easy and Short** – in beta for all three scenarios (Oct 2026)
 - *Easy*: the flavour text in plain English (B1 level) for non-native speakers – shorter
   sentences, common words, nothing left out. Game instructions stay untouched: they are already
   plain, and leaving them alone means no rule can change by accident.
@@ -189,7 +189,10 @@ ending → endings & achievements gallery. Help and settings from the main menu.
   unreviewed texts show too; the `…Reviewed` flags track what a person has checked. The converter
   keeps the rewrites, drops those whose original changed, and those of texts that turned out to
   be rules (its classifier knows the rule phrasings found while rewriting).
-- Open: review at the table; the other two scenarios once converted; drop "(beta)" when reviewed.
+- *Fear of the Unknown* and *A Time of War* (12 October 2026): written like *The Cost of
+  Disease*, none reviewed yet; texts found to be rules while rewriting became instructions
+  (51 and 53), headings, prompts and fragments around links stay as they are.
+- Open: review at the table; drop "(beta)" when reviewed.
 
 **Review of the boxes** (open, alongside the review above)
 Boxes can say how their lines read (`list` on a block): `items` – separate points, shown as a
@@ -197,12 +200,13 @@ list behind brass studs (the reminders before the final scoring) – or `steps` 
 like the end of a generation; without it, the lines run as text. In *The Cost of Disease*, 15
 setup boxes and 58 boxes after story events have several lines. Someone has to read each and
 decide: steps, items, or text (some may be one paragraph broken over lines, which a list would
-chop up). Both converted scenarios are frozen, so the decisions go straight into the JSON.
+chop up). All scenarios are frozen, so the decisions go straight into the JSON.
 
 **M7 – Voice-over** (in progress)
-- Done: the 9 original recordings (original English text only); generated voices Emma and George
+- Done: the 28 original recordings (9, 8 and 11 per scenario; original English text only);
+  generated voices Emma and George
   (Kokoro, `tools/voice/`, settings in `tools/voice/voices.json`: speed, pauses, sibilance filter,
-  loudness at the originals' -14 LUFS) for those 9 pages in every version; `task content:voices`
+  loudness at the originals' -14 LUFS) for those pages in every version; `task content:voices`
   regenerates, `-- --try "…"` tries any text; dev-only `/voices` compares voices on each
   scenario's introduction. After a reload, voice-over and music restart with the first tap.
 - **Every new story text voiced**: when story text appears (a page, or a section opened by
@@ -220,7 +224,7 @@ chop up). Both converted scenarios are frozen, so the decisions go straight into
   - Smaller files: Opus at ~24 kbps would halve the size – test on iOS Safari first.
   - A "Download voices for offline use" button per scenario and voice (audio is cached lazily,
     so offline only clips already heard play).
-  - Until then the 9 voiced pages stay in git (~30 MB).
+  - Until then the voiced pages stay in git.
 - **Names generated on the fly**: 27% of the flavour texts contain names typed in at the table
   (players, village), which cannot be pre-recorded. Run the same Kokoro voices in the browser
   (kokoro-js, ONNX in WebAssembly/WebGPU; the quantized model is ~90 MB, downloaded once and
@@ -273,7 +277,7 @@ By hand, after freezing (see "Content lifecycle"; neither scenario's play change
 - *The Cost of Disease*: a developer note's only used part (an end-of-round screen) moved into
   the passage that reveals it.
 
-Open: sessions at the table for both, Easy and Short texts, generated voices; the e2e game plays
+Open: sessions at the table for both, review of Easy and Short; the e2e game plays
 *The Cost of Disease* only; the log book CSV matches *The Cost of Disease* only (97 of 140 rows) –
 are the other titles worded differently? Next: retire the converter (step 4 above).
 

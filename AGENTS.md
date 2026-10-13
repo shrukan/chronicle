@@ -148,8 +148,8 @@ Full detail in [PLAN.md](PLAN.md). As of October 2026:
 | M3 App skeleton (PWA, saves, offline)   | done                                                                                   |
 | M4 Full game flow                       | done; exit criterion open: one real session at the table                               |
 | M5 Release v1                           | releases to ghcr.io and GitHub Pages run; BGG beta post after the session, then v1.0.0 |
-| M6 Reading modes Easy and Short         | beta for _The Cost of Disease_; review at the table open                               |
-| M7 Voice-over                           | 9 voiced pages with original and generated voices; every new story text planned        |
+| M6 Reading modes Easy and Short         | beta for all three scenarios; review at the table open                                 |
+| M7 Voice-over                           | 28 voiced pages with original and generated voices; every new story text planned       |
 
 Next, roughly in order:
 
@@ -157,7 +157,7 @@ Next, roughly in order:
 2. _Fear of the Unknown_ and _A Time of War_ are converted and playable (8/8 endings each in the
    tester); check both at the table.
 3. Retire the converter: all scenarios are frozen (PLAN.md, "Content lifecycle").
-4. Review Easy and Short; write them for the other scenarios.
+4. Review Easy and Short at the table.
 5. Voice-over for every new story text (M7): voice packs outside git, names generated in the
    browser.
 6. Other UI languages; app-store builds (Capacitor) later, if needed.
