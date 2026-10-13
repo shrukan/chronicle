@@ -4253,7 +4253,7 @@
       {
        "t": "text",
        "key": "Creature.13",
-       "kind": "narrative"
+       "kind": "instruction"
       }
      ]
     },
@@ -5816,7 +5816,7 @@
     {
      "t": "text",
      "key": "S4Foreign1.13",
-     "kind": "narrative"
+     "kind": "instruction"
     },
     {
      "t": "link",
@@ -6861,7 +6861,7 @@
       {
        "t": "text",
        "key": "Isolation.7",
-       "kind": "narrative"
+       "kind": "instruction"
       },
       {
        "t": "br"
@@ -12617,7 +12617,7 @@
       {
        "t": "text",
        "key": "Isolation2.3",
-       "kind": "narrative"
+       "kind": "instruction"
       },
       {
        "t": "br"
@@ -13033,7 +13033,7 @@
           {
            "t": "text",
            "key": "Isolation3.4",
-           "kind": "narrative"
+           "kind": "instruction"
           },
           {
            "t": "br"
@@ -13863,7 +13863,7 @@
               {
                "t": "text",
                "key": "Privatized2.16",
-               "kind": "narrative"
+               "kind": "instruction"
               }
              ]
             }
@@ -14213,7 +14213,7 @@
               {
                "t": "text",
                "key": "Privatized3.15",
-               "kind": "narrative"
+               "kind": "instruction"
               }
              ]
             }
@@ -21614,7 +21614,7 @@
     {
      "t": "text",
      "key": "LiberalEvent2.5",
-     "kind": "narrative",
+     "kind": "instruction",
      "args": [
       {
        "var": "bribed"
@@ -27987,7 +27987,7 @@
     {
      "t": "text",
      "key": "WitchIntro2.6",
-     "kind": "narrative"
+     "kind": "instruction"
     },
     {
      "t": "if",
@@ -28461,7 +28461,7 @@
     {
      "t": "text",
      "key": "WallEvent1.3",
-     "kind": "narrative"
+     "kind": "instruction"
     },
     {
      "t": "br"
@@ -36055,7 +36055,7 @@
          {
           "t": "text",
           "key": "BusMeetC.11",
-          "kind": "narrative"
+          "kind": "instruction"
          }
         ]
        }
@@ -36610,7 +36610,7 @@
          {
           "t": "text",
           "key": "BusMeetB.11",
-          "kind": "narrative"
+          "kind": "instruction"
          }
         ]
        }
@@ -37165,7 +37165,7 @@
          {
           "t": "text",
           "key": "BusMeetA.11",
-          "kind": "narrative"
+          "kind": "instruction"
          }
         ]
        }
@@ -37720,7 +37720,7 @@
          {
           "t": "text",
           "key": "BusMeetD.11",
-          "kind": "narrative"
+          "kind": "instruction"
          }
         ]
        }
@@ -38275,7 +38275,7 @@
          {
           "t": "text",
           "key": "BusMeetE.11",
-          "kind": "narrative"
+          "kind": "instruction"
          }
         ]
        }
@@ -38645,7 +38645,7 @@
     {
      "t": "text",
      "key": "S4CompareTotals.2",
-     "kind": "narrative",
+     "kind": "instruction",
      "args": [
       {
        "var": "asylumcount"
@@ -38658,7 +38658,7 @@
     {
      "t": "text",
      "key": "S4CompareTotals.3",
-     "kind": "narrative",
+     "kind": "instruction",
      "args": [
       {
        "var": "businesscount"
@@ -38701,7 +38701,7 @@
         {
          "t": "text",
          "key": "S4CompareTotals.4",
-         "kind": "narrative"
+         "kind": "instruction"
         }
        ]
       },
@@ -39422,7 +39422,7 @@
     {
      "t": "text",
      "key": "BusBargain.4",
-     "kind": "narrative"
+     "kind": "instruction"
     },
     {
      "t": "br"
@@ -43384,7 +43384,7 @@
     {
      "t": "text",
      "key": "AsylumTreatmentB.15",
-     "kind": "narrative"
+     "kind": "instruction"
     },
     {
      "t": "br"
@@ -44009,7 +44009,7 @@
     {
      "t": "text",
      "key": "ScenarioBox-FOTU.4",
-     "kind": "narrative"
+     "kind": "instruction"
     },
     {
      "t": "br"
@@ -52035,7 +52035,7 @@
     {
      "t": "text",
      "key": "Player1Stats.3",
-     "kind": "narrative",
+     "kind": "instruction",
      "args": [
       {
        "var": "agiA"
@@ -52133,7 +52133,7 @@
     {
      "t": "text",
      "key": "BattlePreparation.7",
-     "kind": "narrative"
+     "kind": "instruction"
     },
     {
      "t": "br"
@@ -52186,7 +52186,7 @@
     {
      "t": "text",
      "key": "Player1Statsb.3",
-     "kind": "narrative",
+     "kind": "instruction",
      "args": [
       {
        "var": "strA"
@@ -52244,7 +52244,7 @@
     {
      "t": "text",
      "key": "Player1Statsc.3",
-     "kind": "narrative",
+     "kind": "instruction",
      "args": [
       {
        "var": "hitA"
@@ -52508,7 +52508,7 @@
     {
      "t": "text",
      "key": "Player2Stats.3",
-     "kind": "narrative",
+     "kind": "instruction",
      "args": [
       {
        "var": "agiB"
@@ -54955,7 +54955,7 @@
     {
      "t": "text",
      "key": "PEExplanation1.3",
-     "kind": "narrative"
+     "kind": "instruction"
     },
     {
      "t": "br"
@@ -54985,7 +54985,7 @@
     {
      "t": "text",
      "key": "PEExplanation1.6",
-     "kind": "narrative"
+     "kind": "instruction"
     },
     {
      "t": "br"
@@ -55067,7 +55067,7 @@
     {
      "t": "text",
      "key": "PEExplanation2.3",
-     "kind": "narrative"
+     "kind": "instruction"
     },
     {
      "t": "br"
@@ -55182,7 +55182,7 @@
     {
      "t": "text",
      "key": "BattleDomeExplanation.2",
-     "kind": "narrative",
+     "kind": "instruction",
      "args": [
       {
        "var": "playtxt"
@@ -55236,7 +55236,7 @@
     {
      "t": "text",
      "key": "BattleDomeExplanation.7",
-     "kind": "narrative"
+     "kind": "instruction"
     },
     {
      "t": "br"
@@ -56609,7 +56609,7 @@
     {
      "t": "text",
      "key": "2PS4Kill2.7",
-     "kind": "narrative"
+     "kind": "instruction"
     },
     {
      "t": "br"
@@ -57560,7 +57560,7 @@
     {
      "t": "text",
      "key": "TensionSetting.2",
-     "kind": "narrative",
+     "kind": "instruction",
      "args": [
       {
        "var": "townname"
@@ -59037,7 +59037,7 @@
      {
       "t": "text",
       "key": "S4CountCure.7",
-      "kind": "narrative"
+      "kind": "instruction"
      },
      {
       "t": "br"
@@ -59054,7 +59054,7 @@
      {
       "t": "text",
       "key": "S4CountCure.8",
-      "kind": "narrative"
+      "kind": "instruction"
      },
      {
       "t": "br"
@@ -60109,7 +60109,7 @@
     {
      "t": "text",
      "key": "LiberalEvent3b.8",
-     "kind": "narrative"
+     "kind": "instruction"
     },
     {
      "t": "br"
@@ -65196,7 +65196,7 @@
         {
          "t": "text",
          "key": "BankLibExplain.6",
-         "kind": "narrative"
+         "kind": "instruction"
         }
        ]
       },
@@ -65205,7 +65205,7 @@
         {
          "t": "text",
          "key": "BankLibExplain.7",
-         "kind": "narrative"
+         "kind": "instruction"
         }
        ]
       }
@@ -68109,7 +68109,7 @@
     {
      "t": "text",
      "key": "Player2Statsb.3",
-     "kind": "narrative",
+     "kind": "instruction",
      "args": [
       {
        "var": "strB"
@@ -68167,7 +68167,7 @@
     {
      "t": "text",
      "key": "Player2Statsc.3",
-     "kind": "narrative",
+     "kind": "instruction",
      "args": [
       {
        "var": "hitB"
@@ -68520,7 +68520,7 @@
     {
      "t": "text",
      "key": "Player3Stats.3",
-     "kind": "narrative",
+     "kind": "instruction",
      "args": [
       {
        "var": "agiC"
@@ -68578,7 +68578,7 @@
     {
      "t": "text",
      "key": "Player3Statsb.3",
-     "kind": "narrative",
+     "kind": "instruction",
      "args": [
       {
        "var": "strC"
@@ -68636,7 +68636,7 @@
     {
      "t": "text",
      "key": "Player3Statsc.3",
-     "kind": "narrative",
+     "kind": "instruction",
      "args": [
       {
        "var": "hitC"
@@ -68989,7 +68989,7 @@
     {
      "t": "text",
      "key": "Player4Stats.3",
-     "kind": "narrative",
+     "kind": "instruction",
      "args": [
       {
        "var": "agiD"
@@ -69047,7 +69047,7 @@
     {
      "t": "text",
      "key": "Player4Statsb.3",
-     "kind": "narrative",
+     "kind": "instruction",
      "args": [
       {
        "var": "strD"
@@ -69105,7 +69105,7 @@
     {
      "t": "text",
      "key": "Player4Statsc.3",
-     "kind": "narrative",
+     "kind": "instruction",
      "args": [
       {
        "var": "hitD"
@@ -69455,7 +69455,7 @@
     {
      "t": "text",
      "key": "Player5Stats.3",
-     "kind": "narrative",
+     "kind": "instruction",
      "args": [
       {
        "var": "agiE"
@@ -69513,7 +69513,7 @@
     {
      "t": "text",
      "key": "Player5Statsb.3",
-     "kind": "narrative",
+     "kind": "instruction",
      "args": [
       {
        "var": "strE"
@@ -69571,7 +69571,7 @@
     {
      "t": "text",
      "key": "Player5Statsc.3",
-     "kind": "narrative",
+     "kind": "instruction",
      "args": [
       {
        "var": "hitE"
@@ -74948,7 +74948,7 @@
     {
      "t": "text",
      "key": "2PLiberalEvent.6",
-     "kind": "narrative",
+     "kind": "instruction",
      "args": [
       {
        "var": "asylumup"
@@ -75174,7 +75174,7 @@
         {
          "t": "text",
          "key": "Witchres.3",
-         "kind": "narrative",
+         "kind": "instruction",
          "args": [
           {
            "var": "wsuspect"

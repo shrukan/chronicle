@@ -1011,7 +1011,7 @@
       {
        "t": "text",
        "key": "TakeSides.7",
-       "kind": "narrative"
+       "kind": "instruction"
       },
       {
        "t": "link",
@@ -1049,7 +1049,7 @@
       {
        "t": "text",
        "key": "TakeSides.10",
-       "kind": "narrative"
+       "kind": "instruction"
       }
      ]
     },
@@ -1703,7 +1703,7 @@
       {
        "t": "text",
        "key": "TakeSides2.4",
-       "kind": "narrative"
+       "kind": "instruction"
       },
       {
        "t": "link",
@@ -1741,7 +1741,7 @@
       {
        "t": "text",
        "key": "TakeSides2.7",
-       "kind": "narrative"
+       "kind": "instruction"
       }
      ]
     },
@@ -3104,7 +3104,7 @@
      {
       "t": "text",
       "key": "RumorD3.4",
-      "kind": "narrative"
+      "kind": "instruction"
      },
      {
       "t": "br"
@@ -3874,7 +3874,7 @@
     {
      "t": "text",
      "key": "TakeEvent.6",
-     "kind": "narrative",
+     "kind": "instruction",
      "args": [
       {
        "var": "warwinner"
@@ -4867,7 +4867,7 @@
     {
      "t": "text",
      "key": "TimeEnd1.5",
-     "kind": "narrative",
+     "kind": "instruction",
      "args": [
       {
        "var": "dox"
@@ -5960,7 +5960,7 @@
           {
            "t": "text",
            "key": "Martial1.15",
-           "kind": "narrative"
+           "kind": "instruction"
           }
          ]
         }
@@ -6398,7 +6398,7 @@
               {
                "t": "text",
                "key": "Martial2.12",
-               "kind": "narrative"
+               "kind": "instruction"
               }
              ]
             }
@@ -8201,7 +8201,7 @@
      {
       "t": "text",
       "key": "AMessYes2b.4",
-      "kind": "narrative",
+      "kind": "instruction",
       "args": [
        {
         "var": "wardetermine"
@@ -8561,7 +8561,7 @@
               {
                "t": "text",
                "key": "Martial3.13",
-               "kind": "narrative",
+               "kind": "instruction",
                "args": [
                 {
                  "var": "moninc3"
@@ -9073,7 +9073,7 @@
     {
      "t": "text",
      "key": "ResistSides.2",
-     "kind": "narrative"
+     "kind": "instruction"
     },
     {
      "t": "br"
@@ -11726,7 +11726,7 @@
           {
            "t": "text",
            "key": "Peace3.14",
-           "kind": "narrative"
+           "kind": "instruction"
           },
           {
            "t": "br"
@@ -13678,7 +13678,7 @@
           {
            "t": "text",
            "key": "Warning2.15",
-           "kind": "narrative"
+           "kind": "instruction"
           }
          ]
         },
@@ -14741,7 +14741,7 @@
           {
            "t": "text",
            "key": "Warning3.15",
-           "kind": "narrative"
+           "kind": "instruction"
           }
          ]
         },
@@ -15968,7 +15968,7 @@
     {
      "t": "text",
      "key": "Blame1c.5",
-     "kind": "narrative"
+     "kind": "instruction"
     },
     {
      "t": "br"
@@ -19107,7 +19107,7 @@
         {
          "t": "text",
          "key": "HowtoWar.13",
-         "kind": "narrative"
+         "kind": "instruction"
         }
        ]
       }
@@ -19127,7 +19127,7 @@
     {
      "t": "text",
      "key": "HowtoWar.15",
-     "kind": "narrative"
+     "kind": "instruction"
     },
     {
      "t": "br"
@@ -19434,7 +19434,7 @@
     {
      "t": "text",
      "key": "BattleTime.6",
-     "kind": "narrative"
+     "kind": "instruction"
     },
     {
      "t": "br"
@@ -20604,7 +20604,7 @@
     {
      "t": "text",
      "key": "FinalBattleTime.6",
-     "kind": "narrative"
+     "kind": "instruction"
     },
     {
      "t": "br"
@@ -31155,7 +31155,7 @@
         {
          "t": "text",
          "key": "ParadoxTimeRandom.25",
-         "kind": "narrative"
+         "kind": "instruction"
         },
         {
          "t": "br"
@@ -35889,7 +35889,7 @@
     {
      "t": "text",
      "key": "DuelRules1.2",
-     "kind": "narrative"
+     "kind": "instruction"
     },
     {
      "t": "br"
@@ -35900,7 +35900,7 @@
     {
      "t": "text",
      "key": "DuelRules1.3",
-     "kind": "narrative"
+     "kind": "instruction"
     },
     {
      "t": "br"
@@ -35911,7 +35911,7 @@
     {
      "t": "text",
      "key": "DuelRules1.4",
-     "kind": "narrative"
+     "kind": "instruction"
     },
     {
      "t": "br"
@@ -36215,7 +36215,7 @@
          {
           "t": "text",
           "key": "AcceptDuel1.5",
-          "kind": "narrative"
+          "kind": "instruction"
          }
         ]
        },
@@ -36949,7 +36949,7 @@
         {
          "t": "text",
          "key": "DuelResolution1b.8",
-         "kind": "narrative"
+         "kind": "instruction"
         },
         {
          "t": "br"
@@ -39368,7 +39368,7 @@
     {
      "t": "text",
      "key": "MonumentVote.5",
-     "kind": "narrative"
+     "kind": "instruction"
     },
     {
      "t": "br"
@@ -39379,7 +39379,7 @@
     {
      "t": "text",
      "key": "MonumentVote.6",
-     "kind": "narrative"
+     "kind": "instruction"
     },
     {
      "t": "br"
@@ -43549,7 +43549,7 @@
      {
       "t": "text",
       "key": "MonuA.4",
-      "kind": "narrative"
+      "kind": "instruction"
      },
      {
       "t": "br"
@@ -43560,7 +43560,7 @@
      {
       "t": "text",
       "key": "MonuA.5",
-      "kind": "narrative"
+      "kind": "instruction"
      },
      {
       "t": "br"
@@ -43761,7 +43761,7 @@
      {
       "t": "text",
       "key": "MonuB.4",
-      "kind": "narrative"
+      "kind": "instruction"
      },
      {
       "t": "br"
@@ -43772,7 +43772,7 @@
      {
       "t": "text",
       "key": "MonuB.5",
-      "kind": "narrative"
+      "kind": "instruction"
      },
      {
       "t": "br"
@@ -43891,7 +43891,7 @@
     {
      "t": "text",
      "key": "MonuRes.6",
-     "kind": "narrative"
+     "kind": "instruction"
     },
     {
      "t": "br"
@@ -44616,7 +44616,7 @@
      {
       "t": "text",
       "key": "MonuC.4",
-      "kind": "narrative"
+      "kind": "instruction"
      },
      {
       "t": "br"
@@ -44627,7 +44627,7 @@
      {
       "t": "text",
       "key": "MonuC.5",
-      "kind": "narrative"
+      "kind": "instruction"
      },
      {
       "t": "br"
@@ -44828,7 +44828,7 @@
      {
       "t": "text",
       "key": "MonuD.4",
-      "kind": "narrative"
+      "kind": "instruction"
      },
      {
       "t": "br"
@@ -44839,7 +44839,7 @@
      {
       "t": "text",
       "key": "MonuD.5",
-      "kind": "narrative"
+      "kind": "instruction"
      },
      {
       "t": "br"
@@ -44984,7 +44984,7 @@
      {
       "t": "text",
       "key": "MonuE.4",
-      "kind": "narrative"
+      "kind": "instruction"
      },
      {
       "t": "br"
@@ -44995,7 +44995,7 @@
      {
       "t": "text",
       "key": "MonuE.5",
-      "kind": "narrative"
+      "kind": "instruction"
      },
      {
       "t": "br"
@@ -45794,7 +45794,7 @@
         {
          "t": "text",
          "key": "PeacetoRebuild.4",
-         "kind": "narrative"
+         "kind": "instruction"
         }
        ]
       },
@@ -47510,7 +47510,7 @@
     {
      "t": "text",
      "key": "PeaceEventb.2",
-     "kind": "narrative"
+     "kind": "instruction"
     },
     {
      "t": "br"
@@ -47527,7 +47527,7 @@
     {
      "t": "text",
      "key": "PeaceEventb.3",
-     "kind": "narrative"
+     "kind": "instruction"
     },
     {
      "t": "br"
@@ -47538,7 +47538,7 @@
     {
      "t": "text",
      "key": "PeaceEventb.4",
-     "kind": "narrative"
+     "kind": "instruction"
     },
     {
      "t": "br"
@@ -49443,7 +49443,7 @@
     {
      "t": "text",
      "key": "ATOW-Preparations.4",
-     "kind": "narrative"
+     "kind": "instruction"
     },
     {
      "t": "br"
@@ -49633,7 +49633,7 @@
     {
      "t": "text",
      "key": "CoWEventb.6",
-     "kind": "narrative"
+     "kind": "instruction"
     },
     {
      "t": "br"
@@ -51711,7 +51711,7 @@
     {
      "t": "text",
      "key": "PeaceEventc.4",
-     "kind": "narrative"
+     "kind": "instruction"
     },
     {
      "t": "link",
@@ -51792,7 +51792,7 @@
     {
      "t": "text",
      "key": "2PFamineBid.5",
-     "kind": "narrative"
+     "kind": "instruction"
     },
     {
      "t": "br"
@@ -52016,7 +52016,7 @@
     {
      "t": "text",
      "key": "CommemorativeStatueEventb.4",
-     "kind": "narrative"
+     "kind": "instruction"
     },
     {
      "t": "br"
@@ -52027,7 +52027,7 @@
     {
      "t": "text",
      "key": "CommemorativeStatueEventb.5",
-     "kind": "narrative"
+     "kind": "instruction"
     },
     {
      "t": "br"
@@ -52038,7 +52038,7 @@
     {
      "t": "text",
      "key": "CommemorativeStatueEventb.6",
-     "kind": "narrative"
+     "kind": "instruction"
     },
     {
      "t": "br"
@@ -52467,7 +52467,7 @@
     {
      "t": "text",
      "key": "AfternoonTeab.5",
-     "kind": "narrative",
+     "kind": "instruction",
      "args": [
       {
        "var": "teaopt"
@@ -53412,7 +53412,7 @@
           {
            "t": "text",
            "key": "Paradox3b.10",
-           "kind": "narrative",
+           "kind": "instruction",
            "args": [
             {
              "var": "townname"
@@ -55381,7 +55381,7 @@
     {
      "t": "text",
      "key": "Reign3.4",
-     "kind": "narrative"
+     "kind": "instruction"
     },
     {
      "t": "br"
