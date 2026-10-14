@@ -279,8 +279,7 @@ By hand, after freezing (see "Content lifecycle"; neither scenario's play change
 - *The Cost of Disease*: a developer note's only used part (an end-of-round screen) moved into
   the passage that reveals it.
 
-Open: sessions at the table for both, review of Easy and Short; the e2e game plays
-*The Cost of Disease* only; the log book CSV matches *The Cost of Disease* only (97 of 140 rows) –
+Open: sessions at the table for both, review of Easy and Short; the log book CSV matches *The Cost of Disease* only (97 of 140 rows) –
 are the other titles worded differently? The converter is retired (step 4 above).
 
 **Translations: English is the reference**
@@ -337,7 +336,7 @@ the retired converter).
 | `project:check` | everything CI checks: types, lint and formatting (app), unit tests, app build, story tester |
 | `content:test` | story tester, fails on new issues |
 | `frontend:serve:dev` / `frontend:build` | `ng serve` / production build → `build/web` |
-| `frontend:test` / `frontend:e2e` | unit tests / a full game in headless Chrome |
+| `frontend:test` / `frontend:e2e` | unit tests / a full game of each scenario in headless Chrome |
 | `project:build:docker` / `project:up:prod` / `project:down:prod` | runtime image and compose on this machine |
 
 **Container**

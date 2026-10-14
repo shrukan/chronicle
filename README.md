@@ -38,7 +38,7 @@ installable web app that also works offline.
 - **Installable and offline:** a web app (PWA) for phones, tablets and computers – once
   loaded, it needs no connection.
 - **Tested:** every scenario is explored automatically for dead ends and errors, and a full
-  game is played in a real browser on every change.
+  game of each is played in a real browser on every change.
 
 **Play it:** <https://shrukan.github.io/chronicle/> – open it on a phone or tablet and add it
 to the home screen; after the first visit it works offline.
@@ -84,7 +84,7 @@ The same engine powers the app and the story tester.
 | `frontend/`           | Angular PWA (signals, zoneless, Signal Forms, Tailwind, CDK)              |
 | `engine/`             | Story format (`schema.ts`), runtime, value semantics, text markup         |
 | `tools/story-tester/` | Static checks and coverage-guided exploration of every scenario           |
-| `tools/e2e/`          | Plays a full game in headless Chrome against the production build         |
+| `tools/e2e/`          | Plays a full game of each scenario in headless Chrome (production build)  |
 | `content/`            | Story data, edited directly (© Renegade Game Studios, CC BY-NC 4.0 terms) |
 | `docs/`               | Notes, e.g. [M0 findings](docs/m0-findings.md)                            |
 
@@ -101,7 +101,7 @@ task deps:install
 task project:check          # types, lint, unit tests, build, story tester
 task content:test            # story tester: dead ends, errors, coverage (ID=<scenario>)
 task frontend:serve:dev      # the app at http://localhost:4200
-task frontend:e2e            # a full game in headless Chrome
+task frontend:e2e            # a full game of each scenario in headless Chrome
 task project:up:prod         # the production container at http://localhost:8080
 ```
 

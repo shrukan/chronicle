@@ -31,7 +31,7 @@ Disease_ playable from setup to the endings; expect breaking changes.
   `docs`, `repo`). Subject in lower case, header ≤ 100 characters. Don't edit version numbers:
   release-please manages them.
 - **Check before committing:** `task project:check` (types, lint, unit tests, build, story
-  tester) and, for UI changes, `task frontend:e2e` (a full game in headless Chrome).
+  tester) and, for UI changes, `task frontend:e2e` (a full game of each scenario in headless Chrome).
 
 ## Architecture
 
@@ -105,7 +105,7 @@ from the CSS tokens in `src/styles.css` (light and dark paper).
 | `frontend/`           | Angular PWA                                                             |
 | `engine/`             | Story format, runtime, values, text markup                              |
 | `tools/story-tester/` | Static checks and exploration                                           |
-| `tools/e2e/`          | Full game in headless Chrome against the production build               |
+| `tools/e2e/`          | A full game of each scenario in headless Chrome (production build)      |
 | `tools/voice/`        | Generated voice-over (Kokoro)                                           |
 | `content/`            | Converted story data and assets (© Renegade Game Studios, CC BY-NC 4.0) |
 
@@ -120,7 +120,7 @@ task deps:install             # dependencies
 task frontend:serve:dev       # dev server at http://localhost:4200 (copies content/ at start)
 task project:check            # types, lint, unit tests, build, story tester
 task frontend:lint FIX=true   # fix lint and formatting in the app
-task frontend:e2e             # full game in headless Chrome
+task frontend:e2e             # a full game of each scenario in headless Chrome
 task content:test             # story tester (spoiler-free; details in build/reports/)
 task content:voices           # generated voices; -- --try "text" to hear any text
 task project:up:prod          # production container (Podman; CONTAINER_ENGINE=docker)

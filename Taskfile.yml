@@ -108,9 +108,9 @@ tasks:
     cmd: npx ng test --watch=false
 
   frontend:e2e:
-    desc: "Play a whole game in headless Chrome against the production build (CHROME_PATH, SHOTS=<dir> for screenshots)."
+    desc: "Play a whole game of each scenario in headless Chrome against the production build (CHROME_PATH, SHOTS=<dir> for screenshots, SCENARIO=<id> for one)."
     deps: [frontend:build]
-    cmd: node tools/e2e/src/full-game.ts --build build/web/browser {{if .SHOTS}}--shots {{.SHOTS}}{{end}}
+    cmd: node tools/e2e/src/full-game.ts --build build/web/browser {{if .SHOTS}}--shots {{.SHOTS}}{{end}} {{if .SCENARIO}}--scenario {{.SCENARIO}}{{end}}
 
   # Content
   content:voices:
