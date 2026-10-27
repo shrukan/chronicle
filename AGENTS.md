@@ -55,7 +55,8 @@ content/ (JSON, edited directly) ──engine──▶ story tester
 - **Story tester** (`tools/story-tester/`): static checks plus coverage-guided exploration of
   every scenario; spoiler-free summary.
 - **Voice generator** (`tools/voice/`, Python via `uv`): Kokoro voices (Emma, George) for voiced
-  pages in every reading mode; settings in `tools/voice/voices.json`.
+  pages in every reading mode; settings in `tools/voice/voices.json`. `script.py` writes those
+  pages' text as a script for a voice actor (`content/voice-script/`, committed, checked).
 - **App** (`frontend/`): Angular, standalone components, signals, zoneless, `OnPush`, the new
   control flow, `inject()`, Signal Forms; Tailwind for tokens; Angular CDK where needed. The
   `Game` service drives the engine, saves after every step (IndexedDB) and keeps undo steps;
@@ -123,6 +124,7 @@ task frontend:lint FIX=true   # fix lint and formatting in the app
 task frontend:e2e             # a full game of each scenario in headless Chrome
 task content:test             # story tester (spoiler-free; details in build/reports/)
 task content:voices           # generated voices; -- --try "text" to hear any text
+task content:voices:script    # voice actor's script of the voiced pages (content/voice-script/)
 task project:up:prod          # production container (Podman; CONTAINER_ENGINE=docker)
 ```
 

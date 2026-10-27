@@ -29,3 +29,6 @@ Thumbs.db
 
 # Original media from Renegade's community download (see README)
 media/
+
+# Python
+__pycache__/

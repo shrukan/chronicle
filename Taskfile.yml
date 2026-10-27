@@ -47,7 +47,7 @@ tasks:
 
   # Project
   project:check:
-    desc: "Everything CI checks: types, lint and formatting, unit tests, app build, story tester."
+    desc: "Everything CI checks: types, lint and formatting, unit tests, app build, voice script up to date, story tester."
     deps: [deps:install]
     cmds:
       - npx tsc -b
@@ -55,6 +55,8 @@ tasks:
       - npm test
       - task: frontend:test
       - task: frontend:build
+      - task: content:voices:script
+        vars: { CLI_ARGS: --check }
       - for: { var: SCENARIOS }
         task: content:test
         vars: { ID: '{{.ITEM}}' }
@@ -116,6 +118,10 @@ tasks:
   content:voices:
     desc: "Generated voice-over with Kokoro (needs uv and ffmpeg; settings in tools/voice/voices.json). CLI_ARGS: passages, --voices emma,george, --try \"any text\""
     cmd: uv run -q tools/voice/generate.py {{.CLI_ARGS}}
+
+  content:voices:script:
+    desc: "Voice actor's script of the voiced pages, from strings.en.json into content/voice-script/ (committed; -- --check fails while it is out of date)."
+    cmd: python3 tools/voice/script.py {{.CLI_ARGS}}
 
   content:test:
     desc: "Story tester: static checks + coverage-guided exploration, spoiler-free summary (vars: ID, SECONDS; CLI_ARGS e.g. -- --spoilers)."

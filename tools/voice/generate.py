@@ -26,16 +26,15 @@ import urllib.request
 from pathlib import Path
 
 import numpy as np
+import pages
 import soundfile as sf
 from kokoro_onnx import Kokoro
+from pages import CONTENT, ROOT
 
-ROOT = Path(__file__).resolve().parents[2]
-CONTENT = ROOT / "content"
 ASSETS = CONTENT / "assets"
 INDEX = ASSETS / "voices.json"
 CONFIG = json.loads((Path(__file__).parent / "voices.json").read_text())
 CACHE = Path.home() / ".cache" / "chronicle" / "kokoro"
-MODES = ("full", "easy", "short")
 
 
 def model() -> Kokoro:
@@ -58,17 +57,11 @@ def plain(text: str) -> str:
 
 
 def texts(passage: dict, strings: dict) -> dict[str, list[str]] | None:
-    """The passage's flavour text per reading mode; modes without their own text are left out."""
-    nodes = [n for n in passage["body"] if n.get("t") == "text" and n.get("kind") == "narrative"]
-    if not nodes or any(n.get("args") for n in nodes):
+    """The passage's flavour text per reading mode, as plain text."""
+    by_mode = pages.texts(passage, strings)
+    if not by_mode or any(pages.args(passage)):
         return None  # nothing to read, or names typed in at the table
-    entries = [strings[n["key"]] for n in nodes]
-    out = {"full": [e["full"] for e in entries]}
-    for mode in MODES[1:]:
-        variant = [e.get(mode, e["full"]) for e in entries]
-        if variant != out["full"]:
-            out[mode] = variant
-    return {mode: [plain(t) for t in paras] for mode, paras in out.items()}
+    return {mode: [plain(t) for t in paras] for mode, paras in by_mode.items()}
 
 
 def loudness(wav: str, voice: dict) -> str:
@@ -122,8 +115,7 @@ def main() -> None:
     scenario = json.loads((folder / "scenario.json").read_text())
     strings = json.loads((folder / "strings.en.json").read_text())
     intro = CONFIG["intros"].get(args.scenario)
-    voiced = json.loads((folder / "extras.json").read_text())["voiceOver"]
-    passages = args.passages or list(dict.fromkeys([*([intro] if intro else []), *voiced]))
+    passages = args.passages or pages.voiced(args.scenario, intro)
     if unknown := [p for p in passages if p not in scenario["passages"]]:
         sys.exit(f"unknown passage: {', '.join(unknown)}")
 
@@ -140,7 +132,7 @@ def main() -> None:
         for voice in voices:
             clips = {}
             for mode, paragraphs in by_mode.items():
-                file = Path("audio/voice") / voice / f"{name.lower()}{'' if mode == 'full' else '-' + mode}.mp3"
+                file = Path("audio/voice") / voice / pages.clip(name, mode)
                 seconds = speak(kokoro, CONFIG["voices"][voice], paragraphs, ASSETS / file)
                 clips[mode] = file.as_posix()
                 print(f"{page} · {voice} · {mode}: {seconds:.0f} s", flush=True)
